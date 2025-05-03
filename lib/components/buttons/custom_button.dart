@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
+import 'package:venille/core/constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
   final double borderRadius;

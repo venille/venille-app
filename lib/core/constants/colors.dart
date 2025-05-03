@@ -33,12 +33,12 @@ class AppColors {
   static const Color primaryBackgroundColor = Color(0xFF1b4332);
 
   // LIGHT THEME
-  static const Color primaryColor = Color(0xFF006838);
-  static const Color primaryLightColor = Color(0xFF52b788);
+  static const Color primaryColor = Color(0xFF0B0BB4);
+  static const Color primaryLightColor = Color.fromARGB(255, 101, 101, 187);
   static const Color backgroundColor = Color(0xFFffffff);
   static const Color appBarBackgroundColor = Color(0xFFffffff);
-  static const Color buttonPrimaryColor = Color(0xFF2d6a4f);
-  static const Color buttonPrimaryDisabledColor = Color(0xFF52b788);
+  static const Color buttonPrimaryColor = Color(0xFF0B0BB4);
+  static const Color buttonPrimaryDisabledColor = Color.fromARGB(255, 101, 101, 187);
   static const Color textColor = Color(0xFF1A1A1A);
 
   // DARK THEME

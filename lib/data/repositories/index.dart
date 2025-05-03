@@ -7,9 +7,7 @@ import 'package:venille/data/repositories/user_repository.dart';
 // import 'package:venille/data/services/vendor/vendor_service.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 // import 'package:venille/data/services/account/account_service.dart';
-// import 'package:venille/data/services/auth/authentication_service.dart';
-// import 'package:venille/data/services/marketplace/marketplace_service.dart';
-// import 'package:venille/data/services/communication/communication_service.dart';
+import 'package:venille/data/services/auth/authentication_service.dart';
 
 class RootRepository extends GetxController {
   initialize() {
@@ -28,19 +26,10 @@ class RootRepository extends GetxController {
     // UserRepository userRepository =
     Get.put(UserRepository());
 
-    // AuthenticationService authenticationService =
-    // Get.put(AuthenticationService());
+    AuthenticationService authenticationService =
+        Get.put(AuthenticationService());
 
     // AccountService accountService =
     // Get.put(AccountService());
-
-    // VendorService vendorService =
-    // Get.put(VendorService());
-
-    // CommunicationService communicationService =
-    // Get.put(CommunicationService());
-
-    // MarketplaceService marketplaceService =
-    // Get.put(MarketplaceService());
   }
 }
