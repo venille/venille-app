@@ -57,42 +57,55 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         destinations: [
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.home_12_regular,
+              FluentIcons.home_16_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.home_12_regular,
+              FluentIcons.home_16_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
-            label: "Market",
+            label: "Home",
           ),
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.search_12_regular,
+              FluentIcons.calendar_ltr_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.search_12_regular,
+              FluentIcons.calendar_ltr_20_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
-            label: "Search",
+            label: "Tracker",
+          ),
+          NavigationDestination(
+            icon: Icon(
+              FluentIcons.heart_pulse_20_regular,
+              size: 28,
+              color: AppColors.buttonPrimaryColor.withOpacity(0.7),
+            ),
+            selectedIcon: const Icon(
+              FluentIcons.heart_pulse_20_regular,
+              size: 28,
+              color: AppColors.buttonPrimaryColor,
+            ),
+            label: "Vella",
           ),
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.add_square_16_regular,
+              FluentIcons.book_16_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.add_square_16_regular,
+              FluentIcons.book_16_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
-            label: "Post & Sell",
+            label: "Learn",
           ),
           const NavigationDestination(
             icon: Icon(
@@ -105,7 +118,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
-            label: "Feed",
+            label: "Forum",
           ),
         ],
       ),

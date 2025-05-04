@@ -1,13 +1,16 @@
 import 'package:get/route_manager.dart';
-import 'package:venille/presentation/auth/forgot_password/forgot_password_otp_verification_screen.dart';
-import 'package:venille/presentation/auth/forgot_password/forgot_password_screen.dart';
-import 'package:venille/presentation/auth/forgot_password/reset_password_screen.dart';
-import 'package:venille/presentation/auth/signup/signup_create_password_screen.dart';
-import 'package:venille/presentation/auth/signup/signup_screen.dart';
-import 'package:venille/presentation/auth/signup/signup_verification_screen.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
+import 'package:venille/presentation/auth/signup/signup_screen.dart';
+import 'package:venille/presentation/auth/signup/signup_verification_screen.dart';
+import 'package:venille/presentation/auth/signup/signup_create_password_screen.dart';
+import 'package:venille/presentation/auth/forgot_password/reset_password_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/account/account_screen.dart';
+import 'package:venille/presentation/auth/forgot_password/forgot_password_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/order_pad/order_pad_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/feedback_survey/feedback_survey_screen.dart';
+import 'package:venille/presentation/auth/forgot_password/forgot_password_otp_verification_screen.dart';
 
 class AppRoutes {
   /// ROOT_SCREEN_ROUTE
@@ -19,11 +22,6 @@ class AppRoutes {
   ///
   /// Navigates to login screen
   static const String loginRoute = '/LOGIN_ROUTE';
-
-  /// DASHBOARD_ROUTE
-  ///
-  /// Navigates to dashboard screen
-  static const String dashboardRoute = '/DASHBOARD_ROUTE';
 
   /// FORGOT_PASSWORD_SCREEN_ROUTE
   ///
@@ -56,6 +54,26 @@ class AppRoutes {
   ///
   /// Navigates to sign up verification screen
   static const String signUpVerificationRoute = '/SIGN_UP_VERIFICATION_ROUTE';
+
+  /// DASHBOARD_ROUTE
+  ///
+  /// Navigates to dashboard screen
+  static const String dashboardRoute = '/DASHBOARD_ROUTE';
+
+  /// ACCOUNT_ROUTE
+  ///
+  /// Navigates to account screen
+  static const String accountRoute = '/ACCOUNT_ROUTE';
+
+  /// ORDER_PAD_ROUTE
+  ///
+  /// Navigates to order pad screen
+  static const String orderPadRoute = '/ORDER_PAD_ROUTE';
+
+  /// FEEDBACK_SURVEY_ROUTE
+  ///
+  /// Navigates to feedback survey screen
+  static const String feedbackSurveyRoute = '/FEEDBACK_SURVEY_ROUTE';
 
   static List<GetPage> routes = [
     // PUBLIC
@@ -102,6 +120,24 @@ class AppRoutes {
     GetPage(
       name: dashboardRoute,
       page: () => const Dashboard(),
+    ),
+
+    // ORDER PAD
+    GetPage(
+      name: orderPadRoute,
+      page: () => const OrderPadScreen(),
+    ),
+
+    // FEEDBACK SURVEY
+    GetPage(
+      name: feedbackSurveyRoute,
+      page: () => const FeedbackSurveyScreen(),
+    ),
+
+    // ACCOUNT
+    GetPage(
+      name: accountRoute,
+      page: () => const AccountScreen(),
     ),
   ];
 }

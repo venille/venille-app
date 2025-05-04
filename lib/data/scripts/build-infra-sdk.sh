@@ -17,18 +17,18 @@ echo " "
 
 
 
-# echo "...[BUILD-ACCOUNT-SDK-CODE-PROCESSING]"
-# echo " "
+echo "...[BUILD-ACCOUNT-SDK-CODE-PROCESSING]"
+echo " "
 
-# cd ../account
+cd ../account
 
 
-# flutter pub get
-# flutter pub upgrade
+flutter pub get
+flutter pub upgrade
 
-# dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 
-# echo " "
-# echo "...[BUILD-ACCOUNT-SDK-CODE-SUCCESS]"
-# echo " "
+echo " "
+echo "...[BUILD-ACCOUNT-SDK-CODE-SUCCESS]"
+echo " "
 

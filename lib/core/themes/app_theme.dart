@@ -112,7 +112,7 @@ final ThemeData darkModeTheme = ThemeData(
   brightness: Brightness.dark,
   colorScheme: darkColorScheme,
   primaryColor: AppColors.darkThemePrimaryColor,
-  scaffoldBackgroundColor: AppColors.darkThemeBackgroundColor,
+  scaffoldBackgroundColor: AppColors.whiteColor,
   buttonTheme: const ButtonThemeData(
     buttonColor: AppColors.darkThemeButtonPrimaryColor,
     disabledColor: AppColors.darkThemeButtonPrimaryDisabledColor,

@@ -9,7 +9,7 @@ echo " "
 # Default values
 # DEFAULT_STRING="// @dart=3.0"
 DEFAULT_STRING="// @dart=3.5"
-DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib")
+DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib")
 # DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib" "../infra_sdk/marketplace/lib" "../infra_sdk/vendor/lib" "../infra_sdk/communication/lib")
 
 DEFAULT_DIO_VERSION="^5.3.3"
@@ -18,7 +18,7 @@ DEFAULT_SDK_VERSION="^3.5.3"
 PUBSPEC_FILES=("../infra_sdk/auth/pubspec.yaml" "../infra_sdk/account/pubspec.yaml" "../infra_sdk/marketplace/pubspec.yaml" "../infra_sdk/vendor/pubspec.yaml" "../infra_sdk/communication/pubspec.yaml")
 
 # Names to be updated in pubspec.yaml
-NAMES=("auth")
+NAMES=("auth" "account")
 # NAMES=("auth" "account" "marketplace" "vendor" "communication")
 
 # Use provided argument or fall back to default string

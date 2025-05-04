@@ -19,7 +19,7 @@ mkdir ../infra_sdk
 
 cd ../infra_sdk 
 
-mkdir auth
+mkdir auth account
 
 # cd ../
 
@@ -38,6 +38,15 @@ openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/auth-se
 echo " "
 echo "...[GENERATE-AUTH-SDK-SUCCESS]"
 echo " "
+
+echo "...[GENERATE-ACCOUNT-SDK-PROCESSING]"
+echo " "
+openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/account-service-json -g dart-dio -o ../infra_sdk/account --enable-post-process-file --additional-properties=pubName=account_sdk,pubLibrary=account_api.api
+
+echo " "
+echo "...[GENERATE-ACCOUNT-SDK-SUCCESS]"
+echo " "
+
 
 echo " "
 echo "...[GENERATE-SDKS-SUCCESSFUL]"

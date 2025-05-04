@@ -1,6 +1,7 @@
 import 'package:venille/core/constants/routes.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:venille/core/models/drawer_item_model.dart';
 import 'package:venille/core/models/onboarding_item_model.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 List<OnboardingItemModel> onboardingItems = [
   OnboardingItemModel(
@@ -32,6 +33,26 @@ List<Map<String, dynamic>> profileAvatars = [
     'type': 'FILE_UPLOAD',
     'image': 'assets/images/image_file_upload_banner.png',
   },
+];
+
+List<DrawerItem> drawerItems = [
+  DrawerItem(
+    title: 'Order Sanitary Pads',
+    routeTo: AppRoutes.orderPadRoute,
+    icon: 'assets/icons/icon_star.png',
+    iconData: FluentIcons.box_arrow_up_20_regular,
+  ),
+  DrawerItem(
+    icon: 'assets/icons/icon_help_2.png',
+    title: 'Monthly Feedback/Survey',
+    routeTo: AppRoutes.feedbackSurveyRoute,
+    iconData: FluentIcons.book_compass_20_regular,
+  ),
+  DrawerItem(
+    icon: 'assets/icons/icon_logout.png',
+    title: 'Logout',
+    routeTo: '',
+  ),
 ];
 
 final List<Map<String, String>> platformCountries = [
