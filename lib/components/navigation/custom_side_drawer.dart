@@ -18,7 +18,7 @@ class CustomDrawer extends StatefulWidget {
 
   const CustomDrawer({
     super.key,
-    this.title = 'Animaff',
+    this.title = 'Venille',
     this.headerWidget,
     required this.scaffoldKey,
   });
@@ -60,7 +60,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             children: [
               InkWell(
                 onTap: () {
-                  Get.toNamed(AppRoutes.accountRoute);
+                  // Get.toNamed(AppRoutes.accountRoute);
                 },
                 overlayColor: const WidgetStatePropertyAll(Colors.transparent),
                 child: widget.headerWidget ??
