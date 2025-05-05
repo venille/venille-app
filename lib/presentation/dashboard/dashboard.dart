@@ -28,7 +28,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> screens = [
     const HomeScreen(),
     const TrackerScreen(),
-    const VellaAIScreen(),
+    const VellaAiScreen(),
     const LearnScreen(),
     const ForumScreen(),
   ];

@@ -59,7 +59,7 @@ List<DrawerItem> drawerItems = [
 
 final List<HealthEducationTopicModel> healthEducationTopics = [
   HealthEducationTopicModel(
-    coverImageUrl: 'assets/images/learn/menstrual_health.jpg',
+    coverImageUrl: 'assets/images/learn/menstral_health.jpg',
     title: "Menstrual Health",
     description: '''
       Understanding the Menstrual Cycle
@@ -124,7 +124,7 @@ Important:
     ''',
   ),
   HealthEducationTopicModel(
-    coverImageUrl: 'assets/images/learn/menstrual_hygiene.jpg',
+    coverImageUrl: 'assets/images/learn/menstral_hygiene.jpg',
     title: "Menstrual Hygiene",
     description: '''
     Menstrual Hygiene Best Practices
@@ -293,9 +293,9 @@ Remember: It’s okay to ask for help. Speak to a trusted adult, a school counse
 ''',
   ),
   HealthEducationTopicModel(
-    coverImageUrl: 'assets/images/learn/nutrition_health.jpg',
-    title: "Nutrition",
-    description: '''
+      coverImageUrl: 'assets/images/learn/nutrition_healthy_living.jpg',
+      title: "Nutrition",
+      description: '''
     Foods to Support Menstrual Health
 What you eat can play a big role in how you feel during your period. The right nutrients can ease cramps, fight fatigue, and support hormonal balance.
 1. Iron-rich foods

@@ -9,11 +9,11 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authControllerTestGeminiAI**](AiApi.md#authcontrollertestgeminiai) | **POST** /v1/auth/test-gemini | 
+[**authControllerGenerateVellaAiPrompt**](AiApi.md#authcontrollergeneratevellaaiprompt) | **POST** /v1/auth/test-gemini | 
 
 
-# **authControllerTestGeminiAI**
-> String authControllerTestGeminiAI(query)
+# **authControllerGenerateVellaAiPrompt**
+> String authControllerGenerateVellaAiPrompt(query)
 
 
 
@@ -25,10 +25,10 @@ final api = AuthSdk().getAiApi();
 final String query = Explain how AI works in a few words; // String | What do you want to ask the AI
 
 try {
-    final response = api.authControllerTestGeminiAI(query);
+    final response = api.authControllerGenerateVellaAiPrompt(query);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling AiApi->authControllerTestGeminiAI: $e\n');
+    print('Exception when calling AiApi->authControllerGenerateVellaAiPrompt: $e\n');
 }
 ```
 

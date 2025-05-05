@@ -743,4 +743,45 @@ class AuthenticationService extends GetxController {
       }
     }
   }
+
+  // !GENERATE AI RESPONSE
+  /// Generate ai response
+  ///
+  /// [METHOD] - POST
+  ///
+  /// [ROUTE] - /v1/address-helper/available-states
+  ///
+  Future<String> generateAiResponseService({required String prompt}) async {
+    try {
+      log("[GENERATE-AI-RESPONSE-PENDING]");
+
+      AiApi aiApi = ServiceRegistry.authSdk.getAiApi();
+
+      Dio.Response response = await aiApi.authControllerGenerateVellaAiPrompt(
+        query: prompt,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        log('[GENERATE-AI-RESPONSE-RESPONSE] :: ${response.data}');
+
+        String data = response.data;
+
+        log("[GENERATE-AI-RESPONSE-SUCCESS]");
+
+        return data;
+      }
+
+      return '';
+    } catch (error) {
+      log('[GENERATE-AI-RESPONSE-ERROR-RESPONSE] :: $error');
+
+      if (error is Dio.DioException) {
+        Dio.DioException dioError = error;
+
+        log('[GENERATE-AI-RESPONSE-ERROR-RESPONSE] :: ${dioError.response}');
+      }
+
+      return '';
+    }
+  }
 }

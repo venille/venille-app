@@ -16,6 +16,7 @@ class SubtitleText extends CustomTextWidget {
     TextAlign? alignment,
     Color? decorationColor,
     TextDecoration? decoration,
+    TextOverflow? overflow,
   }) : super(
           text: text,
           size: size ?? 16,
@@ -28,5 +29,6 @@ class SubtitleText extends CustomTextWidget {
           color: color ?? AppColors.blackColor,
           decoration: decoration ?? TextDecoration.none,
           decorationColor: decorationColor ?? Colors.transparent,
+          overflow: overflow,
         );
 }

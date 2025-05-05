@@ -66,7 +66,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AddressHelperApi*](doc/AddressHelperApi.md) | [**addressHelperControllerGetAvailableStates**](doc/AddressHelperApi.md#addresshelpercontrollergetavailablestates) | **GET** /v1/auth/address-helper/available-states | 
 [*AddressHelperApi*](doc/AddressHelperApi.md) | [**addressHelperControllerGetAvailableStates_0**](doc/AddressHelperApi.md#addresshelpercontrollergetavailablestates_0) | **GET** /v1/auth/address-helper/available-states | 
-[*AiApi*](doc/AiApi.md) | [**authControllerTestGeminiAI**](doc/AiApi.md#authcontrollertestgeminiai) | **POST** /v1/auth/test-gemini | 
+[*AiApi*](doc/AiApi.md) | [**authControllerGenerateVellaAiPrompt**](doc/AiApi.md#authcontrollergeneratevellaaiprompt) | **POST** /v1/auth/test-gemini | 
 [*AuthApi*](doc/AuthApi.md) | [**authControllerSignIn**](doc/AuthApi.md#authcontrollersignin) | **POST** /v1/auth/signin | 
 [*AuthApi*](doc/AuthApi.md) | [**authControllerSignUp**](doc/AuthApi.md#authcontrollersignup) | **POST** /v1/auth/signup | 
 [*AuthApi*](doc/AuthApi.md) | [**authControllerSigninOAuth**](doc/AuthApi.md#authcontrollersigninoauth) | **POST** /v1/auth/signin-oauth | 

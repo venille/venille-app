@@ -17,6 +17,7 @@ class CustomTextWidget extends StatelessWidget {
   TextAlign? alignment;
   FontStyle? fontStyle;
   String? fontFamily;
+  TextOverflow? overflow;
 
   /// A custom widget displays text extending the default flutter Text widget
   CustomTextWidget({
@@ -33,6 +34,7 @@ class CustomTextWidget extends StatelessWidget {
     this.lineHeight,
     this.letterSpacing,
     this.alignment,
+    this.overflow,
     required this.text,
     this.textStyleName,
   });
@@ -83,6 +85,7 @@ class CustomTextWidget extends StatelessWidget {
     return Text(
       text,
       maxLines: maxLines ?? 6,
+      overflow: overflow,
       textAlign: alignment ?? TextAlign.left,
       style: baseStyle?.copyWith(
           color: color,

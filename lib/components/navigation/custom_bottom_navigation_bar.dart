@@ -84,15 +84,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           NavigationDestination(
             icon: Icon(
               FluentIcons.heart_pulse_20_regular,
-              size: 20,
+              size: 28,
               color: AppColors.buttonPrimaryColor.withOpacity(0.7),
             ),
             selectedIcon: const Icon(
               FluentIcons.heart_pulse_20_regular,
-              size: 20,
+              size: 28,
               color: AppColors.buttonPrimaryColor,
             ),
-            label: "Symptoms",
+            label: "Vella",
           ),
           const NavigationDestination(
             icon: Icon(

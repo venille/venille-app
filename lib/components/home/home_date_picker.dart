@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/presentation/dashboard/subscreens/symptoms/log_symptoms_screen.dart';
 
 class Last7DaysWidget extends StatefulWidget {
   final DateTime selectedDate;
@@ -117,6 +120,19 @@ class _Last7DaysWidgetState extends State<Last7DaysWidget> {
           SubtitleText(
             weight: FontWeight.w600,
             text: getDynamicText(widget.selectedDate),
+          ),
+          CustomButton(
+            width: 160,
+            height: 36,
+            fontSize: 16,
+            borderRadius: 16,
+            text: 'Log symptoms',
+            onTapHandler: () {
+              Get.to(() => const LogVellaScreen());
+            },
+            fontWeight: FontWeight.w600,
+            fontColor: AppColors.whiteColor,
+            backgroundColor: AppColors.buttonPrimaryColor,
           ),
           SizedBox(),
         ],

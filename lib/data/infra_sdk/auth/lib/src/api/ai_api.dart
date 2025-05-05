@@ -19,7 +19,7 @@ class AiApi {
 
   const AiApi(this._dio, this._serializers);
 
-  /// authControllerTestGeminiAI
+  /// authControllerGenerateVellaAiPrompt
   /// 
   ///
   /// Parameters:
@@ -33,7 +33,7 @@ class AiApi {
   ///
   /// Returns a [Future] containing a [Response] with a [String] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<String>> authControllerTestGeminiAI({ 
+  Future<Response<String>> authControllerGenerateVellaAiPrompt({ 
     required String query,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,

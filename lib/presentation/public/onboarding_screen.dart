@@ -95,9 +95,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         end: Alignment.bottomCenter,
                         colors: [
                           AppColors.blackColor
-                              .withOpacity(0.2), // fade to transparent
+                              .withOpacity(0), // fade to transparent
                           AppColors.blackColor
-                              .withOpacity(1), // darker at bottom
+                              .withOpacity(0.6), // darker at bottom
                         ],
                         // stops: [0.0, 1.0],
                       ),
