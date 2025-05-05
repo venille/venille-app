@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -42,6 +44,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 }
 
+class ReminderData {
+  final DateTime dateTime;
+  final String title;
+
+  ReminderData({required this.dateTime, required this.title});
+}
+
 class CalendarScrollView extends StatefulWidget {
   @override
   _CalendarScrollViewState createState() => _CalendarScrollViewState();
@@ -57,6 +66,12 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
 
   // Sample data - in real app, this would come from a provider or database
   final Map<DateTime, String> markedDates = {};
+
+  // Add this variable to track period start date
+  DateTime? periodStartDate;
+
+  // Add these variables at the top of the class
+  Map<DateTime, ReminderData> reminders = {};
 
   @override
   void initState() {
@@ -80,6 +95,150 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
     if (_scrollController.hasClients) {
       final currentMonthIndex = today.month - 1;
       _scrollController.jumpTo(currentMonthIndex * itemHeight);
+    }
+  }
+
+  // Add this method to show date picker
+  Future<void> _showPeriodDatePicker() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(year, 1, 1),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color(0xFFFF7DAD),
+              onPrimary: Colors.white,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        periodStartDate = picked;
+        // Update markedDates to show the period
+        markedDates[picked] = 'last_period';
+      });
+    }
+  }
+
+  // Add this method to show date and time picker for reminder
+  Future<void> _showReminderPicker() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(year + 1),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color(0xFFFF7DAD),
+              onPrimary: Colors.white,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final textController = TextEditingController();
+        final reminderTitle = await showDialog<String>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Set Reminder Title'),
+            content: TextField(
+              controller: textController,
+              decoration: InputDecoration(
+                hintText: 'Enter reminder title',
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, textController.text),
+                child: Text('Set'),
+              ),
+            ],
+          ),
+        );
+
+        if (reminderTitle != null) {
+          setState(() {
+            final reminderDateTime = DateTime(
+              pickedDate.year,
+              pickedDate.month,
+              pickedDate.day,
+              pickedTime.hour,
+              pickedTime.minute,
+            );
+            reminders[pickedDate] = ReminderData(
+              dateTime: reminderDateTime,
+              title: reminderTitle,
+            );
+            markedDates[pickedDate] = 'reminder';
+          });
+        }
+      }
+    }
+  }
+
+  // Add this method to show reminder details
+  void _showReminderDetails(DateTime date) {
+    final reminder = reminders[date];
+    if (reminder != null) {
+      showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (context) => Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Reminder Details',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Title: ${reminder.title}',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Date: ${DateFormat('MMM dd, yyyy').format(reminder.dateTime)}',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                'Time: ${DateFormat('hh:mm a').format(reminder.dateTime)}',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 
@@ -183,9 +342,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle log period
-                  },
+                  onPressed: _showPeriodDatePicker,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFFF7DAD),
                     padding: EdgeInsets.symmetric(vertical: 12),
@@ -207,9 +364,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () {
-                    // Handle set reminder
-                  },
+                  onPressed: _showReminderPicker,
                   style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     side: BorderSide(color: Color(0xFFFF7DAD)),
@@ -284,61 +439,95 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                     date.month == today.month &&
                     date.day == today.day;
                 final markedType = markedDates[date];
+                final isLastPeriod = markedType == 'last_period';
 
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    if (markedType != null || isToday)
-                      isToday
-                          ? DottedBorder(
-                              // borderType: BorderType.circle,
-                              color: Colors.red,
-                              strokeWidth: 1.5,
-                              radius: Radius.circular(100),
-                              padding: EdgeInsets.all(4),
-                              child: Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
+                    GestureDetector(
+                      onTap: () {
+                        if (markedType == 'reminder') {
+                          _showReminderDetails(date);
+                        }
+                      },
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          if (markedType != null || isToday)
+                            isToday
+                                ? DottedBorder(
+                                    color: Colors.red,
+                                    strokeWidth: 1.5,
+                                    radius: Radius.circular(100),
+                                    padding: EdgeInsets.all(4),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: markedType == 'reminder'
+                                          ? Colors.blue.withOpacity(0.2)
+                                          : isLastPeriod
+                                              ? Colors.green.withOpacity(0.2)
+                                              : null,
+                                      border: Border.all(
+                                        color: markedType == 'reminder'
+                                            ? Colors.blue
+                                            : isLastPeriod
+                                                ? Colors.green
+                                                : markedType == 'ovulation'
+                                                    ? Colors.teal
+                                                    : Color(0xFFFF7DAD),
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                day.toString(),
+                                style: TextStyle(
+                                  color: markedType != null
+                                      ? (markedType == 'reminder'
+                                          ? Colors.blue
+                                          : markedType == 'ovulation'
+                                              ? Colors.teal
+                                              : Color(0xFFFF7DAD))
+                                      : Colors.black,
+                                  fontWeight: isToday
+                                      ? FontWeight.bold
+                                      : FontWeight.w500,
                                 ),
                               ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: markedType == 'ovulation'
-                                      ? Colors.teal
-                                      : Color(0xFFFF7DAD),
-                                  width: 1.5,
+                              if (isToday)
+                                Text(
+                                  'TODAY',
+                                  style: TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.red,
+                                  ),
                                 ),
+                            ],
+                          ),
+                          if (markedType == 'reminder')
+                            Positioned(
+                              top: 10,
+                              right: 5,
+                              child: Icon(
+                                Icons.notifications,
+                                size: 10,
+                                color: Colors.blue,
                               ),
                             ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          day.toString(),
-                          style: TextStyle(
-                            color: markedType != null
-                                ? (markedType == 'ovulation'
-                                    ? Colors.teal
-                                    : Color(0xFFFF7DAD))
-                                : Colors.black,
-                            fontWeight:
-                                isToday ? FontWeight.bold : FontWeight.w500,
-                          ),
-                        ),
-                        if (isToday)
-                          Text(
-                            'TODAY',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.red,
-                            ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 );
