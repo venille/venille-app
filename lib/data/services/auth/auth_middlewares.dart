@@ -5,6 +5,8 @@ import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart'
+    as AccountSdk;
 
 void userLogoutHandler({
   BuildContext? context,
@@ -31,22 +33,20 @@ void userLogoutHandler({
 
   await Future.delayed(const Duration(milliseconds: 300));
 
-  // ServiceRegistry.userRepository.accountInfo.value = AccountSdk.AccountInfo(
-  //   (account) => account
-  //     ..id = '0'
-  //     ..firstName = ''
-  //     ..lastName = ''
-  //     ..phoneNumber = ''
-  //     ..email = ''
-  //     ..state = ''
-  //     ..city = ''
-  //     ..avatar =
-  //         'https://animaff.s3.eu-north-1.amazonaws.com/avatars/avatar.png'
-  //     ..role = AccountSdk.AccountInfoRoleEnum.CUSTOMER
-  //     ..status = AccountSdk.AccountInfoStatusEnum.active
-  //     ..referralCode = ''
-  //     ..isProfileUpdated = false
-  //     ..isAccountDisabled = false
-  //     ..isProductUploadSubscriptionActive = false,
-  // );
+  ServiceRegistry.userRepository.accountInfo.value = AccountSdk.AccountInfo(
+    (account) => account
+      ..id = '0'
+      ..firstName = ''
+      ..lastName = ''
+      ..phone = ''
+      ..email = ''
+      ..state = ''
+      ..stateArea = ''
+      ..accountType = AccountSdk.AccountInfoAccountTypeEnum.individual
+      ..status = AccountSdk.AccountInfoStatusEnum.active
+      ..profilePhoto =
+          'https://medexer.s3.eu-north-1.amazonaws.com/avatars/avatar.png'
+      ..fcmToken = ''
+      ..referralCode = '',
+  );
 }

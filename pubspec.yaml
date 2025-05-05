@@ -106,3 +106,6 @@ flutter:
     - family: Viga
       fonts:
           - asset: assets/fonts/Viga-Regular.ttf
+    - family: SourGummy
+      fonts:
+          - asset: assets/fonts/SourGummy.ttf

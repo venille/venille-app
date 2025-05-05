@@ -1,5 +1,6 @@
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/models/drawer_item_model.dart';
+import 'package:venille/core/models/health_education_topic_model.dart';
 import 'package:venille/core/models/onboarding_item_model.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
@@ -53,6 +54,214 @@ List<DrawerItem> drawerItems = [
     title: 'Logout',
     routeTo: '',
   ),
+];
+
+final List<HealthEducationTopicModel> healthEducationTopics = [
+  HealthEducationTopicModel(
+    coverImageUrl: 'assets/images/learn/menstrual_health.jpg',
+    title: "Menstrual Health",
+    description:
+        "Covers the phases of the menstrual cycle and common menstrual disorders.",
+    sections: [
+      HealthSectionModel(
+        title: "Understanding the Menstrual Cycle",
+        description:
+            "The menstrual cycle is a monthly process preparing the female body for pregnancy, typically lasting 28 days.",
+        bulletPoints: [
+          "Tracking ovulation and fertility",
+          "Managing symptoms like cramps or mood swings",
+          "Identifying abnormalities or changes in the cycle"
+        ],
+        subSections: [
+          HealthSectionModel(
+            title: "Menstrual Phase (Day 1–5)",
+            description:
+                "Uterus sheds lining if no pregnancy occurs. Bleeding lasts 3–7 days.",
+            bulletPoints: ["Cramps", "Fatigue", "Mood changes"],
+          ),
+          HealthSectionModel(
+            title: "Follicular Phase (Day 1–13)",
+            description:
+                "Brain signals ovaries to produce follicles; uterus rebuilds lining.",
+            bulletPoints: [],
+          ),
+          HealthSectionModel(
+            title: "Ovulation Phase (Day 14)",
+            description: "Egg is released; most fertile window.",
+            bulletPoints: [
+              "Clear, stretchy discharge",
+              "Mild lower belly pain"
+            ],
+          ),
+          HealthSectionModel(
+            title: "Luteal Phase (Day 15–28)",
+            description:
+                "Body produces progesterone. If no fertilization, menstruation starts again.",
+            bulletPoints: [],
+          ),
+        ],
+      ),
+      HealthSectionModel(
+        title: "Common Menstrual Disorders",
+        description:
+            "Disorders affecting the menstrual cycle that may impact daily life.",
+        bulletPoints: [],
+        subSections: [
+          HealthSectionModel(
+            title: "Dysmenorrhea",
+            description:
+                "Painful menstrual cramps caused by uterine contractions.",
+            bulletPoints: [
+              "Primary dysmenorrhea (not linked to a medical issue)",
+              "Secondary dysmenorrhea (linked to endometriosis or fibroids)"
+            ],
+          ),
+          HealthSectionModel(
+            title: "Amenorrhea",
+            description: "Absence of menstruation.",
+            bulletPoints: [
+              "Primary: No period by age 15",
+              "Secondary: No period for 3+ months after normal cycles",
+              "Causes include stress, PCOS, low weight, thyroid issues"
+            ],
+          ),
+          HealthSectionModel(
+            title: "Menorrhagia",
+            description: "Heavy or prolonged periods.",
+            bulletPoints: [
+              "Bleeding through pads/tampons hourly",
+              "Passing large clots",
+              "Periods lasting more than 7 days"
+            ],
+          ),
+          HealthSectionModel(
+            title: "Premenstrual Syndrome (PMS)",
+            description: "Emotional and physical symptoms before menstruation.",
+            bulletPoints: [
+              "Irritability and mood swings",
+              "Breast tenderness",
+              "Fatigue",
+              "Bloating",
+              "Food cravings"
+            ],
+          ),
+          HealthSectionModel(
+            title: "Important",
+            description:
+                "Seek medical help if symptoms are severe, irregular, or disruptive.",
+            bulletPoints: [
+              "Early treatment improves quality of life and detects underlying conditions"
+            ],
+          ),
+        ],
+      ),
+    ],
+  ),
+  HealthEducationTopicModel(
+    title: "Menstrual Hygiene",
+    description:
+        "Focuses on the importance of cleanliness and hygiene during menstruation.",
+    coverImageUrl: "assets/images/learn/menstrual_hygiene.jpg",
+    sections: [
+      HealthSectionModel(
+        title: "Practices for Good Hygiene",
+        description: "",
+        bulletPoints: [
+          "Change sanitary products every 4–6 hours",
+          "Wash genital area regularly",
+          "Dispose of used products properly",
+          "Wear breathable underwear and clothing"
+        ],
+        subSections: [],
+      ),
+      HealthSectionModel(
+        title: "Sanitary Products",
+        description: "Overview of available menstrual hygiene products.",
+        bulletPoints: [
+          "Sanitary pads (disposable or reusable)",
+          "Tampons",
+          "Menstrual cups",
+          "Period panties"
+        ],
+        subSections: [],
+      ),
+    ],
+  ),
+  HealthEducationTopicModel(
+    title: "Sexual & Reproductive Health",
+    description:
+        "Educates about safe sex, consent, and preventing infections or unintended pregnancies.",
+    coverImageUrl: "https://example.com/images/reproductive_health.jpg",
+    sections: [
+      HealthSectionModel(
+        title: "Key Areas",
+        description: "",
+        bulletPoints: [
+          "Safe sex practices (condom use, mutual monogamy)",
+          "Understanding and giving consent",
+          "Preventing STIs (vaccination, testing, treatment)",
+          "Contraceptive methods (pills, injections, IUDs)",
+          "Knowing when and how to seek help"
+        ],
+        subSections: [],
+      ),
+    ],
+  ),
+  HealthEducationTopicModel(
+    title: "Pregnancy & Childbirth",
+    description:
+        "Information on recognizing pregnancy symptoms and the stages of childbirth.",
+    coverImageUrl: "assets/images/learn/pregnancy_childbirth.jpg",
+    sections: [
+      HealthSectionModel(
+        title: "Signs of Pregnancy",
+        description: "",
+        bulletPoints: [
+          "Missed period",
+          "Nausea and vomiting",
+          "Tender breasts",
+          "Fatigue"
+        ],
+        subSections: [],
+      ),
+      HealthSectionModel(
+        title: "Stages of Pregnancy",
+        description: "",
+        bulletPoints: [
+          "First trimester (weeks 1–12)",
+          "Second trimester (weeks 13–26)",
+          "Third trimester (weeks 27–40)"
+        ],
+        subSections: [],
+      ),
+      HealthSectionModel(
+        title: "Childbirth",
+        description: "Labor stages, pain relief options, and postnatal care.",
+        bulletPoints: [],
+        subSections: [],
+      ),
+    ],
+  ),
+  HealthEducationTopicModel(
+    title: "Mental Health Awareness",
+    description:
+        "Covers emotional wellbeing, coping with stress, and seeking support.",
+    coverImageUrl: "assets/images/learn/mental_health.jpg",
+    sections: [
+      HealthSectionModel(
+        title: "Topics Include",
+        description: "",
+        bulletPoints: [
+          "Recognizing anxiety and depression",
+          "Coping strategies (journaling, physical activity)",
+          "Talking to someone (friend, teacher, counselor)",
+          "Normalizing mental health conversations",
+          "Accessing mental health services"
+        ],
+        subSections: [],
+      ),
+    ],
+  ), 
 ];
 
 final List<Map<String, String>> platformCountries = [

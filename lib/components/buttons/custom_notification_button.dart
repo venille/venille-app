@@ -15,9 +15,9 @@ class CustomNotificationButton extends StatelessWidget {
         onTap: () {
           // Get.toNamed(AppRoutes.notificationsRoute);
         },
-        child: const Stack(
+        child: Stack(
           children: [
-            Icon(
+            const Icon(
               FluentIcons.alert_12_regular,
               size: 20,
             ),
@@ -25,10 +25,9 @@ class CustomNotificationButton extends StatelessWidget {
               top: 0,
               right: 0,
               child: Visibility(
-                visible: false,
-                // visible: ServiceRegistry.userRepository.notifications
-                //     .any((item) => item.isRead == false),
-                child: PulseNotificationBadge(),
+                visible: ServiceRegistry.userRepository.notifications
+                    .any((item) => item.isRead == false),
+                child: const PulseNotificationBadge(),
               ),
             ),
           ],

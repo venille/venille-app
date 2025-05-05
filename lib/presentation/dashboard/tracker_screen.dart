@@ -4,6 +4,9 @@ import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/appbar/titled_appbar.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'dart:math';
+import 'package:intl/intl.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class TrackerScreen extends StatefulWidget {
   const TrackerScreen({super.key});
@@ -28,14 +31,384 @@ class _TrackerScreenState extends State<TrackerScreen> {
           scaffoldKey: scaffoldKey,
         ),
       ),
-      body: Center(
-        child: Text('Tracker'),
-      ),
+      body: CalendarScrollView(),
       bottomNavigationBar: CustomBottomNavigationBar(
         onTap: (int value) {
           ServiceRegistry.commonRepository.currentScreenIndex.value = value;
         },
         currentPage: ServiceRegistry.commonRepository.currentScreenIndex.value,
+      ),
+    );
+  }
+}
+
+class CalendarScrollView extends StatefulWidget {
+  @override
+  _CalendarScrollViewState createState() => _CalendarScrollViewState();
+}
+
+class _CalendarScrollViewState extends State<CalendarScrollView> {
+  String view = 'Month';
+  final int year = DateTime.now().year;
+  final DateTime today = DateTime.now();
+  final List<String> weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  final ScrollController _scrollController = ScrollController();
+  final itemHeight = 280.0; // Reduced from 300.0
+
+  // Sample data - in real app, this would come from a provider or database
+  final Map<DateTime, String> markedDates = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize sample marked dates
+    final now = DateTime.now();
+    // Mark ovulation day (teal)
+    markedDates[DateTime(now.year, now.month, 18)] = 'ovulation';
+    // Mark period days (pink)
+    for (int i = 23; i <= 28; i++) {
+      markedDates[DateTime(now.year, now.month, i)] = 'period';
+    }
+
+    // Scroll to current month immediately
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToCurrentMonth();
+    });
+  }
+
+  void _scrollToCurrentMonth() {
+    if (_scrollController.hasClients) {
+      final currentMonthIndex = today.month - 1;
+      _scrollController.jumpTo(currentMonthIndex * itemHeight);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Month/Year Toggle
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: ['Month', 'Year'].map((type) {
+                bool isSelected = view == type;
+                return GestureDetector(
+                  onTap: () => setState(() => view = type),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: isSelected ? Colors.white : Colors.transparent,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Text(
+                      type,
+                      style: TextStyle(
+                        color: isSelected ? Colors.black : Colors.grey,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+
+        // Weekday headers
+        if (view != 'Year')
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: weekdays
+                  .map((day) => Text(
+                        day,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
+
+        Expanded(
+          child: ListView(
+            controller: _scrollController,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            children: [
+              if (view == 'Year') ...[
+                Text(
+                  year.toString(),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.7,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 8,
+                  children:
+                      List.generate(12, (i) => _buildYearViewMonth(i + 1)),
+                ),
+              ] else
+                ...List.generate(12, (i) => _buildMonthCalendar(i + 1)),
+            ],
+          ),
+        ),
+
+        // Add these new buttons
+        Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle log period
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFFF7DAD),
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                  child: Text(
+                    'Log my last period',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // Handle set reminder
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    side: BorderSide(color: Color(0xFFFF7DAD)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                  child: Text(
+                    'Set reminder',
+                    style: TextStyle(
+                      color: Color(0xFFFF7DAD),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMonthCalendar(int month) {
+    if (view == 'Year') {
+      return _buildYearViewMonth(month);
+    }
+    final daysInMonth = DateUtils.getDaysInMonth(year, month);
+    final firstDay = DateTime(year, month, 1);
+    final firstWeekday = firstDay.weekday;
+
+    return Container(
+      height: itemHeight,
+      margin: EdgeInsets.only(bottom: 8), // Reduced from 20
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min, // Add this to minimize height
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 2.0),
+            child: Text(
+              DateFormat('MMMM').format(DateTime(year, month)),
+              style: TextStyle(
+                fontSize: 20, // Reduced from 24
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            // Wrap GridView with Expanded
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 7,
+                childAspectRatio: 1,
+                mainAxisSpacing: 2, // Reduced from 4
+                crossAxisSpacing: 2, // Reduced from 4
+              ),
+              itemCount: 42, // 6 weeks * 7 days
+              itemBuilder: (context, index) {
+                final weekday = index % 7;
+                final day = index - firstWeekday + 2;
+
+                if (day < 1 || day > daysInMonth) {
+                  return Container();
+                }
+
+                final date = DateTime(year, month, day);
+                final isToday = date.year == today.year &&
+                    date.month == today.month &&
+                    date.day == today.day;
+                final markedType = markedDates[date];
+
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    if (markedType != null || isToday)
+                      isToday
+                          ? DottedBorder(
+                              // borderType: BorderType.circle,
+                              color: Colors.red,
+                              strokeWidth: 1.5,
+                              radius: Radius.circular(100),
+                              padding: EdgeInsets.all(4),
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: markedType == 'ovulation'
+                                      ? Colors.teal
+                                      : Color(0xFFFF7DAD),
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          day.toString(),
+                          style: TextStyle(
+                            color: markedType != null
+                                ? (markedType == 'ovulation'
+                                    ? Colors.teal
+                                    : Color(0xFFFF7DAD))
+                                : Colors.black,
+                            fontWeight:
+                                isToday ? FontWeight.bold : FontWeight.w500,
+                          ),
+                        ),
+                        if (isToday)
+                          Text(
+                            'TODAY',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.red,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildYearViewMonth(int month) {
+    final daysInMonth = DateUtils.getDaysInMonth(year, month);
+    final firstDay = DateTime(year, month, 1);
+    final firstWeekday = firstDay.weekday;
+
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            DateFormat('MMMM').format(DateTime(year, month)),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 4),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 7,
+              childAspectRatio: 1,
+              mainAxisSpacing: 1,
+              crossAxisSpacing: 1,
+            ),
+            itemCount: 42,
+            itemBuilder: (context, index) {
+              final weekday = index % 7;
+              final day = index - firstWeekday + 2;
+
+              if (day < 1 || day > daysInMonth) {
+                return Container();
+              }
+
+              final date = DateTime(year, month, day);
+              final isToday = date.year == today.year &&
+                  date.month == today.month &&
+                  date.day == today.day;
+              final markedType = markedDates[date];
+
+              return Center(
+                child: Text(
+                  day.toString(),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: markedType != null
+                        ? (markedType == 'ovulation'
+                            ? Colors.teal
+                            : Color(0xFFFF7DAD))
+                        : Colors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
