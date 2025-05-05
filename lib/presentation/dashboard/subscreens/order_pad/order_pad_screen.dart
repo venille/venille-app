@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:venille/components/buttons/custom_button.dart';
@@ -16,6 +17,7 @@ class OrderPadScreen extends StatefulWidget {
 class _OrderPadScreenState extends State<OrderPadScreen> {
   int quantity = 1;
   String? deliveryMethod;
+  bool isProcessing = false;
 
   final List<String> deliveryOptions = ['Delivery', 'Pickup'];
 
@@ -37,11 +39,21 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
     super.dispose();
   }
 
-  void _submitOrder() {
+  void _submitOrder() async {
+    setState(() {
+      isProcessing = true;
+    });
+
     if (deliveryMethod == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select a delivery method')),
+      customErrorMessageSnackbar(
+        title: 'Message',
+        message: 'Please select a delivery method',
       );
+
+      setState(() {
+        isProcessing = false;
+      });
+
       return;
     }
 
@@ -49,11 +61,18 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
         (addressController.text.isEmpty ||
             stateController.text.isEmpty ||
             cityController.text.isEmpty)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in all delivery details')),
+      customErrorMessageSnackbar(
+        title: 'Message',
+        message: 'Please fill in all delivery details',
       );
+
+      setState(() {
+        isProcessing = false;
+      });
       return;
     }
+
+    await Future.delayed(const Duration(milliseconds: 3500));
 
     customSuccessMessageSnackbar(
       title: 'Success',
@@ -62,6 +81,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
     setState(() {
       quantity = 1;
+      isProcessing = false;
       deliveryMethod = null;
       addressController.clear();
       stateController.clear();
@@ -225,17 +245,19 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
         child: Column(
           children: [
-            CustomButton(
-              text: 'Submit Request',
-              width: double.maxFinite,
-              height: 56,
-              fontSize: 16,
-              borderRadius: 16,
-              onTapHandler: _submitOrder,
-              fontWeight: FontWeight.w600,
-              fontColor: AppColors.whiteColor,
-              backgroundColor: AppColors.buttonPrimaryColor,
-            ),
+            isProcessing
+                ? const CustomLoadingButton(height: 56)
+                : CustomButton(
+                    text: 'Submit Request',
+                    width: double.maxFinite,
+                    height: 56,
+                    fontSize: 16,
+                    borderRadius: 16,
+                    onTapHandler: _submitOrder,
+                    fontWeight: FontWeight.w600,
+                    fontColor: AppColors.whiteColor,
+                    backgroundColor: AppColors.buttonPrimaryColor,
+                  ),
             Text(
               'Free service for registered users',
               style: TextStyle(

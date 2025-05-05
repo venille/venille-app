@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/components/buttons/custom_button.dart';
+import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
@@ -14,8 +15,9 @@ class FeedbackSurveyScreen extends StatefulWidget {
 
 class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
   // Form values
-  String? hadAccessToPad;
   String? daysManaged;
+  String? hadAccessToPad;
+  bool isProcessing = false;
   List<String> selectedChallenges = [];
 
   // Options
@@ -35,16 +37,25 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
     'Other health concerns'
   ];
 
-  void _submitSurvey() {
+  void _submitSurvey() async {
+    setState(() {
+      isProcessing = true;
+    });
+
     if (hadAccessToPad == null || daysManaged == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please answer all questions'),
-          backgroundColor: Colors.red,
-        ),
+      customErrorMessageSnackbar(
+        title: 'Message',
+        message: 'Please fill in all fields',
       );
+
+      setState(() {
+        isProcessing = false;
+      });
+
       return;
     }
+
+    await Future.delayed(const Duration(milliseconds: 3500));
 
     customSuccessMessageSnackbar(
       title: 'Message',
@@ -56,6 +67,7 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
       hadAccessToPad = null;
       daysManaged = null;
       selectedChallenges = [];
+      isProcessing = false;
     });
   }
 
@@ -196,17 +208,19 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
         child: Column(
           children: [
-            CustomButton(
-              text: 'Submit Anonymously',
-              width: double.maxFinite,
-              height: 56,
-              fontSize: 16,
-              borderRadius: 16,
-              onTapHandler: _submitSurvey,
-              fontWeight: FontWeight.w600,
-              fontColor: AppColors.whiteColor,
-              backgroundColor: AppColors.buttonPrimaryColor,
-            ),
+            isProcessing
+                ? const CustomLoadingButton(height: 56)
+                : CustomButton(
+                    text: 'Submit Anonymously',
+                    width: double.maxFinite,
+                    height: 56,
+                    fontSize: 16,
+                    borderRadius: 16,
+                    onTapHandler: _submitSurvey,
+                    fontWeight: FontWeight.w600,
+                    fontColor: AppColors.whiteColor,
+                    backgroundColor: AppColors.buttonPrimaryColor,
+                  ),
             Center(
               child: Text(
                 'Your responses are completely anonymous',

@@ -322,24 +322,26 @@ class _LogVellaScreenState extends State<LogVellaScreen> {
                     }
                   }
 
-                  if (missingCategories.isEmpty) {
-                    await Future.delayed(const Duration(seconds: 5));
+                  if (missingCategories.isNotEmpty) {
+                    setState(() {
+                      isProcessing = false;
+                    });
 
-                    setState(() {
-                      isProcessing = false;
-                    });
-                    customSuccessMessageSnackbar(
-                      title: 'Message',
-                      message: 'Symptoms logged successfully!',
-                    );
-                  } else {
-                    setState(() {
-                      isProcessing = false;
-                    });
                     customErrorMessageSnackbar(
                       title: 'Message',
                       message:
                           'Please select at least one item from: ${missingCategories.join(", ")}',
+                    );
+                  } else {
+                    await Future.delayed(const Duration(milliseconds: 3500));
+
+                    setState(() {
+                      isProcessing = false;
+                    });
+
+                    customSuccessMessageSnackbar(
+                      title: 'Message',
+                      message: 'Symptoms logged successfully!',
                     );
                   }
                 },
