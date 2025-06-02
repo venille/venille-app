@@ -463,13 +463,20 @@ class EngagementService extends GetxController {
           },
         );
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           // log('[FETCH-USER-FORUM-FEED-RESPONSE] :: ${response.data}');
 
           ForumInfo data = response.data;
 
-          ServiceRegistry.userRepository.forumPosts.add(data);
-          ServiceRegistry.userRepository.userForumPosts.add(data);
+          ServiceRegistry.userRepository.forumPosts.insert(0, data);
+          ServiceRegistry.userRepository.userForumPosts.insert(0, data);
+
+          Get.back();
+
+          customSuccessMessageSnackbar(
+            title: 'Message',
+            message: 'Post created successfully',
+          );
 
           log("[CREATE-USER-FORUM-POST-SUCCESS]");
 

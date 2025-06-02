@@ -4,7 +4,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -16,7 +15,6 @@ part 'create_forum_dto.g.dart';
 /// * [title] - The title of the forum
 /// * [description] - The description of the forum
 /// * [image] - The image of the forum
-/// * [category] - The category of the forum
 @BuiltValue()
 abstract class CreateForumDto implements Built<CreateForumDto, CreateForumDtoBuilder> {
   /// The title of the forum
@@ -30,11 +28,6 @@ abstract class CreateForumDto implements Built<CreateForumDto, CreateForumDtoBui
   /// The image of the forum
   @BuiltValueField(wireName: r'image')
   String get image;
-
-  /// The category of the forum
-  @BuiltValueField(wireName: r'category')
-  CreateForumDtoCategoryEnum get category;
-  // enum categoryEnum {  general,  health,  fitness,  nutrition,  mental-health,  menstrual-cycle,  sexual-health,  contraception,  relationships,  family,  beauty-and-wellness,  pregnancy,  parenthood,  };
 
   CreateForumDto._();
 
@@ -73,11 +66,6 @@ class _$CreateForumDtoSerializer implements PrimitiveSerializer<CreateForumDto> 
     yield serializers.serialize(
       object.image,
       specifiedType: const FullType(String),
-    );
-    yield r'category';
-    yield serializers.serialize(
-      object.category,
-      specifiedType: const FullType(CreateForumDtoCategoryEnum),
     );
   }
 
@@ -123,13 +111,6 @@ class _$CreateForumDtoSerializer implements PrimitiveSerializer<CreateForumDto> 
           ) as String;
           result.image = valueDes;
           break;
-        case r'category':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(CreateForumDtoCategoryEnum),
-          ) as CreateForumDtoCategoryEnum;
-          result.category = valueDes;
-          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -157,55 +138,5 @@ class _$CreateForumDtoSerializer implements PrimitiveSerializer<CreateForumDto> 
     );
     return result.build();
   }
-}
-
-class CreateForumDtoCategoryEnum extends EnumClass {
-
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'general')
-  static const CreateForumDtoCategoryEnum general = _$createForumDtoCategoryEnum_general;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'health')
-  static const CreateForumDtoCategoryEnum health = _$createForumDtoCategoryEnum_health;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'fitness')
-  static const CreateForumDtoCategoryEnum fitness = _$createForumDtoCategoryEnum_fitness;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'nutrition')
-  static const CreateForumDtoCategoryEnum nutrition = _$createForumDtoCategoryEnum_nutrition;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'mental-health')
-  static const CreateForumDtoCategoryEnum mentalHealth = _$createForumDtoCategoryEnum_mentalHealth;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'menstrual-cycle')
-  static const CreateForumDtoCategoryEnum menstrualCycle = _$createForumDtoCategoryEnum_menstrualCycle;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'sexual-health')
-  static const CreateForumDtoCategoryEnum sexualHealth = _$createForumDtoCategoryEnum_sexualHealth;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'contraception')
-  static const CreateForumDtoCategoryEnum contraception = _$createForumDtoCategoryEnum_contraception;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'relationships')
-  static const CreateForumDtoCategoryEnum relationships = _$createForumDtoCategoryEnum_relationships;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'family')
-  static const CreateForumDtoCategoryEnum family = _$createForumDtoCategoryEnum_family;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'beauty-and-wellness')
-  static const CreateForumDtoCategoryEnum beautyAndWellness = _$createForumDtoCategoryEnum_beautyAndWellness;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'pregnancy')
-  static const CreateForumDtoCategoryEnum pregnancy = _$createForumDtoCategoryEnum_pregnancy;
-  /// The category of the forum
-  @BuiltValueEnumConst(wireName: r'parenthood')
-  static const CreateForumDtoCategoryEnum parenthood = _$createForumDtoCategoryEnum_parenthood;
-
-  static Serializer<CreateForumDtoCategoryEnum> get serializer => _$createForumDtoCategoryEnumSerializer;
-
-  const CreateForumDtoCategoryEnum._(String name): super(name);
-
-  static BuiltSet<CreateForumDtoCategoryEnum> get values => _$createForumDtoCategoryEnumValues;
-  static CreateForumDtoCategoryEnum valueOf(String name) => _$createForumDtoCategoryEnumValueOf(name);
 }
 

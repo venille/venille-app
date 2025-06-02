@@ -1,3 +1,4 @@
+// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -13,7 +14,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CourseInfoCategoryEnum.serializer)
       ..add(CreateForumCommentDto.serializer)
       ..add(CreateForumDto.serializer)
-      ..add(CreateForumDtoCategoryEnum.serializer)
       ..add(ForumCommentInfo.serializer)
       ..add(ForumCommentsResponse.serializer)
       ..add(ForumFeedResponse.serializer)

@@ -136,17 +136,14 @@ class ForumPostCard extends StatelessWidget {
                         );
                       },
                       child: Icon(
-                        ServiceRegistry.userRepository.forumPost.value.likes
-                                .contains(
+                        forumPost.likes.contains(
                           int.parse(ServiceRegistry
                               .userRepository.accountInfo.value.id),
                         )
                             ? FluentIcons.heart_circle_16_regular
                             : FluentIcons.heart_circle_16_regular,
                         size: 24,
-                        color: ServiceRegistry
-                                .userRepository.forumPost.value.likes
-                                .contains(
+                        color: forumPost.likes.contains(
                           int.parse(ServiceRegistry
                               .userRepository.accountInfo.value.id),
                         )

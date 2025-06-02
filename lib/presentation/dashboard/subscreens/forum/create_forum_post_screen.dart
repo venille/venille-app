@@ -1,8 +1,21 @@
+import 'dart:io';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/skeletons/loading_animation.dart';
+import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/components/text/small_text.dart';
+import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/middlewares/index.dart';
+import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/title_text.dart';
+import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
-import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/components/form/form_description_field.dart';
+import 'package:venille/components/buttons/labeled_dropdown_button.dart';
+import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
 class CreateForumPostScreen extends StatefulWidget {
   const CreateForumPostScreen({super.key});
@@ -12,28 +25,54 @@ class CreateForumPostScreen extends StatefulWidget {
 }
 
 class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
-  final TextEditingController _postController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  bool _isPostEnabled = false;
+  String mediaUrl = "";
+  RxBool isContentValid = false.obs;
+  bool isPostImageUploaded = false;
+  late PlatformFile? postPlatformImage;
+
+  TextEditingController contentController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _postController.addListener(_onTextChanged);
+
+    contentController.addListener(() {
+      if (contentController.text.isNotEmpty) {
+        isContentValid.value = true;
+      } else {
+        isContentValid.value = false;
+      }
+    });
   }
 
   @override
   void dispose() {
-    _postController.removeListener(_onTextChanged);
-    _postController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
-  void _onTextChanged() {
-    setState(() {
-      _isPostEnabled = _postController.text.trim().isNotEmpty;
-    });
+  void submitHandler() {
+    if (ServiceRegistry
+        .engagementService.isCreateUserForumPostProcessing.isTrue) {
+      return;
+    } else if (contentController.text.trim().isEmpty) {
+      return customErrorMessageSnackbar(
+        title: 'Message',
+        message: 'Please enter a message',
+      );
+    } else {
+      CreateForumDto payload = CreateForumDto(
+        (instance) => instance
+          ..title = ' '
+          ..description = contentController.text
+          ..image = mediaUrl,
+      );
+
+      ServiceRegistry.engagementService
+          .createUserForumPostService(payload: payload);
+    }
   }
 
   @override
@@ -53,133 +92,180 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomBackButton(),
+                CustomBackButton(
+                  backgroundColor: AppColors.grayLightColor,
+                ),
                 TitleText(
                   letterSpacing: 0,
                   fontFamily: 'Roboto',
-                  title: 'Legal',
+                  title: 'Create Post',
                 ),
-                SizedBox(),
+                SizedBox(width: AppSizes.horizontal_35),
               ],
             ),
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Avatar and text input section
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Avatar
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: AppColors.redColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.pets,
-                    color: AppColors.whiteColor,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // Text input field
-                Expanded(
-                  child: TextField(
-                    controller: _postController,
-                    focusNode: _focusNode,
-                    maxLines: null,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: AppColors.blackColor,
-                    ),
-                    decoration: const InputDecoration(
-                      hintText: "What's on your mind?",
-                      hintStyle: TextStyle(
-                        color: AppColors.grayColor,
-                        fontSize: 16,
-                      ),
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const Spacer(),
-
-            // Media attachment section (placeholder)
-            Padding(
-              padding: const EdgeInsets.only(left: 62),
-              child: Row(
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.maxFinite,
+          padding: const EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColors.grayLightColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.image_outlined,
-                      color: AppColors.grayColor,
-                      size: 20,
+                  InkWell(
+                    onTap: () async {
+                      try {
+                        if (ServiceRegistry.engagementService
+                            .isCreateUserForumPostProcessing.isTrue) {
+                          return;
+                        }
+
+                        PlatformFile? platformFile =
+                            await getImageFromDeviceStorage();
+
+                        if (platformFile != null) {
+                          debugPrint('[POST-IMAGE] :: $platformFile');
+
+                          setState(() {
+                            isPostImageUploaded = true;
+                            postPlatformImage = platformFile;
+                          });
+
+                          String imageUrl = await ServiceRegistry.accountService
+                              .uploadImage(platformFile);
+
+                          if (imageUrl.isNotEmpty) {
+                            setState(() {
+                              mediaUrl = imageUrl;
+                            });
+                          }
+                        }
+                      } catch (error) {
+                        debugPrint('[UPLOAD-POST-IMAGE-ERROR] :: $error');
+                      }
+                    },
+                    child: Container(
+                      width: 110,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.blackColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                          child: SmallText(
+                        text: 'Add Post Image',
+                        color: AppColors.whiteColor,
+                      )),
                     ),
                   ),
                 ],
               ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Post button
-            Container(
-              width: double.infinity,
-              height: 48,
-              margin: const EdgeInsets.only(bottom: 20),
-              child: ElevatedButton(
-                onPressed: _isPostEnabled ? _handlePost : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _isPostEnabled
-                      ? AppColors.pinkColor
-                      : AppColors.grayLightColor,
-                  foregroundColor: AppColors.whiteColor,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                child: Text(
-                  'Post',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: _isPostEnabled
-                        ? AppColors.whiteColor
-                        : AppColors.grayColor,
-                  ),
-                ),
+              isPostImageUploaded == true
+                  ? Container(
+                      height: 300,
+                      width: double.maxFinite,
+                      margin: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: FileImage(
+                            File(postPlatformImage!.path!),
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: AppSizes.vertical_5),
+              FormDescriptionField(
+                label: 'Post content',
+                maxLength: 1500,
+                showCharacterCount: true,
+                height: AppSizes.screenHeight(context) * 0.6,
+                textController: contentController,
+                borderColor: AppColors.whiteColor,
+                hintText:
+                    'Ready to ignite meaningful discussions? Share your insights and perspectives with the Venille community.',
               ),
+              const SizedBox(height: AppSizes.vertical_40),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 60,
+        width: double.maxFinite,
+        decoration: const BoxDecoration(
+          color: AppColors.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5,
+              spreadRadius: 5,
+              color: AppColors.grayLightColor,
             ),
           ],
         ),
+        padding: const EdgeInsets.only(
+          left: AppSizes.horizontal_15,
+          right: AppSizes.horizontal_15,
+          bottom: AppSizes.vertical_10,
+        ),
+        child: Obx(
+          () => Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              isPostImageUploaded == true
+                  ? Container(
+                      height: double.maxFinite,
+                      width: 50,
+                      margin: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: FileImage(
+                            File(postPlatformImage!.path!),
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              InkWell(
+                onTap: submitHandler,
+                child: Container(
+                  width: 110,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: AppColors.buttonPrimaryColor,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Center(
+                    child: ServiceRegistry.engagementService
+                            .isCreateUserForumPostProcessing.isTrue
+                        ? const LoadingAnimation(
+                            size: 15,
+                            color: AppColors.whiteColor,
+                          )
+                        : SmallText(
+                            text: 'Submit',
+                            color: AppColors.whiteColor,
+                          ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  void _handlePost() {
-    if (_postController.text.trim().isNotEmpty) {
-      // Handle post creation logic here
-      print('Posting: ${_postController.text}');
-      Navigator.pop(context);
-    }
   }
 }
