@@ -19,7 +19,7 @@ mkdir ../infra_sdk
 
 cd ../infra_sdk 
 
-mkdir auth account
+mkdir auth account engagement
 
 # cd ../
 
@@ -45,6 +45,16 @@ openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/account
 
 echo " "
 echo "...[GENERATE-ACCOUNT-SDK-SUCCESS]"
+echo " "
+
+
+echo " "
+echo "...[GENERATE-ENGAGEMENT-SDK-PROCESSING]"
+echo " "
+openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/engagement-service-json -g dart-dio -o ../infra_sdk/engagement --enable-post-process-file --additional-properties=pubName=engagement_sdk,pubLibrary=engagement_api.api
+
+echo " "
+echo "...[GENERATE-ENGAGEMENT-SDK-SUCCESS]"
 echo " "
 
 

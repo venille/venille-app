@@ -199,7 +199,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                           fontWeight: FontWeight.w600,
                           fontColor: AppColors.blackColor,
-                          backgroundColor: AppColors.whiteColor,
+                          backgroundColor: AppColors.backgroundColor,
                         ),
                       ],
                     ),

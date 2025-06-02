@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final healthInsights = getHealthInsights();
 
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       key: scaffoldKey,
       drawer: CustomDrawer(scaffoldKey: scaffoldKey),
       appBar: PreferredSize(

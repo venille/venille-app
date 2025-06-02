@@ -43,23 +43,5 @@ void main() {
       // TODO
     });
 
-    // Role of the user.
-    // String role (default value: 'individual')
-    test('to test the property `role`', () async {
-      // TODO
-    });
-
-    // State of the user.
-    // String state
-    test('to test the property `state`', () async {
-      // TODO
-    });
-
-    // City of the user.
-    // String city
-    test('to test the property `city`', () async {
-      // TODO
-    });
-
   });
 }

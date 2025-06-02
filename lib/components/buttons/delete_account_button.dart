@@ -16,7 +16,7 @@ class DeleteAccountButton extends StatelessWidget {
       onTap: () {
         log('[HANDLE-DELETE-ACCOUNT]');
 
-        // Get.toNamed(AppRoutes.deleteAccountRoute);
+        Get.toNamed(AppRoutes.deleteAccountRoute);
       },
       overlayColor: WidgetStateProperty.all(
         Colors.transparent,

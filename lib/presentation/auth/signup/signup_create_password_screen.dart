@@ -107,17 +107,16 @@ class _SignupCreatePasswordScreenState
         message: 'Passwords do not match',
       );
     } else {
-      CreateAccountDTO payload = CreateAccountDTO(
-        (instance) => instance
-          ..email = Get.parameters['email']
-          ..phone = Get.parameters['phone']
-          ..lastName = Get.parameters['lastName']
-          ..firstName = Get.parameters['firstName']
-          ..password = passwordController.text.trim()
-          ..referralCode = Get.parameters['referralCode']
-          ..state = Get.parameters['state']
-          ..city = Get.parameters['city'],
-      );
+      CreateAccountDTO payload = CreateAccountDTO((instance) => instance
+            ..email = Get.parameters['email']
+            ..phone = Get.parameters['phone']
+            ..lastName = Get.parameters['lastName']
+            ..firstName = Get.parameters['firstName']
+            ..password = passwordController.text.trim()
+            ..referralCode = Get.parameters['referralCode']
+          // ..state = Get.parameters['state']
+          // ..city = Get.parameters['city'],
+          );
 
       ServiceRegistry.authenticationService.signUpService(payload: payload);
     }
@@ -126,7 +125,7 @@ class _SignupCreatePasswordScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: Obx(() {
         return SafeArea(
           child: SingleChildScrollView(

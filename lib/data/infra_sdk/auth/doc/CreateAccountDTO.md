@@ -14,8 +14,6 @@ Name | Type | Description | Notes
 **lastName** | **String** | Last name of the user. | 
 **phone** | **String** | Phone number of the user. | 
 **referralCode** | **String** | Referral code of the user (Optional). | 
-**state** | **String** | State of the user. | [optional] 
-**city** | **String** | City of the user. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

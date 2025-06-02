@@ -23,7 +23,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       key: scaffoldKey,
       drawer: CustomDrawer(scaffoldKey: scaffoldKey),
       appBar: PreferredSize(

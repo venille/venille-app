@@ -8,4 +8,9 @@ class LocalStorageSecrets {
   ///
   /// TYPE: String
   static const String accessToken = 'VENILLE_ACCESS_TOKEN';
+
+  /// PUSH NOTIFICATIONS ENABLED
+  ///
+  /// TYPE: bool
+  static const String pushNotificationsEnabled = 'PUSH_NOTIFICATIONS_ENABLED';
 }

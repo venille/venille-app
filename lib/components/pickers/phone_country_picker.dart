@@ -8,6 +8,7 @@ import 'package:venille/core/utilities/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/core/models/user_country_model.dart';
+import 'package:venille/presentation/public/select_country_screen.dart';
 
 class PhoneCountryPicker extends StatefulWidget {
   final double height;
@@ -44,14 +45,14 @@ class _PhoneCountryPickerState extends State<PhoneCountryPicker> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        return;
-        // Get.to(
-        //   () => SelectCountryScreen(
-        //     onSelectHandler: onSelectCountry,
-        //     currentDialCode:
-        //         ServiceRegistry.commonRepository.userCountry.value.dialCode!,
-        //   ),
-        // );
+        // return;
+        Get.to(
+          () => SelectCountryScreen(
+            onSelectHandler: onSelectCountry,
+            currentDialCode:
+                ServiceRegistry.commonRepository.userCountry.value.dialCode!,
+          ),
+        );
       },
       child: Container(
         height: widget.height,

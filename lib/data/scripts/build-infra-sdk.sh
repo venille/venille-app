@@ -32,3 +32,15 @@ echo " "
 echo "...[BUILD-ACCOUNT-SDK-CODE-SUCCESS]"
 echo " "
 
+cd ../engagement
+
+
+flutter pub get
+flutter pub upgrade
+
+dart run build_runner build --delete-conflicting-outputs
+
+echo " "
+echo "...[BUILD-ENGAGEMENT-SDK-CODE-SUCCESS]"
+echo " "
+

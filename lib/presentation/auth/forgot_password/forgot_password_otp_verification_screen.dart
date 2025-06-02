@@ -136,7 +136,7 @@ class _ForgotPasswordOtpVerificationScreenState
     );
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: Obx(() {
         return SafeArea(
           child: SingleChildScrollView(

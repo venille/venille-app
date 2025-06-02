@@ -12,6 +12,7 @@ class AppColors {
   static const Color linkPrimaryColor = Color(0xFF007AFF);
   static const Color successPrimaryColor = Color(0xFF16A34A);
   static const Color redColor = Color(0xFFEF4444);
+  static const Color pinkColor = Color(0xFFff477e);
   static const Color adBannerColor = Color(0xFFf77f00);
   static const Color orangeColor = Color(0xFFfb8500);
   static const Color dangerColor = Color(0xFFdc2f02);
@@ -35,10 +36,11 @@ class AppColors {
   // LIGHT THEME
   static const Color primaryColor = Color(0xFF0B0BB4);
   static const Color primaryLightColor = Color.fromARGB(255, 101, 101, 187);
-  static const Color backgroundColor = Color(0xFFffffff);
+  static const Color backgroundColor = Color(0xFFf0f0f0);
   static const Color appBarBackgroundColor = Color(0xFFffffff);
   static const Color buttonPrimaryColor = Color(0xFF0B0BB4);
-  static const Color buttonPrimaryDisabledColor = Color.fromARGB(255, 101, 101, 187);
+  static const Color buttonPrimaryDisabledColor =
+      Color.fromARGB(255, 101, 101, 187);
   static const Color textColor = Color(0xFF1A1A1A);
 
   // DARK THEME

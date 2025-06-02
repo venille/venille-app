@@ -1,16 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:get/get.dart';
-import 'package:venille/components/appbar/return_to_appbar.dart';
-import 'package:venille/core/constants/colors.dart';
-import 'package:venille/core/models/forum_blog_model.dart';
+import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:venille/components/text/small_text.dart';
+import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/providers/index.dart';
+import 'package:venille/core/constants/colors.dart';
+import 'package:venille/components/text/title_text.dart';
+import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/components/appbar/return_to_appbar.dart';
+import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
+import 'package:venille/components/images/cached_network_image_widget.dart';
 
 class ForumDescriptionScreen extends StatefulWidget {
-  final ForumBlogModel blog;
-
   const ForumDescriptionScreen({
     super.key,
-    required this.blog,
   });
 
   @override
@@ -18,134 +23,432 @@ class ForumDescriptionScreen extends StatefulWidget {
 }
 
 class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
+  final FocusNode _commentFocusNode = FocusNode();
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController _commentController = TextEditingController();
+
+  Future<void> fetchForumPostComments() async {
+    ServiceRegistry.engagementService.fetchForumCommentsService(
+      currentPage: 1,
+      forumId: int.parse(ServiceRegistry.userRepository.forumPost.value.id),
+    );
+  }
+
+  @override
+  void dispose() {
+    _commentFocusNode.dispose();
+    _commentController.dispose();
+
+    fetchForumPostComments();
+
+    super.dispose();
+  }
+
+  void _submitComment() {
+    if (ServiceRegistry.engagementService.isAddForumCommentProcessing.isTrue) {
+      return;
+    } else if (_commentController.text.trim().isEmpty) {
+      return customErrorMessageSnackbar(
+        title: 'Message',
+        message: 'Please enter a comment.',
+      );
+    } else {
+      CreateForumCommentDto payload = CreateForumCommentDto(
+        (instance) => instance..content = _commentController.text.trim(),
+      );
+
+      ServiceRegistry.engagementService.addForumCommentService(
+        payload: payload,
+        focusNode: _commentFocusNode,
+        commentController: _commentController,
+        forumId: int.parse(ServiceRegistry.userRepository.forumPost.value.id),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: ReturnToAppbar(
-          title: 'Blog Post',
-          onTap: () => Get.back(),
+    return WillPopScope(
+      onWillPop: () async {
+        ServiceRegistry.userRepository.forumPostComments.clear();
+
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
+        resizeToAvoidBottomInset: true,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: ReturnToAppbar(
+              title: 'Forum Post',
+              onTap: () {
+                ServiceRegistry.userRepository.forumPostComments.clear();
+
+                Get.back();
+              }),
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: widget.blog.title.contains("Breaking")
-                      ? Colors.purple[100]
-                      : widget.blog.title.contains("PCOS")
-                          ? Colors.blue[100]
-                          : widget.blog.title.contains("Sustainable")
-                              ? Colors.green[100]
-                              : widget.blog.title.contains("Exercise")
-                                  ? Colors.orange[100]
-                                  : Colors.pink[100],
-                  child: Icon(
-                    widget.blog.title.contains("Breaking")
-                        ? Icons.chat_bubble_outline
-                        : widget.blog.title.contains("PCOS")
-                            ? Icons.favorite_outline
-                            : widget.blog.title.contains("Sustainable")
-                                ? Icons.eco_outlined
-                                : widget.blog.title.contains("Exercise")
-                                    ? Icons.fitness_center
-                                    : Icons.medical_services_outlined,
-                    color: widget.blog.title.contains("Breaking")
-                        ? Colors.purple
-                        : widget.blog.title.contains("PCOS")
-                            ? Colors.blue
-                            : widget.blog.title.contains("Sustainable")
-                                ? Colors.green
-                                : widget.blog.title.contains("Exercise")
-                                    ? Colors.orange
-                                    : Colors.pink,
-                    size:
-                        28, // Slightly larger icon since this is the detail view
+        body: Obx(
+          () => Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.horizontal_15,
                   ),
-                  radius: 24,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: AppSizes.horizontal_5,
+                      right: AppSizes.horizontal_5,
+                      top: AppSizes.vertical_5,
+                    ),
+                    color: AppColors.whiteColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColors.grayLightColor,
+                                  ),
+                                ),
+                                child: ClipOval(
+                                  child: CachedNetworkImageWidget(
+                                    height: double.maxFinite,
+                                    width: double.maxFinite,
+                                    imageUrl: ServiceRegistry.userRepository
+                                        .forumPost.value.authorPhoto,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    timeago.format(ServiceRegistry
+                                        .userRepository
+                                        .forumPost
+                                        .value
+                                        .createdAt),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.vertical_10),
+                        // Text(
+                        //   ServiceRegistry
+                        //       .userRepository.forumPost.value.title,
+                        //   style: const TextStyle(
+                        //     fontSize: 24,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                        // const SizedBox(height: AppSizes.vertical_10),
+                        SubtitleText(
+                          text: ServiceRegistry
+                              .userRepository.forumPost.value.description,
+                        ),
+                        if (ServiceRegistry
+                            .userRepository.forumPost.value.image.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
+                            child: ClipRRect(
+                              // borderRadius: BorderRadius.circular(8),
+                              child: CachedNetworkImageWidget(
+                                height: 250,
+                                width: double.maxFinite,
+                                imageUrl: ServiceRegistry
+                                    .userRepository.forumPost.value.image,
+                              ),
+                            ),
+                          ),
+                        const Divider(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  ServiceRegistry.engagementService
+                                      .likeUnlikeForumPostService(
+                                    forumId: int.parse(ServiceRegistry
+                                        .userRepository.forumPost.value.id),
+                                  );
+                                },
+                                child: Icon(
+                                  ServiceRegistry
+                                          .userRepository.forumPost.value.likes
+                                          .contains(
+                                    int.parse(ServiceRegistry
+                                        .userRepository.accountInfo.value.id),
+                                  )
+                                      ? FluentIcons.heart_circle_16_regular
+                                      : FluentIcons.heart_circle_16_regular,
+                                  size: 24,
+                                  color: ServiceRegistry
+                                          .userRepository.forumPost.value.likes
+                                          .contains(
+                                    int.parse(ServiceRegistry
+                                        .userRepository.accountInfo.value.id),
+                                  )
+                                      ? AppColors.redColor
+                                      : Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                '${ServiceRegistry.userRepository.forumPost.value.likeCount}',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(width: 24),
+                              const Icon(Icons.chat_bubble_outline,
+                                  size: 24, color: Colors.grey),
+                              const SizedBox(width: 8),
+                              Text(
+                                '${ServiceRegistry.userRepository.forumPost.value.comments}',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_5),
+                        // Comments section
+                        if (ServiceRegistry
+                            .userRepository.forumPostComments.isNotEmpty) ...[
+                          const TitleText(
+                            title: 'Comments',
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: ServiceRegistry
+                                .userRepository.forumPostComments.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: AppSizes.vertical_10,
+                                  horizontal: AppSizes.horizontal_10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(
+                                      index == 0 ? 12 : 0,
+                                    ),
+                                    topRight: Radius.circular(
+                                      index == 0 ? 12 : 0,
+                                    ),
+                                    bottomLeft: Radius.circular(
+                                      index ==
+                                              ServiceRegistry
+                                                      .userRepository
+                                                      .forumPostComments
+                                                      .length -
+                                                  1
+                                          ? 12
+                                          : 0,
+                                    ),
+                                    bottomRight: Radius.circular(
+                                      index ==
+                                              ServiceRegistry
+                                                      .userRepository
+                                                      .forumPostComments
+                                                      .length -
+                                                  1
+                                          ? 12
+                                          : 0,
+                                    ),
+                                  ),
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      width: 1,
+                                      color: AppColors.grayLightColor
+                                          .withOpacity(0.3),
+                                    ),
+                                  ),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        border: Border.all(
+                                          width: 2,
+                                          color: AppColors.grayLightColor,
+                                        ),
+                                      ),
+                                      child: ClipOval(
+                                        child: CachedNetworkImageWidget(
+                                          height: double.maxFinite,
+                                          width: double.maxFinite,
+                                          imageUrl: ServiceRegistry
+                                              .userRepository
+                                              .forumPostComments[index]
+                                              .authorPhoto,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SmallText(
+                                            weight: FontWeight.bold,
+                                            text: timeago.format(
+                                              ServiceRegistry
+                                                  .userRepository
+                                                  .forumPostComments[index]
+                                                  .createdAt,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          SubtitleText(
+                                            text: ServiceRegistry
+                                                .userRepository
+                                                .forumPostComments[index]
+                                                .content,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                        // Add some bottom padding for better spacing
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.blog.authorName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      timeago.format(widget.blog.datePosted),
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.horizontal_15,
+                  vertical: AppSizes.vertical_10,
                 ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Text(
-              widget.blog.title,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              widget.blog.description,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[700],
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            SizedBox(height: 24),
-            Text(
-              widget.blog.content,
-              style: TextStyle(
-                fontSize: 16,
-                height: 1.6,
-              ),
-            ),
-            SizedBox(height: 24),
-            Divider(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              child: Row(
-                children: [
-                  Icon(Icons.favorite_border, size: 24, color: Colors.grey),
-                  SizedBox(width: 8),
-                  Text(
-                    '${widget.blog.likes}',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
+                decoration: const BoxDecoration(
+                  color: AppColors.whiteColor,
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColors.grayLightColor,
+                      width: 1,
                     ),
                   ),
-                  SizedBox(width: 24),
-                  Icon(Icons.chat_bubble_outline, size: 24, color: Colors.grey),
-                  SizedBox(width: 8),
-                  Text(
-                    '${widget.blog.comments}',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
+                ),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _commentController,
+                          focusNode: _commentFocusNode,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            hintText: 'Add a comment...',
+                            hintStyle: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 16,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: AppColors.grayLightColor,
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: AppColors.grayLightColor,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: AppColors.grayLightColor,
+                                width: 1,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                          ),
+                          textInputAction: TextInputAction.send,
+                          onSubmitted: (_) => _submitComment(),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: ServiceRegistry.engagementService
+                                  .isAddForumCommentProcessing.isTrue
+                              ? AppColors.grayColor
+                              : AppColors.blackColor,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: IconButton(
+                          onPressed: ServiceRegistry.engagementService
+                                  .isAddForumCommentProcessing.isTrue
+                              ? null
+                              : _submitComment,
+                          icon: ServiceRegistry.engagementService
+                                  .isAddForumCommentProcessing.isTrue
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ),
+                                )
+                              : const Icon(
+                                  Icons.send,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                          // padding: const EdgeInsets.all(12),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

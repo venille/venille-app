@@ -59,12 +59,14 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: SafeArea(
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
+            color: AppColors.whiteColor,
             padding: const EdgeInsets.only(
               // bottom: AppSizes.vertical_10,
               left: AppSizes.horizontal_15,
@@ -83,7 +85,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                       weight: FontWeight.w500,
                       title: 'Select a country',
                     ),
-                    SizedBox(),
+                    SizedBox(width: AppSizes.horizontal_30),
                   ],
                 ),
                 Container(
@@ -93,6 +95,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                     horizontal: AppSizes.horizontal_10,
                   ),
                   decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: AppColors.borderPrimaryColor,

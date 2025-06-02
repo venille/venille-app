@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return Future.value();
       },
       child: Scaffold(
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Obx(() {
             return SingleChildScrollView(

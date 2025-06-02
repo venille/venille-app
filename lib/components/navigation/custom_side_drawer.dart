@@ -44,7 +44,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       width: AppSizes.screenWidth(context) * 0.70,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0),
@@ -60,7 +60,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             children: [
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.accountRoute);
+                  widget.scaffoldKey.currentState?.closeDrawer();
+
+                  Get.toNamed(AppRoutes.accountRoute);
                 },
                 overlayColor: const WidgetStatePropertyAll(Colors.transparent),
                 child: widget.headerWidget ??

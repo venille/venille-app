@@ -106,8 +106,8 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
         ..phone = Get.parameters['phone']
         ..lastName = Get.parameters['lastName']
         ..firstName = Get.parameters['firstName']
-        ..state = Get.parameters['state']
-        ..city = Get.parameters['city']
+        // ..state = Get.parameters['state']
+        // ..city = Get.parameters['city']
         ..password = Get.parameters['password']
         ..referralCode = Get.parameters['referralCode'],
     );
@@ -147,7 +147,7 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
         return;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         body: Obx(() {
           return SafeArea(
             child: SingleChildScrollView(

@@ -54,6 +54,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ServiceRegistry.commonRepository.currentScreenIndex.value,
         surfaceTintColor: AppColors.whiteColor,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        backgroundColor: AppColors.whiteColor,
         destinations: [
           const NavigationDestination(
             icon: Icon(

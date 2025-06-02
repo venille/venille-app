@@ -306,40 +306,16 @@ class AccountService extends GetxController {
   ///
   /// [IS-AUTHENTICATED]
   Future<void> updateAccountAvatarService(
-      {PlatformFile? platformFile,
-      String? photoUrl,
-      BuildContext? context}) async {
+      {String? photoUrl, BuildContext? context}) async {
     try {
       log("[UPDATE-ACCOUNT-AVATAR-PENDING]");
 
-      late FileUploadResult fileUploadResult;
-
       MeApi meApi = ServiceRegistry.accountSdk.getMeApi();
-      UploadApi uploadApi = ServiceRegistry.accountSdk.getUploadApi();
 
       isFileUploadProcessing.value = true;
 
-      if (platformFile != null) {
-        DioMultipart.MultipartFile file =
-            await DioMultipart.MultipartFile.fromFile(
-          platformFile.path!,
-          filename: platformFile.name,
-        );
-
-        Dio.Response uploadImageResponse =
-            await uploadApi.imageUploadControllerUploadImage(
-          file: file,
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-        ).timeout(const Duration(seconds: 30));
-
-        fileUploadResult = uploadImageResponse.data;
-      }
-
       UpdateProfileImageDTO formData = UpdateProfileImageDTO(
-        (instance) => instance
-          ..imageUrl = platformFile != null ? fileUploadResult.url : photoUrl,
+        (instance) => instance..imageUrl = photoUrl,
       );
 
       Dio.Response response = await meApi.accountControllerUpdateProfileImage(
@@ -352,6 +328,7 @@ class AccountService extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        log('[UPDATE-USER-ACCOUNT-AVATAR-RESPONSE] :: $photoUrl');
         log('[UPDATE-USER-ACCOUNT-AVATAR-RESPONSE] :: ${response.data}');
 
         AccountInfo accountInfo = response.data;
@@ -382,6 +359,252 @@ class AccountService extends GetxController {
     } finally {
       isFileUploadProcessing.value = false;
     }
+  }
+
+  //! UPDATE ACCOUNT EMAIL
+  /// Update user account email.
+  ///
+  /// [METHOD] - PATCH
+  ///
+  /// [ROUTE] - /v1/account/contact/update-email
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> updateUserAccountEmailService(
+    UpdateAccountEmailDTO payload, {
+    bool resendOtp = false,
+  }) async {
+    return authGuard<void>(() async {
+      if (ServiceRegistry.localStorage
+              .read(LocalStorageSecrets.authenticationMethod) ==
+          'GUEST') {
+        return;
+      }
+
+      try {
+        log("[UPDATE-USER-ACCOUNT-EMAIL-PENDING]");
+
+        isUpdateAccountInfoProcessing.value = true;
+        isResendUpdateAccountInfoOtpProcessing.value = true;
+
+        ManageContactInfoApi manageContactInfoApi =
+            ServiceRegistry.accountSdk.getManageContactInfoApi();
+
+        Dio.Response response =
+            await manageContactInfoApi.accountControllerUpdateAccountEmail(
+          updateAccountEmailDTO: payload,
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          log('[UPDATE-USER-ACCOUNT-EMAIL-RESPONSE] :: ${response.data}');
+
+          isUpdateAccountInfoProcessing.value = false;
+          isResendUpdateAccountInfoOtpProcessing.value = false;
+
+          if (resendOtp == false) {
+            customSuccessMessageSnackbar(
+              title: 'Message',
+              message: 'Verify new email.',
+            );
+
+            Get.toNamed(
+              AppRoutes.updateAccountVerifyEmailRoute,
+              parameters: {
+                'email': payload.newEmail,
+              },
+            );
+          } else {
+            customSuccessMessageSnackbar(
+              title: 'Message',
+              message: 'OTP sent successfully.',
+            );
+
+            Get.offAndToNamed(
+              AppRoutes.updateAccountVerifyEmailRoute,
+              parameters: {
+                'email': payload.newEmail,
+              },
+            );
+          }
+
+          log("[UPDATE-USER-ACCOUNT-EMAIL-SUCCESS]");
+        }
+      } catch (error) {
+        isUpdateAccountInfoProcessing.value = false;
+        isResendUpdateAccountInfoOtpProcessing.value = false;
+
+        log('[UPDATE-USER-ACCOUNT-EMAIL-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[UPDATE-USER-ACCOUNT-EMAIL-ERROR-RESPONSE] :: ${dioError.response}');
+
+          if (dioError.response?.data['message'] != null) {
+            customErrorMessageSnackbar(
+              title: 'Message',
+              message: dioError.response?.data['message'],
+            );
+          }
+        }
+      } finally {
+        isUpdateAccountInfoProcessing.value = false;
+        isResendUpdateAccountInfoOtpProcessing.value = false;
+      }
+    });
+  }
+
+  //! VERIFY NEW ACCOUNT EMAIL
+  /// Verify new account email.
+  ///
+  /// [METHOD] - PATCH
+  ///
+  /// [ROUTE] - /v1/account/me/verify-email
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> verifyNewAccountEmailService(
+      VerifyNewAccountEmailDTO payload) async {
+    return authGuard<void>(() async {
+      if (ServiceRegistry.localStorage
+              .read(LocalStorageSecrets.authenticationMethod) ==
+          'GUEST') {
+        return;
+      }
+
+      try {
+        log("[VERIFY-NEW-ACCOUNT-EMAIL-PENDING]");
+
+        isUpdateAccountInfoProcessing.value = true;
+
+        ManageContactInfoApi manageContactInfoApi =
+            ServiceRegistry.accountSdk.getManageContactInfoApi();
+
+        Dio.Response response =
+            await manageContactInfoApi.accountControllerVerifyNewAccountEmail(
+          verifyNewAccountEmailDTO: payload,
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200) {
+          log('[VERIFY-NEW-ACCOUNT-EMAIL-RESPONSE] :: ${response.data}');
+
+          isUpdateAccountInfoProcessing.value = false;
+
+          AccountInfo accountInfo = response.data;
+
+          ServiceRegistry.userRepository.accountInfo.value = accountInfo;
+
+          customSuccessMessageSnackbar(
+            title: 'Message',
+            message: 'Email updated.',
+          );
+
+          Get.toNamed(
+            AppRoutes.accountDetailsRoute,
+          );
+
+          log("[VERIFY-NEW-ACCOUNT-EMAIL-SUCCESS]");
+        }
+      } catch (error) {
+        isUpdateAccountInfoProcessing.value = false;
+
+        log('[VERIFY-NEW-ACCOUNT-EMAIL-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[VERIFY-NEW-ACCOUNT-EMAIL-ERROR-RESPONSE] :: ${dioError.response}');
+
+          // if (dioError.response?.data['message'] != null) {
+          //   customErrorMessageSnackbar(
+          //     title: 'Message',
+          //     message: dioError.response?.data['message'],
+          //   );
+          // }
+        }
+      } finally {
+        isUpdateAccountInfoProcessing.value = false;
+      }
+    });
+  }
+
+  //! UPDATE ACCOUNT PASSWORD
+  /// Update account password.
+  ///
+  /// [METHOD] - PATCH
+  ///
+  /// [ROUTE] - /v1/account/me/update-password
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> updateAccountPasswordService(
+      UpdateAccountPasswordDTO payload) async {
+    return authGuard<void>(() async {
+      if (ServiceRegistry.localStorage
+              .read(LocalStorageSecrets.authenticationMethod) ==
+          'GUEST') {
+        return;
+      }
+
+      try {
+        log("[UPDATE-ACCOUNT-PASSWORD-PENDING]");
+
+        isUpdateAccountInfoProcessing.value = true;
+
+        MeApi meApi = ServiceRegistry.accountSdk.getMeApi();
+
+        Dio.Response response =
+            await meApi.accountControllerUpdateAccountPassword(
+          updateAccountPasswordDTO: payload,
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200) {
+          log('[UPDATE-ACCOUNT-PASSWORD-RESPONSE] :: ${response.data}');
+
+          isUpdateAccountInfoProcessing.value = false;
+
+          Get.back();
+
+          customSuccessMessageSnackbar(
+            title: 'Message',
+            message: 'Password updated.',
+          );
+
+          log("[UPDATE-ACCOUNT-PASSWORD-SUCCESS]");
+        }
+      } catch (error) {
+        isUpdateAccountInfoProcessing.value = false;
+
+        log('[UPDATE-ACCOUNT-PASSWORD-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[UPDATE-ACCOUNT-PASSWORD-ERROR-RESPONSE] :: ${dioError.response}');
+
+          if (dioError.response?.data['message'] != null) {
+            customErrorMessageSnackbar(
+              title: 'Message',
+              message: dioError.response?.data['message'],
+            );
+          }
+        }
+      } finally {
+        isUpdateAccountInfoProcessing.value = false;
+      }
+    });
   }
 
   //! FETCH NOTIFICATIONS

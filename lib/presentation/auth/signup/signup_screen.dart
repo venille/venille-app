@@ -77,12 +77,13 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void submitHandler() async {
-    if (ServiceRegistry.commonRepository.userCountry.value.dialCode != '+234') {
-      return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid country code, only +234(Nigeria) is supported.',
-      );
-    } else if (isPhoneNumberValid.isFalse) {
+    // if (ServiceRegistry.commonRepository.userCountry.value.dialCode != '+234') {
+    //   return customErrorMessageSnackbar(
+    //     title: 'Message',
+    //     message: 'Invalid country code, only +234(Nigeria) is supported.',
+    //   );
+    // } else
+    if (isPhoneNumberValid.isFalse) {
       return customErrorMessageSnackbar(
         title: 'Message',
         message: 'Phone number must be at least 10 digits',
@@ -114,16 +115,6 @@ class _SignupScreenState extends State<SignupScreen> {
         title: 'Message',
         message: 'Last name is required',
       );
-    } else if (stateController.text.isEmpty) {
-      return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'State is required',
-      );
-    } else if (cityController.text.isEmpty) {
-      return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'City is required',
-      );
     } else {
       Map<String, dynamic> payload = {
         "phone": formatPhoneNumber(
@@ -133,8 +124,8 @@ class _SignupScreenState extends State<SignupScreen> {
         "email": emailController.text.trim(),
         "firstName": firstNameController.text.trim(),
         "lastName": lastNameController.text.trim(),
-        "state": stateController.text.trim(),
-        "city": cityController.text.trim(),
+        // "state": stateController.text.trim(),
+        // "city": cityController.text.trim(),
         "referralCode": referralCodeController.text.isNotEmpty
             ? referralCodeController.text.trim()
             : "",
@@ -154,7 +145,7 @@ class _SignupScreenState extends State<SignupScreen> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(135),
           child: SafeArea(
@@ -183,179 +174,172 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Obx(
-            () {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.horizontal_15,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.horizontal_15,
+            ),
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: AppSizes.vertical_5),
+                FormTextField(
+                  label: 'Email',
+                  hintText: 'lisa@gmail.com',
+                  textController: emailController,
                 ),
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSizes.vertical_5),
-                    FormTextField(
-                      label: 'Email',
-                      hintText: 'lisa@gmail.com',
-                      textController: emailController,
-                    ),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: AppSizes.screenWidth(context) * 0.45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FormTextField(
-                                  label: 'First name',
-                                  hintText: 'Lisa',
-                                  textController: firstNameController,
-                                  width: AppSizes.screenWidth(context) * 0.7,
-                                ),
-                              ],
+                const SizedBox(height: AppSizes.vertical_10),
+                SizedBox(
+                  width: double.maxFinite,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: AppSizes.screenWidth(context) * 0.45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormTextField(
+                              label: 'First name',
+                              hintText: 'Lisa',
+                              textController: firstNameController,
+                              width: AppSizes.screenWidth(context) * 0.7,
                             ),
-                          ),
-                          SizedBox(
-                            width: AppSizes.screenWidth(context) * 0.45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FormTextField(
-                                  label: 'Last name',
-                                  hintText: 'Olayinka',
-                                  textController: lastNameController,
-                                  width: AppSizes.screenWidth(context) * 0.7,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: AppSizes.screenWidth(context) * 0.45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                LabeledDropdownSelector(
-                                  label: 'State',
-                                  value: stateController.text,
-                                  items: ServiceRegistry
-                                      .userRepository.availableStates
-                                      .map((e) => e.state)
-                                      .toList(),
-                                  onChanged: (value) {
-                                    log('[STATE] : $value');
-
-                                    setState(() {
-                                      stateController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
+                      SizedBox(
+                        width: AppSizes.screenWidth(context) * 0.45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormTextField(
+                              label: 'Last name',
+                              hintText: 'Olayinka',
+                              textController: lastNameController,
+                              width: AppSizes.screenWidth(context) * 0.7,
                             ),
-                          ),
-                          SizedBox(
-                            width: AppSizes.screenWidth(context) * 0.45,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                LabeledDropdownSelector(
-                                  label: 'City',
-                                  value: cityController.text,
-                                  items: stateController.text.isEmpty
-                                      ? []
-                                      : ServiceRegistry
-                                              .userRepository.availableStates
-                                              .firstWhereOrNull((element) =>
-                                                  element.state ==
-                                                  stateController.text)
-                                              ?.lgas
-                                              .toList() ??
-                                          [],
-                                  onChanged: (value) {
-                                    log('[CITY] : $value');
-
-                                    setState(() {
-                                      cityController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Visibility(
-                      visible: accountType == 'FARMER',
-                      child: Column(
-                        children: [
-                          const SizedBox(height: AppSizes.vertical_10),
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: AppSizes.screenWidth(context) * 0.45,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FormTextField(
-                                        label: 'Farm name',
-                                        hintText: 'Bright Farms',
-                                        textController: businessNameController,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: AppSizes.screenWidth(context) * 0.45,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FormTextField(
-                                        label: 'Farm Address',
-                                        textController:
-                                            businessAddressController,
-                                        hintText:
-                                            '1234 County Road 35, Farmington, MN 55024',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormPhoneField(phoneController: phoneController),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormTextField(
-                      label: 'Referral Code',
-                      textController: referralCodeController,
-                      hintText: 'Enter referral code (optional)',
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_30),
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            },
+                const SizedBox(height: AppSizes.vertical_10),
+                // SizedBox(
+                //   width: double.maxFinite,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       SizedBox(
+                //         width: AppSizes.screenWidth(context) * 0.45,
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             LabeledDropdownSelector(
+                //               label: 'State',
+                //               value: stateController.text,
+                //               items: ServiceRegistry
+                //                   .userRepository.availableStates
+                //                   .map((e) => e.state)
+                //                   .toList(),
+                //               onChanged: (value) {
+                //                 log('[STATE] : $value');
+
+                //                 setState(() {
+                //                   stateController.text = value!;
+                //                 });
+                //               },
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: AppSizes.screenWidth(context) * 0.45,
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             LabeledDropdownSelector(
+                //               label: 'City',
+                //               value: cityController.text,
+                //               items: stateController.text.isEmpty
+                //                   ? []
+                //                   : ServiceRegistry
+                //                           .userRepository.availableStates
+                //                           .firstWhereOrNull((element) =>
+                //                               element.state ==
+                //                               stateController.text)
+                //                           ?.lgas
+                //                           .toList() ??
+                //                       [],
+                //               onChanged: (value) {
+                //                 log('[CITY] : $value');
+
+                //                 setState(() {
+                //                   cityController.text = value!;
+                //                 });
+                //               },
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Visibility(
+                  visible: accountType == 'FARMER',
+                  child: Column(
+                    children: [
+                      const SizedBox(height: AppSizes.vertical_10),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: AppSizes.screenWidth(context) * 0.45,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FormTextField(
+                                    label: 'Farm name',
+                                    hintText: 'Bright Farms',
+                                    textController: businessNameController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: AppSizes.screenWidth(context) * 0.45,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FormTextField(
+                                    label: 'Farm Address',
+                                    textController: businessAddressController,
+                                    hintText:
+                                        '1234 County Road 35, Farmington, MN 55024',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppSizes.vertical_10),
+                FormPhoneField(phoneController: phoneController),
+                const SizedBox(height: AppSizes.vertical_10),
+                FormTextField(
+                  label: 'Referral Code',
+                  textController: referralCodeController,
+                  hintText: 'Enter referral code (optional)',
+                ),
+                const SizedBox(height: AppSizes.horizontal_30),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Container(

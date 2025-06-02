@@ -1,6 +1,3 @@
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -23,10 +20,6 @@ class _$CreateAccountDTO extends CreateAccountDTO {
   final String phone;
   @override
   final String referralCode;
-  @override
-  final String? state;
-  @override
-  final String? city;
 
   factory _$CreateAccountDTO(
           [void Function(CreateAccountDTOBuilder)? updates]) =>
@@ -38,9 +31,7 @@ class _$CreateAccountDTO extends CreateAccountDTO {
       required this.firstName,
       required this.lastName,
       required this.phone,
-      required this.referralCode,
-      this.state,
-      this.city})
+      required this.referralCode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(email, r'CreateAccountDTO', 'email');
     BuiltValueNullFieldError.checkNotNull(
@@ -71,9 +62,7 @@ class _$CreateAccountDTO extends CreateAccountDTO {
         firstName == other.firstName &&
         lastName == other.lastName &&
         phone == other.phone &&
-        referralCode == other.referralCode &&
-        state == other.state &&
-        city == other.city;
+        referralCode == other.referralCode;
   }
 
   @override
@@ -85,8 +74,6 @@ class _$CreateAccountDTO extends CreateAccountDTO {
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, phone.hashCode);
     _$hash = $jc(_$hash, referralCode.hashCode);
-    _$hash = $jc(_$hash, state.hashCode);
-    _$hash = $jc(_$hash, city.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -99,9 +86,7 @@ class _$CreateAccountDTO extends CreateAccountDTO {
           ..add('firstName', firstName)
           ..add('lastName', lastName)
           ..add('phone', phone)
-          ..add('referralCode', referralCode)
-          ..add('state', state)
-          ..add('city', city))
+          ..add('referralCode', referralCode))
         .toString();
   }
 }
@@ -134,14 +119,6 @@ class CreateAccountDTOBuilder
   String? get referralCode => _$this._referralCode;
   set referralCode(String? referralCode) => _$this._referralCode = referralCode;
 
-  String? _state;
-  String? get state => _$this._state;
-  set state(String? state) => _$this._state = state;
-
-  String? _city;
-  String? get city => _$this._city;
-  set city(String? city) => _$this._city = city;
-
   CreateAccountDTOBuilder() {
     CreateAccountDTO._defaults(this);
   }
@@ -155,8 +132,6 @@ class CreateAccountDTOBuilder
       _lastName = $v.lastName;
       _phone = $v.phone;
       _referralCode = $v.referralCode;
-      _state = $v.state;
-      _city = $v.city;
       _$v = null;
     }
     return this;
@@ -190,9 +165,7 @@ class CreateAccountDTOBuilder
             phone: BuiltValueNullFieldError.checkNotNull(
                 phone, r'CreateAccountDTO', 'phone'),
             referralCode: BuiltValueNullFieldError.checkNotNull(
-                referralCode, r'CreateAccountDTO', 'referralCode'),
-            state: state,
-            city: city);
+                referralCode, r'CreateAccountDTO', 'referralCode'));
     replace(_$result);
     return _$result;
   }

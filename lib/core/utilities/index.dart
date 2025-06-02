@@ -4,6 +4,7 @@ import 'package:venille/core/models/health_education_topic_model.dart';
 import 'package:venille/core/models/onboarding_item_model.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/core/models/forum_blog_model.dart';
+import 'package:venille/core/models/profile_menu_item_model.dart';
 
 List<OnboardingItemModel> onboardingItems = [
   OnboardingItemModel(
@@ -20,20 +21,129 @@ List<OnboardingItemModel> onboardingItems = [
   ),
 ];
 
+List<ProfileMenuItemModel> profileMenuItems = [
+  ProfileMenuItemModel(
+    icon: 'assets/icons/icon_user_edit.png',
+    title: 'Profile details',
+    route_to: AppRoutes.accountDetailsRoute,
+  ),
+  ProfileMenuItemModel(
+    icon: 'assets/icons/icon_settings.png',
+    title: 'Settings',
+    route_to: AppRoutes.settingsRoute,
+  ),
+  ProfileMenuItemModel(
+    icon: 'assets/icons/icon_help.png',
+    title: 'Help',
+    route_to: AppRoutes.helpRoute,
+  ),
+  ProfileMenuItemModel(
+    icon: 'assets/icons/icon_legal.png',
+    title: 'Legal',
+    route_to: AppRoutes.legalRoute,
+  ),
+];
+
 List<Map<String, dynamic>> profileAvatars = [
   {
     'type': 'AVATAR',
     'image':
-        'https://medexer.s3.eu-north-1.amazonaws.com/avatars/default_avatar_1.jpg'
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/ff7f96c0-1b71-42c9-819c-486265423ace.jpeg'
   },
   {
     'type': 'AVATAR',
     'image':
-        'https://medexer.s3.eu-north-1.amazonaws.com/avatars/default_avatar_2.jpg'
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/09a2755b-0792-43e6-8c6b-7707a5e885c8.jpeg'
   },
   {
-    'type': 'FILE_UPLOAD',
-    'image': 'assets/images/image_file_upload_banner.png',
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/20521429-e409-4883-98bf-64b012878173.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/1e3aa51f-a548-45f5-9521-ea30cd121c10.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/4ff60d93-7032-4c43-9643-5f991fdf4b05.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/4025a787-2e56-4cf5-9605-981dc4616e1c.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/c5718be9-7ab3-4c12-80de-b8a2066eb110.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/ba4cdce3-817f-496a-b2f8-895c2d3061c1.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/1e0fe772-682e-4212-b3cb-3a9ec94a3fc9.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/5aa626e9-5716-455c-816e-2726f4013c3d.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/fbc5a181-79ce-42d4-8f20-ae12b6d0d6e0.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/2feaebff-d3da-48d4-a83d-97eec58cf36e.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/33ede7db-bbf9-4473-b8a3-ce12f6e4dbfa.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/cf749f34-00eb-4c0f-b681-734e8bb195bc.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/661c5dd9-53d2-4925-8794-0907acb8d69f.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/6bc84896-23dd-4de4-8186-000822464ec6.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/fa9e76bf-5687-4ff9-84df-e1ed958dea9c.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/29070b51-d79e-475a-a805-7ca5821ea010.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/acb4c723-e7df-4d02-a7df-fa0a827958a7.jpeg',
+  },
+  {
+    'type': 'AVATAR',
+    'image':
+        'https://d30n3oi2bakvug.cloudfront.net/versions/original/bb7e12f7-14de-4409-a19c-d877bb90943d.jpeg',
   },
 ];
 
@@ -46,7 +156,7 @@ List<DrawerItem> drawerItems = [
   ),
   DrawerItem(
     icon: 'assets/icons/icon_help_2.png',
-    title: 'Monthly Feedback/Survey',
+    title: 'Monthly Feedback',
     routeTo: AppRoutes.feedbackSurveyRoute,
     iconData: FluentIcons.book_compass_20_regular,
   ),

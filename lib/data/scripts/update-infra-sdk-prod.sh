@@ -18,6 +18,16 @@ echo "...[REBUILDING-ACCOUNT-SDK-SUCCESS]"
 echo " "
 
 
+echo "...[REBUILDING-ENGAGEMENT-SDK-PROCESSING]"
+echo " "
+
+openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/engagement-service-json -g dart-dio -o ../infra_sdk/engagement --enable-post-process-file --additional-properties=pubName=engagement_sdk,pubLibrary=engagement_api.api
+
+echo " "
+echo "...[REBUILDING-ENGAGEMENT-SDK-SUCCESS]"
+echo " "
+
+
 sh update-infra-sdk-files.sh
 
 sh build-infra-sdk.sh

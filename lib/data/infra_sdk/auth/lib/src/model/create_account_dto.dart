@@ -18,8 +18,6 @@ part 'create_account_dto.g.dart';
 /// * [lastName] - Last name of the user.
 /// * [phone] - Phone number of the user.
 /// * [referralCode] - Referral code of the user (Optional).
-/// * [state] - State of the user.
-/// * [city] - City of the user.
 @BuiltValue()
 abstract class CreateAccountDTO implements Built<CreateAccountDTO, CreateAccountDTOBuilder> {
   /// Email address of the user.
@@ -45,14 +43,6 @@ abstract class CreateAccountDTO implements Built<CreateAccountDTO, CreateAccount
   /// Referral code of the user (Optional).
   @BuiltValueField(wireName: r'referralCode')
   String get referralCode;
-
-  /// State of the user.
-  @BuiltValueField(wireName: r'state')
-  String? get state;
-
-  /// City of the user.
-  @BuiltValueField(wireName: r'city')
-  String? get city;
 
   CreateAccountDTO._();
 
@@ -107,20 +97,6 @@ class _$CreateAccountDTOSerializer implements PrimitiveSerializer<CreateAccountD
       object.referralCode,
       specifiedType: const FullType(String),
     );
-    if (object.state != null) {
-      yield r'state';
-      yield serializers.serialize(
-        object.state,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
@@ -185,20 +161,6 @@ class _$CreateAccountDTOSerializer implements PrimitiveSerializer<CreateAccountD
             specifiedType: const FullType(String),
           ) as String;
           result.referralCode = valueDes;
-          break;
-        case r'state':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.state = valueDes;
-          break;
-        case r'city':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.city = valueDes;
           break;
         default:
           unhandled.add(key);

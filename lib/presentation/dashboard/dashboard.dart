@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _DashboardState extends State<Dashboard> {
   void initializeCoreServices() async {
     await Future.delayed(const Duration(seconds: 6));
 
-    // ServiceRegistry.firebaseNotificationService.init(context);
+    ServiceRegistry.firebaseNotificationService.init(context);
   }
 
   @override

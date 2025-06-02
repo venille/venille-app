@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1055625538741",
+    "project_id": "venille-9f340",
+    "storage_bucket": "venille-9f340.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055625538741:android:62c3b76a243107de99e2fc",
+        "android_client_info": {
+          "package_name": "com.venille.venille"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055625538741-uol44ludi8r3qag4qf0gkmqe4s8cfgfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMHVOh0b32-pRqOXbQTKAtdyTsIkFPfE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055625538741-uol44ludi8r3qag4qf0gkmqe4s8cfgfo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1055625538741-m4tee45flk6lld4s2n0ja9tqa4cacaop.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.venille.venille"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

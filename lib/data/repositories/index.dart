@@ -2,10 +2,11 @@
 import 'package:get/get.dart';
 import 'package:venille/core/themes/theme_provider.dart';
 import 'package:venille/data/repositories/user_repository.dart';
-// import 'package:venille/data/services/core/firebase_notification_service.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 import 'package:venille/data/services/account/account_service.dart';
 import 'package:venille/data/services/auth/authentication_service.dart';
+import 'package:venille/data/services/engagement/engagement_service.dart';
+import 'package:venille/data/services/core/firebase_notification_service.dart';
 
 class RootRepository extends GetxController {
   initialize() {
@@ -18,8 +19,8 @@ class RootRepository extends GetxController {
     // PhoneContactsService phone contacts service =
     // Get.put(PhoneContactsService());
 
-    // FirebaseNotificationService firebase notification service =
-    // Get.put(FirebaseNotificationService());
+    FirebaseNotificationService firebaseNotificationService =
+        Get.put(FirebaseNotificationService());
 
     // UserRepository userRepository =
     Get.put(UserRepository());
@@ -28,5 +29,7 @@ class RootRepository extends GetxController {
         Get.put(AuthenticationService());
 
     AccountService accountService = Get.put(AccountService());
+
+    EngagementService engagementService = Get.put(EngagementService());
   }
 }

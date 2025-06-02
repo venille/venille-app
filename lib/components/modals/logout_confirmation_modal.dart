@@ -12,7 +12,7 @@ class LogoutConfirmationModal extends StatelessWidget {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       shadowColor: AppColors.whiteColor,
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       content: Container(
         height: 120,
         width: double.maxFinite,

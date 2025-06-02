@@ -9,17 +9,17 @@ echo " "
 # Default values
 # DEFAULT_STRING="// @dart=3.0"
 DEFAULT_STRING="// @dart=3.5"
-DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib")
-# DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib" "../infra_sdk/marketplace/lib" "../infra_sdk/vendor/lib" "../infra_sdk/communication/lib")
+DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib" "../infra_sdk/engagement/lib")
+# DEFAULT_DIRECTORIES=("../infra_sdk/auth/lib" "../infra_sdk/account/lib" "../infra_sdk/engagement/lib" "../infra_sdk/marketplace/lib" "../infra_sdk/vendor/lib" "../infra_sdk/communication/lib")
 
 DEFAULT_DIO_VERSION="^5.3.3"
 DEFAULT_SDK_VERSION="^3.5.3"
 # DEFAULT_SDK_VERSION=">=3.0.2 <4.0.0"
-PUBSPEC_FILES=("../infra_sdk/auth/pubspec.yaml" "../infra_sdk/account/pubspec.yaml" "../infra_sdk/marketplace/pubspec.yaml" "../infra_sdk/vendor/pubspec.yaml" "../infra_sdk/communication/pubspec.yaml")
+PUBSPEC_FILES=("../infra_sdk/auth/pubspec.yaml" "../infra_sdk/account/pubspec.yaml" "../infra_sdk/engagement/pubspec.yaml")
 
 # Names to be updated in pubspec.yaml
-NAMES=("auth" "account")
-# NAMES=("auth" "account" "marketplace" "vendor" "communication")
+NAMES=("auth" "account" "engagement")
+# NAMES=("auth" "account" "engagement")
 
 # Use provided argument or fall back to default string
 STRING_TO_ADD=${1:-$DEFAULT_STRING}

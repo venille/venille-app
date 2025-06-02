@@ -9,7 +9,9 @@ import 'package:venille/data/repositories/common_repository.dart';
 import 'package:venille/data/services/account/account_service.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/data/services/auth/authentication_service.dart';
-// import 'package:venille/data/services/core/firebase_notification_service.dart';
+import 'package:venille/data/services/engagement/engagement_service.dart';
+import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
+import 'package:venille/data/services/core/firebase_notification_service.dart';
 
 class ServiceRegistry {
   static Dio dioBaseOptions = Dio(BaseOptions(
@@ -24,9 +26,10 @@ class ServiceRegistry {
   static GoogleSignIn googleSignIn = GoogleSignIn();
   static UserRepository userRepository = Get.find<UserRepository>();
   static AccountService accountService = Get.find<AccountService>();
+  static EngagementService engagementService = Get.find<EngagementService>();
   static CommonRepository commonRepository = Get.find<CommonRepository>();
-  // static FirebaseNotificationService firebaseNotificationService =
-  //     Get.find<FirebaseNotificationService>();
+  static FirebaseNotificationService firebaseNotificationService =
+      Get.find<FirebaseNotificationService>();
   static AuthenticationService authenticationService =
       Get.find<AuthenticationService>();
 
@@ -37,6 +40,12 @@ class ServiceRegistry {
   );
 
   static AccountSdk accountSdk = AccountSdk(
+    dio: dioBaseOptions,
+  basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+  );
+
+  static EngagementSdk engagementSdk = EngagementSdk(
     dio: dioBaseOptions,
     basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     // basePathOverride: dotenv.env['INFRA_PROD_URL']!,

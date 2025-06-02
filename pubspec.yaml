@@ -62,6 +62,8 @@ dependencies:
         path: lib/data/infra_sdk/auth
     account_sdk:
         path: lib/data/infra_sdk/account
+    engagement_sdk:
+        path: lib/data/infra_sdk/engagement
     flutter_markdown: ^0.6.18
 
 dev_dependencies:

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:venille/core/constants/colors.dart';
 
 class CustomBackButton extends StatelessWidget {
+  final Color iconColor;
   final Color? backgroundColor;
   final Function? callBackFunction;
   const CustomBackButton({
     super.key,
     this.backgroundColor,
     this.callBackFunction,
+    this.iconColor = AppColors.blackColor,
   });
 
   @override
@@ -23,14 +25,11 @@ class CustomBackButton extends StatelessWidget {
       },
       child: CircleAvatar(
         radius: 16,
-        backgroundColor: backgroundColor ??
-            AppColors.grayLightColor.withOpacity(
-              0.3,
-            ),
+        backgroundColor: backgroundColor ?? AppColors.whiteColor,
         child: Image.asset(
           'assets/icons/icon_arrow_left.png',
           width: 20,
-          color: AppColors.blackColor,
+          color: iconColor,
         ),
       ),
     );

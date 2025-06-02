@@ -7,8 +7,8 @@ void main() {
   final instance = AuthSdk().getAiApi();
 
   group(AiApi, () {
-    //Future<String> authControllerTestGeminiAI(String query) async
-    test('test authControllerTestGeminiAI', () async {
+    //Future<String> authControllerGenerateVellaAiPrompt(String query) async
+    test('test authControllerGenerateVellaAiPrompt', () async {
       // TODO
     });
 

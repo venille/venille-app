@@ -110,7 +110,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
             const Padding(
               padding: EdgeInsets.only(right: 2),
               child: CircleAvatar(
-                backgroundColor: AppColors.whiteColor,
+                backgroundColor: AppColors.backgroundColor,
                 child: Icon(
                   color: AppColors.primaryColor,
                   FluentIcons.heart_pulse_20_regular,
@@ -266,7 +266,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       key: scaffoldKey,
       drawer: CustomDrawer(scaffoldKey: scaffoldKey),
       appBar: PreferredSize(
@@ -315,7 +315,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
               child: Row(
                 children: [
                   const CircleAvatar(
-                    backgroundColor: AppColors.whiteColor,
+                    backgroundColor: AppColors.backgroundColor,
                     child: Icon(
                       FluentIcons.heart_pulse_20_regular,
                       color: AppColors.primaryColor,
@@ -391,7 +391,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                   Container(
                     margin: const EdgeInsets.only(right: 8.0),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
+                      color: AppColors.blackColor,
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
