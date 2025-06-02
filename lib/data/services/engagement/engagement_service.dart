@@ -195,8 +195,8 @@ class EngagementService extends GetxController {
           final updatedForumPost = ServiceRegistry
               .userRepository.forumPost.value
               .rebuild((forumPostBuilder) {
-            forumPostBuilder.likeCount =
-                (ServiceRegistry.userRepository.forumPost.value.likeCount + 1);
+            forumPostBuilder.likes = ListBuilder(data.likes);
+            forumPostBuilder.likeCount = data.likeCount;
           });
 
           ServiceRegistry.userRepository.forumPost.value = updatedForumPost;

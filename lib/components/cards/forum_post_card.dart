@@ -131,8 +131,7 @@ class ForumPostCard extends StatelessWidget {
                       onTap: () {
                         ServiceRegistry.engagementService
                             .likeUnlikeForumPostService(
-                          forumId: int.parse(ServiceRegistry
-                              .userRepository.forumPost.value.id),
+                          forumId: int.parse(forumPost.id),
                         );
                       },
                       child: Icon(
