@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -6,6 +5,7 @@ import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 
