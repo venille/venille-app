@@ -31,7 +31,7 @@ class AuthRedirectLink extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Don’t have an account? ",
+                    text: 'Don’t have an account? '.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -40,7 +40,7 @@ class AuthRedirectLink extends StatelessWidget {
                         ),
                   ),
                   TextSpan(
-                    text: 'Sign up',
+                    text: 'Sign up'.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -55,7 +55,7 @@ class AuthRedirectLink extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Already have an account? ',
+                    text: 'Already have an account? '.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -64,7 +64,7 @@ class AuthRedirectLink extends StatelessWidget {
                         ),
                   ),
                   TextSpan(
-                    text: 'Sign in',
+                    text: 'Sign in'.tr,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',

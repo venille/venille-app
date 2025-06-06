@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
@@ -31,7 +32,7 @@ class TitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextWidget(
       size: size,
-      text: title,
+      text: title.tr,
       color: color,
       weight: weight,
       maxLines: maxLines,

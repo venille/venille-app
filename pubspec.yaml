@@ -45,7 +45,7 @@ dependencies:
     flutter_upgrade_version: ^1.1.0
     flutter_dotenv: ^5.1.0
     country_picker: ^2.0.17
-    flutter_localization: ^0.2.0
+    flutter_localization: ^0.3.2
     pinput: ^5.0.0
     just_audio: ^0.9.42
     loading_animation_widget: ^1.2.1
@@ -80,6 +80,7 @@ flutter_icons:
 # The following section is specific to Flutter packages.
 flutter:
     uses-material-design: true
+    generate: true
 
     # To add assets to your application, add an assets section, like this:
     assets:

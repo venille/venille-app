@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
 import 'package:venille/core/constants/colors.dart';
 
@@ -51,7 +52,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: () => onTapHandler(),
         child: CustomTextWidget(
-          text: text,
+          text: text.tr,
           color: fontColor,
           size: fontSize,
           weight: fontWeight,

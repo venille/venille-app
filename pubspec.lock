@@ -511,10 +511,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_localization
-      sha256: "972eb337dcc27480e575accf9eadcdd80f52755ba05efcfdb585b869f29ad3d6"
+      sha256: "987faf0a6c13a267202b28d3ed680647e234245ead1a1c1f95f87e86c6f12490"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.3.2"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
