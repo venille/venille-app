@@ -35,6 +35,7 @@ class _DashboardState extends State<Dashboard> {
 
   void initializeAppInfo() {
     Future.wait([
+      ServiceRegistry.accountService.fetchOnboardingQuestionsService(),
       ServiceRegistry.accountService.fetchDetailedUserAccountInfoService(),
     ]);
   }

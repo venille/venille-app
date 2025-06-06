@@ -361,7 +361,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   InkWell(
                     onTap: () {
                       launchExternalBrowserUrl(
-                        'https://livestocx.com/terms-of-service',
+                        'https://venille.com.ng/terms-of-service',
                       );
                     },
                     overlayColor: WidgetStateProperty.all(
@@ -380,7 +380,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   InkWell(
                     onTap: () {
                       launchExternalBrowserUrl(
-                        'https://livestocx.com/privacy-policy',
+                        'https://venille.com.ng/privacy-policy',
                       );
                     },
                     overlayColor: WidgetStateProperty.all(

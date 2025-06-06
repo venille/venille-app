@@ -1,5 +1,3 @@
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -19,6 +17,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(NotificationInfo.serializer)
       ..add(NotificationProductInfo.serializer)
       ..add(NotificationsResponse.serializer)
+      ..add(OnboardingQuestionInfo.serializer)
+      ..add(RegisterPeriodTrackerDTO.serializer)
+      ..add(RegisterPeriodTrackerDTOBirthControlMethodsEnum.serializer)
+      ..add(RegisterPeriodTrackerDTOCycleGoalEnum.serializer)
+      ..add(RegisterPeriodTrackerDTOHealthConditionsEnum.serializer)
+      ..add(RegisterPeriodTrackerDTOPeriodSymptomsEnum.serializer)
       ..add(UpdateAccountEmailDTO.serializer)
       ..add(UpdateAccountLocationDTO.serializer)
       ..add(UpdateAccountNameDTO.serializer)
@@ -29,7 +33,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(VerifyNewAccountEmailDTO.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(NotificationInfo)]),
-          () => new ListBuilder<NotificationInfo>()))
+          () => new ListBuilder<NotificationInfo>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

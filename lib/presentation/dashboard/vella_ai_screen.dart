@@ -272,7 +272,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: TitledAppbar(
-          title: 'Vella AI',
+          title: 'Venille AI',
           scaffoldKey: scaffoldKey,
         ),
       ),
@@ -285,13 +285,13 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.chat_bubble_outline,
+                          FluentIcons.chat_multiple_16_regular,
                           size: 64,
                           color: Colors.grey[400],
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Start a conversation with Vella AI',
+                          'Start a conversation with Venille AI',
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 16,

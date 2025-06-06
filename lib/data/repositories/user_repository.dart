@@ -17,6 +17,7 @@ class UserRepository extends GetxController {
       ..email = ''
       ..state = ''
       ..stateArea = ''
+      ..isOnboardingUploaded = false
       ..accountType = AccountSdk.AccountInfoAccountTypeEnum.individual
       ..status = AccountSdk.AccountInfoStatusEnum.active
       ..profilePhoto =
@@ -79,6 +80,11 @@ class UserRepository extends GetxController {
   final RxList<EngagementSdk.CourseCategoryInfo> _courses =
       <EngagementSdk.CourseCategoryInfo>[].obs;
   RxList<EngagementSdk.CourseCategoryInfo> get courses => _courses;
+
+  final RxList<AccountSdk.OnboardingQuestionInfo> _onboardingQuestions =
+      <AccountSdk.OnboardingQuestionInfo>[].obs;
+  RxList<AccountSdk.OnboardingQuestionInfo> get onboardingQuestions =>
+      _onboardingQuestions;
 
   RxInt notificationsCurrentPage = 1.obs;
   RxBool notificationsHasNextPage = false.obs;

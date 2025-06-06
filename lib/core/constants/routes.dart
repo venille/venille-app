@@ -1,5 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
+import 'package:venille/presentation/dashboard/subscreens/onboarding_questions/onboarding_questions_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
@@ -74,6 +75,11 @@ class AppRoutes {
   ///
   /// Navigates to dashboard screen
   static const String dashboardRoute = '/DASHBOARD_ROUTE';
+
+  /// ONBOARDING_QUESTIONS_ROUTE
+  ///
+  /// Navigates to onboarding questions screen
+  static const String onboardingQuestionsRoute = '/ONBOARDING_QUESTIONS_ROUTE';
 
   /// FORUM_DESCRIPTION_SCREEN_ROUTE
   ///
@@ -215,6 +221,12 @@ class AppRoutes {
     GetPage(
       name: dashboardRoute,
       page: () => const Dashboard(),
+    ),
+
+    // ONBOARDING QUESTIONS
+    GetPage(
+      name: onboardingQuestionsRoute,
+      page: () => const OnboardingQuestionsScreen(),
     ),
 
     // ORDER PAD

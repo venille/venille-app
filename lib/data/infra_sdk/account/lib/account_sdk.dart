@@ -14,6 +14,7 @@ export 'package:account_sdk/src/model/date.dart';
 export 'package:account_sdk/src/api/manage_contact_info_api.dart';
 export 'package:account_sdk/src/api/me_api.dart';
 export 'package:account_sdk/src/api/notifications_api.dart';
+export 'package:account_sdk/src/api/onboarding_api.dart';
 export 'package:account_sdk/src/api/support_api.dart';
 export 'package:account_sdk/src/api/upload_api.dart';
 
@@ -24,6 +25,8 @@ export 'package:account_sdk/src/model/file_upload_result.dart';
 export 'package:account_sdk/src/model/notification_info.dart';
 export 'package:account_sdk/src/model/notification_product_info.dart';
 export 'package:account_sdk/src/model/notifications_response.dart';
+export 'package:account_sdk/src/model/onboarding_question_info.dart';
+export 'package:account_sdk/src/model/register_period_tracker_dto.dart';
 export 'package:account_sdk/src/model/update_account_email_dto.dart';
 export 'package:account_sdk/src/model/update_account_location_dto.dart';
 export 'package:account_sdk/src/model/update_account_name_dto.dart';

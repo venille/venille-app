@@ -76,6 +76,8 @@ Class | Method | HTTP request | Description
 [*MeApi*](doc/MeApi.md) | [**accountControllerUpdateProfileImage**](doc/MeApi.md#accountcontrollerupdateprofileimage) | **PATCH** /v1/account/me/update-profile-image | 
 [*NotificationsApi*](doc/NotificationsApi.md) | [**accountNotificationControllerGetNotifications**](doc/NotificationsApi.md#accountnotificationcontrollergetnotifications) | **GET** /v1/account/notifications | 
 [*NotificationsApi*](doc/NotificationsApi.md) | [**accountNotificationControllerReadNotification**](doc/NotificationsApi.md#accountnotificationcontrollerreadnotification) | **PATCH** /v1/account/notifications/read | 
+[*OnboardingApi*](doc/OnboardingApi.md) | [**onboardingControllerGetOnboardingQuestions**](doc/OnboardingApi.md#onboardingcontrollergetonboardingquestions) | **GET** /v1/account/onboarding/questions | 
+[*OnboardingApi*](doc/OnboardingApi.md) | [**onboardingControllerRegisterPeriodTracker**](doc/OnboardingApi.md#onboardingcontrollerregisterperiodtracker) | **POST** /v1/account/onboarding/period-tracker | 
 [*SupportApi*](doc/SupportApi.md) | [**supportControllerContactUs**](doc/SupportApi.md#supportcontrollercontactus) | **POST** /v1/account/support/contact-us | 
 [*UploadApi*](doc/UploadApi.md) | [**imageUploadControllerUploadFile**](doc/UploadApi.md#imageuploadcontrolleruploadfile) | **POST** /v1/account/upload/file | Upload an file
 [*UploadApi*](doc/UploadApi.md) | [**imageUploadControllerUploadImage**](doc/UploadApi.md#imageuploadcontrolleruploadimage) | **POST** /v1/account/upload/image | Upload an image with optional resizing
@@ -90,6 +92,8 @@ Class | Method | HTTP request | Description
  - [NotificationInfo](doc/NotificationInfo.md)
  - [NotificationProductInfo](doc/NotificationProductInfo.md)
  - [NotificationsResponse](doc/NotificationsResponse.md)
+ - [OnboardingQuestionInfo](doc/OnboardingQuestionInfo.md)
+ - [RegisterPeriodTrackerDTO](doc/RegisterPeriodTrackerDTO.md)
  - [UpdateAccountEmailDTO](doc/UpdateAccountEmailDTO.md)
  - [UpdateAccountLocationDTO](doc/UpdateAccountLocationDTO.md)
  - [UpdateAccountNameDTO](doc/UpdateAccountNameDTO.md)

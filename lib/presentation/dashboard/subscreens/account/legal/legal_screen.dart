@@ -87,13 +87,13 @@ class _LegalScreenState extends State<LegalScreen> {
               title: 'Terms and conditions',
               isIconEnabled: false,
               suffixIcon: 'icon_redirect',
-              routeTo: 'https://livestocx.com/terms-of-service',
+              routeTo: 'https://venille.com.ng/terms-of-service',
             ),
             const RedirectMenuItemCard(
               title: 'Privacy',
               isIconEnabled: false,
               suffixIcon: 'icon_redirect',
-              routeTo: 'https://livestocx.com/privacy-policy',
+              routeTo: 'https://venille.com.ng/privacy-policy',
             ),
             RedirectMenuItemCard(
               title: 'Rate the app',

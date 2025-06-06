@@ -22,6 +22,8 @@ import 'package:account_sdk/src/model/file_upload_result.dart';
 import 'package:account_sdk/src/model/notification_info.dart';
 import 'package:account_sdk/src/model/notification_product_info.dart';
 import 'package:account_sdk/src/model/notifications_response.dart';
+import 'package:account_sdk/src/model/onboarding_question_info.dart';
+import 'package:account_sdk/src/model/register_period_tracker_dto.dart';
 import 'package:account_sdk/src/model/update_account_email_dto.dart';
 import 'package:account_sdk/src/model/update_account_location_dto.dart';
 import 'package:account_sdk/src/model/update_account_name_dto.dart';
@@ -41,6 +43,8 @@ part 'serializers.g.dart';
   NotificationInfo,
   NotificationProductInfo,
   NotificationsResponse,
+  OnboardingQuestionInfo,
+  RegisterPeriodTrackerDTO,
   UpdateAccountEmailDTO,
   UpdateAccountLocationDTO,
   UpdateAccountNameDTO,
@@ -51,6 +55,10 @@ part 'serializers.g.dart';
   VerifyNewAccountEmailDTO,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(OnboardingQuestionInfo)]),
+        () => ListBuilder<OnboardingQuestionInfo>(),
+      )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

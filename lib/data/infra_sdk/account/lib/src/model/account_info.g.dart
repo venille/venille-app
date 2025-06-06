@@ -1,5 +1,9 @@
 // @dart=3.5
 // @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -175,6 +179,8 @@ class _$AccountInfo extends AccountInfo {
   final String fcmToken;
   @override
   final String referralCode;
+  @override
+  final bool isOnboardingUploaded;
 
   factory _$AccountInfo([void Function(AccountInfoBuilder)? updates]) =>
       (new AccountInfoBuilder()..update(updates))._build();
@@ -191,7 +197,8 @@ class _$AccountInfo extends AccountInfo {
       required this.accountType,
       required this.status,
       required this.fcmToken,
-      required this.referralCode})
+      required this.referralCode,
+      required this.isOnboardingUploaded})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'AccountInfo', 'id');
     BuiltValueNullFieldError.checkNotNull(
@@ -210,6 +217,8 @@ class _$AccountInfo extends AccountInfo {
     BuiltValueNullFieldError.checkNotNull(fcmToken, r'AccountInfo', 'fcmToken');
     BuiltValueNullFieldError.checkNotNull(
         referralCode, r'AccountInfo', 'referralCode');
+    BuiltValueNullFieldError.checkNotNull(
+        isOnboardingUploaded, r'AccountInfo', 'isOnboardingUploaded');
   }
 
   @override
@@ -234,7 +243,8 @@ class _$AccountInfo extends AccountInfo {
         accountType == other.accountType &&
         status == other.status &&
         fcmToken == other.fcmToken &&
-        referralCode == other.referralCode;
+        referralCode == other.referralCode &&
+        isOnboardingUploaded == other.isOnboardingUploaded;
   }
 
   @override
@@ -252,6 +262,7 @@ class _$AccountInfo extends AccountInfo {
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, fcmToken.hashCode);
     _$hash = $jc(_$hash, referralCode.hashCode);
+    _$hash = $jc(_$hash, isOnboardingUploaded.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -270,7 +281,8 @@ class _$AccountInfo extends AccountInfo {
           ..add('accountType', accountType)
           ..add('status', status)
           ..add('fcmToken', fcmToken)
-          ..add('referralCode', referralCode))
+          ..add('referralCode', referralCode)
+          ..add('isOnboardingUploaded', isOnboardingUploaded))
         .toString();
   }
 }
@@ -327,6 +339,11 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
   String? get referralCode => _$this._referralCode;
   set referralCode(String? referralCode) => _$this._referralCode = referralCode;
 
+  bool? _isOnboardingUploaded;
+  bool? get isOnboardingUploaded => _$this._isOnboardingUploaded;
+  set isOnboardingUploaded(bool? isOnboardingUploaded) =>
+      _$this._isOnboardingUploaded = isOnboardingUploaded;
+
   AccountInfoBuilder() {
     AccountInfo._defaults(this);
   }
@@ -346,6 +363,7 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
       _status = $v.status;
       _fcmToken = $v.fcmToken;
       _referralCode = $v.referralCode;
+      _isOnboardingUploaded = $v.isOnboardingUploaded;
       _$v = null;
     }
     return this;
@@ -390,7 +408,8 @@ class AccountInfoBuilder implements Builder<AccountInfo, AccountInfoBuilder> {
             fcmToken: BuiltValueNullFieldError.checkNotNull(
                 fcmToken, r'AccountInfo', 'fcmToken'),
             referralCode:
-                BuiltValueNullFieldError.checkNotNull(referralCode, r'AccountInfo', 'referralCode'));
+                BuiltValueNullFieldError.checkNotNull(referralCode, r'AccountInfo', 'referralCode'),
+            isOnboardingUploaded: BuiltValueNullFieldError.checkNotNull(isOnboardingUploaded, r'AccountInfo', 'isOnboardingUploaded'));
     replace(_$result);
     return _$result;
   }

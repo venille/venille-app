@@ -25,6 +25,7 @@ part 'account_info.g.dart';
 /// * [status] 
 /// * [fcmToken] 
 /// * [referralCode] 
+/// * [isOnboardingUploaded] 
 @BuiltValue()
 abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -64,6 +65,9 @@ abstract class AccountInfo implements Built<AccountInfo, AccountInfoBuilder> {
 
   @BuiltValueField(wireName: r'referralCode')
   String get referralCode;
+
+  @BuiltValueField(wireName: r'isOnboardingUploaded')
+  bool get isOnboardingUploaded;
 
   AccountInfo._();
 
@@ -147,6 +151,11 @@ class _$AccountInfoSerializer implements PrimitiveSerializer<AccountInfo> {
     yield serializers.serialize(
       object.referralCode,
       specifiedType: const FullType(String),
+    );
+    yield r'isOnboardingUploaded';
+    yield serializers.serialize(
+      object.isOnboardingUploaded,
+      specifiedType: const FullType(bool),
     );
   }
 
@@ -254,6 +263,13 @@ class _$AccountInfoSerializer implements PrimitiveSerializer<AccountInfo> {
             specifiedType: const FullType(String),
           ) as String;
           result.referralCode = valueDes;
+          break;
+        case r'isOnboardingUploaded':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isOnboardingUploaded = valueDes;
           break;
         default:
           unhandled.add(key);

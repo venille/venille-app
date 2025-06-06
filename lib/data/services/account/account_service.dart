@@ -22,6 +22,7 @@ class AccountService extends GetxController {
   RxBool isDeleteUserAccountProcessing = false.obs;
   RxBool isUpdateAccountInfoProcessing = false.obs;
   RxBool isUpdateAccountPasswordProcessing = false.obs;
+  RxBool isSubmitOnboardingQuestionsProcessing = false.obs;
   RxBool isResendUpdateAccountInfoOtpProcessing = false.obs;
 
   //! FETCH ACCOUNT INFO
@@ -63,6 +64,12 @@ class AccountService extends GetxController {
 
           ServiceRegistry.userRepository.accountInfo.value = accountInfo;
 
+          if (ServiceRegistry
+                  .userRepository.accountInfo.value.isOnboardingUploaded ==
+              false) {
+            Get.toNamed(AppRoutes.onboardingQuestionsRoute);
+          }
+
           log("[FETCH-DETAILED-USER-ACCOUNT-INFO-SUCCESS]");
 
           isFetchAccountInfoProcessing.value = false;
@@ -79,6 +86,115 @@ class AccountService extends GetxController {
         }
       } finally {
         isFetchAccountInfoProcessing.value = false;
+      }
+    });
+  }
+
+  //! FETCH ONBOARDING QUESTIONS
+  /// Fetch onboarding questions.
+  ///
+  /// [METHOD] - GET
+  ///
+  /// [ROUTE] - /account/me/onboarding-questions
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> fetchOnboardingQuestionsService() async {
+    return authGuard<void>(() async {
+      try {
+        if (ServiceRegistry.userRepository.onboardingQuestions.isNotEmpty) {
+          return;
+        }
+
+        log("[FETCH-ONBOARDING-QUESTIONS-PENDING]");
+
+        OnboardingApi onboardingApi =
+            ServiceRegistry.accountSdk.getOnboardingApi();
+
+        Dio.Response response =
+            await onboardingApi.onboardingControllerGetOnboardingQuestions(
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200) {
+          // log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
+
+          BuiltList<OnboardingQuestionInfo> onboardingQuestions = response.data;
+
+          ServiceRegistry.userRepository.onboardingQuestions.value =
+              onboardingQuestions.toList();
+
+          log("[FETCH-ONBOARDING-QUESTIONS-SUCCESS]");
+        }
+      } catch (error) {
+        log('[FETCH-ONBOARDING-QUESTIONS-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[FETCH-ONBOARDING-QUESTIONS-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      }
+    });
+  }
+
+  //! SUBMIT ONBOARDING QUESTIONS
+  /// Submit onboarding questions.
+  ///
+  /// [METHOD] - GET
+  ///
+  /// [ROUTE] - /account/me/onboarding-questions/submit
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> submitOnboardingQuestionsService(
+      RegisterPeriodTrackerDTO payload) async {
+    return authGuard<void>(() async {
+      try {
+        log("[SUBMIT-ONBOARDING-QUESTIONS-PENDING]");
+
+        isSubmitOnboardingQuestionsProcessing.value = true;
+
+        OnboardingApi onboardingApi =
+            ServiceRegistry.accountSdk.getOnboardingApi();
+
+        Dio.Response response =
+            await onboardingApi.onboardingControllerRegisterPeriodTracker(
+          registerPeriodTrackerDTO: payload,
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          // log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
+
+          AccountInfo accountInfo = response.data;
+
+          ServiceRegistry.userRepository.accountInfo.value = accountInfo;
+
+          Get.offAllNamed(AppRoutes.dashboardRoute);
+
+          log("[SUBMIT-ONBOARDING-QUESTIONS-SUCCESS]");
+
+          isSubmitOnboardingQuestionsProcessing.value = false;
+        }
+      } catch (error) {
+        isSubmitOnboardingQuestionsProcessing.value = false;
+
+        log('[SUBMIT-ONBOARDING-QUESTIONS-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[SUBMIT-ONBOARDING-QUESTIONS-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      } finally {
+        isSubmitOnboardingQuestionsProcessing.value = false;
       }
     });
   }

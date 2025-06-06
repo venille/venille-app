@@ -13,6 +13,7 @@ import 'package:account_sdk/src/auth/oauth.dart';
 import 'package:account_sdk/src/api/manage_contact_info_api.dart';
 import 'package:account_sdk/src/api/me_api.dart';
 import 'package:account_sdk/src/api/notifications_api.dart';
+import 'package:account_sdk/src/api/onboarding_api.dart';
 import 'package:account_sdk/src/api/support_api.dart';
 import 'package:account_sdk/src/api/upload_api.dart';
 
@@ -86,6 +87,12 @@ class AccountSdk {
   /// by doing that all interceptors will not be executed
   NotificationsApi getNotificationsApi() {
     return NotificationsApi(dio, serializers);
+  }
+
+  /// Get OnboardingApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  OnboardingApi getOnboardingApi() {
+    return OnboardingApi(dio, serializers);
   }
 
   /// Get SupportApi instance, base route and serializer can be overridden by a given but be careful,
