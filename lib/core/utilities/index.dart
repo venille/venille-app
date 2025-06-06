@@ -8,7 +8,7 @@ import 'package:venille/core/models/profile_menu_item_model.dart';
 
 List<OnboardingItemModel> onboardingItems = [
   OnboardingItemModel(
-    title1: 'Track Your Cycle, ',
+    title1: 'Track Your Cycle,',
     title2: 'Own Your Health ',
     title3: '',
     image: 'assets/images/onboarding_1.jpg',

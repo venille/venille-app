@@ -12,7 +12,7 @@ void main() {
       // TODO
     });
 
-    //Future onboardingControllerRegisterPeriodTracker(RegisterPeriodTrackerDTO registerPeriodTrackerDTO) async
+    //Future<AccountInfo> onboardingControllerRegisterPeriodTracker(RegisterPeriodTrackerDTO registerPeriodTrackerDTO) async
     test('test onboardingControllerRegisterPeriodTracker', () async {
       // TODO
     });

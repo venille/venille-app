@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 
 class CustomTextWidget extends StatelessWidget {
@@ -83,7 +84,7 @@ class CustomTextWidget extends StatelessWidget {
     }
 
     return Text(
-      text,
+      text.tr,
       maxLines: maxLines ?? 6,
       overflow: overflow,
       textAlign: alignment ?? TextAlign.left,

@@ -8,7 +8,7 @@ void main() {
 
   group(RegisterPeriodTrackerDTO, () {
     // Date of first period.
-    // DateTime lastPeriodStartDate
+    // String lastPeriodStartDate
     test('to test the property `lastPeriodStartDate`', () async {
       // TODO
     });
@@ -58,24 +58,6 @@ void main() {
     // Health condition.
     // String healthConditions
     test('to test the property `healthConditions`', () async {
-      // TODO
-    });
-
-    // Additional tracking.
-    // String additionalTracking
-    test('to test the property `additionalTracking`', () async {
-      // TODO
-    });
-
-    // Is the user want reminders?
-    // bool wantReminders
-    test('to test the property `wantReminders`', () async {
-      // TODO
-    });
-
-    // Reminder type.
-    // String reminderTypes
-    test('to test the property `reminderTypes`', () async {
       // TODO
     });
 

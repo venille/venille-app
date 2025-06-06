@@ -25,11 +25,5 @@ void main() {
       // TODO
     });
 
-    // The category of the forum
-    // String category
-    test('to test the property `category`', () async {
-      // TODO
-    });
-
   });
 }

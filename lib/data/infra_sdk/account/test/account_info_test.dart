@@ -67,5 +67,10 @@ void main() {
       // TODO
     });
 
+    // bool isOnboardingUploaded
+    test('to test the property `isOnboardingUploaded`', () async {
+      // TODO
+    });
+
   });
 }

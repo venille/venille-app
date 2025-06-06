@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:venille/firebase_options.dart';
+import 'package:venille/utils/translations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,6 +12,7 @@ import 'package:venille/data/repositories/index.dart';
 import 'package:venille/core/themes/theme_provider.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:venille/utils/translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,31 +50,39 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     rootRepository.initialize();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: AppTranslations(),
+      locale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
+      supportedLocales: const [
+        Locale('en'),
+        Locale('fr'),
+        Locale('zh'),
+        // Locale('ha'),
+        // Locale('ig'),
+        // Locale('yo'),
+        Locale('ar'),
+        Locale('es'),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
       title: 'venille',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      supportedLocales: const [
-        Locale('en'),
-      ],
       themeMode: ThemeMode.dark,
       getPages: AppRoutes.routes,
       initialRoute: AppRoutes.rootRoute,
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        CountryLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
     );
   }
 }

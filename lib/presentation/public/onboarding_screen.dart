@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,6 +9,9 @@ import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_button.dart';
+
+import 'package:venille/main.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 
 GetStorage localStorage = GetStorage();
 
@@ -116,6 +120,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           'assets/icons/icon_venille_clif.png',
                           width: 60,
                         ),
+                        Builder(
+                          builder: (context) {
+                            return const LanguageSelectorDropdown();
+                          },
+                        ),
+                        // const LanguageSelectorDropdown(),
                         Visibility(
                           visible: index == 0,
                           child: CustomButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/form_label_text.dart';
@@ -26,11 +27,11 @@ class FormPasswordField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FormLabelText(
-            text: label,
+            text: label.tr,
           ),
           const SizedBox(height: AppSizes.vertical_3),
           CustomFormPasswordField(
-            hintText: hintText,
+            hintText: hintText.tr,
             borderRadius: 8,
             controller: passwordController,
             height: 48,

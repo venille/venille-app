@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/form_label_text.dart';
@@ -31,7 +33,7 @@ class FormTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FormLabelText(
-            text: label,
+            text: label.tr,
             size: labelSize,
           ),
           const SizedBox(height: AppSizes.vertical_3),

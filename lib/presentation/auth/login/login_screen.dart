@@ -110,12 +110,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Text(
+                    //     'Current Language: ${Get.locale?.languageCode.toUpperCase()}'),
                     const SizedBox(height: AppSizes.vertical_30),
                     const VenilleIconBadge(size: 60),
                     const SizedBox(height: AppSizes.vertical_15),
                     const TitleText(
                       size: 20,
-                      title: "Welcome back",
+                      title: "welcome",
                     ),
                     const AuthRedirectLink(),
                     const SizedBox(height: AppSizes.vertical_10),
@@ -144,11 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             Colors.transparent,
                           ),
                           child: BodyText(
-                            text: 'Forgot password?',
+                            text: 'Forgot password?'.tr,
                           ),
                         ),
                       ],
                     ),
+                    const SizedBox(height: AppSizes.horizontal_10),
                     const SizedBox(height: AppSizes.horizontal_10),
                     ServiceRegistry
                             .authenticationService.isSignInProcessing.isTrue
