@@ -69,8 +69,6 @@ class AppTranslations extends Translations {
       'First name is required': 'First name is required',
       'Last name is required': 'Last name is required',
       'Invalid OTP': 'Invalid OTP',
-
-      //   NEWLY CREATED
       'Requested user does not exist': 'Requested user does not exist',
       'Apple sign in failed. Please try again.':
           'Apple sign in failed. Please try again.',
