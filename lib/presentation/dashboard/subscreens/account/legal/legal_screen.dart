@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/title_text.dart';
@@ -96,7 +97,7 @@ class _LegalScreenState extends State<LegalScreen> {
               routeTo: 'https://venille.com.ng/privacy-policy',
             ),
             RedirectMenuItemCard(
-              title: 'Rate the app',
+              title: 'Rate the app'.tr,
               isIconEnabled: false,
               suffixIcon: 'icon_redirect',
               routeTo: Platform.isIOS

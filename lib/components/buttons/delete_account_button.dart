@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/routes.dart';
@@ -38,7 +39,7 @@ class DeleteAccountButton extends StatelessWidget {
                 ),
                 const SizedBox(width: AppSizes.horizontal_10),
                 SubtitleText(
-                  text: 'Delete my account',
+                  text: 'Delete my account'.tr,
                   weight: FontWeight.w500,
                   color: AppColors.redColor,
                 ),

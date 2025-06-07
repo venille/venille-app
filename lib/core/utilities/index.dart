@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/models/drawer_item_model.dart';
 import 'package:venille/core/models/health_education_topic_model.dart';
@@ -5,6 +6,7 @@ import 'package:venille/core/models/onboarding_item_model.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/core/models/forum_blog_model.dart';
 import 'package:venille/core/models/profile_menu_item_model.dart';
+import 'package:venille/presentation/public/onboarding_screen.dart';
 
 List<OnboardingItemModel> onboardingItems = [
   OnboardingItemModel(
@@ -29,17 +31,17 @@ List<ProfileMenuItemModel> profileMenuItems = [
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_settings.png',
-    title: 'Settings',
+    title: 'Settings'.tr,
     route_to: AppRoutes.settingsRoute,
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_help.png',
-    title: 'Help',
+    title: 'Help'.tr,
     route_to: AppRoutes.helpRoute,
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_legal.png',
-    title: 'Legal',
+    title: 'Legal'.tr,
     route_to: AppRoutes.legalRoute,
   ),
 ];
@@ -149,7 +151,7 @@ List<Map<String, dynamic>> profileAvatars = [
 
 List<DrawerItem> drawerItems = [
   DrawerItem(
-    title: 'Order Sanitary Pads',
+    title: 'Order Sanitary Pads'.tr,
     routeTo: AppRoutes.orderPadRoute,
     icon: 'assets/icons/icon_star.png',
     iconData: FluentIcons.box_arrow_up_20_regular,
@@ -178,18 +180,14 @@ The cycle begins on the first day of menstruation (bleeding) and ends on the day
 Menstrual Phase (Day 1–5):
  This is when the uterus sheds its lining if pregnancy has not occurred. Bleeding happens during this time and may last 3 to 7 days. It is normal to experience cramps, fatigue, and mood changes.
 
-
 Follicular Phase (Day 1–13):
  Overlaps with menstruation. The brain signals the ovaries to produce follicles. One dominant follicle matures into an egg. At the same time, the uterus starts rebuilding its lining for a possible pregnancy.
-
 
 Ovulation Phase (Day 14):
  Around the middle of the cycle, the mature egg is released from the ovary. This is the most fertile window of the month. Some people may notice clear, stretchy discharge or mild pain in one side of the lower belly.
 
-
 Luteal Phase (Day 15–28):
  After ovulation, the body produces progesterone to support a potential pregnancy. If the egg is not fertilized, hormone levels drop, triggering menstruation, and the cycle begins again.
-
 
 Understanding the menstrual cycle can help with:
 - Tracking ovulation and fertility
@@ -205,17 +203,13 @@ Dysmenorrhea:
 
 - Secondary dysmenorrhea (due to conditions like endometriosis or fibroids)
 
-
 Amenorrhea:
  The absence of menstruation.
 
-
 Primary amenorrhea: No period by age 15
-
 
 Secondary amenorrhea: Stopping periods for 3+ months after normal cycles
  Causes can include stress, low body weight, PCOS, or thyroid disorders.
-
 
 Menorrhagia:
  Unusually heavy or prolonged periods. Signs include bleeding through pads or tampons every hour, passing large clots, or bleeding lasting more than 7 days.
@@ -230,7 +224,7 @@ Premenstrual Syndrome (PMS):
 - Food cravings
 
 Important:
- If symptoms are severe, irregular, or disrupt daily life, see a healthcare provider. Early treatment can improve quality of life and detect any underlying conditions.    
+ If symptoms are severe, irregular, or disrupt daily life, see a healthcare provider. Early treatment can improve quality of life and detect any underlying conditions.
     ''',
   ),
   HealthEducationTopicModel(

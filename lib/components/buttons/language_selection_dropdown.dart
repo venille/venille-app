@@ -29,7 +29,7 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
     // Language(name: 'Hausa', locale: const Locale('ha'), flag: '🇳🇬'),
     // Language(name: 'Yoruba', locale: const Locale('yo'), flag: '🇳🇬'),
     Language(name: 'Spanish', locale: const Locale('es'), flag: '🇪🇸'),
-    Language(name: 'Arabic', locale: const Locale('ar'), flag: '🇸🇦'),
+    // Language(name: 'Arabic', locale: const Locale('ar'), flag: '🇸🇦'),
     // Language(name: 'Spanish', locale: const Locale('es'), flag: '🌍'),
   ];
 

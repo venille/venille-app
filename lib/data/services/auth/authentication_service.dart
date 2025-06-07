@@ -155,7 +155,7 @@ class AuthenticationService extends GetxController {
 
         if (dioError.response?.data['message'] != null) {
           if (dioError.response?.data['message']
-              .contains('Requested user does not exist')) {
+              .contains('Requested user does not exist'.tr)) {
             Get.toNamed(AppRoutes.signUpRoute, parameters: {
               "email": formData.email,
             });

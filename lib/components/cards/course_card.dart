@@ -67,7 +67,7 @@ class CourseCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'Tap to learn more',
+                'Tap to learn more'.tr,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.8),
                   fontSize: 12,

@@ -43,7 +43,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
         title: 'Message',
-        message: 'Password is required!',
+        message: 'Password is required',
       );
     } else {
       showDialog(
@@ -101,7 +101,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               SubtitleText(
                 color: AppColors.textTertiaryColor,
                 text:
-                    'Enter your current password to delete your account and data.',
+                    'Enter your current password to delete your account and data.'.tr,
               ),
               const SizedBox(height: AppSizes.vertical_50),
               FormPasswordField(

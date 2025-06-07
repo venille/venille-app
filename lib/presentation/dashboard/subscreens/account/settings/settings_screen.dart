@@ -71,8 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       customSuccessMessageSnackbar(
         title: 'Notifications',
         message: value
-            ? 'Push notifications enabled'
-            : 'Push notifications disabled',
+            ? 'Push notifications enabled'.tr
+            : 'Push notifications disabled'.tr,
       );
     } catch (e) {
       setState(() {
@@ -169,7 +169,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Settings',
+          title: 'Settings'.tr,
           onTap: () => Get.back(),
         ),
       ),

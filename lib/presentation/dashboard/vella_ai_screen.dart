@@ -291,7 +291,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Start a conversation with Venille AI',
+                          'Start a conversation with Venille AI'.tr,
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 16,
@@ -376,7 +376,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                       child: TextField(
                         controller: _messageController,
                         decoration: InputDecoration(
-                          hintText: 'Type your message...',
+                          hintText: 'Type your message...'.tr,
                           hintStyle: TextStyle(color: Colors.grey[500]),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
