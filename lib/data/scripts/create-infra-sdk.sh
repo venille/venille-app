@@ -19,7 +19,7 @@ mkdir ../infra_sdk
 
 cd ../infra_sdk 
 
-mkdir auth account engagement
+mkdir auth account engagement period-tracker
 
 # cd ../
 
@@ -55,6 +55,16 @@ openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/engagem
 
 echo " "
 echo "...[GENERATE-ENGAGEMENT-SDK-SUCCESS]"
+echo " "
+
+
+echo " "
+echo "...[GENERATE-PERIOD-TRACKER-SDK-PROCESSING]"
+echo " "
+openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/period-tracker-service-json -g dart-dio -o ../infra_sdk/period-tracker --enable-post-process-file --additional-properties=pubName=period_tracker_sdk,pubLibrary=period_tracker_api.api
+
+echo " "
+echo "...[GENERATE-PERIOD-TRACKER-SDK-SUCCESS]"
 echo " "
 
 

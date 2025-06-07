@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
 [*MyForumApi*](doc/MyForumApi.md) | [**forumControllerCreateForum**](doc/MyForumApi.md#forumcontrollercreateforum) | **POST** /v1/engagement/forum/create | 
 [*MyForumApi*](doc/MyForumApi.md) | [**forumControllerDeleteForum**](doc/MyForumApi.md#forumcontrollerdeleteforum) | **DELETE** /v1/engagement/forum/delete | 
 [*MyForumApi*](doc/MyForumApi.md) | [**forumControllerFetchUserForumFeed**](doc/MyForumApi.md#forumcontrollerfetchuserforumfeed) | **GET** /v1/engagement/forum/feed-me | 
+[*TranslationApi*](doc/TranslationApi.md) | [**translationControllerTranslateText**](doc/TranslationApi.md#translationcontrollertranslatetext) | **POST** /v1/engagement/translation/translate | 
 
 
 ## Documentation For Models
@@ -87,6 +88,7 @@ Class | Method | HTTP request | Description
  - [ForumCommentsResponse](doc/ForumCommentsResponse.md)
  - [ForumFeedResponse](doc/ForumFeedResponse.md)
  - [ForumInfo](doc/ForumInfo.md)
+ - [TranslateTextInfo](doc/TranslateTextInfo.md)
 
 
 ## Documentation For Authorization

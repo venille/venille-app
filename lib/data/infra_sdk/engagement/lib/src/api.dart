@@ -13,6 +13,7 @@ import 'package:engagement_sdk/src/auth/oauth.dart';
 import 'package:engagement_sdk/src/api/course_api.dart';
 import 'package:engagement_sdk/src/api/forum_api.dart';
 import 'package:engagement_sdk/src/api/my_forum_api.dart';
+import 'package:engagement_sdk/src/api/translation_api.dart';
 
 class EngagementSdk {
   static const String basePath = r'https://venille-api.livestocx.xyz';
@@ -84,5 +85,11 @@ class EngagementSdk {
   /// by doing that all interceptors will not be executed
   MyForumApi getMyForumApi() {
     return MyForumApi(dio, serializers);
+  }
+
+  /// Get TranslationApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TranslationApi getTranslationApi() {
+    return TranslationApi(dio, serializers);
   }
 }

@@ -164,6 +164,21 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                           text: ServiceRegistry
                               .userRepository.forumPost.value.description,
                         ),
+
+                        //TODO: Add a button to translate the post description
+                        InkWell(
+                          onTap: () {
+                            // ServiceRegistry.engagementService
+                            //     .translateForumPostDescriptionService(
+                            //   text: forumPost.description,
+                            //   postId: forumPost.id,
+                            //   sourceLanguage: ,
+                            //   targetLanguage: ,
+                            // );
+                          },
+                          child: SubtitleText(text: 'Show translation'),
+                        ),
+                        
                         if (ServiceRegistry
                             .userRepository.forumPost.value.image.isNotEmpty)
                           Padding(

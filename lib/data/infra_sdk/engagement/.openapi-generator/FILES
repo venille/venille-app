@@ -13,11 +13,14 @@ doc/ForumCommentsResponse.md
 doc/ForumFeedResponse.md
 doc/ForumInfo.md
 doc/MyForumApi.md
+doc/TranslateTextInfo.md
+doc/TranslationApi.md
 lib/engagement_sdk.dart
 lib/src/api.dart
 lib/src/api/course_api.dart
 lib/src/api/forum_api.dart
 lib/src/api/my_forum_api.dart
+lib/src/api/translation_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
 lib/src/auth/auth.dart
@@ -34,6 +37,7 @@ lib/src/model/forum_comment_info.dart
 lib/src/model/forum_comments_response.dart
 lib/src/model/forum_feed_response.dart
 lib/src/model/forum_info.dart
+lib/src/model/translate_text_info.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/course_api_test.dart
@@ -47,3 +51,5 @@ test/forum_comments_response_test.dart
 test/forum_feed_response_test.dart
 test/forum_info_test.dart
 test/my_forum_api_test.dart
+test/translate_text_info_test.dart
+test/translation_api_test.dart

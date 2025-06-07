@@ -20,6 +20,8 @@ class EngagementService extends GetxController {
   RxBool isDeleteUserForumPostProcessing = false.obs;
   RxBool isDeleteForumCommentProcessing = false.obs;
   RxBool isLikeUnlikeForumPostProcessing = false.obs;
+  RxBool isTranslateCourseDescriptionProcessing = false.obs;
+  RxBool isTranslateForumPostDescriptionProcessing = false.obs;
 
   //! FETCH FORUM POSTS
   /// Fetch forum posts.
@@ -614,6 +616,169 @@ class EngagementService extends GetxController {
         }
       } finally {
         isFetchCoursesProcessing.value = false;
+      }
+    });
+  }
+
+  //! TRANSLATE COURSE DESCRIPTION
+  /// Translate course description.
+  ///
+  /// [METHOD] - POST
+  ///
+  /// [ROUTE] - /course/description/translate
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> translateCourseDescriptionService({
+    required String text,
+    required String courseId,
+    required String sourceLanguage,
+    required String targetLanguage,
+    required String courseCategory,
+  }) async {
+    return authGuard<void>(() async {
+      try {
+        log("[TRANSLATE-COURSE-DESCRIPTION-PENDING]");
+
+        isTranslateCourseDescriptionProcessing.value = true;
+
+        TranslationApi translationApi =
+            ServiceRegistry.engagementSdk.getTranslationApi();
+
+        Dio.Response response =
+            await translationApi.translationControllerTranslateText(
+          text: text,
+          engine: 'aws',
+          sourceLanguage: sourceLanguage,
+          targetLanguage: targetLanguage,
+        );
+
+        if (response.statusCode == 200) {
+          log('[TRANSLATE-COURSE-DESCRIPTION-RESPONSE] :: ${response.data}');
+
+          TranslateTextInfo data = response.data;
+
+          if (data.isTranslated) {
+            final updatedCourses =
+                ServiceRegistry.userRepository.courseCategories.map((course) {
+              if (course.title == courseCategory) {
+                return course.rebuild((courseCategoryBuilder) {
+                  courseCategoryBuilder.courses =
+                      ListBuilder(course.courses.map((course) {
+                    if (course.id == courseId) {
+                      return course.rebuild((courseBuilder) {
+                        courseBuilder.description = data.translatedText;
+                      });
+                    }
+                    return course;
+                  }).toList());
+                });
+              }
+              return course;
+            }).toList();
+
+            ServiceRegistry.userRepository.courseCategories.value =
+                updatedCourses;
+          }
+        } else {
+          customErrorMessageSnackbar(
+            title: 'Message',
+            message: 'Failed to translate course description',
+          );
+        }
+
+        log("[TRANSLATE-COURSE-DESCRIPTION-SUCCESS]");
+
+        isTranslateCourseDescriptionProcessing.value = false;
+      } catch (error) {
+        isTranslateCourseDescriptionProcessing.value = false;
+
+        log('[TRANSLATE-COURSE-DESCRIPTION-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[TRANSLATE-COURSE-DESCRIPTION-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      } finally {
+        isTranslateCourseDescriptionProcessing.value = false;
+      }
+    });
+  }
+
+  //! TRANSLATE FORUM POST DESCRIPTION
+  /// Translate forum post description.
+  ///
+  /// [METHOD] - POST
+  ///
+  /// [ROUTE] - /forum/post/description/translate
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> translateForumPostDescriptionService({
+    required String text,
+    required String postId,
+    required String sourceLanguage,
+    required String targetLanguage,
+  }) async {
+    return authGuard<void>(() async {
+      try {
+        log("[TRANSLATE-FORUM-POST-DESCRIPTION-PENDING]");
+
+        isTranslateForumPostDescriptionProcessing.value = true;
+
+        TranslationApi translationApi =
+            ServiceRegistry.engagementSdk.getTranslationApi();
+
+        Dio.Response response =
+            await translationApi.translationControllerTranslateText(
+          text: text,
+          engine: 'aws',
+          sourceLanguage: sourceLanguage,
+          targetLanguage: targetLanguage,
+        );
+
+        if (response.statusCode == 200) {
+          log('[TRANSLATE-COURSE-DESCRIPTION-RESPONSE] :: ${response.data}');
+
+          TranslateTextInfo data = response.data;
+
+          if (data.isTranslated) {
+            final updatedForumPost = ServiceRegistry
+                .userRepository.forumPost.value
+                .rebuild((forumPostBuilder) {
+              forumPostBuilder.description = data.translatedText;
+            });
+
+            ServiceRegistry.userRepository.forumPost.value = updatedForumPost;
+            ServiceRegistry.userRepository.forumPosts.value =
+                ServiceRegistry.userRepository.forumPosts.map((post) {
+              if (post.id == updatedForumPost.id) {
+                return updatedForumPost;
+              }
+              return post;
+            }).toList();
+          }
+        } else {
+          customErrorMessageSnackbar(
+            title: 'Message',
+            message: 'Failed to translate post description',
+          );
+        }
+
+        log("[TRANSLATE-COURSE-DESCRIPTION-SUCCESS]");
+
+        isTranslateForumPostDescriptionProcessing.value = false;
+      } catch (error) {
+        isTranslateForumPostDescriptionProcessing.value = false;
+
+        log('[TRANSLATE-COURSE-DESCRIPTION-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[TRANSLATE-COURSE-DESCRIPTION-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      } finally {
+        isTranslateForumPostDescriptionProcessing.value = false;
       }
     });
   }

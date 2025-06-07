@@ -44,3 +44,14 @@ echo " "
 echo "...[BUILD-ENGAGEMENT-SDK-CODE-SUCCESS]"
 echo " "
 
+cd ../period-tracker
+
+
+flutter pub get
+flutter pub upgrade
+
+dart run build_runner build --delete-conflicting-outputs
+
+echo " "
+echo "...[BUILD-PERIOD-TRACKER-SDK-CODE-SUCCESS]"
+echo " "

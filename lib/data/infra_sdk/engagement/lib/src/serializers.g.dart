@@ -17,6 +17,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ForumCommentsResponse.serializer)
       ..add(ForumFeedResponse.serializer)
       ..add(ForumInfo.serializer)
+      ..add(TranslateTextInfo.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CourseInfo)]),
           () => new ListBuilder<CourseInfo>())

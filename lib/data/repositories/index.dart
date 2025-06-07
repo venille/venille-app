@@ -7,6 +7,7 @@ import 'package:venille/data/services/account/account_service.dart';
 import 'package:venille/data/services/auth/authentication_service.dart';
 import 'package:venille/data/services/engagement/engagement_service.dart';
 import 'package:venille/data/services/core/firebase_notification_service.dart';
+import 'package:venille/data/services/period-tracker/period_tracker_service.dart';
 
 class RootRepository extends GetxController {
   initialize() {
@@ -31,5 +32,7 @@ class RootRepository extends GetxController {
     AccountService accountService = Get.put(AccountService());
 
     EngagementService engagementService = Get.put(EngagementService());
+
+    PeriodTrackerService periodTrackerService = Get.put(PeriodTrackerService());
   }
 }

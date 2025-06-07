@@ -28,6 +28,16 @@ echo "...[REBUILDING-ENGAGEMENT-SDK-SUCCESS]"
 echo " "
 
 
+echo "...[REBUILDING-PERIOD-TRACKER-SDK-PROCESSING]"
+echo " "
+
+openapi-generator generate -i https://www.venille-api.livestocx.xyz/docs/period-tracker-service-json -g dart-dio -o ../infra_sdk/period-tracker --enable-post-process-file --additional-properties=pubName=period-tracker_sdk,pubLibrary=period-tracker_api.api
+
+echo " "
+echo "...[REBUILDING-PERIOD-TRACKER-SDK-SUCCESS]"
+echo " "
+
+
 sh update-infra-sdk-files.sh
 
 sh build-infra-sdk.sh

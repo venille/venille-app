@@ -64,6 +64,8 @@ dependencies:
         path: lib/data/infra_sdk/account
     engagement_sdk:
         path: lib/data/infra_sdk/engagement
+    period_tracker_sdk:
+        path: lib/data/infra_sdk/period-tracker
     flutter_markdown: ^0.6.18
 
 dev_dependencies:

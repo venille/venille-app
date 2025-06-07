@@ -9,6 +9,7 @@ import 'package:venille/data/repositories/common_repository.dart';
 import 'package:venille/data/services/account/account_service.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/data/services/auth/authentication_service.dart';
+import 'package:venille/data/infra_sdk/period-tracker/lib/src/api.dart';
 import 'package:venille/data/services/engagement/engagement_service.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 import 'package:venille/data/services/core/firebase_notification_service.dart';
@@ -32,6 +33,8 @@ class ServiceRegistry {
       Get.find<FirebaseNotificationService>();
   static AuthenticationService authenticationService =
       Get.find<AuthenticationService>();
+  static AuthenticationService periodTrackerService =
+      Get.find<AuthenticationService>();
 
   static AuthSdk authSdk = AuthSdk(
     dio: dioBaseOptions,
@@ -46,6 +49,12 @@ class ServiceRegistry {
   );
 
   static EngagementSdk engagementSdk = EngagementSdk(
+    dio: dioBaseOptions,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+  );
+
+  static PeriodTrackerSdk periodTrackerSdk = PeriodTrackerSdk(
     dio: dioBaseOptions,
     basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
