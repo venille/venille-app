@@ -97,8 +97,6 @@ class AppTranslations extends Translations {
       'Start a conversation with Venille AI':
           'Start a conversation with Venille AI',
       'Type your message...': 'Type your message...',
-
-//   NEW CREATED
       'Delete my account': 'Delete my account',
       'Delete account': 'Delete account',
       'Enter your current password to delete your account and data.':
@@ -112,8 +110,6 @@ class AppTranslations extends Translations {
       'Push notifications disabled': 'Push notifications disabled',
       'Failed to update notification settings. Please try again.':
           'Failed to update notification settings. Please try again.',
-
-      //NEW UPDATE
       'Rate the app': 'Rate the app',
       'No Forum Posts': 'No Forum Posts',
       'COURSES': 'COURSES',
@@ -121,6 +117,11 @@ class AppTranslations extends Translations {
       'No results': 'No results',
       'You will see your forum posts here once you create one.':
           'You will see your forum posts here once you create one.',
+     
+      'Failed to translate post description':
+          'Failed to translate post description',
+ //NEWLY CREATED....
+          'Learn':'Learn'
     },
     'ha': {
       "hello": "Sannu",
@@ -466,6 +467,8 @@ class AppTranslations extends Translations {
       'No results': 'Aucun résultat',
       'You will see your forum posts here once you create one.':
           'Vous verrez vos messages sur le forum ici une fois que vous en aurez créé un.',
+      'Failed to translate post description':
+          'Échec de la traduction de la description du message',
     },
     'zh': {
       'hello': '你好',
@@ -571,6 +574,7 @@ class AppTranslations extends Translations {
       'No results': '没有结果',
       'You will see your forum posts here once you create one.':
           '创建帖子后，您将在此处看到您的论坛帖子。',
+      'Failed to translate post description': '翻译帖子描述失败',
     },
     'es': {
       'hello': 'Hola',
@@ -687,6 +691,8 @@ class AppTranslations extends Translations {
       'No results': 'Sin resultados',
       'You will see your forum posts here once you create one.':
           'Verás tus publicaciones en el foro aquí una vez que crees una.',
+      'Failed to translate post description':
+          'Error al traducir la descripción de la publicación',
     },
     // 'ar': {
     //   'hello': 'مرحبًا',
