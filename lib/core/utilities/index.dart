@@ -158,13 +158,19 @@ List<DrawerItem> drawerItems = [
   ),
   DrawerItem(
     icon: 'assets/icons/icon_help_2.png',
-    title: 'Monthly Feedback',
+    title: 'Monthly Feedback'.tr,
     routeTo: AppRoutes.feedbackSurveyRoute,
     iconData: FluentIcons.book_compass_20_regular,
   ),
   DrawerItem(
+    icon: 'assets/icons/icon_help_2.png',
+    title: 'Contact us'.tr,
+    routeTo: AppRoutes.contactUsRoute,
+    iconData: FluentIcons.chat_help_20_regular,
+  ),
+  DrawerItem(
     icon: 'assets/icons/icon_logout.png',
-    title: 'Logout',
+    title: 'Logout'.tr,
     routeTo: '',
   ),
 ];

@@ -1,3 +1,4 @@
+// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -15,6 +16,8 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
   @override
   final BuiltList<String> predictedPeriodDays;
   @override
+  final BuiltList<DailyInsightsSummary> dailyInsights;
+  @override
   final String ovulationDate;
 
   factory _$PeriodTrackerCalendarInfo(
@@ -25,6 +28,7 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
       {required this.currentMonth,
       required this.currentYear,
       required this.predictedPeriodDays,
+      required this.dailyInsights,
       required this.ovulationDate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -33,6 +37,8 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
         currentYear, r'PeriodTrackerCalendarInfo', 'currentYear');
     BuiltValueNullFieldError.checkNotNull(predictedPeriodDays,
         r'PeriodTrackerCalendarInfo', 'predictedPeriodDays');
+    BuiltValueNullFieldError.checkNotNull(
+        dailyInsights, r'PeriodTrackerCalendarInfo', 'dailyInsights');
     BuiltValueNullFieldError.checkNotNull(
         ovulationDate, r'PeriodTrackerCalendarInfo', 'ovulationDate');
   }
@@ -53,6 +59,7 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
         currentMonth == other.currentMonth &&
         currentYear == other.currentYear &&
         predictedPeriodDays == other.predictedPeriodDays &&
+        dailyInsights == other.dailyInsights &&
         ovulationDate == other.ovulationDate;
   }
 
@@ -62,6 +69,7 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
     _$hash = $jc(_$hash, currentMonth.hashCode);
     _$hash = $jc(_$hash, currentYear.hashCode);
     _$hash = $jc(_$hash, predictedPeriodDays.hashCode);
+    _$hash = $jc(_$hash, dailyInsights.hashCode);
     _$hash = $jc(_$hash, ovulationDate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -73,6 +81,7 @@ class _$PeriodTrackerCalendarInfo extends PeriodTrackerCalendarInfo {
           ..add('currentMonth', currentMonth)
           ..add('currentYear', currentYear)
           ..add('predictedPeriodDays', predictedPeriodDays)
+          ..add('dailyInsights', dailyInsights)
           ..add('ovulationDate', ovulationDate))
         .toString();
   }
@@ -97,6 +106,12 @@ class PeriodTrackerCalendarInfoBuilder
   set predictedPeriodDays(ListBuilder<String>? predictedPeriodDays) =>
       _$this._predictedPeriodDays = predictedPeriodDays;
 
+  ListBuilder<DailyInsightsSummary>? _dailyInsights;
+  ListBuilder<DailyInsightsSummary> get dailyInsights =>
+      _$this._dailyInsights ??= new ListBuilder<DailyInsightsSummary>();
+  set dailyInsights(ListBuilder<DailyInsightsSummary>? dailyInsights) =>
+      _$this._dailyInsights = dailyInsights;
+
   String? _ovulationDate;
   String? get ovulationDate => _$this._ovulationDate;
   set ovulationDate(String? ovulationDate) =>
@@ -112,6 +127,7 @@ class PeriodTrackerCalendarInfoBuilder
       _currentMonth = $v.currentMonth;
       _currentYear = $v.currentYear;
       _predictedPeriodDays = $v.predictedPeriodDays.toBuilder();
+      _dailyInsights = $v.dailyInsights.toBuilder();
       _ovulationDate = $v.ovulationDate;
       _$v = null;
     }
@@ -142,6 +158,7 @@ class PeriodTrackerCalendarInfoBuilder
               currentYear: BuiltValueNullFieldError.checkNotNull(
                   currentYear, r'PeriodTrackerCalendarInfo', 'currentYear'),
               predictedPeriodDays: predictedPeriodDays.build(),
+              dailyInsights: dailyInsights.build(),
               ovulationDate: BuiltValueNullFieldError.checkNotNull(
                   ovulationDate,
                   r'PeriodTrackerCalendarInfo',
@@ -151,6 +168,8 @@ class PeriodTrackerCalendarInfoBuilder
       try {
         _$failedField = 'predictedPeriodDays';
         predictedPeriodDays.build();
+        _$failedField = 'dailyInsights';
+        dailyInsights.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PeriodTrackerCalendarInfo', _$failedField, e.toString());

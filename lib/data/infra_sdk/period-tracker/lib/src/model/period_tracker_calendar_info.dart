@@ -5,6 +5,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:period_tracker_sdk/src/model/daily_insights_summary.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -16,6 +17,7 @@ part 'period_tracker_calendar_info.g.dart';
 /// * [currentMonth] 
 /// * [currentYear] 
 /// * [predictedPeriodDays] 
+/// * [dailyInsights] 
 /// * [ovulationDate] 
 @BuiltValue()
 abstract class PeriodTrackerCalendarInfo implements Built<PeriodTrackerCalendarInfo, PeriodTrackerCalendarInfoBuilder> {
@@ -27,6 +29,9 @@ abstract class PeriodTrackerCalendarInfo implements Built<PeriodTrackerCalendarI
 
   @BuiltValueField(wireName: r'predictedPeriodDays')
   BuiltList<String> get predictedPeriodDays;
+
+  @BuiltValueField(wireName: r'dailyInsights')
+  BuiltList<DailyInsightsSummary> get dailyInsights;
 
   @BuiltValueField(wireName: r'ovulationDate')
   String get ovulationDate;
@@ -68,6 +73,11 @@ class _$PeriodTrackerCalendarInfoSerializer implements PrimitiveSerializer<Perio
     yield serializers.serialize(
       object.predictedPeriodDays,
       specifiedType: const FullType(BuiltList, [FullType(String)]),
+    );
+    yield r'dailyInsights';
+    yield serializers.serialize(
+      object.dailyInsights,
+      specifiedType: const FullType(BuiltList, [FullType(DailyInsightsSummary)]),
     );
     yield r'ovulationDate';
     yield serializers.serialize(
@@ -117,6 +127,13 @@ class _$PeriodTrackerCalendarInfoSerializer implements PrimitiveSerializer<Perio
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.predictedPeriodDays.replace(valueDes);
+          break;
+        case r'dailyInsights':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(DailyInsightsSummary)]),
+          ) as BuiltList<DailyInsightsSummary>;
+          result.dailyInsights.replace(valueDes);
           break;
         case r'ovulationDate':
           final valueDes = serializers.deserialize(

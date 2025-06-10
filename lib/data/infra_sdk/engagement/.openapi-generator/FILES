@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 analysis_options.yaml
 doc/CourseApi.md
@@ -40,16 +39,3 @@ lib/src/model/forum_info.dart
 lib/src/model/translate_text_info.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/course_api_test.dart
-test/course_category_info_test.dart
-test/course_info_test.dart
-test/create_forum_comment_dto_test.dart
-test/create_forum_dto_test.dart
-test/forum_api_test.dart
-test/forum_comment_info_test.dart
-test/forum_comments_response_test.dart
-test/forum_feed_response_test.dart
-test/forum_info_test.dart
-test/my_forum_api_test.dart
-test/translate_text_info_test.dart
-test/translation_api_test.dart

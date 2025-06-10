@@ -122,7 +122,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               const SizedBox(height: AppSizes.vertical_20),
               FormTextField(
                 label: 'Subject',
-                hintText: 'Post Product Error',
+                hintText: 'Period Notification Error',
                 textController: subjectController,
               ),
               const SizedBox(height: AppSizes.vertical_15),
@@ -131,7 +131,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 maxLength: 250,
                 showCharacterCount: true,
                 textController: messageController,
-                hintText: 'I am having issues posting my product.',
+                hintText:
+                    'I am having issues receiving notifications about my period.',
               ),
               const SizedBox(height: AppSizes.vertical_25),
               Obx(

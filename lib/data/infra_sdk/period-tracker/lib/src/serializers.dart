@@ -15,6 +15,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:period_tracker_sdk/src/date_serializer.dart';
 import 'package:period_tracker_sdk/src/model/date.dart';
 
+import 'package:period_tracker_sdk/src/model/daily_insights_summary.dart';
 import 'package:period_tracker_sdk/src/model/period_tracker_calendar_info.dart';
 import 'package:period_tracker_sdk/src/model/period_tracker_info.dart';
 import 'package:period_tracker_sdk/src/model/period_tracker_last_period_info.dart';
@@ -24,6 +25,7 @@ import 'package:period_tracker_sdk/src/model/period_tracker_reminder_info.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  DailyInsightsSummary,
   PeriodTrackerCalendarInfo,
   PeriodTrackerInfo,
   PeriodTrackerLastPeriodInfo,

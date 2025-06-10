@@ -13,6 +13,7 @@ import 'package:venille/data/infra_sdk/period-tracker/lib/src/api.dart';
 import 'package:venille/data/services/engagement/engagement_service.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 import 'package:venille/data/services/core/firebase_notification_service.dart';
+import 'package:venille/data/services/period-tracker/period_tracker_service.dart';
 
 class ServiceRegistry {
   static Dio dioBaseOptions = Dio(BaseOptions(
@@ -33,8 +34,8 @@ class ServiceRegistry {
       Get.find<FirebaseNotificationService>();
   static AuthenticationService authenticationService =
       Get.find<AuthenticationService>();
-  static AuthenticationService periodTrackerService =
-      Get.find<AuthenticationService>();
+  static PeriodTrackerService periodTrackerService =
+      Get.find<PeriodTrackerService>();
 
   static AuthSdk authSdk = AuthSdk(
     dio: dioBaseOptions,
