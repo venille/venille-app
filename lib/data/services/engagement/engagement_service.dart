@@ -652,7 +652,7 @@ class EngagementService extends GetxController {
           targetLanguage: targetLanguage,
         );
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           log('[TRANSLATE-COURSE-DESCRIPTION-RESPONSE] :: ${response.data}');
 
           TranslateTextInfo data = response.data;
@@ -665,6 +665,8 @@ class EngagementService extends GetxController {
                   courseCategoryBuilder.courses =
                       ListBuilder(course.courses.map((course) {
                     if (course.id == courseId) {
+
+
                       return course.rebuild((courseBuilder) {
                         courseBuilder.description = data.translatedText;
                       });
@@ -713,12 +715,12 @@ class EngagementService extends GetxController {
   /// [ROUTE] - /forum/post/description/translate
   ///
   /// [IS-AUTHENTICATED]
-  Future<void> translateForumPostDescriptionService({
-    required String text,
-    required String postId,
-    required String sourceLanguage,
-    required String targetLanguage,
-  }) async {
+  Future<void> translateForumPostDescriptionService(
+      {required String text,
+      required String postId,
+      required String sourceLanguage,
+      required String targetLanguage,
+      required Function updateLocalState}) async {
     return authGuard<void>(() async {
       try {
         log("[TRANSLATE-FORUM-POST-DESCRIPTION-PENDING]");
@@ -736,10 +738,12 @@ class EngagementService extends GetxController {
           targetLanguage: targetLanguage,
         );
 
-        if (response.statusCode == 200) {
-          log('[TRANSLATE-COURSE-DESCRIPTION-RESPONSE] :: ${response.data}');
+        if (response.statusCode == 201) {
+          log('[TRANSLATE-FORUM-POST-DESCRIPTION-RESPONSE] :: ${response.data}');
 
           TranslateTextInfo data = response.data;
+
+          log('[UPDATED-DESCRIPTION] :: $data');
 
           if (data.isTranslated) {
             final updatedForumPost = ServiceRegistry
@@ -747,6 +751,8 @@ class EngagementService extends GetxController {
                 .rebuild((forumPostBuilder) {
               forumPostBuilder.description = data.translatedText;
             });
+
+            log('[UPDATED-DESCRIPTION] :: $updatedForumPost');
 
             ServiceRegistry.userRepository.forumPost.value = updatedForumPost;
             ServiceRegistry.userRepository.forumPosts.value =
@@ -756,6 +762,10 @@ class EngagementService extends GetxController {
               }
               return post;
             }).toList();
+
+            updateLocalState();
+
+            log("[TRANSLATE-FORUM-POST-DESCRIPTION-SUCCESS]");
           }
         } else {
           customErrorMessageSnackbar(
@@ -764,18 +774,18 @@ class EngagementService extends GetxController {
           );
         }
 
-        log("[TRANSLATE-COURSE-DESCRIPTION-SUCCESS]");
+        log("[TRANSLATE-FORUM-POST-DESCRIPTION-SUCCESS]");
 
         isTranslateForumPostDescriptionProcessing.value = false;
       } catch (error) {
         isTranslateForumPostDescriptionProcessing.value = false;
 
-        log('[TRANSLATE-COURSE-DESCRIPTION-ERROR-RESPONSE] :: $error');
+        log('[TRANSLATE-FORUM-POST-DESCRIPTION-ERROR-RESPONSE] :: $error');
 
         if (error is Dio.DioException) {
           Dio.DioException dioError = error;
 
-          log('[TRANSLATE-COURSE-DESCRIPTION-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+          log('[TRANSLATE-FORUM-POST-DESCRIPTION-DIO-ERROR-RESPONSE] :: ${dioError.response}');
         }
       } finally {
         isTranslateForumPostDescriptionProcessing.value = false;

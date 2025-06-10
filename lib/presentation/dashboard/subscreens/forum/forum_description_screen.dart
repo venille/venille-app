@@ -27,6 +27,8 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
   final ScrollController scrollController = ScrollController();
   final TextEditingController _commentController = TextEditingController();
 
+  final RxBool showOriginal = false.obs;
+///////////////
   Future<void> fetchForumPostComments() async {
     ServiceRegistry.engagementService.fetchForumCommentsService(
       currentPage: 1,
@@ -151,15 +153,6 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                           ),
                         ),
                         const SizedBox(height: AppSizes.vertical_10),
-                        // Text(
-                        //   ServiceRegistry
-                        //       .userRepository.forumPost.value.title,
-                        //   style: const TextStyle(
-                        //     fontSize: 24,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
-                        // const SizedBox(height: AppSizes.vertical_10),
                         SubtitleText(
                           text: ServiceRegistry
                               .userRepository.forumPost.value.description,
@@ -168,17 +161,34 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                         //TODO: Add a button to translate the post description
                         InkWell(
                           onTap: () {
-                            // ServiceRegistry.engagementService
-                            //     .translateForumPostDescriptionService(
-                            //   text: forumPost.description,
-                            //   postId: forumPost.id,
-                            //   sourceLanguage: ,
-                            //   targetLanguage: ,
-                            // );
+                            ServiceRegistry.engagementService
+                                .translateForumPostDescriptionService(
+                              updateLocalState: () {
+                                showOriginal.value = !showOriginal.value;
+                              },
+                              text: ServiceRegistry
+                                  .userRepository.forumPost.value.description,
+                              postId: ServiceRegistry
+                                  .userRepository.forumPost.value.id,
+                              sourceLanguage: showOriginal.isFalse
+                                  ? 'en'
+                                  : '${Get.locale?.languageCode}',
+                              targetLanguage: showOriginal.isFalse
+                                  ? '${Get.locale?.languageCode}'
+                                  : 'en',
+                            );
                           },
-                          child: SubtitleText(text: 'Show translation'),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppSizes.vertical_5,
+                            ),
+                            child: TitleText(
+                                weight: FontWeight.w500,
+                                title:
+                                    'Show ${showOriginal.isFalse ? "translation" : "original"}'),
+                          ),
                         ),
-                        
+
                         if (ServiceRegistry
                             .userRepository.forumPost.value.image.isNotEmpty)
                           Padding(

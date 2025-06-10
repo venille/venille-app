@@ -104,4 +104,5 @@ class UserRepository extends GetxController {
 
   RxInt coursesCurrentPage = 1.obs;
   RxBool coursesHasNextPage = false.obs;
+  
 }
