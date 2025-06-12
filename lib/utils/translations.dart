@@ -117,11 +117,38 @@ class AppTranslations extends Translations {
       'No results': 'No results',
       'You will see your forum posts here once you create one.':
           'You will see your forum posts here once you create one.',
-     
+
       'Failed to translate post description':
           'Failed to translate post description',
- //NEWLY CREATED....
-          'Learn':'Learn'
+      //NEWLY CREATED....
+      'Learn': 'Learn',
+      'Monthly Survey': 'Monthly Survey',
+      'Your feedback helps us improve menstrual health in your community':
+          'Your feedback helps us improve menstrual health in your community',
+      'Did you have access to a pad this month?':
+          'Did you have access to a pad this month?',
+      'How many days did you manage menstruation safely?':
+          'How many days did you manage menstruation safely?',
+      'Challenges faced?': 'Challenges faced?',
+      'Select all that apply': 'Select all that apply',
+      'Submit Anonymously': 'Submit Anonymously',
+      'Your responses are completely anonymous':
+          'Your responses are completely anonymous',
+      'Yes': 'Yes',
+      'No': 'No',
+      '1-3 days': '1-3 days',
+      '4-5 days': '4-5 days',
+      'More than 5 days': 'More than 5 days',
+      'None': 'None',
+      'Limited access to pads': 'Limited access to pads',
+      'Pain management': 'Pain management',
+      'Lack of private facilities': 'Lack of private facilities',
+      'Cost of menstrual products': 'Cost of menstrual products',
+      'Disposal issues': 'Disposal issues',
+      'Other health concerns': 'Other health concerns',
+      'Please fill in all fields': 'Please fill in all fields',
+      'Survey submitted anonymously. Thank you!':
+          'Survey submitted anonymously. Thank you!',
     },
     'ha': {
       "hello": "Sannu",

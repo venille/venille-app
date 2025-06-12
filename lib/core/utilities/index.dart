@@ -31,17 +31,17 @@ List<ProfileMenuItemModel> profileMenuItems = [
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_settings.png',
-    title: 'Settings'.tr,
+    title: 'Settings',
     route_to: AppRoutes.settingsRoute,
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_help.png',
-    title: 'Help'.tr,
+    title: 'Help',
     route_to: AppRoutes.helpRoute,
   ),
   ProfileMenuItemModel(
     icon: 'assets/icons/icon_legal.png',
-    title: 'Legal'.tr,
+    title: 'Legal',
     route_to: AppRoutes.legalRoute,
   ),
 ];

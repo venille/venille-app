@@ -11,6 +11,8 @@ import 'package:venille/core/models/drawer_item_model.dart';
 import 'package:venille/components/modals/logout_confirmation_modal.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 
+import '../buttons/language_selection_dropdown.dart';
+
 class CustomDrawer extends StatefulWidget {
   final String? title;
   final Widget? headerWidget;
@@ -120,6 +122,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     size: 16,
                                     title: 'My account',
                                   ),
+                                  // Builder(
+                                  //   builder: (context) {
+                                  //     return const LanguageSelectorDropdown();
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ],

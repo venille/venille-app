@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
@@ -36,7 +38,7 @@ class _ReturnToAppbarState extends State<ReturnToAppbar> {
             ),
             TitleText(
               size: 16,
-              title: widget.title,
+              title: widget.title.tr,
             ),
             const SizedBox(width: AppSizes.horizontal_35),
           ],

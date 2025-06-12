@@ -21,20 +21,20 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
   List<String> selectedChallenges = [];
 
   // Options
-  final List<String> yesNoOptions = ['Yes', 'No'];
+  final List<String> yesNoOptions = ['Yes'.tr, 'No'.tr];
   final List<String> daysOptions = [
-    '1-3 days',
-    '4-5 days',
-    'More than 5 days',
-    'None'
+    '1-3 days'.tr,
+    '4-5 days'.tr,
+    'More than 5 days'.tr,
+    'None'.tr
   ];
   final List<String> challenges = [
-    'Limited access to pads',
-    'Pain management',
-    'Lack of private facilities',
-    'Cost of menstrual products',
-    'Disposal issues',
-    'Other health concerns'
+    'Limited access to pads'.tr,
+    'Pain management'.tr,
+    'Lack of private facilities'.tr,
+    'Cost of menstrual products'.tr,
+    'Disposal issues'.tr,
+    'Other health concerns'.tr
   ];
 
   void _submitSurvey() async {
@@ -88,7 +88,7 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Your feedback helps us improve menstrual health in your community',
+              'Your feedback helps us improve menstrual health in your community'.tr,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -98,7 +98,7 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
 
             // Pad Access Question
             Text(
-              'Did you have access to a pad this month?',
+              'Did you have access to a pad this month?'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -128,7 +128,7 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
 
             // Days Managed Question
             Text(
-              'How many days did you manage menstruation safely?',
+              'How many days did you manage menstruation safely?'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -158,14 +158,14 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
 
             // Challenges Question
             Text(
-              'Challenges faced?',
+              'Challenges faced?'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Text(
-              'Select all that apply',
+              'Select all that apply'.tr,
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey[600],
