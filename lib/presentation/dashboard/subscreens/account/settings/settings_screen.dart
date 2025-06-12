@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
+import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/secrets.dart';
@@ -183,14 +184,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: AppSizes.vertical_5),
             Container(
               padding: const EdgeInsets.symmetric(
-                vertical: AppSizes.vertical_14,
+                vertical: AppSizes.vertical_5,
+                horizontal: AppSizes.horizontal_10,
               ),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.transparent,
-                  ),
-                ),
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,6 +202,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     value: _notificationsEnabled,
                     onChanged: _toggleNotifications,
                     activeColor: AppColors.primaryColor,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSizes.vertical_10),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppSizes.vertical_20,
+                horizontal: AppSizes.horizontal_10,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SubtitleText(
+                    text: 'Language',
+                    weight: FontWeight.w400,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.languageSettingsRoute);
+                    },
+                    child: Row(
+                      children: [
+                        SubtitleText(
+                          weight: FontWeight.w400,
+                          text: '${Get.locale?.languageCode}',
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 16,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -151,7 +151,7 @@ List<Map<String, dynamic>> profileAvatars = [
 
 List<DrawerItem> drawerItems = [
   DrawerItem(
-    title: 'Order Sanitary Pads'.tr,
+    title: 'Order Pads'.tr,
     routeTo: AppRoutes.orderPadRoute,
     icon: 'assets/icons/icon_star.png',
     iconData: FluentIcons.box_arrow_up_20_regular,

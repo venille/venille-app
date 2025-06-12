@@ -4,6 +4,11 @@ class LocalStorageSecrets {
   /// TYPE: String
   static const String authenticationMethod = 'SECURE';
 
+  /// LANGUAGE
+  ///
+  /// TYPE: String
+  static const String languageLocale = 'LANGUAGE_LOCALE';
+
   /// ACCESS TOKEN SECRET
   ///
   /// TYPE: String
