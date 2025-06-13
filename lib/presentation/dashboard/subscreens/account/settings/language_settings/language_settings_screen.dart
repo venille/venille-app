@@ -35,7 +35,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             children: [
               const SizedBox(height: AppSizes.vertical_10),
               SubtitleText(
-                text: 'Which language do you want to use?',
+                text: 'Which language do you want to use?'.tr,
                 weight: FontWeight.w400,
               ),
               Container(

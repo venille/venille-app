@@ -223,7 +223,7 @@ class _FeedbackSurveyScreenState extends State<FeedbackSurveyScreen> {
                   ),
             Center(
               child: Text(
-                'Your responses are completely anonymous',
+                'Your responses are completely anonymous'.tr,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[600],

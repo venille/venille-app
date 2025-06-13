@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -39,7 +41,7 @@ class TitledAppbar extends StatelessWidget {
                 ),
                 TitleText(
                   size: 18,
-                  title: title,
+                  title: title.tr,
                 ),
                 const SizedBox(width: AppSizes.horizontal_25),
               ],

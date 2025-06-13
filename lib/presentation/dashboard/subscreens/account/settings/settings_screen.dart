@@ -195,7 +195,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SubtitleText(
-                    text: 'Push notifications',
+                    text: 'Push notifications'.tr,
                     weight: FontWeight.w400,
                   ),
                   Switch(
@@ -220,7 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SubtitleText(
-                    text: 'Language',
+                    text: 'Language'.tr,
                     weight: FontWeight.w400,
                   ),
                   InkWell(
