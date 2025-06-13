@@ -120,7 +120,7 @@ class AppTranslations extends Translations {
 
       'Failed to translate post description':
           'Failed to translate post description',
-      //NEWLY CREATED....
+      //NEWLY CREATED.... YET TO BE TRANSLATED
       'Learn': 'Learn',
       'Monthly Survey': 'Monthly Survey',
       'Your feedback helps us improve menstrual health in your community':
