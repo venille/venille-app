@@ -20,6 +20,8 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
   final BuiltList<PeriodTrackerReminderInfo> reminders;
   @override
   final PeriodTrackerLastPeriodInfo lastPeriod;
+  @override
+  final bool isCurrentMonth;
 
   factory _$PeriodTrackerInfo(
           [void Function(PeriodTrackerInfoBuilder)? updates]) =>
@@ -31,7 +33,8 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
       required this.ovulationCountdown,
       required this.symptomsLoggedToday,
       required this.reminders,
-      required this.lastPeriod})
+      required this.lastPeriod,
+      required this.isCurrentMonth})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(today, r'PeriodTrackerInfo', 'today');
     BuiltValueNullFieldError.checkNotNull(
@@ -44,6 +47,8 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
         reminders, r'PeriodTrackerInfo', 'reminders');
     BuiltValueNullFieldError.checkNotNull(
         lastPeriod, r'PeriodTrackerInfo', 'lastPeriod');
+    BuiltValueNullFieldError.checkNotNull(
+        isCurrentMonth, r'PeriodTrackerInfo', 'isCurrentMonth');
   }
 
   @override
@@ -63,7 +68,8 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
         ovulationCountdown == other.ovulationCountdown &&
         symptomsLoggedToday == other.symptomsLoggedToday &&
         reminders == other.reminders &&
-        lastPeriod == other.lastPeriod;
+        lastPeriod == other.lastPeriod &&
+        isCurrentMonth == other.isCurrentMonth;
   }
 
   @override
@@ -75,6 +81,7 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
     _$hash = $jc(_$hash, symptomsLoggedToday.hashCode);
     _$hash = $jc(_$hash, reminders.hashCode);
     _$hash = $jc(_$hash, lastPeriod.hashCode);
+    _$hash = $jc(_$hash, isCurrentMonth.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -87,7 +94,8 @@ class _$PeriodTrackerInfo extends PeriodTrackerInfo {
           ..add('ovulationCountdown', ovulationCountdown)
           ..add('symptomsLoggedToday', symptomsLoggedToday)
           ..add('reminders', reminders)
-          ..add('lastPeriod', lastPeriod))
+          ..add('lastPeriod', lastPeriod)
+          ..add('isCurrentMonth', isCurrentMonth))
         .toString();
   }
 }
@@ -132,6 +140,11 @@ class PeriodTrackerInfoBuilder
   set lastPeriod(PeriodTrackerLastPeriodInfoBuilder? lastPeriod) =>
       _$this._lastPeriod = lastPeriod;
 
+  bool? _isCurrentMonth;
+  bool? get isCurrentMonth => _$this._isCurrentMonth;
+  set isCurrentMonth(bool? isCurrentMonth) =>
+      _$this._isCurrentMonth = isCurrentMonth;
+
   PeriodTrackerInfoBuilder() {
     PeriodTrackerInfo._defaults(this);
   }
@@ -145,6 +158,7 @@ class PeriodTrackerInfoBuilder
       _symptomsLoggedToday = $v.symptomsLoggedToday.toBuilder();
       _reminders = $v.reminders.toBuilder();
       _lastPeriod = $v.lastPeriod.toBuilder();
+      _isCurrentMonth = $v.isCurrentMonth;
       _$v = null;
     }
     return this;
@@ -175,7 +189,9 @@ class PeriodTrackerInfoBuilder
               ovulationCountdown: ovulationCountdown.build(),
               symptomsLoggedToday: symptomsLoggedToday.build(),
               reminders: reminders.build(),
-              lastPeriod: lastPeriod.build());
+              lastPeriod: lastPeriod.build(),
+              isCurrentMonth: BuiltValueNullFieldError.checkNotNull(
+                  isCurrentMonth, r'PeriodTrackerInfo', 'isCurrentMonth'));
     } catch (_) {
       late String _$failedField;
       try {

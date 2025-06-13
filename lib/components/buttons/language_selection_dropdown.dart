@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/colors.dart';
+import 'package:venille/core/constants/secrets.dart';
+import 'package:venille/core/providers/index.dart';
 
 class Language {
   final String name;
@@ -25,12 +27,7 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
     Language(name: 'English', locale: const Locale('en'), flag: '🇺🇸'),
     Language(name: 'French', locale: const Locale('fr'), flag: '🇫🇷'),
     Language(name: 'Chinese', locale: const Locale('zh'), flag: '🇨🇳'),
-    // Language(name: 'Igbo', locale: const Locale('ig'), flag: '🇳🇬'),
-    // Language(name: 'Hausa', locale: const Locale('ha'), flag: '🇳🇬'),
-    // Language(name: 'Yoruba', locale: const Locale('yo'), flag: '🇳🇬'),
     Language(name: 'Spanish', locale: const Locale('es'), flag: '🇪🇸'),
-    // Language(name: 'Arabic', locale: const Locale('ar'), flag: '🇸🇦'),
-    // Language(name: 'Spanish', locale: const Locale('es'), flag: '🌍'),
   ];
 
   late Language selectedLanguage;
@@ -49,7 +46,13 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
     setState(() {
       selectedLanguage = lang;
     });
+
     Get.updateLocale(lang.locale);
+
+    ServiceRegistry.localStorage.write(
+      LocalStorageSecrets.languageLocale,
+      lang.locale.languageCode,
+    );
   }
 
   @override

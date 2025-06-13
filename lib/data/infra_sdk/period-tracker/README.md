@@ -69,6 +69,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [DailyInsightsSummary](doc/DailyInsightsSummary.md)
  - [PeriodTrackerCalendarInfo](doc/PeriodTrackerCalendarInfo.md)
  - [PeriodTrackerInfo](doc/PeriodTrackerInfo.md)
  - [PeriodTrackerLastPeriodInfo](doc/PeriodTrackerLastPeriodInfo.md)

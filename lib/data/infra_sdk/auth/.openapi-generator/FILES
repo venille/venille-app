@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 analysis_options.yaml
 doc/AddressHelperApi.md
@@ -50,21 +49,3 @@ lib/src/model/signup_response_payload.dart
 lib/src/model/signup_verification_response_payload.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/address_helper_api_test.dart
-test/ai_api_test.dart
-test/auth_api_test.dart
-test/availability_check_info_test.dart
-test/available_state_info_test.dart
-test/complete_signup_verification_dto_test.dart
-test/create_account_dto_test.dart
-test/forgot_password_dto_test.dart
-test/helpers_api_test.dart
-test/o_auth_signin_dto_test.dart
-test/password_api_test.dart
-test/reset_password_dto_test.dart
-test/reset_password_otp_verification_response_payload_test.dart
-test/reset_password_verification_dto_test.dart
-test/signin_dto_test.dart
-test/signin_response_payload_test.dart
-test/signup_response_payload_test.dart
-test/signup_verification_response_payload_test.dart

@@ -6,6 +6,8 @@ import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart'
     as AccountSdk;
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart'
     as EngagementSdk;
+import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dart'
+    as PeriodTrackerSdk;
 
 class UserRepository extends GetxController {
   Rx<AccountSdk.AccountInfo> accountInfo = AccountSdk.AccountInfo(
@@ -71,6 +73,11 @@ class UserRepository extends GetxController {
       <EngagementSdk.ForumCommentInfo>[].obs;
   RxList<EngagementSdk.ForumCommentInfo> get forumPostComments =>
       _forumPostComments;
+
+  final RxList<PeriodTrackerSdk.PeriodTrackerInfo> _periodTrackerHistory =
+      <PeriodTrackerSdk.PeriodTrackerInfo>[].obs;
+  RxList<PeriodTrackerSdk.PeriodTrackerInfo> get periodTrackerHistory =>
+      _periodTrackerHistory;
 
   final RxList<EngagementSdk.CourseCategoryInfo> _courseCategories =
       <EngagementSdk.CourseCategoryInfo>[].obs;

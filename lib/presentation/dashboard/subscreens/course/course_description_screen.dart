@@ -94,9 +94,11 @@ class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
                       vertical: AppSizes.vertical_5,
                     ),
                     child: TitleText(
-                        weight: FontWeight.w500,
-                        title:
-                            'Show ${showOriginal.isFalse ? "translation" : "original"}'),
+                      weight: FontWeight.w500,
+                      title:
+                          'Show ${showOriginal.isFalse ? "translation" : "original"}'
+                              .tr,
+                    ),
                   ),
                 ),
                 Padding(

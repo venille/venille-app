@@ -1,5 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
+import 'package:venille/presentation/dashboard/subscreens/account/settings/language_settings/language_settings_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/contact_us/contact_us_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/onboarding_questions/onboarding_questions_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
@@ -115,6 +117,16 @@ class AppRoutes {
   ///
   /// Navigates to settings screen
   static const String settingsRoute = '/SETTINGS_ROUTE';
+
+  /// LANGUAGE_SETTINGS_ROUTE
+  ///
+  /// Navigates to language settings screen
+  static const String languageSettingsRoute = '/LANGUAGE_SETTINGS_ROUTE';
+
+  /// CONTACT_US_ROUTE
+  ///
+  /// Navigates to contact us screen
+  static const String contactUsRoute = '/CONTACT_US_ROUTE';
 
   /// HELP_SCREEN_ROUTE
   ///
@@ -272,6 +284,18 @@ class AppRoutes {
     GetPage(
       name: settingsRoute,
       page: () => const SettingsScreen(),
+    ),
+
+    // LANGUAGE SETTINGS
+    GetPage(
+      name: languageSettingsRoute,
+      page: () => const LanguageSettingsScreen(),
+    ),
+
+    // CONTACT US
+    GetPage(
+      name: contactUsRoute,
+      page: () => const ContactUsScreen(),
     ),
 
     // HELP

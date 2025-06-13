@@ -1,5 +1,4 @@
 // @dart=3.5
-// @dart=3.5
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -8,74 +7,70 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'contact_us_dto.g.dart';
+part 'daily_insights_summary.g.dart';
 
-/// ContactUsDTO
+/// DailyInsightsSummary
 ///
 /// Properties:
-/// * [name] - The name of the user
-/// * [email] - The email of the user
-/// * [subject] - The subject of the message
-/// * [message] - The message from the user
+/// * [date] 
+/// * [isPredictedPeriodDay] 
+/// * [isPredictedOvulationDay] 
+/// * [todayInsights] 
 @BuiltValue()
-abstract class ContactUsDTO implements Built<ContactUsDTO, ContactUsDTOBuilder> {
-  /// The name of the user
-  @BuiltValueField(wireName: r'name')
-  String get name;
+abstract class DailyInsightsSummary implements Built<DailyInsightsSummary, DailyInsightsSummaryBuilder> {
+  @BuiltValueField(wireName: r'date')
+  DateTime get date;
 
-  /// The email of the user
-  @BuiltValueField(wireName: r'email')
-  String get email;
+  @BuiltValueField(wireName: r'isPredictedPeriodDay')
+  bool get isPredictedPeriodDay;
 
-  /// The subject of the message
-  @BuiltValueField(wireName: r'subject')
-  String get subject;
+  @BuiltValueField(wireName: r'isPredictedOvulationDay')
+  bool get isPredictedOvulationDay;
 
-  /// The message from the user
-  @BuiltValueField(wireName: r'message')
-  String get message;
+  @BuiltValueField(wireName: r'todayInsights')
+  String get todayInsights;
 
-  ContactUsDTO._();
+  DailyInsightsSummary._();
 
-  factory ContactUsDTO([void updates(ContactUsDTOBuilder b)]) = _$ContactUsDTO;
+  factory DailyInsightsSummary([void updates(DailyInsightsSummaryBuilder b)]) = _$DailyInsightsSummary;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ContactUsDTOBuilder b) => b;
+  static void _defaults(DailyInsightsSummaryBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ContactUsDTO> get serializer => _$ContactUsDTOSerializer();
+  static Serializer<DailyInsightsSummary> get serializer => _$DailyInsightsSummarySerializer();
 }
 
-class _$ContactUsDTOSerializer implements PrimitiveSerializer<ContactUsDTO> {
+class _$DailyInsightsSummarySerializer implements PrimitiveSerializer<DailyInsightsSummary> {
   @override
-  final Iterable<Type> types = const [ContactUsDTO, _$ContactUsDTO];
+  final Iterable<Type> types = const [DailyInsightsSummary, _$DailyInsightsSummary];
 
   @override
-  final String wireName = r'ContactUsDTO';
+  final String wireName = r'DailyInsightsSummary';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ContactUsDTO object, {
+    DailyInsightsSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'name';
+    yield r'date';
     yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
+      object.date,
+      specifiedType: const FullType(DateTime),
     );
-    yield r'email';
+    yield r'isPredictedPeriodDay';
     yield serializers.serialize(
-      object.email,
-      specifiedType: const FullType(String),
+      object.isPredictedPeriodDay,
+      specifiedType: const FullType(bool),
     );
-    yield r'subject';
+    yield r'isPredictedOvulationDay';
     yield serializers.serialize(
-      object.subject,
-      specifiedType: const FullType(String),
+      object.isPredictedOvulationDay,
+      specifiedType: const FullType(bool),
     );
-    yield r'message';
+    yield r'todayInsights';
     yield serializers.serialize(
-      object.message,
+      object.todayInsights,
       specifiedType: const FullType(String),
     );
   }
@@ -83,7 +78,7 @@ class _$ContactUsDTOSerializer implements PrimitiveSerializer<ContactUsDTO> {
   @override
   Object serialize(
     Serializers serializers,
-    ContactUsDTO object, {
+    DailyInsightsSummary object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -94,40 +89,40 @@ class _$ContactUsDTOSerializer implements PrimitiveSerializer<ContactUsDTO> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ContactUsDTOBuilder result,
+    required DailyInsightsSummaryBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'name':
+        case r'date':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.name = valueDes;
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.date = valueDes;
           break;
-        case r'email':
+        case r'isPredictedPeriodDay':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.email = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isPredictedPeriodDay = valueDes;
           break;
-        case r'subject':
+        case r'isPredictedOvulationDay':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.subject = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isPredictedOvulationDay = valueDes;
           break;
-        case r'message':
+        case r'todayInsights':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.message = valueDes;
+          result.todayInsights = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -138,12 +133,12 @@ class _$ContactUsDTOSerializer implements PrimitiveSerializer<ContactUsDTO> {
   }
 
   @override
-  ContactUsDTO deserialize(
+  DailyInsightsSummary deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ContactUsDTOBuilder();
+    final result = DailyInsightsSummaryBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

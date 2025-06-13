@@ -8,6 +8,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(DailyInsightsSummary.serializer)
       ..add(PeriodTrackerCalendarInfo.serializer)
       ..add(PeriodTrackerInfo.serializer)
       ..add(PeriodTrackerLastPeriodInfo.serializer)
@@ -19,6 +20,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(DailyInsightsSummary)]),
+          () => new ListBuilder<DailyInsightsSummary>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

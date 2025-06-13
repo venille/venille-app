@@ -20,6 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime selectedDate = DateTime.now();
 
   @override
+  void initState() {
+    super.initState();
+
+    ServiceRegistry.periodTrackerService.fetchPeriodTrackerHistoryService();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final healthInsights = getHealthInsights();
 

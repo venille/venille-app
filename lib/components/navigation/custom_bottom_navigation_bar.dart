@@ -58,12 +58,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         destinations: [
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.home_16_regular,
+              FluentIcons.home_more_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.home_16_regular,
+              FluentIcons.home_more_20_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
@@ -93,16 +93,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               size: 28,
               color: AppColors.buttonPrimaryColor,
             ),
-            label: "Vella",
+            label: "Venille AI",
           ),
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.book_16_regular,
+              FluentIcons.book_template_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.book_16_regular,
+              FluentIcons.book_template_20_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
@@ -110,12 +110,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           ),
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.rss_16_regular,
+              FluentIcons.mail_shield_16_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.rss_16_regular,
+              FluentIcons.mail_shield_16_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),

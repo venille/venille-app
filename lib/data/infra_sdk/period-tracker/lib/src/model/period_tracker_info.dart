@@ -23,6 +23,7 @@ part 'period_tracker_info.g.dart';
 /// * [symptomsLoggedToday] 
 /// * [reminders] 
 /// * [lastPeriod] 
+/// * [isCurrentMonth] 
 @BuiltValue()
 abstract class PeriodTrackerInfo implements Built<PeriodTrackerInfo, PeriodTrackerInfoBuilder> {
   @BuiltValueField(wireName: r'today')
@@ -42,6 +43,9 @@ abstract class PeriodTrackerInfo implements Built<PeriodTrackerInfo, PeriodTrack
 
   @BuiltValueField(wireName: r'lastPeriod')
   PeriodTrackerLastPeriodInfo get lastPeriod;
+
+  @BuiltValueField(wireName: r'isCurrentMonth')
+  bool get isCurrentMonth;
 
   PeriodTrackerInfo._();
 
@@ -95,6 +99,11 @@ class _$PeriodTrackerInfoSerializer implements PrimitiveSerializer<PeriodTracker
     yield serializers.serialize(
       object.lastPeriod,
       specifiedType: const FullType(PeriodTrackerLastPeriodInfo),
+    );
+    yield r'isCurrentMonth';
+    yield serializers.serialize(
+      object.isCurrentMonth,
+      specifiedType: const FullType(bool),
     );
   }
 
@@ -160,6 +169,13 @@ class _$PeriodTrackerInfoSerializer implements PrimitiveSerializer<PeriodTracker
             specifiedType: const FullType(PeriodTrackerLastPeriodInfo),
           ) as PeriodTrackerLastPeriodInfo;
           result.lastPeriod.replace(valueDes);
+          break;
+        case r'isCurrentMonth':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isCurrentMonth = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -25,7 +25,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
         right: AppSizes.horizontal_10,
       ),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.primaryColor.withOpacity(0.05),
         boxShadow: [
           BoxShadow(
             blurRadius: 5,

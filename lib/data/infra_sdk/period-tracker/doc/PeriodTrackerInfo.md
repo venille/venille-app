@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **symptomsLoggedToday** | **BuiltList&lt;String&gt;** |  | 
 **reminders** | [**BuiltList&lt;PeriodTrackerReminderInfo&gt;**](PeriodTrackerReminderInfo.md) |  | 
 **lastPeriod** | [**PeriodTrackerLastPeriodInfo**](PeriodTrackerLastPeriodInfo.md) |  | 
+**isCurrentMonth** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

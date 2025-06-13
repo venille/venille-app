@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/firebase_options.dart';
 import 'package:venille/utils/translations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,16 +58,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: AppTranslations(),
-      locale: const Locale('en'),
+      locale: localStorage.read(LocalStorageSecrets.languageLocale) != null
+          ? Locale(localStorage.read(LocalStorageSecrets.languageLocale))
+          : const Locale('en'),
       fallbackLocale: const Locale('en'),
       supportedLocales: const [
         Locale('en'),
         Locale('fr'),
         Locale('zh'),
-        // Locale('ha'),
-        // Locale('ig'),
-        // Locale('yo'),
-        // Locale('ar'),
         Locale('es'),
       ],
       localizationsDelegates: const [
