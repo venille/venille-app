@@ -14,8 +14,7 @@ void userLogoutHandler({
   String displayMessage = 'Logged out!',
 }) async {
   ServiceRegistry.localStorage.remove(LocalStorageSecrets.accessToken);
-  ServiceRegistry.localStorage
-      .remove(LocalStorageSecrets.authenticationMethod);
+  ServiceRegistry.localStorage.remove(LocalStorageSecrets.authenticationMethod);
   ServiceRegistry.googleSignIn.signOut();
 
   if (hasContext == true) {
@@ -42,6 +41,7 @@ void userLogoutHandler({
       ..email = ''
       ..state = ''
       ..stateArea = ''
+      ..isOnboardingUploaded = false
       ..accountType = AccountSdk.AccountInfoAccountTypeEnum.individual
       ..status = AccountSdk.AccountInfoStatusEnum.active
       ..profilePhoto =

@@ -25,7 +25,7 @@ class CustomBackButton extends StatelessWidget {
       },
       child: CircleAvatar(
         radius: 16,
-        backgroundColor: backgroundColor ?? AppColors.whiteColor,
+        backgroundColor: backgroundColor ?? AppColors.grayLightColor,
         child: Image.asset(
           'assets/icons/icon_arrow_left.png',
           width: 20,

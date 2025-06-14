@@ -74,10 +74,14 @@ Class | Method | HTTP request | Description
 [*MeApi*](doc/MeApi.md) | [**accountControllerUpdateAccountPassword**](doc/MeApi.md#accountcontrollerupdateaccountpassword) | **PATCH** /v1/account/me/update-password | 
 [*MeApi*](doc/MeApi.md) | [**accountControllerUpdateFcmToken**](doc/MeApi.md#accountcontrollerupdatefcmtoken) | **PATCH** /v1/account/me/update-fcm-token | 
 [*MeApi*](doc/MeApi.md) | [**accountControllerUpdateProfileImage**](doc/MeApi.md#accountcontrollerupdateprofileimage) | **PATCH** /v1/account/me/update-profile-image | 
+[*MonthlySurveyApi*](doc/MonthlySurveyApi.md) | [**accountControllerFetchMonthlySurveyHistory**](doc/MonthlySurveyApi.md#accountcontrollerfetchmonthlysurveyhistory) | **GET** /v1/account/me/history | 
+[*MonthlySurveyApi*](doc/MonthlySurveyApi.md) | [**accountControllerRegisterMonthlySurvey**](doc/MonthlySurveyApi.md#accountcontrollerregistermonthlysurvey) | **POST** /v1/account/me/new | 
 [*NotificationsApi*](doc/NotificationsApi.md) | [**accountNotificationControllerGetNotifications**](doc/NotificationsApi.md#accountnotificationcontrollergetnotifications) | **GET** /v1/account/notifications | 
 [*NotificationsApi*](doc/NotificationsApi.md) | [**accountNotificationControllerReadNotification**](doc/NotificationsApi.md#accountnotificationcontrollerreadnotification) | **PATCH** /v1/account/notifications/read | 
 [*OnboardingApi*](doc/OnboardingApi.md) | [**onboardingControllerGetOnboardingQuestions**](doc/OnboardingApi.md#onboardingcontrollergetonboardingquestions) | **GET** /v1/account/onboarding/questions | 
 [*OnboardingApi*](doc/OnboardingApi.md) | [**onboardingControllerRegisterPeriodTracker**](doc/OnboardingApi.md#onboardingcontrollerregisterperiodtracker) | **POST** /v1/account/onboarding/period-tracker | 
+[*OrderApi*](doc/OrderApi.md) | [**orderControllerFetchSanitaryPadOrderHistory**](doc/OrderApi.md#ordercontrollerfetchsanitarypadorderhistory) | **GET** /v1/account/order/sanitary-pad/history | 
+[*OrderApi*](doc/OrderApi.md) | [**orderControllerOrderSanitaryPad**](doc/OrderApi.md#ordercontrollerordersanitarypad) | **POST** /v1/account/order/sanitary-pad/new | 
 [*SupportApi*](doc/SupportApi.md) | [**supportControllerContactUs**](doc/SupportApi.md#supportcontrollercontactus) | **POST** /v1/account/support/contact-us | 
 [*UploadApi*](doc/UploadApi.md) | [**imageUploadControllerUploadFile**](doc/UploadApi.md#imageuploadcontrolleruploadfile) | **POST** /v1/account/upload/file | Upload an file
 [*UploadApi*](doc/UploadApi.md) | [**imageUploadControllerUploadImage**](doc/UploadApi.md#imageuploadcontrolleruploadimage) | **POST** /v1/account/upload/image | Upload an image with optional resizing
@@ -89,10 +93,16 @@ Class | Method | HTTP request | Description
  - [ContactUsDTO](doc/ContactUsDTO.md)
  - [DeleteAccountDTO](doc/DeleteAccountDTO.md)
  - [FileUploadResult](doc/FileUploadResult.md)
+ - [MonthlySurveyHistoryResponse](doc/MonthlySurveyHistoryResponse.md)
+ - [MonthlySurveyInfo](doc/MonthlySurveyInfo.md)
  - [NotificationInfo](doc/NotificationInfo.md)
  - [NotificationProductInfo](doc/NotificationProductInfo.md)
  - [NotificationsResponse](doc/NotificationsResponse.md)
  - [OnboardingQuestionInfo](doc/OnboardingQuestionInfo.md)
+ - [OrderHistoryResponse](doc/OrderHistoryResponse.md)
+ - [OrderInfo](doc/OrderInfo.md)
+ - [OrderSanitaryPadDTO](doc/OrderSanitaryPadDTO.md)
+ - [RegisterMonthlySurveyDTO](doc/RegisterMonthlySurveyDTO.md)
  - [RegisterPeriodTrackerDTO](doc/RegisterPeriodTrackerDTO.md)
  - [UpdateAccountEmailDTO](doc/UpdateAccountEmailDTO.md)
  - [UpdateAccountLocationDTO](doc/UpdateAccountLocationDTO.md)

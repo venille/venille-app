@@ -11,7 +11,7 @@ import 'package:venille/presentation/dashboard/forum_screen.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/presentation/dashboard/tracker_screen.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
-import 'package:venille/presentation/dashboard/vella_ai_screen.dart';
+import 'package:venille/presentation/dashboard/venille_ai_screen.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -28,7 +28,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> screens = [
     const HomeScreen(),
     const TrackerScreen(),
-    const VellaAiScreen(),
+    const VenilleAiScreen(),
     const LearnScreen(),
     const ForumScreen(),
   ];

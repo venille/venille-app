@@ -25,6 +25,9 @@ class GroupedHeaderButtons extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: AppColors.grayLightColor,
+        border: Border.all(
+          color: AppColors.grayLightColor,
+        ),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(

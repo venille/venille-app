@@ -14,10 +14,18 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ContactUsDTO.serializer)
       ..add(DeleteAccountDTO.serializer)
       ..add(FileUploadResult.serializer)
+      ..add(MonthlySurveyHistoryResponse.serializer)
+      ..add(MonthlySurveyInfo.serializer)
       ..add(NotificationInfo.serializer)
       ..add(NotificationProductInfo.serializer)
       ..add(NotificationsResponse.serializer)
       ..add(OnboardingQuestionInfo.serializer)
+      ..add(OrderHistoryResponse.serializer)
+      ..add(OrderInfo.serializer)
+      ..add(OrderInfoDeliveryMethodEnum.serializer)
+      ..add(OrderSanitaryPadDTO.serializer)
+      ..add(RegisterMonthlySurveyDTO.serializer)
+      ..add(RegisterMonthlySurveyDTODaysManagingMenstruationEnum.serializer)
       ..add(RegisterPeriodTrackerDTO.serializer)
       ..add(RegisterPeriodTrackerDTOBirthControlMethodsEnum.serializer)
       ..add(RegisterPeriodTrackerDTOCycleGoalEnum.serializer)
@@ -32,8 +40,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(UpdateProfileImageDTO.serializer)
       ..add(VerifyNewAccountEmailDTO.serializer)
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(MonthlySurveyInfo)]),
+          () => new ListBuilder<MonthlySurveyInfo>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(NotificationInfo)]),
           () => new ListBuilder<NotificationInfo>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(OrderInfo)]),
+          () => new ListBuilder<OrderInfo>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>()))

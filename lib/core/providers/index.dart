@@ -13,6 +13,7 @@ import 'package:venille/data/infra_sdk/period-tracker/lib/src/api.dart';
 import 'package:venille/data/services/engagement/engagement_service.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 import 'package:venille/data/services/core/firebase_notification_service.dart';
+import 'package:venille/data/services/order/order_service.dart';
 import 'package:venille/data/services/period-tracker/period_tracker_service.dart';
 
 class ServiceRegistry {
@@ -34,6 +35,7 @@ class ServiceRegistry {
       Get.find<FirebaseNotificationService>();
   static AuthenticationService authenticationService =
       Get.find<AuthenticationService>();
+  static OrderService orderService = Get.find<OrderService>();
   static PeriodTrackerService periodTrackerService =
       Get.find<PeriodTrackerService>();
 
@@ -45,7 +47,7 @@ class ServiceRegistry {
 
   static AccountSdk accountSdk = AccountSdk(
     dio: dioBaseOptions,
-  basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
   );
 

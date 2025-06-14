@@ -36,7 +36,7 @@ class AppColors {
   // LIGHT THEME
   static const Color primaryColor = Color(0xFF0B0BB4);
   static const Color primaryLightColor = Color.fromARGB(255, 101, 101, 187);
-  static const Color backgroundColor = Color(0xFFf0f0f0);
+  static const Color backgroundColor = Color(0xFFffffff);
   static const Color appBarBackgroundColor = Color(0xFFffffff);
   static const Color buttonPrimaryColor = Color(0xFF0B0BB4);
   static const Color buttonPrimaryDisabledColor =

@@ -21,6 +21,7 @@ class AccountService extends GetxController {
   RxBool isFetchAccountInfoProcessing = false.obs;
   RxBool isDeleteUserAccountProcessing = false.obs;
   RxBool isUpdateAccountInfoProcessing = false.obs;
+  RxBool isRegisterMonthlySurveyProcessing = false.obs;
   RxBool isUpdateAccountPasswordProcessing = false.obs;
   RxBool isSubmitOnboardingQuestionsProcessing = false.obs;
   RxBool isResendUpdateAccountInfoOtpProcessing = false.obs;
@@ -58,7 +59,7 @@ class AccountService extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          // log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
+          log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
 
           AccountInfo accountInfo = response.data;
 
@@ -721,6 +722,134 @@ class AccountService extends GetxController {
         isUpdateAccountInfoProcessing.value = false;
       }
     });
+  }
+
+  //! FETCH SURVEY HISTORY
+  /// Fetch survey history.
+  ///
+  /// [METHOD] - GET
+  ///
+  /// [ROUTE] - /account/me/survey-history
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> fetchSurveyHistoryService({required int currentPage}) async {
+    try {
+      log("[FETCH-SURVEY-HISTORY-PENDING]");
+
+      MonthlySurveyApi monthlySurveyApi =
+          ServiceRegistry.accountSdk.getMonthlySurveyApi();
+
+      Dio.Response response =
+          await monthlySurveyApi.accountControllerFetchMonthlySurveyHistory(
+        page: currentPage,
+        pageSize: 20,
+        headers: {
+          "Authorization": ServiceRegistry.localStorage.read(
+            LocalStorageSecrets.accessToken,
+          ),
+        },
+      );
+
+      if (response.statusCode == 200) {
+        log('[FETCH-SURVEY-HISTORY-RESPONSE] :: ${response.data}');
+
+        MonthlySurveyHistoryResponse monthlySurveyResponse = response.data;
+
+        if (currentPage == 1) {
+          ServiceRegistry.userRepository.surveyHistory.clear();
+          ServiceRegistry.userRepository.surveyHistory.value =
+              monthlySurveyResponse.surveys.toList();
+        } else {
+          ServiceRegistry.userRepository.surveyHistory
+              .addAll(monthlySurveyResponse.surveys.toList());
+        }
+
+        ServiceRegistry.userRepository.surveyHistoryCurrentPage.value =
+            currentPage;
+
+        ServiceRegistry.userRepository.surveyHistoryHasNextPage.value =
+            monthlySurveyResponse.hasNext;
+
+        log("[FETCH-SURVEY-HISTORY-SUCCESS]");
+      }
+    } catch (error) {
+      log('[FETCH-SURVEY-HISTORY-ERROR-RESPONSE] :: $error');
+
+      if (error is Dio.DioException) {
+        Dio.DioException dioError = error;
+
+        log('[FETCH-SURVEY-HISTORY-ERROR-RESPONSE] :: ${dioError.response}');
+      }
+    }
+  }
+
+  //! REGISTER MONTHLY SURVEY
+  /// Register monthly survey.
+  ///
+  /// [METHOD] - POST
+  ///
+  /// [ROUTE] - /account/me/monthly-survey/register
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> registerMonthlySurveyService(
+      {required RegisterMonthlySurveyDTO payload}) async {
+    try {
+      log("[REGISTER-MONTHLY-SURVEY-PENDING]");
+
+      isRegisterMonthlySurveyProcessing.value = true;
+
+      MonthlySurveyApi monthlySurveyApi =
+          ServiceRegistry.accountSdk.getMonthlySurveyApi();
+
+      Dio.Response response =
+          await monthlySurveyApi.accountControllerRegisterMonthlySurvey(
+        registerMonthlySurveyDTO: payload,
+        headers: {
+          "Authorization": ServiceRegistry.localStorage.read(
+            LocalStorageSecrets.accessToken,
+          ),
+        },
+      );
+
+      if (response.statusCode == 201) {
+        log('[REGISTER-MONTHLY-SURVEY-RESPONSE] :: ${response.data}');
+
+        MonthlySurveyInfo monthlySurveyInfo = response.data;
+
+        ServiceRegistry.userRepository.surveyHistory
+            .insert(0, monthlySurveyInfo);
+
+        Get.back();
+
+        customSuccessMessageSnackbar(
+          title: 'Message',
+          message: 'Survey submitted successfully.',
+        );
+
+        isRegisterMonthlySurveyProcessing.value = false;
+
+        log("[REGISTER-MONTHLY-SURVEY-SUCCESS]");
+      }
+    } catch (error) {
+      isRegisterMonthlySurveyProcessing.value = false;
+
+      log('[REGISTER-MONTHLY-SURVEY-ERROR-RESPONSE] :: $error');
+
+      if (error is Dio.DioException) {
+        Dio.DioException dioError = error;
+
+        log('[REGISTER-MONTHLY-SURVEY-ERROR-RESPONSE] :: ${dioError.response}');
+
+        if (dioError.response?.data['message'] != null) {
+          customErrorMessageSnackbar(
+            title: 'Message',
+            message: dioError.response?.data['message'],
+          );
+        }
+      }
+    } finally {
+      isRegisterMonthlySurveyProcessing.value = false;
+    }
   }
 
   //! FETCH NOTIFICATIONS
