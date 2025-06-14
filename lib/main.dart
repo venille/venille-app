@@ -3,16 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:venille/firebase_options.dart';
-import 'package:venille/utils/translations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/data/repositories/index.dart';
 import 'package:venille/core/themes/theme_provider.dart';
+import 'package:venille/core/utilities/translations.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:venille/utils/translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
