@@ -93,6 +93,18 @@ class UserRepository extends GetxController {
   RxList<AccountSdk.OnboardingQuestionInfo> get onboardingQuestions =>
       _onboardingQuestions;
 
+  final RxList<AccountSdk.MonthlySurveyInfo> _surveyHistory =
+      <AccountSdk.MonthlySurveyInfo>[].obs;
+  RxList<AccountSdk.MonthlySurveyInfo> get surveyHistory => _surveyHistory;
+
+  final RxList<AccountSdk.OrderInfo> _ongoingOrders =
+      <AccountSdk.OrderInfo>[].obs;
+  RxList<AccountSdk.OrderInfo> get ongoingOrders => _ongoingOrders;
+
+  final RxList<AccountSdk.OrderInfo> _completedOrders =
+      <AccountSdk.OrderInfo>[].obs;
+  RxList<AccountSdk.OrderInfo> get completedOrders => _completedOrders;
+
   RxInt notificationsCurrentPage = 1.obs;
   RxBool notificationsHasNextPage = false.obs;
 
@@ -104,5 +116,10 @@ class UserRepository extends GetxController {
 
   RxInt coursesCurrentPage = 1.obs;
   RxBool coursesHasNextPage = false.obs;
-  
+
+  RxInt ordersCurrentPage = 1.obs;
+  RxBool ordersHasNextPage = false.obs;
+
+  RxInt surveyHistoryCurrentPage = 1.obs;
+  RxBool surveyHistoryHasNextPage = false.obs;
 }

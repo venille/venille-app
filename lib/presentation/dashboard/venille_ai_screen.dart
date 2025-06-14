@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venille/components/images/cached_network_image_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:venille/components/text/subtitle_text.dart';
 import 'package:venille/components/appbar/titled_appbar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
+import 'package:venille/components/images/cached_network_image_widget.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChatMessage {
   final String text;
@@ -21,19 +23,20 @@ class ChatMessage {
   });
 }
 
-class VellaAiScreen extends StatefulWidget {
-  const VellaAiScreen({super.key});
+class VenilleAiScreen extends StatefulWidget {
+  const VenilleAiScreen({super.key});
 
   @override
-  State<VellaAiScreen> createState() => _VellaAiScreenState();
+  State<VenilleAiScreen> createState() => _VenilleAiScreenState();
 }
 
-class _VellaAiScreenState extends State<VellaAiScreen> {
+class _VenilleAiScreenState extends State<VenilleAiScreen> {
+  bool _isGenerating = false;
+  final List<ChatMessage> _messages = [];
+
+  final ScrollController _scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _messageController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-  final List<ChatMessage> _messages = [];
-  bool _isGenerating = false;
 
   @override
   void dispose() {
@@ -101,20 +104,21 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
 
   Widget _buildMessage(ChatMessage message) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSizes.vertical_8,
+        horizontal: AppSizes.horizontal_10,
+      ),
       child: Row(
         mainAxisAlignment:
             message.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!message.isUser)
-            const Padding(
-              padding: EdgeInsets.only(right: 2),
-              child: CircleAvatar(
-                backgroundColor: AppColors.backgroundColor,
-                child: Icon(
-                  color: AppColors.primaryColor,
-                  FluentIcons.heart_pulse_20_regular,
-                ),
+            CircleAvatar(
+              backgroundColor: AppColors.backgroundColor,
+              child: Image.asset(
+                'assets/icons/icon_brain.png',
+                width: 20,
+                height: 20,
               ),
             ),
           Flexible(
@@ -123,19 +127,24 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                 maxWidth: MediaQuery.of(context).size.width * 0.7,
               ),
               padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 10.0,
+                vertical: AppSizes.vertical_10,
+                horizontal: AppSizes.horizontal_15,
               ),
               decoration: BoxDecoration(
-                color: message.isUser
-                    ? AppColors.primaryColor.withOpacity(0.1)
-                    : Colors.white,
+                color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: message.isUser
-                      ? AppColors.primaryColor.withOpacity(0.2)
-                      : Colors.grey.withOpacity(0.2),
+                      ? AppColors.grayColor.withOpacity(0.3)
+                      : Colors.grey.withOpacity(0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                    color: Colors.black.withOpacity(0.05),
+                  ),
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,7 +218,7 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
-                        a: TextStyle(
+                        a: const TextStyle(
                           color: AppColors.primaryColor,
                           decoration: TextDecoration.underline,
                         ),
@@ -284,18 +293,15 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          FluentIcons.chat_multiple_16_regular,
-                          size: 64,
-                          color: Colors.grey[400],
+                        Image.asset(
+                          'assets/icons/icon_brain.png',
+                          width: 50,
+                          height: 50,
                         ),
                         const SizedBox(height: 16),
-                        Text(
-                          'Start a conversation with Venille AI'.tr,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 16,
-                          ),
+                        SubtitleText(
+                          color: AppColors.grayColor,
+                          text: 'Start a conversation with Venille AI'.tr,
                         ),
                       ],
                     ),
@@ -314,14 +320,15 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: AppColors.backgroundColor,
-                    child: Icon(
-                      FluentIcons.heart_pulse_20_regular,
-                      color: AppColors.primaryColor,
+                    child: Image.asset(
+                      'assets/icons/icon_brain.png',
+                      width: 20,
+                      height: 20,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 4),
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -330,10 +337,10 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.grey.withOpacity(0.2)),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Text('Thinking...'),
-                        const SizedBox(width: 8),
+                        Text('Thinking...'),
+                        SizedBox(width: 8),
                         SizedBox(
                           width: 16,
                           height: 16,
@@ -367,7 +374,9 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                 children: [
                   Expanded(
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.horizontal_10,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(25),
@@ -377,7 +386,10 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                         controller: _messageController,
                         decoration: InputDecoration(
                           hintText: 'Type your message...'.tr,
-                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          hintStyle: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[500],
+                          ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
@@ -389,14 +401,21 @@ class _VellaAiScreenState extends State<VellaAiScreen> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(right: 8.0),
+                    margin: const EdgeInsets.only(
+                      right: AppSizes.horizontal_10,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.blackColor,
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                    child: IconButton(
-                      icon: const Icon(Icons.send, color: Colors.white),
-                      onPressed: () => _handleSubmit(_messageController.text),
+                    child: Center(
+                      child: IconButton(
+                        icon: const Icon(
+                          FluentIcons.send_20_regular,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => _handleSubmit(_messageController.text),
+                      ),
                     ),
                   ),
                 ],

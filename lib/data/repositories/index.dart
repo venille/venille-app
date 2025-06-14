@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 import 'package:get/get.dart';
 import 'package:venille/core/themes/theme_provider.dart';
+import 'package:venille/data/services/order/order_service.dart';
 import 'package:venille/data/repositories/user_repository.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 import 'package:venille/data/services/account/account_service.dart';
@@ -17,8 +18,7 @@ class RootRepository extends GetxController {
     // CommonRepository commonRepository =
     Get.put(CommonRepository());
 
-    // PhoneContactsService phone contacts service =
-    // Get.put(PhoneContactsService());
+    OrderService orderService = Get.put(OrderService());
 
     FirebaseNotificationService firebaseNotificationService =
         Get.put(FirebaseNotificationService());

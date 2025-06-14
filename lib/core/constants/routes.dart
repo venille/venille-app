@@ -1,33 +1,35 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
-import 'package:venille/presentation/dashboard/subscreens/account/settings/language_settings/language_settings_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/contact_us/contact_us_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/onboarding_questions/onboarding_questions_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/survey/survey_history_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_verification_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/orders/orders_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_create_password_screen.dart';
 import 'package:venille/presentation/auth/forgot_password/reset_password_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_screen.dart';
 import 'package:venille/presentation/auth/forgot_password/forgot_password_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/support/support_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/orders/order_pad_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/help/help_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/about_us/about_us_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/legal/legal_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/order_pad/order_pad_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/contact_us/contact_us_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/survey/register_survey_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/forum/forum_description_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/forum/create_forum_post_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_details_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/settings/settings_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/course/course_description_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/delete_account/delete_account_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/feedback_survey/feedback_survey_screen.dart';
 import 'package:venille/presentation/auth/forgot_password/forgot_password_otp_verification_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_name/update_account_name_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/onboarding_questions/onboarding_questions_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_email/update_account_email_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_password/update_account_password_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_email/update_account_verify_email_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/account/settings/language_settings/language_settings_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_phone_number/update_account_phone_number_screen.dart';
 
 class AppRoutes {
@@ -103,15 +105,25 @@ class AppRoutes {
   /// Navigates to account screen
   static const String accountRoute = '/ACCOUNT_ROUTE';
 
+  /// ORDERS_ROUTE
+  ///
+  /// Navigates to orders screen
+  static const String ordersRoute = '/ORDERS_ROUTE';
+
   /// ORDER_PAD_ROUTE
   ///
   /// Navigates to order pad screen
   static const String orderPadRoute = '/ORDER_PAD_ROUTE';
 
-  /// FEEDBACK_SURVEY_ROUTE
+  /// SURVEY_HISTORY_ROUTE
   ///
-  /// Navigates to feedback survey screen
-  static const String feedbackSurveyRoute = '/FEEDBACK_SURVEY_ROUTE';
+  /// Navigates to survey history screen
+  static const String surveyHistoryRoute = '/SURVEY_HISTORY_ROUTE';
+
+  /// REGISTER_SURVEY_ROUTE
+  ///
+  /// Navigates to register survey screen
+  static const String registerSurveyRoute = '/REGISTER_SURVEY_ROUTE';
 
   /// SETTINGS_ROUTE
   ///
@@ -241,6 +253,12 @@ class AppRoutes {
       page: () => const OnboardingQuestionsScreen(),
     ),
 
+    // ORDERS
+    GetPage(
+      name: ordersRoute,
+      page: () => const OrdersScreen(),
+    ),
+
     // ORDER PAD
     GetPage(
       name: orderPadRoute,
@@ -262,10 +280,16 @@ class AppRoutes {
       page: () => const CreateForumPostScreen(),
     ),
 
-    // FEEDBACK SURVEY
+    // SURVEY HISTORY
     GetPage(
-      name: feedbackSurveyRoute,
-      page: () => const FeedbackSurveyScreen(),
+      name: surveyHistoryRoute,
+      page: () => const SurveyHistoryScreen(),
+    ),
+
+    // REGISTER SURVEY
+    GetPage(
+      name: registerSurveyRoute,
+      page: () => const RegisterSurveyScreen(),
     ),
 
     // ACCOUNT

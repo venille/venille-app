@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/utilities/index.dart';
+import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/components/cards/referral_banner.dart';
@@ -16,6 +17,13 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    ServiceRegistry.accountService.fetchDetailedUserAccountInfoService();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

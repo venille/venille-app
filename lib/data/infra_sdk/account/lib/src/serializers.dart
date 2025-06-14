@@ -1,5 +1,4 @@
 // @dart=3.5
-// @dart=3.5
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -20,10 +19,16 @@ import 'package:account_sdk/src/model/account_info.dart';
 import 'package:account_sdk/src/model/contact_us_dto.dart';
 import 'package:account_sdk/src/model/delete_account_dto.dart';
 import 'package:account_sdk/src/model/file_upload_result.dart';
+import 'package:account_sdk/src/model/monthly_survey_history_response.dart';
+import 'package:account_sdk/src/model/monthly_survey_info.dart';
 import 'package:account_sdk/src/model/notification_info.dart';
 import 'package:account_sdk/src/model/notification_product_info.dart';
 import 'package:account_sdk/src/model/notifications_response.dart';
 import 'package:account_sdk/src/model/onboarding_question_info.dart';
+import 'package:account_sdk/src/model/order_history_response.dart';
+import 'package:account_sdk/src/model/order_info.dart';
+import 'package:account_sdk/src/model/order_sanitary_pad_dto.dart';
+import 'package:account_sdk/src/model/register_monthly_survey_dto.dart';
 import 'package:account_sdk/src/model/register_period_tracker_dto.dart';
 import 'package:account_sdk/src/model/update_account_email_dto.dart';
 import 'package:account_sdk/src/model/update_account_location_dto.dart';
@@ -41,10 +46,16 @@ part 'serializers.g.dart';
   ContactUsDTO,
   DeleteAccountDTO,
   FileUploadResult,
+  MonthlySurveyHistoryResponse,
+  MonthlySurveyInfo,
   NotificationInfo,
   NotificationProductInfo,
   NotificationsResponse,
   OnboardingQuestionInfo,
+  OrderHistoryResponse,
+  OrderInfo,
+  OrderSanitaryPadDTO,
+  RegisterMonthlySurveyDTO,
   RegisterPeriodTrackerDTO,
   UpdateAccountEmailDTO,
   UpdateAccountLocationDTO,

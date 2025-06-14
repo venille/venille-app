@@ -1,5 +1,4 @@
 // @dart=3.5
-// @dart=3.5
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -13,8 +12,10 @@ import 'package:account_sdk/src/auth/bearer_auth.dart';
 import 'package:account_sdk/src/auth/oauth.dart';
 import 'package:account_sdk/src/api/manage_contact_info_api.dart';
 import 'package:account_sdk/src/api/me_api.dart';
+import 'package:account_sdk/src/api/monthly_survey_api.dart';
 import 'package:account_sdk/src/api/notifications_api.dart';
 import 'package:account_sdk/src/api/onboarding_api.dart';
+import 'package:account_sdk/src/api/order_api.dart';
 import 'package:account_sdk/src/api/support_api.dart';
 import 'package:account_sdk/src/api/upload_api.dart';
 
@@ -84,6 +85,12 @@ class AccountSdk {
     return MeApi(dio, serializers);
   }
 
+  /// Get MonthlySurveyApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MonthlySurveyApi getMonthlySurveyApi() {
+    return MonthlySurveyApi(dio, serializers);
+  }
+
   /// Get NotificationsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   NotificationsApi getNotificationsApi() {
@@ -94,6 +101,12 @@ class AccountSdk {
   /// by doing that all interceptors will not be executed
   OnboardingApi getOnboardingApi() {
     return OnboardingApi(dio, serializers);
+  }
+
+  /// Get OrderApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  OrderApi getOrderApi() {
+    return OrderApi(dio, serializers);
   }
 
   /// Get SupportApi instance, base route and serializer can be overridden by a given but be careful,
