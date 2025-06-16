@@ -98,7 +98,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Contact Us',
+          title: 'Contact us',
           onTap: () {
             Get.back();
           },
@@ -117,7 +117,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               ),
               SubtitleText(
                 text:
-                    'We are here to help you with any issues you may have. Please contact us using the form below.',
+                    'We are here to help you with any issues you may have. Please contact us using the form below.'
+                        .tr,
               ),
               const SizedBox(height: AppSizes.vertical_20),
               FormTextField(

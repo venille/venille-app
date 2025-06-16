@@ -38,7 +38,7 @@ class FormTextField extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.vertical_3),
           CustomFormTextField(
-            hintText: hintText,
+            hintText: hintText.tr,
             controller: textController,
             maxLines: 1,
             height: 48,

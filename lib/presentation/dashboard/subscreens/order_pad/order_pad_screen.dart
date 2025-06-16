@@ -119,7 +119,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Venille Pads',
+                    'Venille Pads'.tr,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -128,15 +128,15 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    '• High-quality, comfortable sanitary pads',
+                    '• High-quality, comfortable sanitary pads'.tr,
                     style: TextStyle(fontSize: 14),
                   ),
                   Text(
-                    '• Individually wrapped for hygiene',
+                    '• Individually wrapped for hygiene'.tr,
                     style: TextStyle(fontSize: 14),
                   ),
                   Text(
-                    '• Pack contains 8 pads',
+                    '• Pack contains 8 pads'.tr,
                     style: TextStyle(fontSize: 14),
                   ),
                 ],
@@ -146,7 +146,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
             // Quantity Selector
             Text(
-              'Select Quantity',
+              'Select Quantity'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -184,7 +184,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'pack(s)',
+                  'pack(s)'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -196,7 +196,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
 
             // Delivery Method
             Text(
-              'Choose Delivery Method',
+              'Choose Delivery Method'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -228,7 +228,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
               Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
-                  'Pickup location will be shared after order confirmation',
+                  'Pickup location will be shared after order confirmation'.tr,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[600],
@@ -248,7 +248,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             isProcessing
                 ? const CustomLoadingButton(height: 56)
                 : CustomButton(
-                    text: 'Submit Request',
+                    text: 'Submit Request'.tr,
                     width: double.maxFinite,
                     height: 56,
                     fontSize: 16,
@@ -259,7 +259,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     backgroundColor: AppColors.buttonPrimaryColor,
                   ),
             Text(
-              'Free service for registered users',
+              'Free service for registered users'.tr,
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey[600],
@@ -280,7 +280,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
       children: [
         SizedBox(height: 24),
         Text(
-          'Delivery Address',
+          'Delivery Address'.tr,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -290,7 +290,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
         TextField(
           controller: addressController,
           decoration: InputDecoration(
-            hintText: 'Enter your street address',
+            hintText: 'Enter your street address'.tr,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: AppColors.buttonPrimaryColor),
@@ -314,7 +314,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'State',
+                    'State'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -334,7 +334,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                         contentPadding: EdgeInsets.symmetric(horizontal: 12),
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select state'),
+                      hint: Text('Select state'.tr),
                       items: ServiceRegistry.userRepository.availableStates
                           .map((e) => DropdownMenuItem(
                                 value: e.state,
@@ -358,7 +358,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'City',
+                    'City'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -378,7 +378,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                         contentPadding: EdgeInsets.symmetric(horizontal: 12),
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select city'),
+                      hint: Text('Select city'.tr),
                       items: stateController.text.isEmpty
                           ? []
                           : ServiceRegistry.userRepository.availableStates
