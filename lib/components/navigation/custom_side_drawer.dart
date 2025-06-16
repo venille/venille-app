@@ -122,11 +122,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                     size: 16,
                                     title: 'My account',
                                   ),
-                                  Builder(
-                                    builder: (context) {
-                                      return const LanguageSelectorDropdown();
-                                    },
-                                  ),
+                                  // Builder(
+                                  //   builder: (context) {
+                                  //     return const LanguageSelectorDropdown();
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ],

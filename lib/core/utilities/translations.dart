@@ -120,7 +120,7 @@ class AppTranslations extends Translations {
 
       'Failed to translate post description':
           'Failed to translate post description',
-      //NEWLY CREATED.... YET TO BE TRANSLATED
+
       'Learn': 'Learn',
       'Monthly Survey': 'Monthly Survey',
       'Your feedback helps us improve menstrual health in your community':
@@ -157,6 +157,35 @@ class AppTranslations extends Translations {
           'Which language do you want to use?',
       'Select language': 'Select language',
       'Language Settings': 'Language Settings',
+
+      //NEWLY CREATED.... YET TO BE TRANSLATED
+      'Order Pad': 'Order Pad',
+      'Venille Pads': 'Venille Pads',
+      '• High-quality, comfortable sanitary pads':
+          '• High-quality, comfortable sanitary pads',
+      '• Individually wrapped for hygiene':
+          '• Individually wrapped for hygiene',
+      '• Pack contains 8 pads': '• Pack contains 8 pads',
+      'Select Quantity': 'Select Quantity',
+      'pack(s)': 'pack(s)',
+      'Choose Delivery Method': 'Choose Delivery Method',
+      'Pickup location will be shared after order confirmation':
+          'Pickup location will be shared after order confirmation',
+      'Submit Request': 'Submit Request',
+      'Free service for registered users': 'Free service for registered users',
+      'Delivery Address': 'Delivery Address',
+      'Enter your street address': 'Enter your street address',
+      'State': 'State',
+      'Select state': 'Select state',
+      'City': 'City',
+      'Select city': 'Select city',
+      'Having problems?': 'Having problems?',
+      'We are here to help you with any issues you may have. Please contact us using the form below.':
+          'We are here to help you with any issues you may have. Please contact us using the form below.',
+      'Subject': 'Subject',
+      'Period Notification Error': 'Period Notification Error',
+      'I am having issues receiving notifications about my period.':
+          'I am having issues receiving notifications about my period.',
     },
     'ha': {
       "hello": "Sannu",
@@ -541,6 +570,34 @@ class AppTranslations extends Translations {
           'Quelle langue souhaitez-vous utiliser ?',
       'Select language': 'Sélectionner la langue',
       'Language Settings': 'Paramètres de langue',
+      'Order Pad': 'Commander des serviettes',
+      'Venille Pads': 'Serviettes Venille',
+      '• High-quality, comfortable sanitary pads':
+          '• Serviettes hygiéniques de haute qualité et confortables',
+      '• Individually wrapped for hygiene':
+          '• Emballées individuellement pour l’hygiène',
+      '• Pack contains 8 pads': '• Le paquet contient 8 serviettes',
+      'Select Quantity': 'Sélectionner la quantité',
+      'pack(s)': 'paquet(s)',
+      'Choose Delivery Method': 'Choisir le mode de livraison',
+      'Pickup location will be shared after order confirmation':
+          'Le lieu de retrait sera communiqué après la confirmation de la commande',
+      'Submit Request': 'Soumettre la demande',
+      'Free service for registered users':
+          'Service gratuit pour les utilisateurs enregistrés',
+      'Delivery Address': 'Adresse de livraison',
+      'Enter your street address': 'Entrez votre adresse',
+      'State': 'État',
+      'Select state': 'Sélectionner un État',
+      'City': 'Ville',
+      'Select city': 'Sélectionner une ville',
+      'Having problems?': 'Vous avez des problèmes ?',
+      'We are here to help you with any issues you may have. Please contact us using the form below.':
+          'Nous sommes là pour vous aider en cas de problème. Veuillez nous contacter via le formulaire ci-dessous.',
+      'Subject': 'Sujet',
+      'Period Notification Error': 'Erreur de notification de règles',
+      'I am having issues receiving notifications about my period.':
+          'J’ai des problèmes pour recevoir les notifications concernant mes règles.',
     },
     'zh': {
       'hello': '你好',
@@ -678,6 +735,30 @@ class AppTranslations extends Translations {
       'Which language do you want to use?': '您想使用哪种语言？',
       'Select language': '选择语言',
       'Language Settings': '语言设置',
+      'Order Pad': '订购卫生巾',
+      'Venille Pads': 'Venille 卫生巾',
+      '• High-quality, comfortable sanitary pads': '• 高质量、舒适的卫生巾',
+      '• Individually wrapped for hygiene': '• 单独包装，卫生安全',
+      '• Pack contains 8 pads': '• 每包含 8 片卫生巾',
+      'Select Quantity': '选择数量',
+      'pack(s)': '包',
+      'Choose Delivery Method': '选择配送方式',
+      'Pickup location will be shared after order confirmation': '订单确认后将告知取货地点',
+      'Submit Request': '提交请求',
+      'Free service for registered users': '注册用户可免费享用服务',
+      'Delivery Address': '送货地址',
+      'Enter your street address': '请输入您的街道地址',
+      'State': '州/省',
+      'Select state': '选择州/省',
+      'City': '城市',
+      'Select city': '选择城市',
+      'Having problems?': '遇到问题了吗？',
+      'We are here to help you with any issues you may have. Please contact us using the form below.':
+          '我们将协助您解决任何问题，请使用下方表单与我们联系。',
+      'Subject': '主题',
+      'Period Notification Error': '月经通知错误',
+      'I am having issues receiving notifications about my period.':
+          '我在接收月经通知时遇到了问题。',
     },
     'es': {
       'hello': 'Hola',
@@ -831,6 +912,34 @@ class AppTranslations extends Translations {
       'Which language do you want to use?': '¿Qué idioma deseas usar?',
       'Select language': 'Seleccionar idioma',
       'Language Settings': 'Configuración de idioma',
+      'Order Pad': 'Pedir compresas',
+      'Venille Pads': 'Compresas Venille',
+      '• High-quality, comfortable sanitary pads':
+          '• Compresas higiénicas de alta calidad y cómodas',
+      '• Individually wrapped for hygiene':
+          '• Envueltas individualmente para mayor higiene',
+      '• Pack contains 8 pads': '• El paquete contiene 8 compresas',
+      'Select Quantity': 'Seleccionar cantidad',
+      'pack(s)': 'paquete(s)',
+      'Choose Delivery Method': 'Elegir método de entrega',
+      'Pickup location will be shared after order confirmation':
+          'La ubicación de recogida se compartirá después de la confirmación del pedido',
+      'Submit Request': 'Enviar solicitud',
+      'Free service for registered users':
+          'Servicio gratuito para usuarios registrados',
+      'Delivery Address': 'Dirección de entrega',
+      'Enter your street address': 'Introduce tu dirección',
+      'State': 'Estado',
+      'Select state': 'Seleccionar estado',
+      'City': 'Ciudad',
+      'Select city': 'Seleccionar ciudad',
+      'Having problems?': '¿Tienes problemas?',
+      'We are here to help you with any issues you may have. Please contact us using the form below.':
+          'Estamos aquí para ayudarte con cualquier problema. Por favor, contáctanos usando el siguiente formulario.',
+      'Subject': 'Asunto',
+      'Period Notification Error': 'Error de notificación del período',
+      'I am having issues receiving notifications about my period.':
+          'Tengo problemas para recibir notificaciones sobre mi período.',
     },
     // 'ar': {
     //   'hello': 'مرحبًا',

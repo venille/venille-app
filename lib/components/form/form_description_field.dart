@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/components/form/custom_form_description_field_with_submit.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -65,13 +67,13 @@ class _FormDescriptionFieldState extends State<FormDescriptionField> {
         children: [
           if (widget.showLabel) ...[
             FormLabelText(
-              text: widget.label,
+              text: widget.label.tr,
               size: widget.labelSize,
             ),
             const SizedBox(height: AppSizes.vertical_3),
           ],
           CustomFormDescriptionFieldWithSubmit(
-            hintText: widget.hintText,
+            hintText: widget.hintText.tr,
             controller: widget.textController,
             maxLines: null,
             minHeight: 48,
