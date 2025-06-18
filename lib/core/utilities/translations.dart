@@ -186,6 +186,7 @@ class AppTranslations extends Translations {
       'Period Notification Error': 'Period Notification Error',
       'I am having issues receiving notifications about my period.':
           'I am having issues receiving notifications about my period.',
+      'Orders': 'Orders'
     },
     'ha': {
       "hello": "Sannu",
@@ -598,6 +599,7 @@ class AppTranslations extends Translations {
       'Period Notification Error': 'Erreur de notification de règles',
       'I am having issues receiving notifications about my period.':
           'J’ai des problèmes pour recevoir les notifications concernant mes règles.',
+      'Orders': 'Commandes',
     },
     'zh': {
       'hello': '你好',
@@ -759,6 +761,7 @@ class AppTranslations extends Translations {
       'Period Notification Error': '月经通知错误',
       'I am having issues receiving notifications about my period.':
           '我在接收月经通知时遇到了问题。',
+      'Orders': '订单',
     },
     'es': {
       'hello': 'Hola',
@@ -940,6 +943,7 @@ class AppTranslations extends Translations {
       'Period Notification Error': 'Error de notificación del período',
       'I am having issues receiving notifications about my period.':
           'Tengo problemas para recibir notificaciones sobre mi período.',
+      'Orders': 'Pedidos'
     },
     // 'ar': {
     //   'hello': 'مرحبًا',

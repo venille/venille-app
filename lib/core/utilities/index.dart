@@ -148,26 +148,26 @@ List<Map<String, dynamic>> profileAvatars = [
 
 List<DrawerItem> drawerItems = [
   DrawerItem(
-    title: 'Orders'.tr,
+    title: 'Orders',
     routeTo: AppRoutes.ordersRoute,
     icon: 'assets/icons/icon_star.png',
     iconData: FluentIcons.box_arrow_up_20_regular,
   ),
   DrawerItem(
     icon: 'assets/icons/icon_help_2.png',
-    title: 'Monthly Survey'.tr,
+    title: 'Monthly Survey',
     routeTo: AppRoutes.surveyHistoryRoute,
     iconData: FluentIcons.book_compass_20_regular,
   ),
   DrawerItem(
     icon: 'assets/icons/icon_help_2.png',
-    title: 'Contact us'.tr,
+    title: 'Contact us',
     routeTo: AppRoutes.contactUsRoute,
     iconData: FluentIcons.chat_help_20_regular,
   ),
   DrawerItem(
     icon: 'assets/icons/icon_logout.png',
-    title: 'Logout'.tr,
+    title: 'Logout',
     routeTo: '',
   ),
 ];
