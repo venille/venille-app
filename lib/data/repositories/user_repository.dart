@@ -43,6 +43,51 @@ class UserRepository extends GetxController {
       ..createdAt = DateTime.now(),
   ).obs;
 
+  Rx<PeriodTrackerSdk.PeriodTrackerWeekInfo> dashboardTrackerCurrentWeek =
+      PeriodTrackerSdk.PeriodTrackerWeekInfo(
+    (period) => period
+      ..monthTitle = 'June'
+      ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
+  ).obs;
+
+  Rx<PeriodTrackerSdk.PeriodTrackerDayInfo> dashboardTrackerCurrentDay =
+      PeriodTrackerSdk.PeriodTrackerDayInfo(
+    (period) => period
+      ..date = DateTime.now()
+      ..insights = ''
+      ..cycleDayCount = 0
+      ..isFertileDay = false
+      ..isPredictedOvulationDay = false
+      ..isPredictedPeriodDay = false
+      ..isToday = false
+      ..periodDayCount = 0,
+  ).obs;
+
+  Rx<PeriodTrackerSdk.DashboardTrackerInfo> dashboardPeriodInfo =
+      PeriodTrackerSdk.DashboardTrackerInfo(
+    (instance) => instance
+      ..currentWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
+        (period) => period
+          ..monthTitle = ''
+          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
+      ).toBuilder()
+      ..nextWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
+        (period) => period
+          ..monthTitle = ''
+          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
+      ).toBuilder()
+      ..previousWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
+        (period) => period
+          ..monthTitle = ''
+          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
+      ).toBuilder(),
+  ).obs;
+
+  final RxList<PeriodTrackerSdk.PeriodLogInfo> _periodLogHistory =
+      <PeriodTrackerSdk.PeriodLogInfo>[].obs;
+  RxList<PeriodTrackerSdk.PeriodLogInfo> get periodLogHistory =>
+      _periodLogHistory;
+
   Rx<EngagementSdk.CourseInfo> courseInfo = EngagementSdk.CourseInfo(
     (courseInfo) => courseInfo
       ..id = ''

@@ -11,6 +11,56 @@ import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dar
 class PeriodTrackerService extends GetxController {
   RxBool isFetchPeriodTrackerProcessing = false.obs;
 
+  //! FETCH DASHBOARD PERIOD INFO
+  /// Fetch dashboard period info.
+  ///
+  /// [METHOD] - GET
+  ///
+  /// [ROUTE] - /period-tracker/me/dashboard
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> fetchDashboardPeriodInfoService() async {
+    return authGuard<void>(() async {
+      try {
+        log("[FETCH-DASHBOARD-PERIOD-INFO-PENDING]");
+
+        PeriodTrackerApi periodTrackerApi =
+            ServiceRegistry.periodTrackerSdk.getPeriodTrackerApi();
+
+        Dio.Response response = await periodTrackerApi
+            .periodTrackerControllerGetDashboardPeriodTrackerHistory(
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200) {
+          // log('[FETCH-DASHBOARD-PERIOD-INFO-RESPONSE] :: ${response.data}');
+
+          DashboardTrackerInfo dashboardPeriodInfo = response.data;
+
+          ServiceRegistry.userRepository.dashboardTrackerCurrentWeek.value =
+              dashboardPeriodInfo.currentWeek;
+
+          ServiceRegistry.userRepository.dashboardPeriodInfo.value =
+              dashboardPeriodInfo;
+
+          log("[FETCH-DASHBOARD-PERIOD-INFO-SUCCESS]");
+        }
+      } catch (error) {
+        log('[FETCH-DASHBOARD-PERIOD-INFO-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[FETCH-DASHBOARD-PERIOD-INFO-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      }
+    });
+  }
+
   //! FETCH PERIOD TRACKER
   /// Fetch detailed user period tracker.
   ///
@@ -30,7 +80,7 @@ class PeriodTrackerService extends GetxController {
             ServiceRegistry.periodTrackerSdk.getPeriodTrackerApi();
 
         Dio.Response response = await periodTrackerApi
-            .periodTrackerControllerGetDetailedAccountInfo(
+            .periodTrackerControllerGetPeriodTrackerHistory(
           headers: {
             "Authorization": ServiceRegistry.localStorage.read(
               LocalStorageSecrets.accessToken,
@@ -62,6 +112,53 @@ class PeriodTrackerService extends GetxController {
         }
       } finally {
         isFetchPeriodTrackerProcessing.value = false;
+      }
+    });
+  }
+
+  //! FETCH PERIOD LOG HISTORY
+  /// Fetch detailed user period log history.
+  ///
+  /// [METHOD] - GET
+  ///
+  /// [ROUTE] - /period-tracker/me/log
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> fetchPeriodLogHistoryService() async {
+    return authGuard<void>(() async {
+      try {
+        log("[FETCH-PERIOD-LOG-HISTORY-PENDING]");
+
+        PeriodTrackerApi periodTrackerApi =
+            ServiceRegistry.periodTrackerSdk.getPeriodTrackerApi();
+
+        Dio.Response response =
+            await periodTrackerApi.periodTrackerControllerGetPeriodLogHistory(
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 200) {
+          log('[FETCH-PERIOD-TRACKER-HISTORY-RESPONSE] :: ${response.data}');
+
+          BuiltList<PeriodLogInfo> periodLogHistory = response.data;
+
+          ServiceRegistry.userRepository.periodLogHistory.value =
+              periodLogHistory.toList();
+
+          log("[FETCH-PERIOD-LOG-HISTORY-SUCCESS]");
+        }
+      } catch (error) {
+        log('[FETCH-PERIOD-LOG-HISTORY-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[FETCH-PERIOD-TRACKER-HISTORY-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
       }
     });
   }

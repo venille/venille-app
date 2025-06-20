@@ -7,6 +7,7 @@ import 'package:venille/components/appbar/default_appbar.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:venille/components/cards/dashboard_tracker_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,11 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime selectedDate = DateTime.now();
 
+  Future<void> initializeDashboardInfo() async {
+    Future.wait([
+      ServiceRegistry.periodTrackerService.fetchDashboardPeriodInfoService(),
+    ]);
+  }
+
   @override
   void initState() {
     super.initState();
 
-    ServiceRegistry.periodTrackerService.fetchPeriodTrackerHistoryService();
+    initializeDashboardInfo();
   }
 
   @override
@@ -35,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       key: scaffoldKey,
       drawer: CustomDrawer(scaffoldKey: scaffoldKey),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(45),
         child: DefaultAppBar(
           scaffoldKey: scaffoldKey,
         ),
@@ -45,20 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(),
           child: Column(
             children: [
-              Last7DaysWidget(
-                selectedDate: selectedDate,
-                onDateSelected: (date) {
-                  setState(() {
-                    selectedDate = date;
-                  });
-                },
-              ),
+              const DashboardTrackerCard(),
+              // Last7DaysWidget(
+              //   selectedDate: selectedDate,
+              //   onDateSelected: (date) {
+              //     setState(() {
+              //       selectedDate = date;
+              //     });
+              //   },
+              // ),
               const SizedBox(height: AppSizes.vertical_10),
               Container(
                 height: 140,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.horizontal_10,
+                  ),
                   itemCount: getMenstrualInsights(selectedDate).length,
                   itemBuilder: (context, index) {
                     final item = getMenstrualInsights(selectedDate)[index];

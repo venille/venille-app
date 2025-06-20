@@ -15,6 +15,7 @@ part 'daily_insights_summary.g.dart';
 /// * [date] 
 /// * [isPredictedPeriodDay] 
 /// * [isPredictedOvulationDay] 
+/// * [isFertileDay] 
 /// * [todayInsights] 
 @BuiltValue()
 abstract class DailyInsightsSummary implements Built<DailyInsightsSummary, DailyInsightsSummaryBuilder> {
@@ -26,6 +27,9 @@ abstract class DailyInsightsSummary implements Built<DailyInsightsSummary, Daily
 
   @BuiltValueField(wireName: r'isPredictedOvulationDay')
   bool get isPredictedOvulationDay;
+
+  @BuiltValueField(wireName: r'isFertileDay')
+  bool get isFertileDay;
 
   @BuiltValueField(wireName: r'todayInsights')
   String get todayInsights;
@@ -66,6 +70,11 @@ class _$DailyInsightsSummarySerializer implements PrimitiveSerializer<DailyInsig
     yield r'isPredictedOvulationDay';
     yield serializers.serialize(
       object.isPredictedOvulationDay,
+      specifiedType: const FullType(bool),
+    );
+    yield r'isFertileDay';
+    yield serializers.serialize(
+      object.isFertileDay,
       specifiedType: const FullType(bool),
     );
     yield r'todayInsights';
@@ -116,6 +125,13 @@ class _$DailyInsightsSummarySerializer implements PrimitiveSerializer<DailyInsig
             specifiedType: const FullType(bool),
           ) as bool;
           result.isPredictedOvulationDay = valueDes;
+          break;
+        case r'isFertileDay':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isFertileDay = valueDes;
           break;
         case r'todayInsights':
           final valueDes = serializers.deserialize(

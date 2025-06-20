@@ -95,6 +95,9 @@ class AppSizes {
   static const double horizontal_25 = 25;
   static const double horizontal_30 = 30;
   static const double horizontal_35 = 35;
+  static const double horizontal_40 = 40;
+  static const double horizontal_45 = 45;
+  static const double horizontal_50 = 50;
 
   /// VERTICAL SIZE
   ///

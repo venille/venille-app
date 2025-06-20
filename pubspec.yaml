@@ -112,3 +112,6 @@ flutter:
         - family: SourGummy
           fonts:
               - asset: assets/fonts/SourGummy.ttf
+        - family: Pacifico
+          fonts:
+              - asset: assets/fonts/Pacifico-Regular.ttf

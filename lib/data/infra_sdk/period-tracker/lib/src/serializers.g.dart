@@ -1,10 +1,3 @@
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -16,11 +9,19 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(DailyInsightsSummary.serializer)
+      ..add(DashboardTrackerInfo.serializer)
+      ..add(PeriodLogInfo.serializer)
       ..add(PeriodTrackerCalendarInfo.serializer)
+      ..add(PeriodTrackerDayInfo.serializer)
       ..add(PeriodTrackerInfo.serializer)
       ..add(PeriodTrackerLastPeriodInfo.serializer)
       ..add(PeriodTrackerOvulationCountdown.serializer)
       ..add(PeriodTrackerReminderInfo.serializer)
+      ..add(PeriodTrackerWeekInfo.serializer)
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(PeriodTrackerDayInfo)]),
+          () => new ListBuilder<PeriodTrackerDayInfo>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

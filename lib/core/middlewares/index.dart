@@ -16,6 +16,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
+String formatDate(DateTime date) {
+  return DateFormat('d MMM y').format(date);
+}
+
 String formatTimeAgo(DateTime dateTime) {
   final now = DateTime.now();
   final difference = now.difference(dateTime);
@@ -753,3 +757,33 @@ String formatTime(int seconds) {
   final secs = (seconds % 60).toString().padLeft(2, '0');
   return '$hours:$minutes:$secs';
 }
+
+String formatDayFromDate(DateTime date) {
+  String day = 'Mon';
+
+  switch (date.weekday) {
+    case 1:
+      day = 'Mon';
+      break;
+    case 2:
+      day = 'Tue';
+      break;
+    case 3:
+      day = 'Wed';
+      break;
+    case 4:
+      day = 'Thu';
+      break;
+    case 5:
+      day = 'Fri';
+      break;
+    case 6:
+      day = 'Sat';
+      break;
+    case 7:
+      day = 'Sun';
+      break;
+  }
+  return day;
+}
+

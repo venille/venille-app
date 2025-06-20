@@ -1,23 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:venille/components/appbar/return_to_appbar.dart';
-import 'package:venille/components/appbar/titled_appbar.dart';
-import 'package:venille/components/buttons/custom_button.dart';
-import 'package:venille/components/buttons/custom_loading_button.dart';
-import 'package:venille/components/navigation/custom_side_drawer.dart';
-import 'package:venille/components/snackbars/custom_snackbar.dart';
-import 'package:venille/core/constants/colors.dart';
-import 'package:venille/core/providers/index.dart';
-import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'dart:io';
 
-class LogVellaScreen extends StatefulWidget {
-  const LogVellaScreen({super.key});
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:venille/components/text/body_text.dart';
+import 'package:venille/components/text/form_label_text.dart';
+import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/components/text/title_text.dart';
+import 'package:venille/core/constants/colors.dart';
+import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/components/buttons/custom_button.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:venille/components/appbar/return_to_appbar.dart';
+import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/components/buttons/custom_loading_button.dart';
+import 'package:venille/core/middlewares/index.dart';
+import 'package:venille/core/providers/index.dart';
+
+class LogSymptomsScreen extends StatefulWidget {
+  const LogSymptomsScreen({super.key});
 
   @override
-  State<LogVellaScreen> createState() => _LogVellaScreenState();
+  State<LogSymptomsScreen> createState() => _LogSymptomsScreenState();
 }
 
-class _LogVellaScreenState extends State<LogVellaScreen> {
+class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
   Set<String> selectedSymptoms = {};
   bool isProcessing = false;
 
@@ -25,9 +31,12 @@ class _LogVellaScreenState extends State<LogVellaScreen> {
 
   final Map<String, List<Map<String, dynamic>>> categories = {
     'Symptoms': [
-      {'name': 'Everything is fine', 'icon': Icons.check_circle_outline},
+      {
+        'name': 'Everything is fine',
+        'icon': FluentIcons.checkmark_circle_12_regular
+      },
       {'name': 'Cramps', 'icon': Icons.waves},
-      {'name': 'Tender breasts', 'icon': Icons.favorite_border},
+      {'name': 'Tender breasts', 'icon': FluentIcons.heart_12_regular},
       {'name': 'Headache', 'icon': Icons.sick},
       {'name': 'Acne', 'icon': Icons.face},
       {'name': 'Backache', 'icon': Icons.accessibility_new},
@@ -119,25 +128,25 @@ class _LogVellaScreenState extends State<LogVellaScreen> {
   Color getCategoryColor(String categoryName) {
     switch (categoryName) {
       case 'Other':
-        return Colors.orange.shade50;
+        return Colors.orange.shade100;
       case 'Physical activity':
-        return Colors.green.shade50;
+        return Colors.green.shade100;
       case 'Symptoms':
-        return Colors.purple.shade50;
+        return Colors.purple.shade100;
       case 'Mood':
-        return Colors.blue.shade50;
+        return Colors.blue.shade100;
       case 'Vaginal discharge':
-        return Colors.pink.shade50;
+        return Colors.pink.shade100;
       case 'Sex and sex drive':
-        return Colors.red.shade50;
+        return Colors.red.shade100;
       case 'Digestion and stool':
-        return Colors.purple.shade50;
+        return Colors.purple.shade100;
       case 'Pregnancy test':
-        return Colors.orange.shade50;
+        return Colors.orange.shade100;
       case 'Ovulation test':
-        return Colors.teal.shade50;
+        return Colors.teal.shade100;
       default:
-        return Colors.grey.shade50;
+        return Colors.grey.shade100;
     }
   }
 
@@ -156,143 +165,186 @@ class _LogVellaScreenState extends State<LogVellaScreen> {
         children: [
           SingleChildScrollView(
             padding: const EdgeInsets.only(
-                bottom: 100), // Increased padding for better visibility
-            physics:
-                const AlwaysScrollableScrollPhysics(), // Ensure scrolling is always enabled
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Today',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+              bottom: 20,
+            ),
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.horizontal_10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.only(
+                        left: AppSizes.horizontal_15,
                       ),
-                      Text(
-                        'Cycle day 15',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ...categories.entries.map(
-                  (category) => Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 12.0), // Increased margin
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                            category.key,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // const SizedBox(width: AppSizes.horizontal_45),
+                          TitleText(
+                            title:
+                                'Date: ${formatDate(ServiceRegistry.userRepository.dashboardTrackerCurrentDay.value.date)}',
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1.5,
+                                color: AppColors.grayLightColor,
+                              ),
+                              color: ServiceRegistry
+                                      .userRepository
+                                      .dashboardTrackerCurrentDay
+                                      .value
+                                      .isPredictedPeriodDay
+                                  ? AppColors.redColor
+                                  : (ServiceRegistry
+                                              .userRepository
+                                              .dashboardTrackerCurrentDay
+                                              .value
+                                              .isPredictedOvulationDay ||
+                                          ServiceRegistry
+                                              .userRepository
+                                              .dashboardTrackerCurrentDay
+                                              .value
+                                              .isFertileDay)
+                                      ? AppColors.blueLightColor
+                                      : AppColors.grayColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Row(
+                              children: [
+                                BodyText(
+                                  size: 14,
+                                  text: 'Cycle day: ',
+                                  color: AppColors.whiteColor,
+                                ),
+                                BodyText(
+                                  size: 14,
+                                  color: AppColors.whiteColor,
+                                  text:
+                                      '${ServiceRegistry.userRepository.dashboardTrackerCurrentDay.value.cycleDayCount}',
+                                ),
+                              ],
                             ),
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ...categories.entries.map(
+                    (category) => Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: AppSizes.vertical_10,
+                      ),
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: AppColors.grayLightColor,
                         ),
-                        const SizedBox(height: 12),
-                        Container(
-                          width: double.infinity, // Ensure full width
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Wrap(
-                            spacing: 8,
-                            runSpacing: 12, // Increased spacing between rows
-                            children: category.value.map((item) {
-                              bool isSelected =
-                                  selectedSymptoms.contains(item['name']);
-                              Color categoryColor =
-                                  getCategoryColor(category.key);
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                            color: AppColors.grayLightColor,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FormLabelText(
+                            size: 16,
+                            text: category.key,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          const SizedBox(height: AppSizes.vertical_10),
+                          SizedBox(
+                            width: double.infinity, // Ensure full width
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 12, // Increased spacing between rows
+                              children: category.value.map((item) {
+                                bool isSelected =
+                                    selectedSymptoms.contains(item['name']);
+                                Color categoryColor =
+                                    getCategoryColor(category.key);
 
-                              return GestureDetector(
-                                onTap: () => _toggleSelection(item['name']),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 8,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: isSelected
-                                        ? categoryColor
-                                        : categoryColor.withOpacity(0.3),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: isSelected
-                                          ? categoryColor.withOpacity(0.8)
-                                          : categoryColor.withOpacity(0.5),
-                                      width: 1,
+                                return GestureDetector(
+                                  onTap: () => _toggleSelection(item['name']),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
                                     ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        item['icon'] as IconData,
-                                        size: 18,
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? categoryColor
+                                          : categoryColor.withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
                                         color: isSelected
-                                            ? Colors.black87
-                                            : Colors.black54,
+                                            ? categoryColor.withOpacity(0.8)
+                                            : categoryColor.withOpacity(0.5),
+                                        width: 1,
                                       ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        item['name'],
-                                        style: TextStyle(
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          item['icon'] as IconData,
+                                          size: 18,
                                           color: isSelected
                                               ? Colors.black87
                                               : Colors.black54,
-                                          fontSize: 14,
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(width: 6),
+                                        BodyText(
+                                          text: item['name'],
+                                          color: isSelected
+                                              ? Colors.black87
+                                              : Colors.black54,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          // Sticky Submit Button
         ],
       ),
       bottomNavigationBar: Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, -2),
-            ),
-          ],
+        padding: EdgeInsets.only(
+          top: AppSizes.vertical_10,
+          left: AppSizes.horizontal_15,
+          right: AppSizes.horizontal_15,
+          bottom:
+              Platform.isAndroid ? AppSizes.vertical_10 : AppSizes.vertical_25,
+        ),
+        decoration: const BoxDecoration(
+          color: AppColors.whiteColor,
         ),
         child: isProcessing
             ? const CustomLoadingButton(
                 height: 56,
               )
             : CustomButton(
-                text: 'Save Daily Log',
+                text: 'Submit',
                 width: double.maxFinite,
                 height: 56,
                 fontSize: 16,
@@ -347,7 +399,7 @@ class _LogVellaScreenState extends State<LogVellaScreen> {
                 },
                 fontWeight: FontWeight.w600,
                 fontColor: AppColors.whiteColor,
-                backgroundColor: AppColors.buttonPrimaryColor,
+                backgroundColor: AppColors.pinkColor,
               ),
       ),
     );
