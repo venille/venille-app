@@ -47,7 +47,7 @@ class ReferralBanner extends StatelessWidget {
                   children: [
                     CustomTextWidget(
                       size: 18,
-                      text: 'Referral code',
+                      text: 'Referral Code',
                       weight: FontWeight.w700,
                       color: AppColors.whiteColor,
                       textStyleName: AppTextSizes.title1,

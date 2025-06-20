@@ -143,7 +143,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             children: [
               const SizedBox(height: AppSizes.vertical_20),
               FormLabelText(
-                text: 'Quantity',
+                text: 'Quantity'.tr,
                 size: 16,
               ),
               Row(
@@ -200,7 +200,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
               ),
               const SizedBox(height: AppSizes.vertical_12),
               FormLabelText(
-                text: 'Delivery Method',
+                text: 'Delivery Method'.tr,
                 size: 16,
               ),
               Row(
@@ -219,7 +219,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           activeColor: AppColors.greenColor,
                         ),
                         SubtitleText(
-                          text: 'Delivery',
+                          text: 'Delivery'.tr,
                         ),
                       ],
                     ),
@@ -238,7 +238,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           activeColor: AppColors.greenColor,
                         ),
                         SubtitleText(
-                          text: 'Pickup',
+                          text: 'Pickup'.tr,
                         ),
                       ],
                     ),

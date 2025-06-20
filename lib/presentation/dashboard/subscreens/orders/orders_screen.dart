@@ -26,7 +26,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   ScrollController scrollController = ScrollController();
 
-  final List<String> orderTypes = ['Ongoing', 'Completed'];
+  final List<String> orderTypes = ['Ongoing'.tr, 'Completed'.tr];
 
   Future<void> initializeOrders() async {
     await ServiceRegistry.orderService.fetchUserOrdersService(

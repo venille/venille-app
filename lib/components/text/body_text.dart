@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
@@ -17,7 +18,7 @@ class BodyText extends CustomTextWidget {
     TextDecoration? decoration,
   }) : super(
           size: size ?? 14,
-          text: text,
+          text: text.tr,
           maxLines: maxLines,
           lineHeight: lineHeight ?? 1,
           weight: weight ?? FontWeight.w400,

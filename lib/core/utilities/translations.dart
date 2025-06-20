@@ -157,8 +157,6 @@ class AppTranslations extends Translations {
           'Which language do you want to use?',
       'Select language': 'Select language',
       'Language Settings': 'Language Settings',
-
-      //NEWLY CREATED.... YET TO BE TRANSLATED
       'Order Pad': 'Order Pad',
       'Venille Pads': 'Venille Pads',
       '• High-quality, comfortable sanitary pads':
@@ -186,7 +184,35 @@ class AppTranslations extends Translations {
       'Period Notification Error': 'Period Notification Error',
       'I am having issues receiving notifications about my period.':
           'I am having issues receiving notifications about my period.',
-      'Orders': 'Orders'
+      'Orders': 'Orders',
+
+      'Ongoing': 'Ongoing',
+      'Completed': 'Completed',
+      'No Ongoing Orders': 'No Ongoing Orders',
+      'No Completed Orders': 'No Completed Orders',
+      'No Survey History': 'No Survey History',
+      'No ongoing orders at the moment.': 'No ongoing orders at the moment.',
+      'No completed orders at the moment.':
+          'No completed orders at the moment.',
+      'Order Sanitary Pad': 'Order Sanitary Pad',
+      'Quantity': 'Quantity',
+      'Delivery Method': 'Delivery Method',
+      'Delivery': 'Delivery',
+      'Pickup': 'Pickup',
+      'Address': 'Address',
+      'e.g Abiola Adefemi Street': 'e.g Abiola Adefemi Street',
+      'Building number': 'Building number',
+      'e.g 12A': 'e.g 12A',
+      'Nearest Landmark': 'Nearest Landmark',
+      'e.g bank, hospital etc...': 'e.g bank, hospital etc...',
+      'Confirm details': 'Confirm details',
+      'Sanitary pad order created successfully':
+          'Sanitary pad order created successfully',
+      'Pending': 'Pending',
+      'Sanitary Pad Order': 'Sanitary Pad Order',
+      'Share': 'Share',
+//   NEWLY CREATED
+      'Press back again to exit': 'Press back again to exit'
     },
     'ha': {
       "hello": "Sannu",
@@ -600,6 +626,32 @@ class AppTranslations extends Translations {
       'I am having issues receiving notifications about my period.':
           'J’ai des problèmes pour recevoir les notifications concernant mes règles.',
       'Orders': 'Commandes',
+      'Ongoing': 'En cours',
+      'Completed': 'Terminé',
+      'No Ongoing Orders': 'Aucune commande en cours',
+      'No Completed Orders': 'Aucune commande terminée',
+      'No Survey History': 'Aucun historique d’enquête',
+      'No ongoing orders at the moment.':
+          'Aucune commande en cours pour le moment.',
+      'No completed orders at the moment.':
+          'Aucune commande terminée pour le moment.',
+      'Order Sanitary Pad': 'Commander une serviette hygiénique',
+      'Quantity': 'Quantité',
+      'Delivery Method': 'Méthode de livraison',
+      'Delivery': 'Livraison',
+      'Pickup': 'Retrait',
+      'Address': 'Adresse',
+      'e.g Abiola Adefemi Street': 'ex. Rue Abiola Adefemi',
+      'Building number': 'Numéro du bâtiment',
+      'e.g 12A': 'ex. 12A',
+      'Nearest Landmark': 'Point de repère le plus proche',
+      'e.g bank, hospital etc...': 'ex. banque, hôpital, etc...',
+      'Confirm details': 'Confirmer les détails',
+      'Sanitary pad order created successfully':
+          'Commande de serviettes hygiéniques créée avec succès',
+      'Pending': 'En attente',
+      'Sanitary Pad Order': 'Commande de serviettes hygiéniques',
+      'Share': 'Partager',
     },
     'zh': {
       'hello': '你好',
@@ -762,6 +814,29 @@ class AppTranslations extends Translations {
       'I am having issues receiving notifications about my period.':
           '我在接收月经通知时遇到了问题。',
       'Orders': '订单',
+      'Ongoing': '进行中',
+      'Completed': '已完成',
+      'No Ongoing Orders': '暂无进行中的订单',
+      'No Completed Orders': '暂无已完成的订单',
+      'No Survey History': '暂无调查记录',
+      'No ongoing orders at the moment.': '目前没有进行中的订单。',
+      'No completed orders at the moment.': '目前没有已完成的订单。',
+      'Order Sanitary Pad': '订购卫生巾',
+      'Quantity': '数量',
+      'Delivery Method': '配送方式',
+      'Delivery': '送货上门',
+      'Pickup': '自取',
+      'Address': '地址',
+      'e.g Abiola Adefemi Street': '例如 Abiola Adefemi 街',
+      'Building number': '门牌号',
+      'e.g 12A': '例如 12A',
+      'Nearest Landmark': '最近的地标',
+      'e.g bank, hospital etc...': '例如 银行、医院等...',
+      'Confirm details': '确认详情',
+      'Sanitary pad order created successfully': '卫生巾订单创建成功',
+      'Pending': '待处理',
+      'Sanitary Pad Order': '卫生巾订单',
+      'Share': '分享',
     },
     'es': {
       'hello': 'Hola',
@@ -943,7 +1018,33 @@ class AppTranslations extends Translations {
       'Period Notification Error': 'Error de notificación del período',
       'I am having issues receiving notifications about my period.':
           'Tengo problemas para recibir notificaciones sobre mi período.',
-      'Orders': 'Pedidos'
+      'Orders': 'Pedidos',
+      'Ongoing': 'En curso',
+      'Completed': 'Completado',
+      'No Ongoing Orders': 'No hay pedidos en curso',
+      'No Completed Orders': 'No hay pedidos completados',
+      'No Survey History': 'Sin historial de encuestas',
+      'No ongoing orders at the moment.':
+          'No hay pedidos en curso en este momento.',
+      'No completed orders at the moment.':
+          'No hay pedidos completados en este momento.',
+      'Order Sanitary Pad': 'Pedir compresas',
+      'Quantity': 'Cantidad',
+      'Delivery Method': 'Método de entrega',
+      'Delivery': 'Entrega',
+      'Pickup': 'Recogida',
+      'Address': 'Dirección',
+      'e.g Abiola Adefemi Street': 'ej. Calle Abiola Adefemi',
+      'Building number': 'Número del edificio',
+      'e.g 12A': 'ej. 12A',
+      'Nearest Landmark': 'Punto de referencia más cercano',
+      'e.g bank, hospital etc...': 'ej. banco, hospital, etc...',
+      'Confirm details': 'Confirmar detalles',
+      'Sanitary pad order created successfully':
+          'Pedido de compresas creado con éxito',
+      'Pending': 'Pendiente',
+      'Sanitary Pad Order': 'Pedido de toallas sanitarias',
+      'Share': 'Compartir',
     },
     // 'ar': {
     //   'hello': 'مرحبًا',
