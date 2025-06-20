@@ -266,7 +266,7 @@ class _Last7DaysWidgetState extends State<Last7DaysWidget> {
               borderRadius: 16,
               text: 'Log symptoms',
               onTapHandler: () {
-                Get.to(() => const LogVellaScreen());
+                Get.to(() => const LogSymptomsScreen());
               },
               fontWeight: FontWeight.w600,
               fontColor: AppColors.whiteColor,

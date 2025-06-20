@@ -59,7 +59,7 @@ class AccountService extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
+          // log('[FETCH-DETAILED-USER-ACCOUNT-INFO-RESPONSE] :: ${response.data}');
 
           AccountInfo accountInfo = response.data;
 

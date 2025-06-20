@@ -1,6 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
-import 'package:venille/presentation/dashboard/subscreens/survey/survey_history_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/period/log_period_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
@@ -15,6 +15,8 @@ import 'package:venille/presentation/dashboard/subscreens/orders/order_pad_scree
 import 'package:venille/presentation/dashboard/subscreens/account/help/help_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/about_us/about_us_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/legal/legal_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/survey/survey_history_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/symptoms/log_symptoms_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/contact_us/contact_us_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/survey/register_survey_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/forum/forum_description_screen.dart';
@@ -79,6 +81,16 @@ class AppRoutes {
   ///
   /// Navigates to dashboard screen
   static const String dashboardRoute = '/DASHBOARD_ROUTE';
+
+  /// LOG_PERIOD_ROUTE
+  ///
+  /// Navigates to log period screen
+  static const String logPeriodRoute = '/LOG_PERIOD_ROUTE';
+
+  /// LOG_SYMPTOMS_ROUTE
+  ///
+  /// Navigates to log symptoms screen
+  static const String logSymptomsRoute = '/LOG_SYMPTOMS_ROUTE';
 
   /// ONBOARDING_QUESTIONS_ROUTE
   ///
@@ -251,6 +263,18 @@ class AppRoutes {
     GetPage(
       name: onboardingQuestionsRoute,
       page: () => const OnboardingQuestionsScreen(),
+    ),
+
+    // LOG PERIOD
+    GetPage(
+      name: logPeriodRoute,
+      page: () => const LogPeriodScreen(),
+    ),
+
+    // LOG SYMPTOMS
+    GetPage(
+      name: logSymptomsRoute,
+      page: () => const LogSymptomsScreen(),
     ),
 
     // ORDERS

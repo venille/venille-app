@@ -24,15 +24,16 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
         left: AppSizes.horizontal_10,
         right: AppSizes.horizontal_10,
       ),
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor.withOpacity(0.05),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 5,
-            spreadRadius: 5,
-            color: AppColors.grayLightColor.withOpacity(0.2),
-          ),
-        ],
+      decoration: const BoxDecoration(
+        color: AppColors.whiteColor,
+        // color: AppColors.primaryColor.withOpacity(0.05),
+        // boxShadow: [
+        //   BoxShadow(
+        //     blurRadius: 5,
+        //     spreadRadius: 5,
+        //     color: AppColors.grayLightColor.withOpacity(0.2),
+        //   ),
+        // ],
       ),
       child: Padding(
         padding: MediaQuery.of(context).padding,
@@ -57,7 +58,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
                         size: 26,
                         title: 'Venille',
                         letterSpacing: 1.3,
-                        fontFamily: 'SourGummy',
+                        fontFamily: 'Pacifico',
                         color: AppColors.primaryColor,
                       ),
                     ],

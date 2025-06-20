@@ -50,10 +50,10 @@ import 'package:period_tracker_sdk/period_tracker_sdk.dart';
 final api = PeriodTrackerSdk().getPeriodTrackerApi();
 
 try {
-    final response = await api.periodTrackerControllerGetDetailedAccountInfo();
+    final response = await api.periodTrackerControllerGetDashboardPeriodTrackerHistory();
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling PeriodTrackerApi->periodTrackerControllerGetDetailedAccountInfo: $e\n");
+    print("Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardPeriodTrackerHistory: $e\n");
 }
 
 ```
@@ -64,17 +64,23 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetDetailedAccountInfo**](doc/PeriodTrackerApi.md#periodtrackercontrollergetdetailedaccountinfo) | **GET** /v1/period-tracker/tracker/history | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetDashboardPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetdashboardperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/dashboard | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodLogHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodloghistory) | **GET** /v1/period-tracker/tracker/log/history | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/history | 
 
 
 ## Documentation For Models
 
  - [DailyInsightsSummary](doc/DailyInsightsSummary.md)
+ - [DashboardTrackerInfo](doc/DashboardTrackerInfo.md)
+ - [PeriodLogInfo](doc/PeriodLogInfo.md)
  - [PeriodTrackerCalendarInfo](doc/PeriodTrackerCalendarInfo.md)
+ - [PeriodTrackerDayInfo](doc/PeriodTrackerDayInfo.md)
  - [PeriodTrackerInfo](doc/PeriodTrackerInfo.md)
  - [PeriodTrackerLastPeriodInfo](doc/PeriodTrackerLastPeriodInfo.md)
  - [PeriodTrackerOvulationCountdown](doc/PeriodTrackerOvulationCountdown.md)
  - [PeriodTrackerReminderInfo](doc/PeriodTrackerReminderInfo.md)
+ - [PeriodTrackerWeekInfo](doc/PeriodTrackerWeekInfo.md)
 
 
 ## Documentation For Authorization

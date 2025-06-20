@@ -1,10 +1,6 @@
 // @dart=3.5
 // @dart=3.5
 // @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -22,6 +18,8 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
   @override
   final bool isPredictedOvulationDay;
   @override
+  final bool isFertileDay;
+  @override
   final String todayInsights;
 
   factory _$DailyInsightsSummary(
@@ -32,6 +30,7 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
       {required this.date,
       required this.isPredictedPeriodDay,
       required this.isPredictedOvulationDay,
+      required this.isFertileDay,
       required this.todayInsights})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -40,6 +39,8 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
         isPredictedPeriodDay, r'DailyInsightsSummary', 'isPredictedPeriodDay');
     BuiltValueNullFieldError.checkNotNull(isPredictedOvulationDay,
         r'DailyInsightsSummary', 'isPredictedOvulationDay');
+    BuiltValueNullFieldError.checkNotNull(
+        isFertileDay, r'DailyInsightsSummary', 'isFertileDay');
     BuiltValueNullFieldError.checkNotNull(
         todayInsights, r'DailyInsightsSummary', 'todayInsights');
   }
@@ -60,6 +61,7 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
         date == other.date &&
         isPredictedPeriodDay == other.isPredictedPeriodDay &&
         isPredictedOvulationDay == other.isPredictedOvulationDay &&
+        isFertileDay == other.isFertileDay &&
         todayInsights == other.todayInsights;
   }
 
@@ -69,6 +71,7 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
     _$hash = $jc(_$hash, date.hashCode);
     _$hash = $jc(_$hash, isPredictedPeriodDay.hashCode);
     _$hash = $jc(_$hash, isPredictedOvulationDay.hashCode);
+    _$hash = $jc(_$hash, isFertileDay.hashCode);
     _$hash = $jc(_$hash, todayInsights.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -80,6 +83,7 @@ class _$DailyInsightsSummary extends DailyInsightsSummary {
           ..add('date', date)
           ..add('isPredictedPeriodDay', isPredictedPeriodDay)
           ..add('isPredictedOvulationDay', isPredictedOvulationDay)
+          ..add('isFertileDay', isFertileDay)
           ..add('todayInsights', todayInsights))
         .toString();
   }
@@ -103,6 +107,10 @@ class DailyInsightsSummaryBuilder
   set isPredictedOvulationDay(bool? isPredictedOvulationDay) =>
       _$this._isPredictedOvulationDay = isPredictedOvulationDay;
 
+  bool? _isFertileDay;
+  bool? get isFertileDay => _$this._isFertileDay;
+  set isFertileDay(bool? isFertileDay) => _$this._isFertileDay = isFertileDay;
+
   String? _todayInsights;
   String? get todayInsights => _$this._todayInsights;
   set todayInsights(String? todayInsights) =>
@@ -118,6 +126,7 @@ class DailyInsightsSummaryBuilder
       _date = $v.date;
       _isPredictedPeriodDay = $v.isPredictedPeriodDay;
       _isPredictedOvulationDay = $v.isPredictedOvulationDay;
+      _isFertileDay = $v.isFertileDay;
       _todayInsights = $v.todayInsights;
       _$v = null;
     }
@@ -151,6 +160,8 @@ class DailyInsightsSummaryBuilder
                 isPredictedOvulationDay,
                 r'DailyInsightsSummary',
                 'isPredictedOvulationDay'),
+            isFertileDay: BuiltValueNullFieldError.checkNotNull(
+                isFertileDay, r'DailyInsightsSummary', 'isFertileDay'),
             todayInsights: BuiltValueNullFieldError.checkNotNull(
                 todayInsights, r'DailyInsightsSummary', 'todayInsights'));
     replace(_$result);

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:venille/core/models/user_country_model.dart';
 
 class CommonRepository extends GetxController {
-  RxString storeSlug = ''.obs;
+  RxInt currentTrackerIndex = 1.obs;
   RxInt currentScreenIndex = 0.obs;
   RxInt currentPromotionPlan = 0.obs;
   RxInt promotionSelectedItemsLength = 0.obs;

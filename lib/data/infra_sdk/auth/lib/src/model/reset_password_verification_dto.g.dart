@@ -5,6 +5,12 @@
 // @dart=3.5
 // @dart=3.5
 // @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 

@@ -8,10 +8,11 @@ class FormLabelText extends CustomTextWidget {
     super.key,
     double size = 16,
     required String text,
+    FontWeight fontWeight = FontWeight.w400,
   }) : super(
           size: size,
           text: text,
-          weight: FontWeight.w400,
+          weight: fontWeight,
           textStyleName: AppTextSizes.bodyText1,
         );
 }
