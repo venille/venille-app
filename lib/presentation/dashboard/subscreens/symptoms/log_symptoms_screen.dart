@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/core/providers/index.dart';
+import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dart';
+import 'package:built_collection/built_collection.dart';
 
 class LogSymptomsScreen extends StatefulWidget {
   const LogSymptomsScreen({super.key});
@@ -92,26 +95,36 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
       {'name': 'Test: negative'.tr, 'icon': Icons.remove_circle_outline},
       {'name': 'Ovulation: my method'.tr, 'icon': Icons.calendar_today_outlined},
     ],
-    'Other'.tr: [
-      {'name': 'Travel'.tr, 'icon': Icons.place},
-      {'name': 'Stress'.tr, 'icon': Icons.flash_on},
-      {'name': 'Meditation'.tr, 'icon': Icons.spa},
-      {'name': 'Journaling'.tr, 'icon': Icons.book},
-      {'name': 'Kegel exercises'.tr, 'icon': Icons.favorite_border},
-      {'name': 'Breathing exercises'.tr, 'icon': Icons.air},
-      {'name': 'Disease or injury'.tr, 'icon': Icons.medical_services},
-      {'name': 'Alcohol'.tr, 'icon': Icons.local_bar},
+    'Other': [
+      {'name': 'Travel', 'icon': Icons.place},
+      {'name': 'Stress', 'icon': Icons.flash_on},
+      {'name': 'Meditation', 'icon': Icons.spa},
+      {'name': 'Journaling', 'icon': Icons.book},
+      {'name': 'Kegel exercises', 'icon': Icons.favorite_border},
+      {'name': 'Breathing exercises', 'icon': Icons.air},
+      {'name': 'Disease or injury', 'icon': Icons.medical_services},
+      {'name': 'Alcohol', 'icon': Icons.local_bar},
     ],
-    'Physical activity'.tr: [
-      {'name': "Didn't exercise".tr, 'icon': Icons.no_cell},
-      {'name': 'Yoga', 'icon'.tr: Icons.self_improvement},
-      {'name': 'Gym', 'icon'.tr: Icons.fitness_center},
-      {'name': 'Aerobics & dancing'.tr, 'icon': Icons.music_note},
-      {'name': 'Swimming'.tr, 'icon': Icons.pool},
-      {'name': 'Team sports'.tr, 'icon': Icons.sports_basketball},
-      {'name': 'Running'.tr, 'icon': Icons.directions_run},
-      {'name': 'Cycling'.tr, 'icon': Icons.directions_bike},
-      {'name': 'Walking'.tr, 'icon': Icons.directions_walk},
+    'Physical activity': [
+      {'name': "Didn't exercise", 'icon': Icons.no_cell},
+      {'name': 'Yoga', 'icon': Icons.self_improvement},
+      {'name': 'Gym', 'icon': Icons.fitness_center},
+      {'name': 'Aerobics & dancing', 'icon': Icons.music_note},
+      {'name': 'Swimming', 'icon': Icons.pool},
+      {'name': 'Team sports', 'icon': Icons.sports_basketball},
+      {'name': 'Running', 'icon': Icons.directions_run},
+      {'name': 'Cycling', 'icon': Icons.directions_bike},
+      {'name': 'Walking', 'icon': Icons.directions_walk},
+    ],
+    'Other': [
+      {'name': 'Travel', 'icon': Icons.place},
+      {'name': 'Stress', 'icon': Icons.flash_on},
+      {'name': 'Meditation', 'icon': Icons.spa},
+      {'name': 'Journaling', 'icon': Icons.book},
+      {'name': 'Kegel exercises', 'icon': Icons.favorite_border},
+      {'name': 'Breathing exercises', 'icon': Icons.air},
+      {'name': 'Disease or injury', 'icon': Icons.medical_services},
+      {'name': 'Alcohol', 'icon': Icons.local_bar},
     ],
   };
 
@@ -140,13 +153,38 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
       case 'Sex and sex drive':
         return Colors.red.shade100;
       case 'Digestion and stool':
-        return Colors.purple.shade100;
+        return Colors.indigo.shade100;
       case 'Pregnancy test':
         return Colors.orange.shade100;
       case 'Ovulation test':
         return Colors.teal.shade100;
       default:
         return Colors.grey.shade100;
+    }
+  }
+
+  String generateCategoryEnum(String categoryName) {
+    switch (categoryName) {
+      case 'Symptoms':
+        return 'symptoms';
+      case 'Mood':
+        return 'mood';
+      case 'Vaginal discharge':
+        return 'vaginal_discharge';
+      case 'Sex and sex drive':
+        return 'sex_drive';
+      case 'Digestion and stool':
+        return 'digestion_stool';
+      case 'Pregnancy test':
+        return 'pregnancy_test';
+      case 'Ovulation test':
+        return 'ovulation_test';
+      case 'Physical activity':
+        return 'physical_activity';
+      case 'Other':
+        return 'other';
+      default:
+        return 'other';
     }
   }
 
@@ -183,7 +221,7 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // const SizedBox(width: AppSizes.horizontal_45),
+                          const SizedBox(width: AppSizes.horizontal_45),
                           TitleText(
                             title:
                                 'Date: ${formatDate(ServiceRegistry.userRepository.dashboardTrackerCurrentDay.value.date)}',
@@ -242,18 +280,11 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
                       ),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: AppColors.grayLightColor,
-                        ),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                            color: AppColors.grayLightColor,
-                          ),
-                        ],
+                        // border: Border.all(
+                        //   color: AppColors.grayLightColor,
+                        // ),
                         borderRadius: BorderRadius.circular(15),
+                        color: getCategoryColor(category.key).withOpacity(0.3),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,68 +370,107 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
         decoration: const BoxDecoration(
           color: AppColors.whiteColor,
         ),
-        child: isProcessing
-            ? const CustomLoadingButton(
-                height: 56,
-              )
-            : CustomButton(
-                text: 'Submit',
-                width: double.maxFinite,
-                height: 56,
-                fontSize: 16,
-                borderRadius: 16,
-                onTapHandler: () async {
-                  setState(() {
-                    isProcessing = true;
-                  });
+        child: Obx(
+          () => ServiceRegistry
+                  .periodTrackerService.isLogPeriodSymptomsProcessing.value
+              ? const CustomLoadingButton(
+                  height: 56,
+                  backgroundColor: AppColors.blackColor,
+                )
+              : CustomButton(
+                  text: 'Submit',
+                  width: double.maxFinite,
+                  height: 56,
+                  fontSize: 16,
+                  borderRadius: 16,
+                  onTapHandler: () async {
+                    final requiredCategories = categories.entries
+                        .where((entry) => entry.key != 'Other')
+                        .map((entry) => entry.key)
+                        .toList();
 
-                  final requiredCategories = categories.entries
-                      .where((entry) => entry.key != 'Other')
-                      .map((entry) => entry.key)
-                      .toList();
-
-                  // Check which categories are missing selections
-                  List<String> missingCategories = [];
-                  for (String category in requiredCategories) {
-                    bool hasSelectedItem = false;
-                    for (var item in categories[category]!) {
-                      if (selectedSymptoms.contains(item['name'])) {
-                        hasSelectedItem = true;
-                        break;
+                    // Check which categories are missing selections
+                    List<String> missingCategories = [];
+                    for (String category in requiredCategories) {
+                      bool hasSelectedItem = false;
+                      for (var item in categories[category]!) {
+                        if (selectedSymptoms.contains(item['name'])) {
+                          hasSelectedItem = true;
+                          break;
+                        }
+                      }
+                      if (!hasSelectedItem) {
+                        missingCategories.add(category);
                       }
                     }
-                    if (!hasSelectedItem) {
-                      missingCategories.add(category);
+
+                    if (missingCategories.isNotEmpty) {
+                      customErrorMessageSnackbar(
+                        title: 'Message',
+                        message:
+                            'Please select at least one item from: ${missingCategories.join(", ")}',
+                      );
+                    } else {
+                      // Group symptoms by category
+                      final Map<String, List<String>> categorySymptomsMap = {};
+
+                      for (final symptomName in selectedSymptoms) {
+                        String category = 'Other';
+                        for (final categoryEntry in categories.entries) {
+                          if (categoryEntry.value.any(
+                              (symptom) => symptom['name'] == symptomName)) {
+                            category = categoryEntry.key;
+                            break;
+                          }
+                        }
+
+                        if (!categorySymptomsMap.containsKey(category)) {
+                          categorySymptomsMap[category] = [];
+                        }
+                        categorySymptomsMap[category]!.add(symptomName);
+                      }
+
+                      log('[CATEGORY SYMPTOMS MAP] :: $categorySymptomsMap');
+
+                      // Create one PeriodSymptomDto per category with all symptoms for that category
+                      final symptomsList =
+                          categorySymptomsMap.entries.map((entry) {
+                        final category = entry.key;
+                        final symptoms = entry.value;
+
+                        // Remove duplicates from symptoms list
+                        final uniqueSymptoms = symptoms.toSet().toList();
+                        final categoryArray =
+                            '["${uniqueSymptoms.join('", "')}"]';
+
+                        return PeriodSymptomDto(
+                          (b) => b
+                            ..symptomType = generateCategoryEnum(category)
+                            ..symptoms = categoryArray,
+                        );
+                      }).toList();
+
+                      LogPeriodSymptomDto payload = LogPeriodSymptomDto(
+                        (instance) => instance
+                          ..date = ServiceRegistry.userRepository
+                              .dashboardTrackerCurrentDay.value.date
+                              .toIso8601String()
+                              .split('T')[0]
+                          ..symptoms =
+                              ListBuilder<PeriodSymptomDto>(symptomsList),
+                      );
+
+                      log('[PAYLOAD] :: $payload');
+
+                      ServiceRegistry.periodTrackerService
+                          .logPeriodTrackerSymptomsService(payload);
                     }
-                  }
-
-                  if (missingCategories.isNotEmpty) {
-                    setState(() {
-                      isProcessing = false;
-                    });
-
-                    customErrorMessageSnackbar(
-                      title: 'Message',
-                      message:
-                          'Please select at least one item from: ${missingCategories.join(", ")}',
-                    );
-                  } else {
-                    await Future.delayed(const Duration(milliseconds: 3500));
-
-                    setState(() {
-                      isProcessing = false;
-                    });
-
-                    customSuccessMessageSnackbar(
-                      title: 'Message',
-                      message: 'Symptoms logged successfully!',
-                    );
-                  }
-                },
-                fontWeight: FontWeight.w600,
-                fontColor: AppColors.whiteColor,
-                backgroundColor: AppColors.pinkColor,
-              ),
+                  },
+                  fontWeight: FontWeight.w600,
+                  fontColor: AppColors.whiteColor,
+                  backgroundColor: AppColors.blackColor,
+                ),
+        ),
       ),
     );
   }

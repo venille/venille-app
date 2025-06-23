@@ -9,50 +9,14 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**periodTrackerControllerGetDashboardPeriodTrackerHistory**](PeriodTrackerApi.md#periodtrackercontrollergetdashboardperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/dashboard | 
-[**periodTrackerControllerGetPeriodLogHistory**](PeriodTrackerApi.md#periodtrackercontrollergetperiodloghistory) | **GET** /v1/period-tracker/tracker/log/history | 
-[**periodTrackerControllerGetPeriodTrackerHistory**](PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/history | 
+[**periodTrackerControllerGetDashboardInfo**](PeriodTrackerApi.md#periodtrackercontrollergetdashboardinfo) | **GET** /v1/period-tracker/tracker/dashboard-info | 
+[**periodTrackerControllerGetPeriodTrackerHistory**](PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/predicted-log | 
+[**periodTrackerControllerLogPeriodSymptoms**](PeriodTrackerApi.md#periodtrackercontrollerlogperiodsymptoms) | **POST** /v1/period-tracker/tracker/log-symptoms | 
+[**periodTrackerControllerLogPeriodTrackerHistory**](PeriodTrackerApi.md#periodtrackercontrollerlogperiodtrackerhistory) | **PATCH** /v1/period-tracker/tracker/predicted-log | 
 
 
-# **periodTrackerControllerGetDashboardPeriodTrackerHistory**
-> DashboardTrackerInfo periodTrackerControllerGetDashboardPeriodTrackerHistory()
-
-
-
-### Example
-```dart
-import 'package:period_tracker_sdk/api.dart';
-
-final api = PeriodTrackerSdk().getPeriodTrackerApi();
-
-try {
-    final response = api.periodTrackerControllerGetDashboardPeriodTrackerHistory();
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardPeriodTrackerHistory: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**DashboardTrackerInfo**](DashboardTrackerInfo.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **periodTrackerControllerGetPeriodLogHistory**
-> BuiltList<PeriodLogInfo> periodTrackerControllerGetPeriodLogHistory()
+# **periodTrackerControllerGetDashboardInfo**
+> DashboardInfo periodTrackerControllerGetDashboardInfo()
 
 
 
@@ -63,10 +27,10 @@ import 'package:period_tracker_sdk/api.dart';
 final api = PeriodTrackerSdk().getPeriodTrackerApi();
 
 try {
-    final response = api.periodTrackerControllerGetPeriodLogHistory();
+    final response = api.periodTrackerControllerGetDashboardInfo();
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling PeriodTrackerApi->periodTrackerControllerGetPeriodLogHistory: $e\n');
+    print('Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardInfo: $e\n');
 }
 ```
 
@@ -75,7 +39,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;PeriodLogInfo&gt;**](PeriodLogInfo.md)
+[**DashboardInfo**](DashboardInfo.md)
 
 ### Authorization
 
@@ -89,7 +53,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **periodTrackerControllerGetPeriodTrackerHistory**
-> BuiltList<PeriodTrackerInfo> periodTrackerControllerGetPeriodTrackerHistory()
+> PeriodTrackerHistory periodTrackerControllerGetPeriodTrackerHistory()
 
 
 
@@ -112,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;PeriodTrackerInfo&gt;**](PeriodTrackerInfo.md)
+[**PeriodTrackerHistory**](PeriodTrackerHistory.md)
 
 ### Authorization
 
@@ -122,6 +86,86 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **periodTrackerControllerLogPeriodSymptoms**
+> periodTrackerControllerLogPeriodSymptoms(logPeriodSymptomDto)
+
+
+
+### Example
+```dart
+import 'package:period_tracker_sdk/api.dart';
+
+final api = PeriodTrackerSdk().getPeriodTrackerApi();
+final LogPeriodSymptomDto logPeriodSymptomDto = ; // LogPeriodSymptomDto | 
+
+try {
+    api.periodTrackerControllerLogPeriodSymptoms(logPeriodSymptomDto);
+} catch on DioException (e) {
+    print('Exception when calling PeriodTrackerApi->periodTrackerControllerLogPeriodSymptoms: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **logPeriodSymptomDto** | [**LogPeriodSymptomDto**](LogPeriodSymptomDto.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **periodTrackerControllerLogPeriodTrackerHistory**
+> periodTrackerControllerLogPeriodTrackerHistory(periodTrackerHistoryDto)
+
+
+
+### Example
+```dart
+import 'package:period_tracker_sdk/api.dart';
+
+final api = PeriodTrackerSdk().getPeriodTrackerApi();
+final PeriodTrackerHistoryDto periodTrackerHistoryDto = ; // PeriodTrackerHistoryDto | 
+
+try {
+    api.periodTrackerControllerLogPeriodTrackerHistory(periodTrackerHistoryDto);
+} catch on DioException (e) {
+    print('Exception when calling PeriodTrackerApi->periodTrackerControllerLogPeriodTrackerHistory: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **periodTrackerHistoryDto** | [**PeriodTrackerHistoryDto**](PeriodTrackerHistoryDto.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -58,12 +58,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         destinations: [
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.home_more_20_regular,
+              FluentIcons.home_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.home_more_20_regular,
+              FluentIcons.home_20_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),
@@ -110,12 +110,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           ),
           const NavigationDestination(
             icon: Icon(
-              FluentIcons.mail_shield_16_regular,
+              FluentIcons.mail_inbox_16_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
             selectedIcon: Icon(
-              FluentIcons.mail_shield_16_regular,
+              FluentIcons.mail_inbox_16_regular,
               size: 20,
               color: AppColors.primaryBackgroundColor,
             ),

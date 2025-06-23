@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
+import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:built_collection/built_collection.dart';
@@ -602,6 +603,18 @@ class EngagementService extends GetxController {
 
           log("[FETCH-COURSES-SUCCESS]");
 
+          List<String> courseImages = [];
+          for (CourseCategoryInfo course
+              in ServiceRegistry.userRepository.courseCategories) {
+            for (CourseInfo courseCategory in course.courses) {
+              courseImages.add(courseCategory.coverPhoto);
+            }
+          }
+
+          Future.microtask(() {
+            preCacheNetworkImages(courseImages);
+          });
+
           isFetchCoursesProcessing.value = false;
         }
       } catch (error) {
@@ -665,8 +678,6 @@ class EngagementService extends GetxController {
                   courseCategoryBuilder.courses =
                       ListBuilder(course.courses.map((course) {
                     if (course.id == courseId) {
-
-
                       return course.rebuild((courseBuilder) {
                         courseBuilder.description = data.translatedText;
                       });

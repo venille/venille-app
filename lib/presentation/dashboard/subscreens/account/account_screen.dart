@@ -29,7 +29,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(125),
+        preferredSize: Size.fromHeight(135),
         child: ProfileAppBar(),
       ),
       body: LayoutBuilder(

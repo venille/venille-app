@@ -15,40 +15,38 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:period_tracker_sdk/src/date_serializer.dart';
 import 'package:period_tracker_sdk/src/model/date.dart';
 
-import 'package:period_tracker_sdk/src/model/daily_insights_summary.dart';
-import 'package:period_tracker_sdk/src/model/dashboard_tracker_info.dart';
-import 'package:period_tracker_sdk/src/model/period_log_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_calendar_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_day_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_last_period_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_ovulation_countdown.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_reminder_info.dart';
-import 'package:period_tracker_sdk/src/model/period_tracker_week_info.dart';
+import 'package:period_tracker_sdk/src/model/dashboard_info.dart';
+import 'package:period_tracker_sdk/src/model/log_period_symptom_dto.dart';
+import 'package:period_tracker_sdk/src/model/menstrual_phase_description_info.dart';
+import 'package:period_tracker_sdk/src/model/menstrual_phase_info.dart';
+import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
+import 'package:period_tracker_sdk/src/model/period_day_info.dart';
+import 'package:period_tracker_sdk/src/model/period_month_dto.dart';
+import 'package:period_tracker_sdk/src/model/period_symptom_dto.dart';
+import 'package:period_tracker_sdk/src/model/period_tracker_history.dart';
+import 'package:period_tracker_sdk/src/model/period_tracker_history_dto.dart';
+import 'package:period_tracker_sdk/src/model/period_year_dto.dart';
+import 'package:period_tracker_sdk/src/model/predicted_year_tracker_info.dart';
+import 'package:period_tracker_sdk/src/model/previous_cycle_info.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
-  DailyInsightsSummary,
-  DashboardTrackerInfo,
-  PeriodLogInfo,
-  PeriodTrackerCalendarInfo,
-  PeriodTrackerDayInfo,
-  PeriodTrackerInfo,
-  PeriodTrackerLastPeriodInfo,
-  PeriodTrackerOvulationCountdown,
-  PeriodTrackerReminderInfo,
-  PeriodTrackerWeekInfo,
+  DashboardInfo,
+  LogPeriodSymptomDto,
+  MenstrualPhaseDescriptionInfo,
+  MenstrualPhaseInfo,
+  MonthlyPeriodInfo,
+  PeriodDayInfo,
+  PeriodMonthDto,
+  PeriodSymptomDto,
+  PeriodTrackerHistory,
+  PeriodTrackerHistoryDto,
+  PeriodYearDto,
+  PredictedYearTrackerInfo,
+  PreviousCycleInfo,
 ])
 Serializers serializers = (_$serializers.toBuilder()
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(PeriodTrackerInfo)]),
-        () => ListBuilder<PeriodTrackerInfo>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(PeriodLogInfo)]),
-        () => ListBuilder<PeriodLogInfo>(),
-      )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

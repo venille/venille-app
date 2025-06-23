@@ -35,8 +35,12 @@ class _DashboardState extends State<Dashboard> {
 
   void initializeAppInfo() {
     Future.wait([
+      ServiceRegistry.periodTrackerService.fetchDashboardInfoService(),
       ServiceRegistry.accountService.fetchOnboardingQuestionsService(),
+      ServiceRegistry.accountService.fetchNotificationsService(page: 1),
       ServiceRegistry.accountService.fetchDetailedUserAccountInfoService(),
+      ServiceRegistry.engagementService.fetchCoursesService(currentPage: 1),
+      ServiceRegistry.engagementService.fetchForumPostsService(currentPage: 1),
     ]);
   }
 

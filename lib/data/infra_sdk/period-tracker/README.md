@@ -50,10 +50,10 @@ import 'package:period_tracker_sdk/period_tracker_sdk.dart';
 final api = PeriodTrackerSdk().getPeriodTrackerApi();
 
 try {
-    final response = await api.periodTrackerControllerGetDashboardPeriodTrackerHistory();
+    final response = await api.periodTrackerControllerGetDashboardInfo();
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardPeriodTrackerHistory: $e\n");
+    print("Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardInfo: $e\n");
 }
 
 ```
@@ -64,23 +64,27 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetDashboardPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetdashboardperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/dashboard | 
-[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodLogHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodloghistory) | **GET** /v1/period-tracker/tracker/log/history | 
-[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/history | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetDashboardInfo**](doc/PeriodTrackerApi.md#periodtrackercontrollergetdashboardinfo) | **GET** /v1/period-tracker/tracker/dashboard-info | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/predicted-log | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerLogPeriodSymptoms**](doc/PeriodTrackerApi.md#periodtrackercontrollerlogperiodsymptoms) | **POST** /v1/period-tracker/tracker/log-symptoms | 
+[*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerLogPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollerlogperiodtrackerhistory) | **PATCH** /v1/period-tracker/tracker/predicted-log | 
 
 
 ## Documentation For Models
 
- - [DailyInsightsSummary](doc/DailyInsightsSummary.md)
- - [DashboardTrackerInfo](doc/DashboardTrackerInfo.md)
- - [PeriodLogInfo](doc/PeriodLogInfo.md)
- - [PeriodTrackerCalendarInfo](doc/PeriodTrackerCalendarInfo.md)
- - [PeriodTrackerDayInfo](doc/PeriodTrackerDayInfo.md)
- - [PeriodTrackerInfo](doc/PeriodTrackerInfo.md)
- - [PeriodTrackerLastPeriodInfo](doc/PeriodTrackerLastPeriodInfo.md)
- - [PeriodTrackerOvulationCountdown](doc/PeriodTrackerOvulationCountdown.md)
- - [PeriodTrackerReminderInfo](doc/PeriodTrackerReminderInfo.md)
- - [PeriodTrackerWeekInfo](doc/PeriodTrackerWeekInfo.md)
+ - [DashboardInfo](doc/DashboardInfo.md)
+ - [LogPeriodSymptomDto](doc/LogPeriodSymptomDto.md)
+ - [MenstrualPhaseDescriptionInfo](doc/MenstrualPhaseDescriptionInfo.md)
+ - [MenstrualPhaseInfo](doc/MenstrualPhaseInfo.md)
+ - [MonthlyPeriodInfo](doc/MonthlyPeriodInfo.md)
+ - [PeriodDayInfo](doc/PeriodDayInfo.md)
+ - [PeriodMonthDto](doc/PeriodMonthDto.md)
+ - [PeriodSymptomDto](doc/PeriodSymptomDto.md)
+ - [PeriodTrackerHistory](doc/PeriodTrackerHistory.md)
+ - [PeriodTrackerHistoryDto](doc/PeriodTrackerHistoryDto.md)
+ - [PeriodYearDto](doc/PeriodYearDto.md)
+ - [PredictedYearTrackerInfo](doc/PredictedYearTrackerInfo.md)
+ - [PreviousCycleInfo](doc/PreviousCycleInfo.md)
 
 
 ## Documentation For Authorization

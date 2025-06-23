@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart' as AuthSdk;
+import 'package:period_tracker_sdk/src/model/period_tracker_day_info.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart'
     as AccountSdk;
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart'
@@ -43,50 +44,47 @@ class UserRepository extends GetxController {
       ..createdAt = DateTime.now(),
   ).obs;
 
-  Rx<PeriodTrackerSdk.PeriodTrackerWeekInfo> dashboardTrackerCurrentWeek =
-      PeriodTrackerSdk.PeriodTrackerWeekInfo(
-    (period) => period
-      ..monthTitle = 'June'
-      ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
-  ).obs;
-
-  Rx<PeriodTrackerSdk.PeriodTrackerDayInfo> dashboardTrackerCurrentDay =
-      PeriodTrackerSdk.PeriodTrackerDayInfo(
-    (period) => period
-      ..date = DateTime.now()
-      ..insights = ''
-      ..cycleDayCount = 0
-      ..isFertileDay = false
-      ..isPredictedOvulationDay = false
-      ..isPredictedPeriodDay = false
-      ..isToday = false
-      ..periodDayCount = 0,
-  ).obs;
-
-  Rx<PeriodTrackerSdk.DashboardTrackerInfo> dashboardPeriodInfo =
-      PeriodTrackerSdk.DashboardTrackerInfo(
+  Rx<PeriodTrackerSdk.PeriodTrackerHistory> periodTrackerHistory =
+      PeriodTrackerSdk.PeriodTrackerHistory(
     (instance) => instance
-      ..currentWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
-        (period) => period
-          ..monthTitle = ''
-          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
-      ).toBuilder()
-      ..nextWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
-        (period) => period
-          ..monthTitle = ''
-          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
-      ).toBuilder()
-      ..previousWeek = PeriodTrackerSdk.PeriodTrackerWeekInfo(
-        (period) => period
-          ..monthTitle = ''
-          ..days = ListBuilder<PeriodTrackerSdk.PeriodTrackerDayInfo>(),
-      ).toBuilder(),
+      ..years = ListBuilder<PeriodTrackerSdk.PredictedYearTrackerInfo>(),
   ).obs;
 
-  final RxList<PeriodTrackerSdk.PeriodLogInfo> _periodLogHistory =
-      <PeriodTrackerSdk.PeriodLogInfo>[].obs;
-  RxList<PeriodTrackerSdk.PeriodLogInfo> get periodLogHistory =>
-      _periodLogHistory;
+  Rx<PeriodTrackerDayInfo> dashboardTrackerCurrentDay = PeriodTrackerDayInfo(
+    (instance) => instance
+      ..date = DateTime.now()
+      ..isToday = false
+      ..isPredictedPeriodDay = false
+      ..isPredictedOvulationDay = false
+      ..cycleDayCount = 0
+      ..insights = ''
+      ..periodDayCount = 0
+      ..isFertileDay = false,
+  ).obs;
+
+  Rx<PeriodTrackerSdk.DashboardInfo> dashboardInfo =
+      PeriodTrackerSdk.DashboardInfo(
+    (instance) => instance
+      ..previousCycleInfo = PeriodTrackerSdk.PreviousCycleInfo(
+        (instance) => instance
+          ..cycleLength = ''
+          ..cycleLengthStatus = ''
+          ..daysAgo = ''
+          ..duration = ''
+          ..durationStatus = ''
+          ..startDate = '',
+      ).toBuilder()
+      ..menstrualPhases = ListBuilder<PeriodTrackerSdk.MenstrualPhaseInfo>(),
+  ).obs;
+
+  Rx<PeriodTrackerSdk.MenstrualPhaseInfo> menstrualPhaseInfo =
+      PeriodTrackerSdk.MenstrualPhaseInfo(
+    (instance) => instance
+      ..id = ''
+      ..title = ''
+      ..coverPhoto = ''
+      ..descriptions = ListBuilder<PeriodTrackerSdk.MenstrualPhaseDescriptionInfo>(),
+  ).obs;
 
   Rx<EngagementSdk.CourseInfo> courseInfo = EngagementSdk.CourseInfo(
     (courseInfo) => courseInfo
@@ -118,11 +116,6 @@ class UserRepository extends GetxController {
       <EngagementSdk.ForumCommentInfo>[].obs;
   RxList<EngagementSdk.ForumCommentInfo> get forumPostComments =>
       _forumPostComments;
-
-  final RxList<PeriodTrackerSdk.PeriodTrackerInfo> _periodTrackerHistory =
-      <PeriodTrackerSdk.PeriodTrackerInfo>[].obs;
-  RxList<PeriodTrackerSdk.PeriodTrackerInfo> get periodTrackerHistory =>
-      _periodTrackerHistory;
 
   final RxList<EngagementSdk.CourseCategoryInfo> _courseCategories =
       <EngagementSdk.CourseCategoryInfo>[].obs;
