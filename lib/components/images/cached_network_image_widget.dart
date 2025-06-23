@@ -34,10 +34,12 @@ class CachedNetworkImageWidget extends StatelessWidget {
   final double? width;
   final double height;
   final String imageUrl;
+  final BoxFit boxFit;
   final String? errorAssetImage;
   const CachedNetworkImageWidget({
     super.key,
     this.width,
+    this.boxFit = BoxFit.cover,
     this.errorAssetImage,
     required this.height,
     required this.imageUrl,
@@ -49,7 +51,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
       cacheManager: OptimizedCacheManager().getCacheManager(),
       width: width ?? double.maxFinite,
       imageUrl: imageUrl,
-      fit: BoxFit.cover,
+      fit: boxFit,
       placeholder: (context, url) {
         return Image.asset(
           errorAssetImage ?? 'assets/images/default.jpg',

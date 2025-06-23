@@ -1,14 +1,12 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:venille/components/buttons/custom_back_button.dart';
-import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
-import 'package:venille/components/text/body_text.dart';
+import 'package:venille/core/constants/routes.dart';
 import 'package:venille/components/text/title_text.dart';
-import 'package:venille/components/buttons/custom_support_button.dart';
+import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 import 'package:venille/components/modals/update_profile_avatar_bottom_modal.dart';
 
@@ -46,6 +44,7 @@ class ProfileAppBar extends StatelessWidget {
                   const SizedBox(width: AppSizes.horizontal_35),
                 ],
               ),
+              const SizedBox(height: AppSizes.vertical_8),
               SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

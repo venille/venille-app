@@ -3,13 +3,19 @@ import 'dart:developer';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/custom_button.dart';
+import 'package:venille/components/buttons/custom_loading_button.dart';
+import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
-import 'package:venille/data/infra_sdk/period-tracker/lib/src/model/period_log_info.dart';
+import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:period_tracker_sdk/src/model/period_day_info.dart';
+import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
 
 class LogPeriodScreen extends StatefulWidget {
   const LogPeriodScreen({super.key});
@@ -27,35 +33,178 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
   void initState() {
     super.initState();
     initializePeriodLogHistory();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToCurrentMonth();
-    });
   }
 
   Future<void> initializePeriodLogHistory() async {
-    await ServiceRegistry.periodTrackerService.fetchPeriodLogHistoryService();
+    if (ServiceRegistry
+        .userRepository.periodTrackerHistory.value.years.isEmpty) {
+      await ServiceRegistry.periodTrackerService
+          .fetchPeriodTrackerHistoryService();
+    }
+
     _processPeriodHistory();
     if (mounted) {
       setState(() {});
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToCurrentMonth();
+      });
     }
+  }
+
+  // Helper function to get all months from all years in period tracker history
+  List<MonthlyPeriodInfo> getAllMonthsData() {
+    final periodTracker =
+        ServiceRegistry.userRepository.periodTrackerHistory.value;
+    if (periodTracker.years.isEmpty) return [];
+
+    final now = DateTime.now();
+    final currentYear = now.year;
+    final currentMonth = now.month;
+    final nextMonth = currentMonth == 12 ? 1 : currentMonth + 1;
+    final nextMonthYear = currentMonth == 12 ? currentYear + 1 : currentYear;
+
+    List<MonthlyPeriodInfo> allMonths = [];
+
+    for (var yearData in periodTracker.years) {
+      for (var month in yearData.months) {
+        final monthYear = yearData.currentYear.toInt();
+        final monthNumber = month.month.toInt();
+
+        // Stop at the month after current month
+        if (monthYear > nextMonthYear ||
+            (monthYear == nextMonthYear && monthNumber > nextMonth)) {
+          break;
+        }
+
+        allMonths.add(month);
+      }
+    }
+
+    // If current month is not in the data, add it
+    bool hasCurrentMonth = allMonths.any((month) =>
+        month.month.toInt() == currentMonth &&
+        month.days.isNotEmpty &&
+        month.days.first.date.year == currentYear);
+
+    if (!hasCurrentMonth) {
+      // Create a placeholder for current month if it's not in the data
+      final currentMonthInfo = MonthlyPeriodInfo(
+        (b) => b
+          ..month = currentMonth
+          ..monthName = _getMonthName(currentMonth)
+          ..days = ListBuilder<PeriodDayInfo>([]),
+      );
+      allMonths.add(currentMonthInfo);
+    }
+
+    return allMonths;
+  }
+
+  // Helper function to get current year months data (for backward compatibility)
+  List<MonthlyPeriodInfo> getCurrentYearMonthsData() {
+    final periodTracker =
+        ServiceRegistry.userRepository.periodTrackerHistory.value;
+    if (periodTracker.years.isEmpty) return [];
+
+    final now = DateTime.now();
+    final currentYear = now.year;
+
+    // Find the year data for current year
+    final currentYearData = periodTracker.years.firstWhere(
+      (year) => year.currentYear.toInt() == currentYear,
+      orElse: () => periodTracker.years.first,
+    );
+
+    return currentYearData.months.toList();
+  }
+
+  // Helper function to get current year
+  int getCurrentYear() {
+    final periodTracker =
+        ServiceRegistry.userRepository.periodTrackerHistory.value;
+    if (periodTracker.years.isEmpty) return DateTime.now().year;
+
+    final now = DateTime.now();
+    final currentYear = now.year;
+
+    // Find the year data for current year
+    final currentYearData = periodTracker.years.firstWhere(
+      (year) => year.currentYear.toInt() == currentYear,
+      orElse: () => periodTracker.years.first,
+    );
+
+    return currentYearData.currentYear.toInt();
+  }
+
+  String _getMonthName(int month) {
+    const names = [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    return names[month];
   }
 
   void _processPeriodHistory() {
     _selectedDates.clear();
     _loggedDates.clear();
-    final periodLogHistory =
-        ServiceRegistry.userRepository.periodLogHistory.value;
 
-    for (var log in periodLogHistory) {
-      if (log.startDate != null && log.endDate != null) {
-        for (var day = log.startDate!;
-            !day.isAfter(log.endDate!);
-            day = day.add(const Duration(days: 1))) {
-          final dateOnly = DateTime(day.year, day.month, day.day);
-          _selectedDates.add(dateOnly);
-          _loggedDates.add(dateOnly);
-        }
+    final months = getAllMonthsData();
+    if (months.isEmpty) {
+      return;
+    }
+
+    // 1. Collect all predicted days from all months
+    List<PeriodDayInfo> allPredictedDays = [];
+    for (var month in months) {
+      allPredictedDays.addAll(month.days.where((d) => d.isPredictedPeriodDay));
+    }
+
+    if (allPredictedDays.isEmpty) return;
+
+    // 2. Sort all predicted days chronologically
+    allPredictedDays.sort((a, b) => a.date.compareTo(b.date));
+
+    // 3. Find consecutive ranges across all days
+    DateTime rangeStart = allPredictedDays.first.date;
+    DateTime rangeEnd = allPredictedDays.first.date;
+
+    for (int i = 1; i < allPredictedDays.length; i++) {
+      if (allPredictedDays[i].date.difference(rangeEnd).inDays == 1) {
+        // This day is consecutive, extend the range
+        rangeEnd = allPredictedDays[i].date;
+      } else {
+        // The range has ended, process it
+        _addRangeToLoggedAndSelected(rangeStart, rangeEnd);
+        // Start a new range
+        rangeStart = allPredictedDays[i].date;
+        rangeEnd = allPredictedDays[i].date;
       }
+    }
+    // Process the final range
+    _addRangeToLoggedAndSelected(rangeStart, rangeEnd);
+  }
+
+  void _addRangeToLoggedAndSelected(DateTime startDate, DateTime endDate) {
+    log('[CURRENT-RANGE] :: $startDate $endDate');
+
+    DateTime currentDateInRange = startDate;
+    while (!currentDateInRange.isAfter(endDate)) {
+      final dateToAdd = DateTime(currentDateInRange.year,
+          currentDateInRange.month, currentDateInRange.day);
+      _loggedDates.add(dateToAdd);
+      _selectedDates.add(dateToAdd);
+      currentDateInRange = currentDateInRange.add(const Duration(days: 1));
     }
   }
 
@@ -67,10 +216,31 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
 
   void _scrollToCurrentMonth() {
     final now = DateTime.now();
-    final currentMonthIndex = now.month - 1; // 0-based index
-    final estimatedMonthHeight = 350.0;
-    final scrollPosition = currentMonthIndex * estimatedMonthHeight;
-    if (_scrollController.hasClients) {
+    final months = getAllMonthsData();
+
+    int currentMonthIndex = -1;
+
+    if (months.isEmpty) {
+      currentMonthIndex = now.month - 1;
+    } else {
+      for (int i = 0; i < months.length; i++) {
+        final monthInfo = months[i];
+        final year = monthInfo.days.isNotEmpty
+            ? monthInfo.days.first.date.year
+            : getCurrentYear();
+        if (year == now.year && monthInfo.month.toInt() == now.month) {
+          currentMonthIndex = i;
+          break;
+        }
+      }
+      if (currentMonthIndex == -1) {
+        currentMonthIndex = months.length - 1;
+      }
+    }
+
+    if (currentMonthIndex != -1 && _scrollController.hasClients) {
+      final estimatedMonthHeight = 350.0;
+      final scrollPosition = currentMonthIndex * estimatedMonthHeight;
       _scrollController.animateTo(
         scrollPosition,
         duration: const Duration(milliseconds: 500),
@@ -81,13 +251,194 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
 
   void _onDateTapped(DateTime date) {
     final dateOnly = DateTime(date.year, date.month, date.day);
+    // final today = DateTime.now();
+    // final todayOnly = DateTime(today.year, today.month, today.day);
+
+    // // Don't allow selection of future dates
+    // if (dateOnly.isAfter(todayOnly)) {
+    //   return customErrorMessageSnackbar(
+    //     title: 'Message',
+    //     message: 'You cannot log period for future dates!',
+    //   );
+    // }
+
     setState(() {
       if (_selectedDates.contains(dateOnly)) {
-        _selectedDates.remove(dateOnly);
+        final sortedSelectedDates = _selectedDates.toList()..sort();
+        int tappedDateIndex =
+            sortedSelectedDates.indexWhere((d) => d.isAtSameMomentAs(dateOnly));
+
+        if (tappedDateIndex != -1) {
+          DateTime rangeStart = sortedSelectedDates[tappedDateIndex];
+
+          for (int i = tappedDateIndex - 1; i >= 0; i--) {
+            if (sortedSelectedDates[i + 1]
+                    .difference(sortedSelectedDates[i])
+                    .inDays ==
+                1) {
+              rangeStart = sortedSelectedDates[i];
+            } else {
+              break;
+            }
+          }
+
+          DateTime dateToRemove = rangeStart;
+          while (!dateToRemove.isAfter(dateOnly)) {
+            _selectedDates.remove(dateToRemove);
+            dateToRemove = dateToRemove.add(const Duration(days: 1));
+          }
+        }
       } else {
+        final today = DateTime.now();
+        final todayOnly = DateTime(today.year, today.month, today.day);
+
+        if (dateOnly.isAfter(todayOnly)) {
+          customErrorMessageSnackbar(
+            title: 'Message',
+            message: 'You cannot log period for future dates!',
+          );
+          return;
+        }
         _selectedDates.add(dateOnly);
       }
     });
+  }
+
+  Map<String, Map<String, Map<String, DateTime>>> _processSelectedDates() {
+    final Map<String, Map<String, Map<String, DateTime>>> result = {};
+
+    if (_selectedDates.isEmpty) {
+      return result;
+    }
+
+    final now = DateTime.now();
+    final currentYear = now.year;
+    final currentMonth = now.month;
+
+    // Filter dates to only include current month and past months
+    final filteredDates = _selectedDates.where((date) {
+      return date.year < currentYear ||
+          (date.year == currentYear && date.month <= currentMonth);
+    }).toList();
+
+    if (filteredDates.isEmpty) {
+      return result;
+    }
+
+    // Sort dates to process them in chronological order
+    final sortedDates = filteredDates..sort();
+
+    // Group dates by year and month
+    final Map<String, Map<String, List<DateTime>>> groupedDates = {};
+
+    for (final date in sortedDates) {
+      final year = date.year.toString();
+      final monthName = _getMonthName(date.month);
+
+      groupedDates.putIfAbsent(year, () => {});
+      groupedDates[year]!.putIfAbsent(monthName, () => []);
+      groupedDates[year]![monthName]!.add(date);
+    }
+
+    // Process each year and month to find start and end dates
+    for (final year in groupedDates.keys) {
+      result[year] = {};
+
+      for (final monthName in groupedDates[year]!.keys) {
+        final dates = groupedDates[year]![monthName]!;
+
+        if (dates.isNotEmpty) {
+          // Find consecutive date ranges
+          final ranges = _findConsecutiveRanges(dates);
+
+          // For now, take the first range (you can modify this logic as needed)
+          if (ranges.isNotEmpty) {
+            final firstRange = ranges.first;
+            result[year]![monthName] = {
+              'startDate': firstRange['start']!,
+              'endDate': firstRange['end']!,
+            };
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  List<Map<String, DateTime>> _findConsecutiveRanges(List<DateTime> dates) {
+    if (dates.isEmpty) return [];
+
+    final ranges = <Map<String, DateTime>>[];
+    dates.sort();
+
+    DateTime? rangeStart;
+    DateTime? rangeEnd;
+
+    for (int i = 0; i < dates.length; i++) {
+      if (rangeStart == null) {
+        rangeStart = dates[i];
+        rangeEnd = dates[i];
+      } else {
+        final daysDifference = dates[i].difference(rangeEnd!).inDays;
+        if (daysDifference == 1) {
+          // Consecutive date
+          rangeEnd = dates[i];
+        } else {
+          // Non-consecutive, save current range and start new one
+          ranges.add({
+            'start': rangeStart,
+            'end': rangeEnd,
+          });
+          rangeStart = dates[i];
+          rangeEnd = dates[i];
+        }
+      }
+    }
+
+    // Add the last range
+    if (rangeStart != null && rangeEnd != null) {
+      ranges.add({
+        'start': rangeStart,
+        'end': rangeEnd,
+      });
+    }
+
+    return ranges;
+  }
+
+  PeriodTrackerHistoryDto _createPeriodTrackerPayload(
+      Map<String, Map<String, Map<String, DateTime>>> processedData) {
+    final List<PeriodYearDto> years = [];
+
+    for (final yearEntry in processedData.entries) {
+      final year = int.parse(yearEntry.key);
+      final months = <PeriodMonthDto>[];
+
+      for (final monthEntry in yearEntry.value.entries) {
+        final monthName = monthEntry.key;
+        final monthData = monthEntry.value;
+        final startDate = monthData['startDate']!;
+        final endDate = monthData['endDate']!;
+
+        // Convert DateTime to String format (ISO 8601)
+        final startDateString =
+            startDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
+        final endDateString =
+            endDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
+
+        months.add(PeriodMonthDto((instance) => instance
+          ..startDate = startDateString
+          ..endDate = endDateString));
+      }
+
+      years.add(PeriodYearDto((instance) => instance
+        ..year = year
+        ..months = ListBuilder(months)));
+    }
+
+    return PeriodTrackerHistoryDto(
+        (instance) => instance..years = ListBuilder(years));
   }
 
   @override
@@ -173,53 +524,105 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
         decoration: const BoxDecoration(
           color: AppColors.whiteColor,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BodyText(
-                  text: 'Cancel',
-                  size: 16,
-                  weight: FontWeight.w600,
-                  color: AppColors.redColor,
+        child: Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BodyText(
+                    text: 'Cancel',
+                    size: 16,
+                    weight: FontWeight.w600,
+                    color: AppColors.redColor,
+                  ),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: BodyText(
-                  text: 'Save',
-                  size: 16,
-                  weight: FontWeight.w600,
-                  color: AppColors.greenColor,
-                ),
-              ),
-            ),
-          ],
+              ServiceRegistry.periodTrackerService
+                      .isLogPeriodLogHistoryProcessing.value
+                  ? const CustomLoadingButton(
+                      height: 30,
+                      width: 80,
+                      backgroundColor: AppColors.greenColor,
+                    )
+                  : CustomButton(
+                      text: 'Save',
+                      width: 90,
+                      height: 30,
+                      fontSize: 16,
+                      borderRadius: 16,
+                      onTapHandler: () {
+                        if (ServiceRegistry.periodTrackerService
+                            .isLogPeriodLogHistoryProcessing.value) {
+                          return;
+                        }
+
+                        final processedData = _processSelectedDates();
+                        log('Processed data: $processedData');
+
+                        // Create payload from processed data
+                        PeriodTrackerHistoryDto payload =
+                            _createPeriodTrackerPayload(processedData);
+
+                        ServiceRegistry.periodTrackerService
+                            .logPeriodTrackerHistoryService(payload);
+                      },
+                      fontWeight: FontWeight.w500,
+                      fontColor: AppColors.whiteColor,
+                      backgroundColor: AppColors.greenColor,
+                    ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   List<Widget> _buildMonthCards() {
+    final months = getAllMonthsData();
+
+    if (months.isEmpty) {
+      // Fallback to current year if no data available
+      final now = DateTime.now();
+      final monthDates = [
+        for (int m = 1; m <= now.month + 1; m++) DateTime(now.year, m)
+      ];
+      return monthDates
+          .map((month) => _MonthCalendarCard(
+                month: month,
+                selectedDates: _selectedDates,
+                loggedDates: _loggedDates,
+                onDateSelected: _onDateTapped,
+                isFutureMonth: month.month > now.month,
+              ))
+          .toList();
+    }
+
+    // Use actual data from backend
     final now = DateTime.now();
-    // Use the full year of months
-    final months = [for (int m = 1; m <= 12; m++) DateTime(now.year, m)];
-    return months
-        .map((month) => _MonthCalendarCard(
-              month: month,
-              selectedDates: _selectedDates,
-              loggedDates: _loggedDates,
-              onDateSelected: _onDateTapped,
-            ))
-        .toList();
+    return months.map((monthInfo) {
+      // Extract year from the first day of the month
+      final year = monthInfo.days.isNotEmpty
+          ? monthInfo.days.first.date.year
+          : getCurrentYear();
+
+      // Create DateTime for the month using the extracted year
+      final month = DateTime(year, monthInfo.month.toInt());
+
+      final isFutureMonth = month.month > now.month && month.year >= now.year;
+
+      return _MonthCalendarCard(
+        month: month,
+        selectedDates: _selectedDates,
+        loggedDates: _loggedDates,
+        onDateSelected: _onDateTapped,
+        isFutureMonth: isFutureMonth,
+      );
+    }).toList();
   }
 }
 
@@ -228,12 +631,14 @@ class _MonthCalendarCard extends StatelessWidget {
   final Set<DateTime> selectedDates;
   final Set<DateTime> loggedDates;
   final Function(DateTime) onDateSelected;
+  final bool isFutureMonth;
 
   const _MonthCalendarCard({
     required this.month,
     required this.selectedDates,
     required this.loggedDates,
     required this.onDateSelected,
+    required this.isFutureMonth,
   });
 
   @override
@@ -244,6 +649,8 @@ class _MonthCalendarCard extends StatelessWidget {
     final isCurrentMonth = now.year == month.year && now.month == month.month;
     final today = isCurrentMonth ? now.day : null;
     final monthName = _monthName(month.month);
+    final isCurrentYear = month.year == now.year;
+    final displayTitle = isCurrentYear ? monthName : '$monthName ${month.year}';
     List<Widget> dayWidgets = [];
     for (int i = 1; i < firstWeekday; i++) {
       dayWidgets.add(const SizedBox());
@@ -260,13 +667,14 @@ class _MonthCalendarCard extends StatelessWidget {
         isSelected: isSelected,
         isLogged: isLogged,
         onTap: () => onDateSelected(currentDate),
+        isFutureMonth: isFutureMonth,
       ));
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          Center(child: TitleText(title: monthName, size: 18)),
+          Center(child: TitleText(title: displayTitle, size: 18)),
           const SizedBox(height: 8),
           GridView.count(
             crossAxisCount: 7,
@@ -308,6 +716,7 @@ class _DayCircle extends StatelessWidget {
   final bool isSelected;
   final bool isLogged;
   final VoidCallback onTap;
+  final bool isFutureMonth;
 
   const _DayCircle({
     required this.day,
@@ -315,12 +724,13 @@ class _DayCircle extends StatelessWidget {
     this.isSelected = false,
     this.isLogged = false,
     required this.onTap,
+    this.isFutureMonth = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isFutureMonth ? null : onTap,
       child: Container(
         color: Colors.transparent,
         child: Column(
@@ -331,7 +741,7 @@ class _DayCircle extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 2.0),
                 child: BodyText(
                   text: 'TODAY',
-                  size: 8,
+                  size: 6,
                   weight: FontWeight.bold,
                   color: AppColors.redColor,
                 ),
@@ -350,6 +760,21 @@ class _DayCircle extends StatelessWidget {
   }
 
   Widget _buildCheckCircle() {
+    // For future months, always show normal borders and disable interactions
+    if (isFutureMonth) {
+      return Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            width: 1,
+            color: AppColors.grayLightColor,
+          ),
+        ),
+      );
+    }
+
     if (isToday && isSelected) {
       return Container(
         width: 28,

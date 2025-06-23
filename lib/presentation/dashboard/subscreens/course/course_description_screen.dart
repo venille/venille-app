@@ -71,36 +71,36 @@ class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                InkWell(
-                  onTap: () {
-                    ServiceRegistry.engagementService
-                        .translateCourseDescriptionService(
-                      text: ServiceRegistry
-                          .userRepository.courseInfo.value.description,
-                      courseId:
-                          ServiceRegistry.userRepository.courseInfo.value.id,
-                      sourceLanguage: showOriginal.isFalse
-                          ? 'en'
-                          : '${Get.locale?.languageCode}',
-                      targetLanguage: showOriginal.isFalse
-                          ? '${Get.locale?.languageCode}'
-                          : 'en',
-                      courseCategory: ServiceRegistry
-                          .userRepository.courseInfo.value.category.name,
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppSizes.vertical_5,
-                    ),
-                    child: TitleText(
-                      weight: FontWeight.w500,
-                      title:
-                          'Show ${showOriginal.isFalse ? "translation" : "original"}'
-                              .tr,
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     ServiceRegistry.engagementService
+                //         .translateCourseDescriptionService(
+                //       text: ServiceRegistry
+                //           .userRepository.courseInfo.value.description,
+                //       courseId:
+                //           ServiceRegistry.userRepository.courseInfo.value.id,
+                //       sourceLanguage: showOriginal.isFalse
+                //           ? 'en'
+                //           : '${Get.locale?.languageCode}',
+                //       targetLanguage: showOriginal.isFalse
+                //           ? '${Get.locale?.languageCode}'
+                //           : 'en',
+                //       courseCategory: ServiceRegistry
+                //           .userRepository.courseInfo.value.category.name,
+                //     );
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //       vertical: AppSizes.vertical_5,
+                //     ),
+                //     child: TitleText(
+                //       weight: FontWeight.w500,
+                //       title:
+                //           'Show ${showOriginal.isFalse ? "translation" : "original"}'
+                //               .tr,
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: AppSizes.horizontal_10,

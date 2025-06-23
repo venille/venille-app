@@ -122,7 +122,7 @@ class _LearnScreenState extends State<LearnScreen> {
                                         ),
                                       ),
                                       Container(
-                                        height: 250,
+                                        height: 180,
                                         width: double.maxFinite,
                                         child: ListView.builder(
                                           shrinkWrap: true,

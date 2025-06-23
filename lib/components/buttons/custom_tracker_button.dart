@@ -16,7 +16,7 @@ class CustomTrackerButton extends StatelessWidget {
         Get.toNamed(AppRoutes.dashboardRoute);
       },
       child: const Icon(
-        FluentIcons.calendar_12_regular,
+        FluentIcons.alert_12_regular,
         size: 20,
       ),
     );

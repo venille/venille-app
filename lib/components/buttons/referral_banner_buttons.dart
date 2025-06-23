@@ -76,7 +76,7 @@ class ReferralBannerButtons extends StatelessWidget {
                   Colors.transparent,
                 ),
                 child: Container(
-                  width: 75,
+                  width: 80,
                   height: double.maxFinite,
                   padding: const EdgeInsets.all(8),
                   decoration: const BoxDecoration(

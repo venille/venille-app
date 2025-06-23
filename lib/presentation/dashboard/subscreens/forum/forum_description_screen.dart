@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/small_text.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
@@ -159,33 +160,36 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                         ),
 
                         //TODO: Add a button to translate the post description
-                        InkWell(
-                          onTap: () {
-                            ServiceRegistry.engagementService
-                                .translateForumPostDescriptionService(
-                              updateLocalState: () {
-                                showOriginal.value = !showOriginal.value;
-                              },
-                              text: ServiceRegistry
-                                  .userRepository.forumPost.value.description,
-                              postId: ServiceRegistry
-                                  .userRepository.forumPost.value.id,
-                              sourceLanguage: showOriginal.isFalse
-                                  ? 'en'
-                                  : '${Get.locale?.languageCode}',
-                              targetLanguage: showOriginal.isFalse
-                                  ? '${Get.locale?.languageCode}'
-                                  : 'en',
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: AppSizes.vertical_5,
+                        Visibility(
+                          visible: Get.locale?.languageCode != 'en',
+                          child: InkWell(
+                            onTap: () {
+                              ServiceRegistry.engagementService
+                                  .translateForumPostDescriptionService(
+                                updateLocalState: () {
+                                  showOriginal.value = !showOriginal.value;
+                                },
+                                text: ServiceRegistry
+                                    .userRepository.forumPost.value.description,
+                                postId: ServiceRegistry
+                                    .userRepository.forumPost.value.id,
+                                sourceLanguage: showOriginal.isFalse
+                                    ? 'en'
+                                    : '${Get.locale?.languageCode}',
+                                targetLanguage: showOriginal.isFalse
+                                    ? '${Get.locale?.languageCode}'
+                                    : 'en',
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppSizes.vertical_10,
+                              ),
+                              child: BodyText(
+                                  weight: FontWeight.w600,
+                                  text:
+                                      'Show ${showOriginal.isFalse ? "translation" : "original"}'),
                             ),
-                            child: TitleText(
-                                weight: FontWeight.w500,
-                                title:
-                                    'Show ${showOriginal.isFalse ? "translation" : "original"}'),
                           ),
                         ),
 

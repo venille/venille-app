@@ -13,12 +13,15 @@ class CustomNotificationButton extends StatelessWidget {
     return Obx(() {
       return InkWell(
         onTap: () {
-          // Get.toNamed(AppRoutes.notificationsRoute);
+          Get.toNamed(AppRoutes.notificationsRoute);
         },
         child: Stack(
           children: [
-            const Icon(
-              FluentIcons.alert_12_regular,
+            Icon(
+              ServiceRegistry.userRepository.notifications
+                      .any((item) => item.isRead == false)
+                  ? FluentIcons.alert_on_16_regular
+                  : FluentIcons.alert_16_regular,
               size: 20,
             ),
             Positioned(

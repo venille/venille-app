@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:venille/components/buttons/custom_tracker_button.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/title_text.dart';
@@ -64,7 +63,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
                     ],
                   ),
                 ),
-                const CustomTrackerButton()
+                const CustomNotificationButton()
               ],
             ),
           ],

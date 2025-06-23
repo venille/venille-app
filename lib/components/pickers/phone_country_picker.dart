@@ -55,8 +55,8 @@ class _PhoneCountryPickerState extends State<PhoneCountryPicker> {
         );
       },
       child: Container(
+        width: 95,
         height: widget.height,
-        width: AppSizes.screenWidth(context) * 0.22,
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.horizontal_5,
         ),

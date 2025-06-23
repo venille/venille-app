@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
-import 'package:venille/presentation/dashboard/subscreens/period/log_period_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/menstrual_phase/menstrual_phase_description_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/notifications/notifications_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
@@ -12,6 +13,7 @@ import 'package:venille/presentation/dashboard/subscreens/account/account_screen
 import 'package:venille/presentation/auth/forgot_password/forgot_password_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/support/support_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/orders/order_pad_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/period/log_period_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/help/help_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/about_us/about_us_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/legal/legal_screen.dart';
@@ -82,6 +84,11 @@ class AppRoutes {
   /// Navigates to dashboard screen
   static const String dashboardRoute = '/DASHBOARD_ROUTE';
 
+  /// NOTIFICATIONS_ROUTE
+  ///
+  /// Navigates to notifications screen
+  static const String notificationsRoute = '/NOTIFICATIONS_ROUTE';
+
   /// LOG_PERIOD_ROUTE
   ///
   /// Navigates to log period screen
@@ -91,6 +98,12 @@ class AppRoutes {
   ///
   /// Navigates to log symptoms screen
   static const String logSymptomsRoute = '/LOG_SYMPTOMS_ROUTE';
+
+  /// MENSTRUAL_PHASE_DESCRIPTION_ROUTE
+  ///
+  /// Navigates to menstrual phase description screen
+  static const String menstrualPhaseDescriptionRoute =
+      '/MENSTRUAL_PHASE_DESCRIPTION_ROUTE';
 
   /// ONBOARDING_QUESTIONS_ROUTE
   ///
@@ -265,6 +278,12 @@ class AppRoutes {
       page: () => const OnboardingQuestionsScreen(),
     ),
 
+    // NOTIFICATIONS
+    GetPage(
+      name: notificationsRoute,
+      page: () => const NotificationsScreen(),
+    ),
+
     // LOG PERIOD
     GetPage(
       name: logPeriodRoute,
@@ -275,6 +294,12 @@ class AppRoutes {
     GetPage(
       name: logSymptomsRoute,
       page: () => const LogSymptomsScreen(),
+    ),
+
+    // MENSTRUAL PHASE DESCRIPTION
+    GetPage(
+      name: menstrualPhaseDescriptionRoute,
+      page: () => const MenstrualPhaseDescriptionScreen(),
     ),
 
     // ORDERS
