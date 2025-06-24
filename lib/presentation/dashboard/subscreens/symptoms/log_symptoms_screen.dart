@@ -93,38 +93,41 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
       {'name': "Didn't take tests".tr, 'icon': Icons.not_interested_outlined},
       {'name': 'Test: positive'.tr, 'icon': Icons.add_circle_outline},
       {'name': 'Test: negative'.tr, 'icon': Icons.remove_circle_outline},
-      {'name': 'Ovulation: my method'.tr, 'icon': Icons.calendar_today_outlined},
+      {
+        'name': 'Ovulation: my method'.tr,
+        'icon': Icons.calendar_today_outlined
+      },
     ],
     'Other': [
-      {'name': 'Travel', 'icon': Icons.place},
-      {'name': 'Stress', 'icon': Icons.flash_on},
-      {'name': 'Meditation', 'icon': Icons.spa},
-      {'name': 'Journaling', 'icon': Icons.book},
-      {'name': 'Kegel exercises', 'icon': Icons.favorite_border},
-      {'name': 'Breathing exercises', 'icon': Icons.air},
-      {'name': 'Disease or injury', 'icon': Icons.medical_services},
-      {'name': 'Alcohol', 'icon': Icons.local_bar},
+      {'name': 'Travel'.tr, 'icon': Icons.place},
+      {'name': 'Stress'.tr, 'icon': Icons.flash_on},
+      {'name': 'Meditation'.tr, 'icon': Icons.spa},
+      {'name': 'Journaling'.tr, 'icon': Icons.book},
+      {'name': 'Kegel exercises'.tr, 'icon': Icons.favorite_border},
+      {'name': 'Breathing exercises'.tr, 'icon': Icons.air},
+      {'name': 'Disease or injury'.tr, 'icon': Icons.medical_services},
+      {'name': 'Alcohol'.tr, 'icon': Icons.local_bar},
     ],
     'Physical activity': [
-      {'name': "Didn't exercise", 'icon': Icons.no_cell},
-      {'name': 'Yoga', 'icon': Icons.self_improvement},
-      {'name': 'Gym', 'icon': Icons.fitness_center},
-      {'name': 'Aerobics & dancing', 'icon': Icons.music_note},
-      {'name': 'Swimming', 'icon': Icons.pool},
-      {'name': 'Team sports', 'icon': Icons.sports_basketball},
-      {'name': 'Running', 'icon': Icons.directions_run},
-      {'name': 'Cycling', 'icon': Icons.directions_bike},
-      {'name': 'Walking', 'icon': Icons.directions_walk},
+      {'name': "Didn't exercise".tr, 'icon': Icons.no_cell},
+      {'name': 'Yoga'.tr, 'icon': Icons.self_improvement},
+      {'name': 'Gym'.tr, 'icon': Icons.fitness_center},
+      {'name': 'Aerobics & dancing'.tr, 'icon': Icons.music_note},
+      {'name': 'Swimming'.tr, 'icon': Icons.pool},
+      {'name': 'Team sports'.tr, 'icon': Icons.sports_basketball},
+      {'name': 'Running'.tr, 'icon': Icons.directions_run},
+      {'name': 'Cycling'.tr, 'icon': Icons.directions_bike},
+      {'name': 'Walking'.tr, 'icon': Icons.directions_walk},
     ],
     'Other': [
-      {'name': 'Travel', 'icon': Icons.place},
-      {'name': 'Stress', 'icon': Icons.flash_on},
-      {'name': 'Meditation', 'icon': Icons.spa},
-      {'name': 'Journaling', 'icon': Icons.book},
-      {'name': 'Kegel exercises', 'icon': Icons.favorite_border},
-      {'name': 'Breathing exercises', 'icon': Icons.air},
-      {'name': 'Disease or injury', 'icon': Icons.medical_services},
-      {'name': 'Alcohol', 'icon': Icons.local_bar},
+      {'name': 'Travel'.tr, 'icon': Icons.place},
+      {'name': 'Stress'.tr, 'icon': Icons.flash_on},
+      {'name': 'Meditation'.tr, 'icon': Icons.spa},
+      {'name': 'Journaling'.tr, 'icon': Icons.book},
+      {'name': 'Kegel exercises'.tr, 'icon': Icons.favorite_border},
+      {'name': 'Breathing exercises'.tr, 'icon': Icons.air},
+      {'name': 'Disease or injury'.tr, 'icon': Icons.medical_services},
+      {'name': 'Alcohol', 'icon'.tr: Icons.local_bar},
     ],
   };
 
@@ -408,7 +411,8 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
                       customErrorMessageSnackbar(
                         title: 'Message',
                         message:
-                            'Please select at least one item from: ${missingCategories.join(", ")}',
+                        '${'select_at_least_one'.tr} ${missingCategories.join(", ")}'
+                            // 'Please select at least one item from: ${missingCategories.join(", ")}',
                       );
                     } else {
                       // Group symptoms by category
