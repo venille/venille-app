@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:venille/core/constants/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
-import 'package:venille/core/providers/index.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:venille/presentation/public/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -42,32 +42,50 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Animate(
-                effects: const [
-                  FadeEffect(duration: Duration(milliseconds: 1200)),
-                  SlideEffect(
-                    end: Offset(0, 0),
-                    begin: Offset(0, -0.3),
-                    duration: Duration(milliseconds: 750),
-                  ),
-                ],
-                child: Image.asset(
-                  'assets/logo.jpg',
-                  width: 100,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            width: AppSizes.screenWidth(context),
+            height: AppSizes.screenHeight(context),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/image_background.jpg',
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        Scaffold(
+          extendBody: true,
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 1200)),
+                      SlideEffect(
+                        end: Offset(0, 0),
+                        begin: Offset(0, -0.3),
+                        duration: Duration(milliseconds: 750),
+                      ),
+                    ],
+                    child: Image.asset(
+                      'assets/logo.jpg',
+                      width: 100,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

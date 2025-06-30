@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:venille/components/text/small_text.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/middlewares/index.dart';
 
 class AuthBottomNavigationBanner extends StatefulWidget {
   const AuthBottomNavigationBanner({super.key});
@@ -32,7 +33,10 @@ class _AuthBottomNavigationBannerState
             text: 'By continuing, you automatically accept our ',
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              launchExternalBrowserUrl(
+                  'https://venille.com.ng/terms-of-service');
+            },
             overlayColor: WidgetStateProperty.all(
               Colors.transparent,
             ),
@@ -47,7 +51,9 @@ class _AuthBottomNavigationBannerState
             text: 'and ',
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              launchExternalBrowserUrl('https://venille.com.ng/privacy-policy');
+            },
             overlayColor: WidgetStateProperty.all(
               Colors.transparent,
             ),

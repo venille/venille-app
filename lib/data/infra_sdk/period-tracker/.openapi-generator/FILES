@@ -41,7 +41,3 @@ lib/src/model/predicted_year_tracker_info.dart
 lib/src/model/previous_cycle_info.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/dashboard_info_test.dart
-test/menstrual_phase_description_info_test.dart
-test/menstrual_phase_info_test.dart
-test/previous_cycle_info_test.dart

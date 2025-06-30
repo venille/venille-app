@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **title** | **String** | Menstrual phase info title e.g Menstrual phase info 1. | 
 **coverPhoto** | **String** | Menstrual phase info cover photo e.g https://example.com/cover-photo.jpg. | 
 **descriptions** | [**BuiltList&lt;MenstrualPhaseDescriptionInfo&gt;**](MenstrualPhaseDescriptionInfo.md) | Menstrual phase info descriptions e.g Menstrual phase info 1. | 
+**position** | **num** | Menstrual phase info position e.g 1. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

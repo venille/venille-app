@@ -2,9 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-
+	
 	<key>CFBundleDisplayName</key>
 	<string>Venille</string>
 	
@@ -31,26 +34,39 @@
 	
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-
+	
 	<key>LSMinimumSystemVersion</key>
-	<string>15.0</string>	
+	<string>15.0</string>
 	
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photo library to allow you to upload and share images.</string>
 	
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	
+
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -58,11 +74,19 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
+
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not use the microphone. This description is included to satisfy App Store requirements.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>This app does not use the camera. This description is included to satisfy App Store requirements.</string>
+
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>

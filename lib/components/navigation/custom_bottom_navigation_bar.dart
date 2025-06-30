@@ -37,7 +37,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               textStyle = textStyle.copyWith(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
-                color: AppColors.primaryBackgroundColor,
+                color: AppColors.blackColor,
               );
             }
 
@@ -48,7 +48,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       child: NavigationBar(
         height: 60,
         onDestinationSelected: widget.onTap,
-        indicatorColor: AppColors.buttonPrimaryDisabledColor.withOpacity(0.4),
+        indicatorColor: AppColors.grayColor.withOpacity(0.3),
         animationDuration: const Duration(seconds: 0),
         selectedIndex:
             ServiceRegistry.commonRepository.currentScreenIndex.value,
@@ -65,7 +65,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             selectedIcon: Icon(
               FluentIcons.home_20_regular,
               size: 20,
-              color: AppColors.primaryBackgroundColor,
+              color: AppColors.blackColor,
             ),
             label: "Home",
           ),
@@ -78,7 +78,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             selectedIcon: Icon(
               FluentIcons.calendar_ltr_20_regular,
               size: 20,
-              color: AppColors.primaryBackgroundColor,
+              color: AppColors.blackColor,
             ),
             label: "Tracker",
           ),
@@ -104,7 +104,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             selectedIcon: Icon(
               FluentIcons.book_template_20_regular,
               size: 20,
-              color: AppColors.primaryBackgroundColor,
+              color: AppColors.blackColor,
             ),
             label: "Learn",
           ),
@@ -117,7 +117,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             selectedIcon: Icon(
               FluentIcons.mail_inbox_16_regular,
               size: 20,
-              color: AppColors.primaryBackgroundColor,
+              color: AppColors.blackColor,
             ),
             label: "Forum",
           ),

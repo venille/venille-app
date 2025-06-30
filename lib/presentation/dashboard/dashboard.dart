@@ -53,6 +53,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   initState() {
     initializeAppInfo();
+    initializeCoreServices();
 
     super.initState();
   }

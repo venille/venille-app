@@ -25,9 +25,14 @@ class LoadingAnimation extends StatelessWidget {
                 size: size,
                 color: color,
               )
-            : LoadingAnimationWidget.hexagonDots(
-                size: size,
-                color: color,
-              );
+            : type == "beat"
+                ? LoadingAnimationWidget.beat(
+                    size: size,
+                    color: color,
+                  )
+                : LoadingAnimationWidget.hexagonDots(
+                    size: size,
+                    color: color,
+                  );
   }
 }

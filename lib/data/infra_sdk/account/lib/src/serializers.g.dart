@@ -1,16 +1,5 @@
 // @dart=3.5
 // @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -40,10 +29,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(RegisterMonthlySurveyDTO.serializer)
       ..add(RegisterMonthlySurveyDTODaysManagingMenstruationEnum.serializer)
       ..add(RegisterPeriodTrackerDTO.serializer)
-      ..add(RegisterPeriodTrackerDTOBirthControlMethodsEnum.serializer)
-      ..add(RegisterPeriodTrackerDTOCycleGoalEnum.serializer)
-      ..add(RegisterPeriodTrackerDTOHealthConditionsEnum.serializer)
-      ..add(RegisterPeriodTrackerDTOPeriodSymptomsEnum.serializer)
       ..add(UpdateAccountEmailDTO.serializer)
       ..add(UpdateAccountLocationDTO.serializer)
       ..add(UpdateAccountNameDTO.serializer)

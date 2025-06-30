@@ -102,10 +102,6 @@ class AccountService extends GetxController {
   Future<void> fetchOnboardingQuestionsService() async {
     return authGuard<void>(() async {
       try {
-        if (ServiceRegistry.userRepository.onboardingQuestions.isNotEmpty) {
-          return;
-        }
-
         log("[FETCH-ONBOARDING-QUESTIONS-PENDING]");
 
         OnboardingApi onboardingApi =
@@ -127,6 +123,9 @@ class AccountService extends GetxController {
 
           ServiceRegistry.userRepository.onboardingQuestions.value =
               onboardingQuestions.toList();
+
+          ServiceRegistry.userRepository.onboardingQuestion.value =
+              onboardingQuestions.first;
 
           log("[FETCH-ONBOARDING-QUESTIONS-SUCCESS]");
         }
@@ -179,6 +178,11 @@ class AccountService extends GetxController {
           ServiceRegistry.userRepository.accountInfo.value = accountInfo;
 
           Get.offAllNamed(AppRoutes.dashboardRoute);
+
+          customSuccessMessageSnackbar(
+            title: 'Message',
+            message: 'Information submitted successfully.',
+          );
 
           log("[SUBMIT-ONBOARDING-QUESTIONS-SUCCESS]");
 

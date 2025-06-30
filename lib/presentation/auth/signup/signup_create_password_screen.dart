@@ -124,83 +124,101 @@ class _SignupCreatePasswordScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      body: Obx(() {
-        return SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.horizontal_15,
-              ),
-              width: double.maxFinite,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: AppSizes.vertical_30),
-                  const CustomAuthBackButton(),
-                  const SizedBox(height: AppSizes.vertical_15),
-                  const TitleText(
-                    size: 20,
-                    title: 'Create password',
-                  ),
-                  SubtitleText(
-                    color: AppColors.textTertiaryColor,
-                    text: 'Add a way to secure your account',
-                  ),
-                  const SizedBox(height: AppSizes.vertical_20),
-                  FormPasswordField(
-                    label: 'Password',
-                    hintText: 'Enter new password',
-                    hidePassword: hidePassword,
-                    passwordController: passwordController,
-                  ),
-                  const SizedBox(height: AppSizes.vertical_10),
-                  FormPasswordField(
-                    label: 'Confirm password',
-                    hintText: 'Confirm new password',
-                    hidePassword: hidePassword,
-                    passwordController: confirmPasswordController,
-                  ),
-                  const SizedBox(height: AppSizes.horizontal_15),
-                  ShowHidePasswordButton(
-                    showPassword: showPassword.value,
-                    onTapHandler: () {
-                      setState(() {
-                        hidePassword = !hidePassword;
-                        showPassword.value = !showPassword.value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: AppSizes.horizontal_15),
-                  ServiceRegistry
-                          .authenticationService.isSignUpProcessing.isTrue
-                      ? const CustomLoadingButton(height: 56)
-                      : CustomButton(
-                          height: 56,
-                          fontSize: 16,
-                          text: 'Continue',
-                          borderRadius: 16,
-                          width: double.maxFinite,
-                          onTapHandler: submitHandler,
-                          fontWeight: FontWeight.w600,
-                          fontColor: AppColors.whiteColor,
-                          backgroundColor: isPasswordValid.isFalse
-                              ? AppColors.buttonPrimaryDisabledColor
-                              : AppColors.buttonPrimaryColor,
-                        ),
-                  const SizedBox(height: AppSizes.horizontal_15),
-                  PasswordStrengthIndicator(
-                    passwordStrength: passwordStrength,
-                    passwordHasNumber: passwordHasNumber,
-                    passwordHasUppercase: passwordHasUppercase,
-                  ),
-                ],
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            width: AppSizes.screenWidth(context),
+            height: AppSizes.screenHeight(context),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/image_background_2.jpg',
+                ),
               ),
             ),
           ),
-        );
-      }),
+        ),
+        Scaffold(
+          extendBody: true,
+          backgroundColor: Colors.transparent,
+          body: Obx(() {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.horizontal_15,
+                  ),
+                  width: double.maxFinite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: AppSizes.vertical_30),
+                      const CustomAuthBackButton(),
+                      const SizedBox(height: AppSizes.vertical_15),
+                      const TitleText(
+                        size: 20,
+                        title: 'Create password',
+                      ),
+                      SubtitleText(
+                        color: AppColors.textTertiaryColor,
+                        text: 'Add a way to secure your account',
+                      ),
+                      const SizedBox(height: AppSizes.vertical_20),
+                      FormPasswordField(
+                        label: 'Password',
+                        hintText: 'Enter new password',
+                        hidePassword: hidePassword,
+                        passwordController: passwordController,
+                      ),
+                      const SizedBox(height: AppSizes.vertical_10),
+                      FormPasswordField(
+                        label: 'Confirm password',
+                        hintText: 'Confirm new password',
+                        hidePassword: hidePassword,
+                        passwordController: confirmPasswordController,
+                      ),
+                      const SizedBox(height: AppSizes.horizontal_15),
+                      ShowHidePasswordButton(
+                        showPassword: showPassword.value,
+                        onTapHandler: () {
+                          setState(() {
+                            hidePassword = !hidePassword;
+                            showPassword.value = !showPassword.value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: AppSizes.horizontal_15),
+                      ServiceRegistry
+                              .authenticationService.isSignUpProcessing.isTrue
+                          ? const CustomLoadingButton(height: 56)
+                          : CustomButton(
+                              height: 56,
+                              fontSize: 16,
+                              text: 'Continue',
+                              borderRadius: 16,
+                              width: double.maxFinite,
+                              onTapHandler: submitHandler,
+                              fontWeight: FontWeight.w600,
+                              fontColor: AppColors.whiteColor,
+                              backgroundColor: isPasswordValid.isFalse
+                                  ? AppColors.buttonPrimaryDisabledColor
+                                  : AppColors.buttonPrimaryColor,
+                            ),
+                      const SizedBox(height: AppSizes.horizontal_15),
+                      PasswordStrengthIndicator(
+                        passwordStrength: passwordStrength,
+                        passwordHasNumber: passwordHasNumber,
+                        passwordHasUppercase: passwordHasUppercase,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 }

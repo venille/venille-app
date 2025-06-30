@@ -1,19 +1,16 @@
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venille/components/appbar/titled_appbar.dart';
-import 'package:venille/components/cards/course_card.dart';
-import 'package:venille/components/navigation/custom_side_drawer.dart';
-import 'package:venille/components/skeletons/empty_results_content.dart';
-import 'package:venille/components/skeletons/loading_animation.dart';
-import 'package:venille/components/text/subtitle_text.dart';
-import 'package:venille/core/constants/colors.dart';
+import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
+import 'package:venille/core/constants/colors.dart';
+import 'package:venille/components/cards/course_card.dart';
+import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/components/appbar/titled_appbar.dart';
+import 'package:venille/components/skeletons/loading_animation.dart';
+import 'package:venille/components/navigation/custom_side_drawer.dart';
+import 'package:venille/components/skeletons/empty_results_content.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
-import 'package:venille/core/utilities/index.dart';
-import 'package:venille/presentation/dashboard/subscreens/course/course_description_screen.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -122,7 +119,7 @@ class _LearnScreenState extends State<LearnScreen> {
                                         ),
                                       ),
                                       Container(
-                                        height: 180,
+                                        height: 200,
                                         width: double.maxFinite,
                                         child: ListView.builder(
                                           shrinkWrap: true,

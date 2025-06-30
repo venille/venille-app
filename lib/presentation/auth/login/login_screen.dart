@@ -97,86 +97,105 @@ class _LoginScreenState extends State<LoginScreen> {
       onPopInvokedWithResult: (didPop, result) async {
         return Future.value();
       },
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: SafeArea(
-          child: Obx(() {
-            return SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.horizontal_15,
-                ),
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(
-                    //     'Current Language: ${Get.locale?.languageCode.toUpperCase()}'),
-                    const SizedBox(height: AppSizes.vertical_30),
-                    const VenilleIconBadge(size: 60),
-                    const SizedBox(height: AppSizes.vertical_15),
-                    const TitleText(
-                      size: 20,
-                      title: "welcome",
-                    ),
-                    const AuthRedirectLink(),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormTextField(
-                      label: 'Email',
-                      hintText: 'lisa@gmail.com',
-                      textController: emailController,
-                    ),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormPasswordField(
-                      label: 'Password',
-                      hintText: '********',
-                      showSuffixIcon: true,
-                      hidePassword: hidePassword,
-                      passwordController: passwordController,
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.forgotPasswordRoute);
-                          },
-                          overlayColor: const WidgetStatePropertyAll(
-                            Colors.transparent,
-                          ),
-                          child: BodyText(
-                            text: 'Forgot password?'.tr,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    ServiceRegistry
-                            .authenticationService.isSignInProcessing.isTrue
-                        ? const CustomLoadingButton(height: 56)
-                        : CustomButton(
-                            text: 'Continue',
-                            width: double.maxFinite,
-                            height: 56,
-                            fontSize: 16,
-                            borderRadius: 16,
-                            onTapHandler: submitHandler,
-                            fontWeight: FontWeight.w600,
-                            fontColor: AppColors.whiteColor,
-                            backgroundColor: isEmailValid.isFalse
-                                ? AppColors.buttonPrimaryDisabledColor
-                                : AppColors.buttonPrimaryColor,
-                          ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                  ],
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              width: AppSizes.screenWidth(context),
+              height: AppSizes.screenHeight(context),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/image_background_2.jpg',
+                  ),
+                  // fit: BoxFit.cover,
                 ),
               ),
-            );
-          }),
-        ),
-        bottomNavigationBar: const AuthBottomNavigationBanner(),
+            ),
+          ),
+          Scaffold(
+            extendBody: true,
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: Obx(() {
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.horizontal_15,
+                    ),
+                    width: double.maxFinite,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //     'Current Language: ${Get.locale?.languageCode.toUpperCase()}'),
+                        const SizedBox(height: AppSizes.vertical_30),
+                        const VenilleIconBadge(size: 60),
+                        const SizedBox(height: AppSizes.vertical_15),
+                        const TitleText(
+                          size: 20,
+                          title: "welcome",
+                        ),
+                        const AuthRedirectLink(),
+                        const SizedBox(height: AppSizes.vertical_10),
+                        FormTextField(
+                          label: 'Email',
+                          hintText: 'lisa@gmail.com',
+                          textController: emailController,
+                        ),
+                        const SizedBox(height: AppSizes.vertical_10),
+                        FormPasswordField(
+                          label: 'Password',
+                          hintText: '********',
+                          showSuffixIcon: true,
+                          hidePassword: hidePassword,
+                          passwordController: passwordController,
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.forgotPasswordRoute);
+                              },
+                              overlayColor: const WidgetStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                              child: BodyText(
+                                text: 'Forgot password?'.tr,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        ServiceRegistry
+                                .authenticationService.isSignInProcessing.isTrue
+                            ? const CustomLoadingButton(height: 56)
+                            : CustomButton(
+                                text: 'Continue',
+                                width: double.maxFinite,
+                                height: 56,
+                                fontSize: 16,
+                                borderRadius: 16,
+                                onTapHandler: submitHandler,
+                                fontWeight: FontWeight.w600,
+                                fontColor: AppColors.whiteColor,
+                                backgroundColor: isEmailValid.isFalse
+                                    ? AppColors.buttonPrimaryDisabledColor
+                                    : AppColors.buttonPrimaryColor,
+                              ),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ),
+            bottomNavigationBar: const AuthBottomNavigationBanner(),
+          ),
+        ],
       ),
     );
   }

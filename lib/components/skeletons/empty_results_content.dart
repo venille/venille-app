@@ -28,7 +28,7 @@ class EmptyResultsContent extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/icons/icon_${displayType == 'NOTIFICATIONS' ? 'bell' : displayType == 'ONGOING_ORDERS' ? 'package' : displayType == 'COMPLETED_ORDERS' ? 'package_open' : displayType == 'FORUM_POSTS' ? 'blog' : displayType == 'COURSES' ? 'books' : displayType == 'SURVEY_HISTORY' ? 'health_check' : 'search_circled'}.png',
+                  'assets/icons/icon_${displayType == 'NOTIFICATIONS' ? 'bell' : displayType == 'ONBOARDING_QUESTIONS' ? 'survey' : displayType == 'ONGOING_ORDERS' ? 'package' : displayType == 'COMPLETED_ORDERS' ? 'package_open' : displayType == 'FORUM_POSTS' ? 'blog' : displayType == 'COURSES' ? 'books' : displayType == 'SURVEY_HISTORY' ? 'health_check' : 'search_circled'}.png',
                 ),
                 fit: BoxFit.cover,
               ),
@@ -47,11 +47,13 @@ class EmptyResultsContent extends StatelessWidget {
                           ? 'No New Notifications'.tr
                           : displayType == 'ONGOING_ORDERS'
                               ? 'No Ongoing Orders'.tr
-                              : displayType == 'COMPLETED_ORDERS'
-                                  ? 'No Completed Orders'.tr
-                                  : displayType == 'SURVEY_HISTORY'
-                                      ? 'No Survey History'.tr
-                                      : 'No results'.tr,
+                              : displayType == 'ONBOARDING_QUESTIONS'
+                                  ? 'No Onboarding Questions?'.tr
+                                  : displayType == 'COMPLETED_ORDERS'
+                                      ? 'No Completed Orders'.tr
+                                      : displayType == 'SURVEY_HISTORY'
+                                          ? 'No Survey History'.tr
+                                          : 'No results'.tr,
             ),
           ),
           const SizedBox(height: AppSizes.vertical_5),
@@ -62,14 +64,17 @@ class EmptyResultsContent extends StatelessWidget {
                 : displayType == 'COURSES'.tr
                     ? 'No courses available at the moment.'.tr
                     : displayType == 'NOTIFICATIONS'
-                        ? 'You will see new notifications here once you have one.'.tr
+                        ? 'You will see new notifications here once you have one.'
+                            .tr
                         : displayType == 'ONGOING_ORDERS'
                             ? 'No ongoing orders at the moment.'.tr
-                            : displayType == 'COMPLETED_ORDERS'
-                                ? 'No completed orders at the moment.'.tr
-                                : displayType == 'SURVEY_HISTORY'
-                                    ? 'No survey history at the moment.'.tr
-                                    : 'No results'.tr,
+                            : displayType == 'ONBOARDING_QUESTIONS'
+                                ? 'Drag down to refresh!'.tr
+                                : displayType == 'COMPLETED_ORDERS'
+                                    ? 'No completed orders at the moment.'.tr
+                                    : displayType == 'SURVEY_HISTORY'
+                                        ? 'No survey history at the moment.'.tr
+                                        : 'No results'.tr,
           ),
         ],
       ),

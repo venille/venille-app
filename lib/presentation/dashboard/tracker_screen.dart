@@ -1,21 +1,17 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venille/core/constants/routes.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
-import 'package:venille/components/appbar/titled_appbar.dart';
-import 'package:venille/components/navigation/custom_side_drawer.dart';
-import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'package:venille/core/constants/routes.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/title_text.dart';
-import 'dart:math';
-import 'package:intl/intl.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:period_tracker_sdk/src/model/period_day_info.dart';
+import 'package:venille/components/appbar/titled_appbar.dart';
 import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
+import 'package:venille/components/navigation/custom_side_drawer.dart';
+import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
 
 class TrackerScreen extends StatefulWidget {
   const TrackerScreen({super.key});
@@ -82,6 +78,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
   // Add these variables for period tracking
   final Set<DateTime> _loggedDates = {};
   final Set<DateTime> _predictedDates = {};
+  final Set<DateTime> _predictedOvulationDates = {};
 
   @override
   void initState() {
@@ -184,13 +181,17 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
         final date = DateTime(day.date.year, day.date.month, day.date.day);
 
         // For now, treat predicted period days as logged dates (similar to log_period_screen)
-        if (day.isPredictedPeriodDay) {
-          _loggedDates.add(date);
-        }
+        // if (day.isPredictedPeriodDay) {
+        //   _loggedDates.add(date);
+        // }
 
         // Keep track of predicted dates separately for display
         if (day.isPredictedPeriodDay) {
           _predictedDates.add(date);
+        }
+
+        if (day.isPredictedOvulationDay || day.isFertileWindow) {
+          _predictedOvulationDates.add(date);
         }
       }
     }
@@ -279,77 +280,6 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
         // Update markedDates to show the period
         markedDates[picked] = 'last_period';
       });
-    }
-  }
-
-  // Add this method to show date and time picker for reminder
-  Future<void> _showReminderPicker() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(year + 1),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: Color(0xFFFF7DAD),
-              onPrimary: Colors.white,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (pickedDate != null) {
-      final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-      );
-
-      if (pickedTime != null) {
-        final textController = TextEditingController();
-        final reminderTitle = await showDialog<String>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Set Reminder Title'),
-            content: TextField(
-              controller: textController,
-              decoration: InputDecoration(
-                hintText: 'Enter reminder title',
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, textController.text),
-                child: Text('Set'),
-              ),
-            ],
-          ),
-        );
-
-        if (reminderTitle != null) {
-          setState(() {
-            final reminderDateTime = DateTime(
-              pickedDate.year,
-              pickedDate.month,
-              pickedDate.day,
-              pickedTime.hour,
-              pickedTime.minute,
-            );
-            reminders[pickedDate] = ReminderData(
-              dateTime: reminderDateTime,
-              title: reminderTitle,
-            );
-            markedDates[pickedDate] = 'reminder';
-          });
-        }
-      }
     }
   }
 
@@ -530,25 +460,17 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
 
         // Add year header
         allCalendars.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Text(
-              year.toString(),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+          Center(
+            child: TitleText(
+              size: 24,
+              title: year.toString(),
             ),
           ),
         );
 
-        // Add all months for this year
-        for (var month in yearData.months) {
-          final monthNumber = month.month.toInt();
-          // Safety check: ensure month is valid (1-12)
-          if (monthNumber >= 1 && monthNumber <= 12) {
-            allCalendars.add(_buildMonthCalendar(monthNumber, year));
-          }
+        // Add all 12 months for this year (1-12)
+        for (int monthNumber = 1; monthNumber <= 12; monthNumber++) {
+          allCalendars.add(_buildMonthCalendar(monthNumber, year));
         }
       }
     } catch (e) {
@@ -667,6 +589,11 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
               final isLogged = _loggedDates.contains(date);
               final isPredicted = _predictedDates.contains(date);
               final markedType = markedDates[date];
+              final isPredictedOvulationDay =
+                  _predictedOvulationDates.contains(date);
+
+              debugPrint(
+                  '[IS-PREDICTED-OVULATION-DAY]:: $isPredictedOvulationDay');
 
               return Stack(
                 alignment: Alignment.center,
@@ -682,12 +609,14 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                       children: [
                         if (isLogged ||
                             isPredicted ||
+                            isPredictedOvulationDay ||
                             markedType != null ||
                             isToday)
                           _buildDayCircle(
                             isToday: isToday,
                             isLogged: isLogged,
-                            isPredicted: isPredicted,
+                            isPredictedPeriodDay: isPredicted,
+                            isPredictedOvulationDay: isPredictedOvulationDay,
                             markedType: markedType,
                           ),
                         Column(
@@ -697,7 +626,12 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                               day.toString(),
                               style: TextStyle(
                                 color: _getDayTextColor(
-                                    isLogged, isPredicted, markedType, isToday),
+                                  isLogged,
+                                  isPredicted,
+                                  markedType,
+                                  isToday,
+                                  isPredictedOvulationDay,
+                                ),
                                 fontWeight:
                                     isToday ? FontWeight.bold : FontWeight.w500,
                                 fontSize: 14,
@@ -720,7 +654,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                             child: Icon(
                               Icons.notifications,
                               size: 10,
-                              color: Colors.blue,
+                              color: Colors.purple,
                             ),
                           ),
                       ],
@@ -738,10 +672,11 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
   Widget _buildDayCircle({
     required bool isToday,
     required bool isLogged,
-    required bool isPredicted,
+    required bool isPredictedPeriodDay,
+    required bool isPredictedOvulationDay,
     String? markedType,
   }) {
-    if (isToday && (isLogged || markedType != null)) {
+    if (isToday) {
       return Container(
         width: 32,
         height: 32,
@@ -753,7 +688,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
       );
     }
 
-    if (isLogged) {
+    if (isPredictedPeriodDay) {
       return DottedBorder(
         borderType: BorderType.Circle,
         color: AppColors.redColor,
@@ -767,16 +702,16 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
       );
     }
 
-    if (isPredicted) {
+    if (isPredictedOvulationDay) {
       return Container(
-        width: 32,
-        height: 32,
+        width: 25,
+        height: 25,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            width: 1.5,
-            color: Color(0xFFFF7DAD),
-          ),
+          color: AppColors.blueLightColor.withOpacity(0.1),
+          // border: Border.all(
+          //   width: 1.5,
+          // ),
         ),
       );
     }
@@ -815,12 +750,13 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
     return Container();
   }
 
-  Color _getDayTextColor(
-      bool isLogged, bool isPredicted, String? markedType, bool isToday) {
+  Color _getDayTextColor(bool isLogged, bool isPredicted, String? markedType,
+      bool isToday, bool isPredictedOvulationDay) {
     if (isToday) return Colors.red;
-    if (isLogged) return AppColors.redColor;
+    // if (isLogged) return AppColors.redColor;
     if (isPredicted) return Color(0xFFFF7DAD);
     if (markedType == 'reminder') return Colors.blue;
+    if (isPredictedOvulationDay) return AppColors.blueLightColor;
     return Colors.black;
   }
 
@@ -858,7 +794,6 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
             ),
             itemCount: 42,
             itemBuilder: (context, index) {
-              final weekday = index % 7;
               final day = index - firstWeekday + 2;
 
               if (day < 1 || day > daysInMonth) {
@@ -866,22 +801,24 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
               }
 
               final date = DateTime(year, month, day);
-              final isToday = date.year == today.year &&
-                  date.month == today.month &&
-                  date.day == today.day;
+              date.month == today.month && date.day == today.day;
               final isLogged = _loggedDates.contains(date);
               final isPredicted = _predictedDates.contains(date);
+              final isPredictedOvulationDay =
+                  _predictedOvulationDates.contains(date);
 
               return Center(
                 child: Text(
                   day.toString(),
                   style: TextStyle(
                     fontSize: 10,
-                    color: isLogged
-                        ? AppColors.redColor
+                    color: isPredictedOvulationDay
+                        ? AppColors.blueLightColor
                         : isPredicted
                             ? Color(0xFFFF7DAD)
-                            : Colors.black,
+                            : isLogged
+                                ? AppColors.redColor
+                                : Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
                 ),

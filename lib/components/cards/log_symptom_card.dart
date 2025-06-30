@@ -26,12 +26,11 @@ class LogSymptomCard extends StatelessWidget {
         Get.toNamed(AppRoutes.logSymptomsRoute);
       },
       child: Container(
-        height: 140,
         width: 140,
         decoration: BoxDecoration(
           // color: AppColors.orangeColor.withOpacity(0.2),
           border: Border.all(
-            color: AppColors.orangeColor,
+            color: AppColors.pinkColor,
           ),
           borderRadius: BorderRadius.circular(16),
           // boxShadow: [
@@ -47,14 +46,12 @@ class LogSymptomCard extends StatelessWidget {
           children: [
             const SizedBox(height: AppSizes.vertical_5),
             Image.asset(
-              'assets/icons/icon_menstruation.png',
-              width: 80,
-              height: 60,
+              'assets/icons/icon_survey.png',
+              width: 40,
+              height: 40,
             ),
             const SizedBox(height: AppSizes.vertical_5),
-            const TitleText(
-              title: 'Log symptoms',
-            ),
+            const TitleText(title: 'Log symptoms'),
             const SizedBox(height: AppSizes.vertical_5),
             const Icon(Icons.add_circle),
             const SizedBox(height: AppSizes.vertical_5),

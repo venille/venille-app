@@ -1,3 +1,8 @@
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
+// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -16,6 +21,8 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
   final String coverPhoto;
   @override
   final BuiltList<MenstrualPhaseDescriptionInfo> descriptions;
+  @override
+  final num position;
 
   factory _$MenstrualPhaseInfo(
           [void Function(MenstrualPhaseInfoBuilder)? updates]) =>
@@ -25,7 +32,8 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
       {required this.id,
       required this.title,
       required this.coverPhoto,
-      required this.descriptions})
+      required this.descriptions,
+      required this.position})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'MenstrualPhaseInfo', 'id');
     BuiltValueNullFieldError.checkNotNull(
@@ -34,6 +42,8 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
         coverPhoto, r'MenstrualPhaseInfo', 'coverPhoto');
     BuiltValueNullFieldError.checkNotNull(
         descriptions, r'MenstrualPhaseInfo', 'descriptions');
+    BuiltValueNullFieldError.checkNotNull(
+        position, r'MenstrualPhaseInfo', 'position');
   }
 
   @override
@@ -52,7 +62,8 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
         id == other.id &&
         title == other.title &&
         coverPhoto == other.coverPhoto &&
-        descriptions == other.descriptions;
+        descriptions == other.descriptions &&
+        position == other.position;
   }
 
   @override
@@ -62,6 +73,7 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, coverPhoto.hashCode);
     _$hash = $jc(_$hash, descriptions.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -72,7 +84,8 @@ class _$MenstrualPhaseInfo extends MenstrualPhaseInfo {
           ..add('id', id)
           ..add('title', title)
           ..add('coverPhoto', coverPhoto)
-          ..add('descriptions', descriptions))
+          ..add('descriptions', descriptions)
+          ..add('position', position))
         .toString();
   }
 }
@@ -99,6 +112,10 @@ class MenstrualPhaseInfoBuilder
   set descriptions(ListBuilder<MenstrualPhaseDescriptionInfo>? descriptions) =>
       _$this._descriptions = descriptions;
 
+  num? _position;
+  num? get position => _$this._position;
+  set position(num? position) => _$this._position = position;
+
   MenstrualPhaseInfoBuilder() {
     MenstrualPhaseInfo._defaults(this);
   }
@@ -110,6 +127,7 @@ class MenstrualPhaseInfoBuilder
       _title = $v.title;
       _coverPhoto = $v.coverPhoto;
       _descriptions = $v.descriptions.toBuilder();
+      _position = $v.position;
       _$v = null;
     }
     return this;
@@ -140,7 +158,9 @@ class MenstrualPhaseInfoBuilder
                   title, r'MenstrualPhaseInfo', 'title'),
               coverPhoto: BuiltValueNullFieldError.checkNotNull(
                   coverPhoto, r'MenstrualPhaseInfo', 'coverPhoto'),
-              descriptions: descriptions.build());
+              descriptions: descriptions.build(),
+              position: BuiltValueNullFieldError.checkNotNull(
+                  position, r'MenstrualPhaseInfo', 'position'));
     } catch (_) {
       late String _$failedField;
       try {

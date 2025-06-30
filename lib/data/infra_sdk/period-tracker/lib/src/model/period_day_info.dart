@@ -14,8 +14,10 @@ part 'period_day_info.g.dart';
 /// Properties:
 /// * [date] 
 /// * [isToday] 
+/// * [isLoggedPeriodDay] 
 /// * [isPredictedPeriodDay] 
 /// * [isPredictedOvulationDay] 
+/// * [isFertileWindow] 
 /// * [cycleDayCount] 
 /// * [insights] 
 @BuiltValue()
@@ -26,11 +28,17 @@ abstract class PeriodDayInfo implements Built<PeriodDayInfo, PeriodDayInfoBuilde
   @BuiltValueField(wireName: r'isToday')
   bool get isToday;
 
+  @BuiltValueField(wireName: r'isLoggedPeriodDay')
+  bool get isLoggedPeriodDay;
+
   @BuiltValueField(wireName: r'isPredictedPeriodDay')
   bool get isPredictedPeriodDay;
 
   @BuiltValueField(wireName: r'isPredictedOvulationDay')
   bool get isPredictedOvulationDay;
+
+  @BuiltValueField(wireName: r'isFertileWindow')
+  bool get isFertileWindow;
 
   @BuiltValueField(wireName: r'cycleDayCount')
   num get cycleDayCount;
@@ -71,6 +79,11 @@ class _$PeriodDayInfoSerializer implements PrimitiveSerializer<PeriodDayInfo> {
       object.isToday,
       specifiedType: const FullType(bool),
     );
+    yield r'isLoggedPeriodDay';
+    yield serializers.serialize(
+      object.isLoggedPeriodDay,
+      specifiedType: const FullType(bool),
+    );
     yield r'isPredictedPeriodDay';
     yield serializers.serialize(
       object.isPredictedPeriodDay,
@@ -79,6 +92,11 @@ class _$PeriodDayInfoSerializer implements PrimitiveSerializer<PeriodDayInfo> {
     yield r'isPredictedOvulationDay';
     yield serializers.serialize(
       object.isPredictedOvulationDay,
+      specifiedType: const FullType(bool),
+    );
+    yield r'isFertileWindow';
+    yield serializers.serialize(
+      object.isFertileWindow,
       specifiedType: const FullType(bool),
     );
     yield r'cycleDayCount';
@@ -128,6 +146,13 @@ class _$PeriodDayInfoSerializer implements PrimitiveSerializer<PeriodDayInfo> {
           ) as bool;
           result.isToday = valueDes;
           break;
+        case r'isLoggedPeriodDay':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isLoggedPeriodDay = valueDes;
+          break;
         case r'isPredictedPeriodDay':
           final valueDes = serializers.deserialize(
             value,
@@ -141,6 +166,13 @@ class _$PeriodDayInfoSerializer implements PrimitiveSerializer<PeriodDayInfo> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.isPredictedOvulationDay = valueDes;
+          break;
+        case r'isFertileWindow':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isFertileWindow = valueDes;
           break;
         case r'cycleDayCount':
           final valueDes = serializers.deserialize(

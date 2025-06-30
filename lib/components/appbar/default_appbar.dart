@@ -25,14 +25,6 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
       ),
       decoration: const BoxDecoration(
         color: AppColors.whiteColor,
-        // color: AppColors.primaryColor.withOpacity(0.05),
-        // boxShadow: [
-        //   BoxShadow(
-        //     blurRadius: 5,
-        //     spreadRadius: 5,
-        //     color: AppColors.grayLightColor.withOpacity(0.2),
-        //   ),
-        // ],
       ),
       child: Padding(
         padding: MediaQuery.of(context).padding,
@@ -50,7 +42,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
                     children: [
                       Icon(
                         FluentIcons.navigation_16_filled,
-                        color: AppColors.primaryColor,
+                        color: AppColors.blueLightColor,
                       ),
                       SizedBox(width: 5),
                       TitleText(
@@ -58,7 +50,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
                         title: 'Venille',
                         letterSpacing: 1.3,
                         fontFamily: 'Pacifico',
-                        color: AppColors.primaryColor,
+                        color: AppColors.blueLightColor,
                       ),
                     ],
                   ),

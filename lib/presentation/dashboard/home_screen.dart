@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/skeletons/loading_animation.dart';
+import 'package:venille/components/text/body_text.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
@@ -58,28 +61,50 @@ class _HomeScreenState extends State<HomeScreen> {
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
-                  child: const SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        PeriodTrackerCard(),
-                        SizedBox(height: AppSizes.vertical_10),
-                        DailyInsightsSection(),
-                        SizedBox(height: AppSizes.vertical_20),
-                        LastPeriodSummarySection(),
-                        SizedBox(height: AppSizes.vertical_20),
-                        MenstrualPhasesSection(),
-                        SizedBox(height: AppSizes.vertical_40),
-                      ],
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Obx(
+                    () => ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: ServiceRegistry.userRepository.periodTrackerHistory
+                              .value.years.isEmpty
+                          ? SizedBox(
+                              height: 400,
+                              width: double.maxFinite,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const LoadingAnimation(
+                                    type: "beat",
+                                    color: AppColors.pinkColor,
+                                  ),
+                                  const SizedBox(height: AppSizes.vertical_20),
+                                  BodyText(
+                                    text: 'Building your period tracker...',
+                                    size: 16,
+                                    weight: FontWeight.w400,
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const SizedBox(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PeriodTrackerCard(),
+                                  SizedBox(height: AppSizes.vertical_10),
+                                  DailyInsightsSection(),
+                                  SizedBox(height: AppSizes.vertical_20),
+                                  LastPeriodSummarySection(),
+                                  SizedBox(height: AppSizes.vertical_20),
+                                  MenstrualPhasesSection(),
+                                  SizedBox(height: AppSizes.vertical_40),
+                                ],
+                              ),
+                            ),
                     ),
-                  ),
-                ),
-              );
+                  ));
             },
           ),
         ),

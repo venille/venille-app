@@ -146,147 +146,169 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
       onPopInvokedWithResult: (didPop, result) async {
         return;
       },
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: Obx(() {
-          return SafeArea(
-            child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.horizontal_15,
-                ),
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSizes.vertical_30),
-                    const CustomAuthBackButton(
-                      navigateTo: AuthNavigationTypes.authSignUp,
-                    ),
-                    const SizedBox(height: AppSizes.vertical_15),
-                    const TitleText(
-                      size: 20,
-                      title: 'Verify your account',
-                    ),
-                    const SizedBox(height: AppSizes.vertical_5),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: 'Please enter the 4 digit code we sent to ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.textTertiaryColor,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '${Get.parameters['email']}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.blackColor,
-                            ),
-                          ),
-                          const TextSpan(
-                            text: ' via email.',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.textTertiaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSizes.vertical_20),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Pinput(
-                          controller: otpTokenController,
-                          focusNode: focusNode,
-                          defaultPinTheme: defaultPinTheme,
-                          separatorBuilder: (index) => const SizedBox(
-                            width: AppSizes.horizontal_5,
-                          ),
-                          hapticFeedbackType: HapticFeedbackType.lightImpact,
-                          onCompleted: (pin) {
-                            log('onCompleted: $pin');
-
-                            isOtpValid.value = true;
-                          },
-                          onChanged: (value) {
-                            log('onChanged: $value');
-                          },
-                          cursor: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 9),
-                                width: 22,
-                                height: 1,
-                                color: AppColors.borderPrimaryColor,
-                              ),
-                            ],
-                          ),
-                          focusedPinTheme: defaultPinTheme.copyWith(
-                            decoration: defaultPinTheme.decoration!.copyWith(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: AppColors.borderPrimaryColor,
-                              ),
-                            ),
-                          ),
-                          submittedPinTheme: defaultPinTheme.copyWith(
-                            decoration: defaultPinTheme.decoration!.copyWith(
-                              color: AppColors.whiteColor,
-                              borderRadius: BorderRadius.circular(19),
-                              border: Border.all(
-                                color: AppColors.borderPrimaryColor,
-                              ),
-                            ),
-                          ),
-                          errorPinTheme: defaultPinTheme.copyBorderWith(
-                            border: Border.all(color: Colors.redAccent),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_15),
-                    ResendOtpButton(
-                      onTapOtpHandler: handleResendOtp,
-                      countDownText: countDownText,
-                      hasCountDown: _countDown > 0,
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_15),
-                    ServiceRegistry
-                            .authenticationService.isSignUpProcessing.isTrue
-                        ? const CustomLoadingButton(height: 56)
-                        : CustomButton(
-                            text: 'Verify',
-                            height: 56,
-                            fontSize: 16,
-                            borderRadius: 16,
-                            width: double.maxFinite,
-                            onTapHandler: submitHandler,
-                            fontWeight: FontWeight.w600,
-                            fontColor: AppColors.whiteColor,
-                            backgroundColor: isOtpValid.isFalse
-                                ? AppColors.buttonPrimaryDisabledColor
-                                : AppColors.buttonPrimaryColor,
-                          ),
-                    const SizedBox(height: AppSizes.horizontal_25),
-                  ],
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              width: AppSizes.screenWidth(context),
+              height: AppSizes.screenHeight(context),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/image_background_2.jpg',
+                  ),
                 ),
               ),
             ),
-          );
-        }),
+          ),
+          Scaffold(
+            extendBody: true,
+            backgroundColor: Colors.transparent,
+            body: Obx(() {
+              return SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.horizontal_15,
+                    ),
+                    width: double.maxFinite,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: AppSizes.vertical_30),
+                        const CustomAuthBackButton(
+                          navigateTo: AuthNavigationTypes.authSignUp,
+                        ),
+                        const SizedBox(height: AppSizes.vertical_15),
+                        const TitleText(
+                          size: 20,
+                          title: 'Verify your account',
+                        ),
+                        const SizedBox(height: AppSizes.vertical_5),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(
+                                text:
+                                    'Please enter the 4 digit code we sent to ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textTertiaryColor,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${Get.parameters['email']}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.blackColor,
+                                ),
+                              ),
+                              const TextSpan(
+                                text: ' via email.',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textTertiaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.vertical_20),
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Pinput(
+                              controller: otpTokenController,
+                              focusNode: focusNode,
+                              defaultPinTheme: defaultPinTheme,
+                              separatorBuilder: (index) => const SizedBox(
+                                width: AppSizes.horizontal_5,
+                              ),
+                              hapticFeedbackType:
+                                  HapticFeedbackType.lightImpact,
+                              onCompleted: (pin) {
+                                log('onCompleted: $pin');
+
+                                isOtpValid.value = true;
+                              },
+                              onChanged: (value) {
+                                log('onChanged: $value');
+                              },
+                              cursor: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 9),
+                                    width: 22,
+                                    height: 1,
+                                    color: AppColors.borderPrimaryColor,
+                                  ),
+                                ],
+                              ),
+                              focusedPinTheme: defaultPinTheme.copyWith(
+                                decoration:
+                                    defaultPinTheme.decoration!.copyWith(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: AppColors.borderPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              submittedPinTheme: defaultPinTheme.copyWith(
+                                decoration:
+                                    defaultPinTheme.decoration!.copyWith(
+                                  color: AppColors.whiteColor,
+                                  borderRadius: BorderRadius.circular(19),
+                                  border: Border.all(
+                                    color: AppColors.borderPrimaryColor,
+                                  ),
+                                ),
+                              ),
+                              errorPinTheme: defaultPinTheme.copyBorderWith(
+                                border: Border.all(color: Colors.redAccent),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_15),
+                        ResendOtpButton(
+                          onTapOtpHandler: handleResendOtp,
+                          countDownText: countDownText,
+                          hasCountDown: _countDown > 0,
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_15),
+                        ServiceRegistry
+                                .authenticationService.isSignUpProcessing.isTrue
+                            ? const CustomLoadingButton(height: 56)
+                            : CustomButton(
+                                text: 'Verify',
+                                height: 56,
+                                fontSize: 16,
+                                borderRadius: 16,
+                                width: double.maxFinite,
+                                onTapHandler: submitHandler,
+                                fontWeight: FontWeight.w600,
+                                fontColor: AppColors.whiteColor,
+                                backgroundColor: isOtpValid.isFalse
+                                    ? AppColors.buttonPrimaryDisabledColor
+                                    : AppColors.buttonPrimaryColor,
+                              ),
+                        const SizedBox(height: AppSizes.horizontal_25),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

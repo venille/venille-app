@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **age** | **num** | Age of the user. | 
 **birthControlMethods** | **String** | Birth control method. | 
 **healthConditions** | **String** | Health condition. | 
-**cycleGoal** | **String** | Cycle goal. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -25,9 +25,11 @@ class LogPeriodScreen extends StatefulWidget {
 }
 
 class _LogPeriodScreenState extends State<LogPeriodScreen> {
-  final ScrollController _scrollController = ScrollController();
   final Set<DateTime> _selectedDates = {};
-  final Set<DateTime> _loggedDates = {};
+  final Set<DateTime> _loggedPeriodDates = {};
+  final Set<DateTime> _predictedPeriodDates = {};
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -157,7 +159,8 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
 
   void _processPeriodHistory() {
     _selectedDates.clear();
-    _loggedDates.clear();
+    _loggedPeriodDates.clear();
+    _predictedPeriodDates.clear();
 
     final months = getAllMonthsData();
     if (months.isEmpty) {
@@ -202,7 +205,8 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
     while (!currentDateInRange.isAfter(endDate)) {
       final dateToAdd = DateTime(currentDateInRange.year,
           currentDateInRange.month, currentDateInRange.day);
-      _loggedDates.add(dateToAdd);
+      _predictedPeriodDates.add(dateToAdd);
+
       _selectedDates.add(dateToAdd);
       currentDateInRange = currentDateInRange.add(const Duration(days: 1));
     }
@@ -463,9 +467,9 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
                           Get.back();
                         },
                       ),
-                      TitleText(
+                      const TitleText(
                         size: 16,
-                        title: 'Log period',
+                        title: 'Log Period',
                       ),
                       const SizedBox(width: AppSizes.horizontal_35),
                     ],
@@ -523,6 +527,12 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
         ),
         decoration: const BoxDecoration(
           color: AppColors.whiteColor,
+          border: Border(
+            top: BorderSide(
+              width: 1,
+              color: AppColors.grayLightColor,
+            ),
+          ),
         ),
         child: Obx(
           () => Row(
@@ -595,7 +605,7 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
           .map((month) => _MonthCalendarCard(
                 month: month,
                 selectedDates: _selectedDates,
-                loggedDates: _loggedDates,
+                loggedDates: _predictedPeriodDates,
                 onDateSelected: _onDateTapped,
                 isFutureMonth: month.month > now.month,
               ))
@@ -618,7 +628,7 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
       return _MonthCalendarCard(
         month: month,
         selectedDates: _selectedDates,
-        loggedDates: _loggedDates,
+        loggedDates: _predictedPeriodDates,
         onDateSelected: _onDateTapped,
         isFutureMonth: isFutureMonth,
       );
@@ -651,10 +661,12 @@ class _MonthCalendarCard extends StatelessWidget {
     final monthName = _monthName(month.month);
     final isCurrentYear = month.year == now.year;
     final displayTitle = isCurrentYear ? monthName : '$monthName ${month.year}';
+
     List<Widget> dayWidgets = [];
     for (int i = 1; i < firstWeekday; i++) {
       dayWidgets.add(const SizedBox());
     }
+
     for (int day = 1; day <= daysInMonth; day++) {
       final currentDate = DateTime(month.year, month.month, day);
       final isToday = today == day;
@@ -670,6 +682,7 @@ class _MonthCalendarCard extends StatelessWidget {
         isFutureMonth: isFutureMonth,
       ));
     }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(

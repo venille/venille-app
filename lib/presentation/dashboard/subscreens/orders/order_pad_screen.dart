@@ -95,8 +95,15 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             padding: const EdgeInsets.only(
               left: AppSizes.horizontal_15,
             ),
-            decoration: BoxDecoration(
-              color: AppColors.grayLightColor.withOpacity(0.5),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.whiteColor,
+                  AppColors.grayLightColor,
+                ],
+              ),
             ),
             child: Stack(
               children: [
@@ -114,8 +121,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     width: 160,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            AssetImage('assets/images/image_sanitary_pad.jpeg'),
+                        image: AssetImage(
+                            'assets/images/image_sanitary_pad_2.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -299,8 +306,8 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     fontWeight: FontWeight.w600,
                     fontColor: AppColors.whiteColor,
                     backgroundColor: isAddressValid.isFalse
-                        ? AppColors.blackColor.withOpacity(0.6)
-                        : AppColors.blackColor,
+                        ? AppColors.buttonPrimaryDisabledColor
+                        : AppColors.buttonPrimaryColor,
                   ),
           );
         },
