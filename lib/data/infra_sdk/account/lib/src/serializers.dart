@@ -30,6 +30,7 @@ import 'package:account_sdk/src/model/order_info.dart';
 import 'package:account_sdk/src/model/order_sanitary_pad_dto.dart';
 import 'package:account_sdk/src/model/register_monthly_survey_dto.dart';
 import 'package:account_sdk/src/model/register_period_tracker_dto.dart';
+import 'package:account_sdk/src/model/report_ai_response_dto.dart';
 import 'package:account_sdk/src/model/update_account_email_dto.dart';
 import 'package:account_sdk/src/model/update_account_location_dto.dart';
 import 'package:account_sdk/src/model/update_account_name_dto.dart';
@@ -57,6 +58,7 @@ part 'serializers.g.dart';
   OrderSanitaryPadDTO,
   RegisterMonthlySurveyDTO,
   RegisterPeriodTrackerDTO,
+  ReportAIResponseDTO,
   UpdateAccountEmailDTO,
   UpdateAccountLocationDTO,
   UpdateAccountNameDTO,

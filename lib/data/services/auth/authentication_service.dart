@@ -378,7 +378,7 @@ class AuthenticationService extends GetxController {
             AppRoutes.signUpVerificationRoute,
             parameters: {
               "email": payload.email,
-              "phone": payload.phone,
+              "phone": payload.phone ?? "",
               "lastName": payload.lastName,
               "firstName": payload.firstName,
               // "state": payload.state ?? "",
@@ -400,7 +400,7 @@ class AuthenticationService extends GetxController {
             AppRoutes.signUpVerificationRoute,
             parameters: {
               "email": payload.email,
-              "phone": payload.phone,
+              "phone": payload.phone ?? "",
               "lastName": payload.lastName,
               "firstName": payload.firstName,
               // "state": payload.state ?? "",

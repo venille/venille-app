@@ -15,6 +15,7 @@ export 'package:auth_sdk/src/api/address_helper_api.dart';
 export 'package:auth_sdk/src/api/ai_api.dart';
 export 'package:auth_sdk/src/api/auth_api.dart';
 export 'package:auth_sdk/src/api/helpers_api.dart';
+export 'package:auth_sdk/src/api/notifications_api.dart';
 export 'package:auth_sdk/src/api/password_api.dart';
 
 export 'package:auth_sdk/src/model/availability_check_info.dart';

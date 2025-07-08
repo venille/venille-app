@@ -10,6 +10,7 @@ import 'package:account_sdk/src/auth/api_key_auth.dart';
 import 'package:account_sdk/src/auth/basic_auth.dart';
 import 'package:account_sdk/src/auth/bearer_auth.dart';
 import 'package:account_sdk/src/auth/oauth.dart';
+import 'package:account_sdk/src/api/ai_assistant_api.dart';
 import 'package:account_sdk/src/api/manage_contact_info_api.dart';
 import 'package:account_sdk/src/api/me_api.dart';
 import 'package:account_sdk/src/api/monthly_survey_api.dart';
@@ -71,6 +72,12 @@ class AccountSdk {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
       (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
+  }
+
+  /// Get AIAssistantApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  AIAssistantApi getAIAssistantApi() {
+    return AIAssistantApi(dio, serializers);
   }
 
   /// Get ManageContactInfoApi instance, base route and serializer can be overridden by a given but be careful,

@@ -1,14 +1,16 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:venille/components/skeletons/empty_results_content.dart';
-import 'package:venille/components/skeletons/loading_animation.dart';
+import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/colors.dart';
+import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/appbar/titled_appbar.dart';
 import 'package:venille/components/cards/forum_post_card.dart';
+import 'package:venille/components/skeletons/loading_animation.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
+import 'package:venille/components/skeletons/empty_results_content.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
 
 class ForumScreen extends StatefulWidget {
@@ -25,6 +27,12 @@ class _ForumScreenState extends State<ForumScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> initializeForumPosts() async {
+    if (ServiceRegistry.localStorage
+            .read(LocalStorageSecrets.authenticationMethod) ==
+        'GUEST') {
+      return;
+    }
+
     ServiceRegistry.engagementService.fetchForumPostsService(
       currentPage: 1,
     );
@@ -71,18 +79,28 @@ class _ForumScreenState extends State<ForumScreen> {
           scaffoldKey: scaffoldKey,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        elevation: 0,
-        backgroundColor: AppColors.grayColor,
-        foregroundColor: AppColors.whiteColor,
-        onPressed: () {
-          Get.toNamed(AppRoutes.createForumPostRoute);
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: ServiceRegistry.localStorage
+                  .read(LocalStorageSecrets.authenticationMethod) ==
+              'GUEST'
+          ? null
+          : FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 0,
+              backgroundColor: AppColors.grayColor,
+              foregroundColor: AppColors.whiteColor,
+              onPressed: () {
+                if (ServiceRegistry.localStorage
+                        .read(LocalStorageSecrets.authenticationMethod) ==
+                    'GUEST') {
+                  Get.toNamed(AppRoutes.loginRoute);
+                }
+
+                Get.toNamed(AppRoutes.createForumPostRoute);
+              },
+              child: const Icon(Icons.add),
+            ),
       body: RefreshIndicator(
         onRefresh: initializeForumPosts,
         child: LayoutBuilder(
@@ -94,48 +112,53 @@ class _ForumScreenState extends State<ForumScreen> {
                 constraints: BoxConstraints(
                   minHeight: constraints.maxHeight,
                 ),
-                child: Obx(
-                  () => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.horizontal_15,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ServiceRegistry.userRepository.forumPosts.isEmpty
-                            ? const EmptyResultsContent(
-                                displayType: 'FORUM_POSTS',
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: ServiceRegistry
-                                    .userRepository.forumPosts.length,
-                                itemBuilder: (context, index) {
-                                  return ForumPostCard(
-                                    forumPost: ServiceRegistry
-                                        .userRepository.forumPosts[index],
-                                  );
-                                },
-                              ),
-                        ServiceRegistry.userRepository.forumPostsHasNextPage
-                                        .value ==
-                                    true &&
-                                fetchingPaginatedData.value
-                            ? const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: LoadingAnimation(
-                                    type: "newtonCradle",
-                                    color: AppColors.blackColor,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        const SizedBox(height: AppSizes.vertical_40),
-                      ],
-                    ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.horizontal_15,
                   ),
+                  child: ServiceRegistry.localStorage
+                              .read(LocalStorageSecrets.authenticationMethod) ==
+                          'GUEST'
+                      ? const InsecureDashboardContent()
+                      : Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ServiceRegistry.userRepository.forumPosts.isEmpty
+                                  ? const EmptyResultsContent(
+                                      displayType: 'FORUM_POSTS',
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: ServiceRegistry
+                                          .userRepository.forumPosts.length,
+                                      itemBuilder: (context, index) {
+                                        return ForumPostCard(
+                                          forumPost: ServiceRegistry
+                                              .userRepository.forumPosts[index],
+                                        );
+                                      },
+                                    ),
+                              ServiceRegistry.userRepository
+                                              .forumPostsHasNextPage.value ==
+                                          true &&
+                                      fetchingPaginatedData.value
+                                  ? const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: LoadingAnimation(
+                                          type: "newtonCradle",
+                                          color: AppColors.blackColor,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              const SizedBox(height: AppSizes.vertical_40),
+                            ],
+                          ),
+                        ),
                 ),
               ),
             );

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -48,11 +49,12 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Container(
             width: AppSizes.screenWidth(context),
             height: AppSizes.screenHeight(context),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
+                image: const AssetImage(
                   'assets/images/image_background.jpg',
                 ),
+                fit: AppSizes.screenWidth(context) > 600 ? BoxFit.cover : null,
               ),
             ),
           ),

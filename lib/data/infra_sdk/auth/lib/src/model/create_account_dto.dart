@@ -38,7 +38,7 @@ abstract class CreateAccountDTO implements Built<CreateAccountDTO, CreateAccount
 
   /// Phone number of the user.
   @BuiltValueField(wireName: r'phone')
-  String get phone;
+  String? get phone;
 
   /// Referral code of the user (Optional).
   @BuiltValueField(wireName: r'referralCode')
@@ -87,11 +87,13 @@ class _$CreateAccountDTOSerializer implements PrimitiveSerializer<CreateAccountD
       object.lastName,
       specifiedType: const FullType(String),
     );
-    yield r'phone';
-    yield serializers.serialize(
-      object.phone,
-      specifiedType: const FullType(String),
-    );
+    if (object.phone != null) {
+      yield r'phone';
+      yield serializers.serialize(
+        object.phone,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'referralCode';
     yield serializers.serialize(
       object.referralCode,

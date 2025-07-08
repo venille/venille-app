@@ -103,12 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(
               width: AppSizes.screenWidth(context),
               height: AppSizes.screenHeight(context),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
+                  image: const AssetImage(
                     'assets/images/image_background_2.jpg',
                   ),
-                  // fit: BoxFit.cover,
+                  fit:
+                      AppSizes.screenWidth(context) > 600 ? BoxFit.cover : null,
                 ),
               ),
             ),
@@ -186,7 +187,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? AppColors.buttonPrimaryDisabledColor
                                     : AppColors.buttonPrimaryColor,
                               ),
-                        const SizedBox(height: AppSizes.horizontal_10),
+                        const SizedBox(height: AppSizes.vertical_30),
+                        Visibility(
+                          visible: true,
+                          // visible: Platform.isIOS,
+                          child: Center(
+                            child: InkWell(
+                              onTap: () {
+                                ServiceRegistry.localStorage.write(
+                                  LocalStorageSecrets.authenticationMethod,
+                                  'GUEST',
+                                );
+
+                                Get.offAndToNamed(AppRoutes.dashboardRoute);
+                              },
+                              overlayColor: const WidgetStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                              child: CustomTextWidget(
+                                size: 16,
+                                weight: FontWeight.w500,
+                                text: 'Continue as guest',
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

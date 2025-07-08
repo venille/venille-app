@@ -6,11 +6,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
+import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/appbar/titled_appbar.dart';
 import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
+import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -36,7 +38,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
           scaffoldKey: scaffoldKey,
         ),
       ),
-      body: CalendarScrollView(),
+      body: ServiceRegistry.localStorage
+                  .read(LocalStorageSecrets.authenticationMethod) ==
+              'GUEST'
+          ? const InsecureDashboardContent()
+          : CalendarScrollView(),
       bottomNavigationBar: CustomBottomNavigationBar(
         onTap: (int value) {
           ServiceRegistry.commonRepository.currentScreenIndex.value = value;

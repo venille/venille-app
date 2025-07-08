@@ -11,6 +11,7 @@ export 'package:account_sdk/src/auth/oauth.dart';
 export 'package:account_sdk/src/serializers.dart';
 export 'package:account_sdk/src/model/date.dart';
 
+export 'package:account_sdk/src/api/ai_assistant_api.dart';
 export 'package:account_sdk/src/api/manage_contact_info_api.dart';
 export 'package:account_sdk/src/api/me_api.dart';
 export 'package:account_sdk/src/api/monthly_survey_api.dart';
@@ -35,6 +36,7 @@ export 'package:account_sdk/src/model/order_info.dart';
 export 'package:account_sdk/src/model/order_sanitary_pad_dto.dart';
 export 'package:account_sdk/src/model/register_monthly_survey_dto.dart';
 export 'package:account_sdk/src/model/register_period_tracker_dto.dart';
+export 'package:account_sdk/src/model/report_ai_response_dto.dart';
 export 'package:account_sdk/src/model/update_account_email_dto.dart';
 export 'package:account_sdk/src/model/update_account_location_dto.dart';
 export 'package:account_sdk/src/model/update_account_name_dto.dart';

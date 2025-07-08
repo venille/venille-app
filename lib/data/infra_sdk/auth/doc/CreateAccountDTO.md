@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **password** | **String** | Password for the user account. | 
 **firstName** | **String** | First name of the user. | 
 **lastName** | **String** | Last name of the user. | 
-**phone** | **String** | Phone number of the user. | 
+**phone** | **String** | Phone number of the user. | [optional] 
 **referralCode** | **String** | Referral code of the user (Optional). | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

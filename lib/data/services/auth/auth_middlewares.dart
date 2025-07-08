@@ -15,9 +15,9 @@ void userLogoutHandler({
   bool hasContext = false,
   String displayMessage = 'Logged out!',
 }) async {
+  ServiceRegistry.googleSignIn.signOut();
   ServiceRegistry.localStorage.remove(LocalStorageSecrets.accessToken);
   ServiceRegistry.localStorage.remove(LocalStorageSecrets.authenticationMethod);
-  ServiceRegistry.googleSignIn.signOut();
 
   if (hasContext == true) {
     Navigator.of(context!).pop();

@@ -23,6 +23,7 @@ class AccountService extends GetxController {
   RxBool isUpdateAccountInfoProcessing = false.obs;
   RxBool isRegisterMonthlySurveyProcessing = false.obs;
   RxBool isUpdateAccountPasswordProcessing = false.obs;
+  RxBool isReportVenilleAiResponseProcessing = false.obs;
   RxBool isSubmitOnboardingQuestionsProcessing = false.obs;
   RxBool isResendUpdateAccountInfoOtpProcessing = false.obs;
 
@@ -962,6 +963,65 @@ class AccountService extends GetxController {
 
         log('[READ-NOTIFICATION-ERROR-RESPONSE] :: ${dioError.response}');
       }
+    }
+  }
+
+  //! REPORT VENILLE AI RESPONSE
+  /// Report venille ai response.
+  ///
+  /// [METHOD] - POST
+  ///
+  /// [ROUTE] - /account/me/venille-ai/report-response
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> reportVenilleAiResponseService(
+      {required ReportAIResponseDTO payload,
+      required BuildContext context}) async {
+    try {
+      log("[REPORT-VENILLE-AI-RESPONSE-PENDING]");
+
+      isReportVenilleAiResponseProcessing.value = true;
+
+      AIAssistantApi aiAssistantApi =
+          ServiceRegistry.accountSdk.getAIAssistantApi();
+
+      Dio.Response response =
+          await aiAssistantApi.accountControllerReportAIResponse(
+        reportAIResponseDTO: payload,
+        headers: {
+          "Authorization": ServiceRegistry.localStorage.read(
+            LocalStorageSecrets.accessToken,
+          ),
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // log('[REPORT-VENILLE-AI-RESPONSE-RESPONSE] :: ${response.data}');
+
+        Navigator.of(context).pop();
+
+        customSuccessMessageSnackbar(
+          title: 'Message',
+          message:
+              'Thank you for your feedback, we will review it and take appropriate action.',
+        );
+
+        log("[REPORT-VENILLE-AI-RESPONSE-SUCCESS]");
+
+        isReportVenilleAiResponseProcessing.value = false;
+      }
+    } catch (error) {
+      isReportVenilleAiResponseProcessing.value = false;
+
+      log('[REPORT-VENILLE-AI-RESPONSE-ERROR-RESPONSE] :: $error');
+
+      if (error is Dio.DioException) {
+        Dio.DioException dioError = error;
+
+        log('[REPORT-VENILLE-AI-RESPONSE-ERROR-RESPONSE] :: ${dioError.response}');
+      }
+    } finally {
+      isReportVenilleAiResponseProcessing.value = false;
     }
   }
 

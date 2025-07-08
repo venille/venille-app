@@ -570,67 +570,58 @@ class EngagementService extends GetxController {
   Future<void> fetchCoursesService({
     required int currentPage,
   }) async {
-    return authGuard<void>(() async {
-      try {
-        log("[FETCH-COURSES-PENDING]");
+    try {
+      log("[FETCH-COURSES-PENDING]");
 
-        isFetchCoursesProcessing.value = true;
+      isFetchCoursesProcessing.value = true;
 
-        CourseApi courseApi = ServiceRegistry.engagementSdk.getCourseApi();
+      CourseApi courseApi = ServiceRegistry.engagementSdk.getCourseApi();
 
-        Dio.Response response = await courseApi.courseControllerFetchForumFeed(
-          page: currentPage,
-          pageSize: 10,
-          headers: {
-            "Authorization": ServiceRegistry.localStorage.read(
-              LocalStorageSecrets.accessToken,
-            ),
-          },
-        );
+      Dio.Response response = await courseApi.courseControllerFetchForumFeed(
+        page: currentPage,
+        pageSize: 10,
+      );
 
-        if (response.statusCode == 200) {
-          // log('[FETCH-COURSES-RESPONSE] :: ${response.data}');
+      if (response.statusCode == 200) {
+        // log('[FETCH-COURSES-RESPONSE] :: ${response.data}');
 
-          BuiltList<CourseCategoryInfo> data = response.data;
+        BuiltList<CourseCategoryInfo> data = response.data;
 
-          if (currentPage == 1) {
-            ServiceRegistry.userRepository.courseCategories.value =
-                data.toList();
-          } else {
-            ServiceRegistry.userRepository.courseCategories
-                .addAll(data.toList());
-          }
-
-          log("[FETCH-COURSES-SUCCESS]");
-
-          List<String> courseImages = [];
-          for (CourseCategoryInfo course
-              in ServiceRegistry.userRepository.courseCategories) {
-            for (CourseInfo courseCategory in course.courses) {
-              courseImages.add(courseCategory.coverPhoto);
-            }
-          }
-
-          Future.microtask(() {
-            preCacheNetworkImages(courseImages);
-          });
-
-          isFetchCoursesProcessing.value = false;
+        if (currentPage == 1) {
+          ServiceRegistry.userRepository.courseCategories.value = data.toList();
+        } else {
+          ServiceRegistry.userRepository.courseCategories.addAll(data.toList());
         }
-      } catch (error) {
-        isFetchCoursesProcessing.value = false;
 
-        log('[FETCH-COURSES-ERROR-RESPONSE] :: $error');
+        log("[FETCH-COURSES-SUCCESS]");
 
-        if (error is Dio.DioException) {
-          Dio.DioException dioError = error;
-
-          log('[FETCH-COURSES-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        List<String> courseImages = [];
+        for (CourseCategoryInfo course
+            in ServiceRegistry.userRepository.courseCategories) {
+          for (CourseInfo courseCategory in course.courses) {
+            courseImages.add(courseCategory.coverPhoto);
+          }
         }
-      } finally {
+
+        Future.microtask(() {
+          preCacheNetworkImages(courseImages);
+        });
+
         isFetchCoursesProcessing.value = false;
       }
-    });
+    } catch (error) {
+      isFetchCoursesProcessing.value = false;
+
+      log('[FETCH-COURSES-ERROR-RESPONSE] :: $error');
+
+      if (error is Dio.DioException) {
+        Dio.DioException dioError = error;
+
+        log('[FETCH-COURSES-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+      }
+    } finally {
+      isFetchCoursesProcessing.value = false;
+    }
   }
 
   //! TRANSLATE COURSE DESCRIPTION

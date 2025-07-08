@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venille/components/appbar/profile_appbar.dart';
+import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/providers/index.dart';
+import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
@@ -30,6 +31,12 @@ class TitledAppbar extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
+                    if (ServiceRegistry.localStorage
+                            .read(LocalStorageSecrets.authenticationMethod) ==
+                        'GUEST') {
+                      return;
+                    }
+
                     scaffoldKey.currentState?.openDrawer();
                   },
                   child: const Center(

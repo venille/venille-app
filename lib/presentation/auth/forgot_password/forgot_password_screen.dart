@@ -73,11 +73,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Container(
             width: AppSizes.screenWidth(context),
             height: AppSizes.screenHeight(context),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
+                image: const AssetImage(
                   'assets/images/image_background_2.jpg',
                 ),
+                fit: AppSizes.screenWidth(context) > 600 ? BoxFit.cover : null,
               ),
             ),
           ),
