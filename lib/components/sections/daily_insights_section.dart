@@ -29,7 +29,7 @@ class _DailyInsightsSectionState extends State<DailyInsightsSection> {
           ),
           const SizedBox(height: AppSizes.vertical_10),
           SizedBox(
-            height: 160,
+            height: 140,
             width: double.maxFinite,
             child: ListView.builder(
               itemCount: 2,

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/routes.dart';
@@ -28,6 +28,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   bool hidePassword = true;
   String accountType = 'CUSTOMER';
+  RxBool isEmailValid = false.obs;
   RxBool isPhoneNumberValid = false.obs;
 
   TextEditingController cityController = TextEditingController();
@@ -57,10 +58,18 @@ class _SignupScreenState extends State<SignupScreen> {
     initializeControllersAndStates();
 
     phoneController.addListener(() {
-      if (phoneController.text.length == 10) {
+      if (phoneController.text.length >= 10) {
         isPhoneNumberValid.value = true;
       } else {
         isPhoneNumberValid.value = false;
+      }
+    });
+
+    emailController.addListener(() {
+      if (emailController.text.isEmail) {
+        isEmailValid.value = true;
+      } else {
+        isEmailValid.value = false;
       }
     });
   }
@@ -77,30 +86,12 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void submitHandler() async {
-    // if (ServiceRegistry.commonRepository.userCountry.value.dialCode != '+234') {
-    //   return customErrorMessageSnackbar(
-    //     title: 'Message',
-    //     message: 'Invalid country code, only +234(Nigeria) is supported.',
-    //   );
-    // } else
-    if (isPhoneNumberValid.isFalse) {
-      return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Phone number must be at least 10 digits',
-      );
-    } else if (!phoneController.text.isNumericOnly) {
-      return customErrorMessageSnackbar(
-        duration: 5500,
-        title: 'Message',
-        message:
-            'Invalid phone number, ensure that your phone number comprises of digits only!',
-      );
-    } else if (emailController.text.isEmpty) {
+    if (emailController.text.isEmpty) {
       return customErrorMessageSnackbar(
         title: 'Message',
         message: 'Email is required',
       );
-    } else if (!emailController.text.isEmail) {
+    } else if (isEmailValid.isFalse) {
       return customErrorMessageSnackbar(
         title: 'Message',
         message: 'Invalid email address',
@@ -115,12 +106,22 @@ class _SignupScreenState extends State<SignupScreen> {
         title: 'Message',
         message: 'Last name is required',
       );
+    } else if (phoneController.text.isNotEmpty &&
+        !phoneController.text.isNumericOnly) {
+      return customErrorMessageSnackbar(
+        duration: 5500,
+        title: 'Message',
+        message:
+            'Invalid phone number, ensure that your phone number comprises of digits only!',
+      );
     } else {
       Map<String, dynamic> payload = {
-        "phone": formatPhoneNumber(
-          ServiceRegistry.commonRepository.userCountry.value.dialCode!,
-          phoneController.text.trim(),
-        ),
+        "phone": phoneController.text.isNotEmpty
+            ? formatPhoneNumber(
+                ServiceRegistry.commonRepository.userCountry.value.dialCode!,
+                phoneController.text.trim(),
+              )
+            : "",
         "email": emailController.text.trim(),
         "firstName": firstNameController.text.trim(),
         "lastName": lastNameController.text.trim(),
@@ -144,278 +145,203 @@ class _SignupScreenState extends State<SignupScreen> {
 
         return false;
       },
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(135),
-          child: SafeArea(
+      child: Stack(
+        children: [
+          Positioned.fill(
             child: Container(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              // color: Colors.red,
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.horizontal_15,
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: AppSizes.vertical_30),
-                  VenilleIconBadge(size: 60),
-                  SizedBox(height: AppSizes.vertical_15),
-                  TitleText(
-                    size: 20,
-                    title: "Let's get to know you",
+              width: AppSizes.screenWidth(context),
+              height: AppSizes.screenHeight(context),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: const AssetImage(
+                    'assets/images/image_background_2.jpg',
                   ),
-                  SizedBox(height: AppSizes.vertical_5),
-                  AuthRedirectLink(routeType: 'LOGIN'),
-                ],
+                  fit:
+                      AppSizes.screenWidth(context) > 600 ? BoxFit.cover : null,
+                ),
               ),
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSizes.horizontal_15,
-            ),
-            width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: AppSizes.vertical_5),
-                FormTextField(
-                  label: 'Email',
-                  hintText: 'lisa@gmail.com',
-                  textController: emailController,
-                ),
-                const SizedBox(height: AppSizes.vertical_10),
-                SizedBox(
+          Scaffold(
+            extendBody: true,
+            backgroundColor: Colors.transparent,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(135),
+              child: SafeArea(
+                child: Container(
+                  height: double.maxFinite,
                   width: double.maxFinite,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // color: Colors.red,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizes.horizontal_15,
+                  ),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: AppSizes.screenWidth(context) * 0.45,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FormTextField(
-                              label: 'First name',
-                              hintText: 'Lisa',
-                              textController: firstNameController,
-                              width: AppSizes.screenWidth(context) * 0.7,
-                            ),
-                          ],
-                        ),
+                      SizedBox(height: AppSizes.vertical_30),
+                      VenilleIconBadge(size: 60),
+                      SizedBox(height: AppSizes.vertical_15),
+                      TitleText(
+                        size: 20,
+                        title: "Let's get to know you",
                       ),
-                      SizedBox(
-                        width: AppSizes.screenWidth(context) * 0.45,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FormTextField(
-                              label: 'Last name',
-                              hintText: 'Olayinka',
-                              textController: lastNameController,
-                              width: AppSizes.screenWidth(context) * 0.7,
-                            ),
-                          ],
-                        ),
-                      ),
+                      SizedBox(height: AppSizes.vertical_5),
+                      AuthRedirectLink(routeType: 'LOGIN'),
                     ],
                   ),
                 ),
-                const SizedBox(height: AppSizes.vertical_10),
-                // SizedBox(
-                //   width: double.maxFinite,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       SizedBox(
-                //         width: AppSizes.screenWidth(context) * 0.45,
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             LabeledDropdownSelector(
-                //               label: 'State',
-                //               value: stateController.text,
-                //               items: ServiceRegistry
-                //                   .userRepository.availableStates
-                //                   .map((e) => e.state)
-                //                   .toList(),
-                //               onChanged: (value) {
-                //                 log('[STATE] : $value');
-
-                //                 setState(() {
-                //                   stateController.text = value!;
-                //                 });
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       SizedBox(
-                //         width: AppSizes.screenWidth(context) * 0.45,
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             LabeledDropdownSelector(
-                //               label: 'City',
-                //               value: cityController.text,
-                //               items: stateController.text.isEmpty
-                //                   ? []
-                //                   : ServiceRegistry
-                //                           .userRepository.availableStates
-                //                           .firstWhereOrNull((element) =>
-                //                               element.state ==
-                //                               stateController.text)
-                //                           ?.lgas
-                //                           .toList() ??
-                //                       [],
-                //               onChanged: (value) {
-                //                 log('[CITY] : $value');
-
-                //                 setState(() {
-                //                   cityController.text = value!;
-                //                 });
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Visibility(
-                  visible: accountType == 'FARMER',
-                  child: Column(
-                    children: [
-                      const SizedBox(height: AppSizes.vertical_10),
-                      SizedBox(
-                        width: double.maxFinite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: AppSizes.screenWidth(context) * 0.45,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  FormTextField(
-                                    label: 'Farm name',
-                                    hintText: 'Bright Farms',
-                                    textController: businessNameController,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: AppSizes.screenWidth(context) * 0.45,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  FormTextField(
-                                    label: 'Farm Address',
-                                    textController: businessAddressController,
-                                    hintText:
-                                        '1234 County Road 35, Farmington, MN 55024',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSizes.vertical_10),
-                FormPhoneField(phoneController: phoneController),
-                const SizedBox(height: AppSizes.vertical_10),
-                FormTextField(
-                  label: 'Referral Code',
-                  textController: referralCodeController,
-                  hintText: 'Enter referral code (optional)',
-                ),
-                const SizedBox(height: AppSizes.horizontal_30),
-              ],
+              ),
             ),
-          ),
-        ),
-        bottomNavigationBar: Container(
-          height: 110,
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSizes.horizontal_10,
-          ),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.horizontal_15,
+                ),
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: AppSizes.vertical_5),
+                    FormTextField(
+                      label: 'Email',
+                      hintText: 'lisa@gmail.com',
+                      textController: emailController,
+                    ),
+                    const SizedBox(height: AppSizes.vertical_10),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: AppSizes.screenWidth(context) * 0.45,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FormTextField(
+                                  label: 'First name',
+                                  hintText: 'Lisa',
+                                  textController: firstNameController,
+                                  width: AppSizes.screenWidth(context) * 0.7,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: AppSizes.screenWidth(context) * 0.45,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FormTextField(
+                                  label: 'Last name',
+                                  hintText: 'Olayinka',
+                                  textController: lastNameController,
+                                  width: AppSizes.screenWidth(context) * 0.7,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: AppSizes.vertical_10),
+                    FormPhoneField(
+                      label: 'Phone number (optional)',
+                      phoneController: phoneController,
+                    ),
+                    const SizedBox(height: AppSizes.vertical_10),
+                    FormTextField(
+                      label: 'Referral Code (optional)',
+                      textController: referralCodeController,
+                      hintText: 'Enter referral code',
+                    ),
+                    const SizedBox(height: AppSizes.horizontal_30),
+                  ],
+                ),
+              ),
+            ),
+            bottomNavigationBar: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.only(
+                top: AppSizes.vertical_10,
+                left: AppSizes.horizontal_15,
+                right: AppSizes.horizontal_15,
+                bottom: Platform.isAndroid
+                    ? AppSizes.vertical_10
+                    : AppSizes.vertical_25,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SmallText(
-                    // maxLines: 10,
-                    text: 'By continuing, you automatically accept our ',
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      SmallText(
+                        // maxLines: 10,
+                        text: 'By continuing, you automatically accept our ',
+                      ),
+                      InkWell(
+                        onTap: () {
+                          launchExternalBrowserUrl(
+                            'https://venille.com.ng/terms-of-service',
+                          );
+                        },
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
+                        child: SmallText(
+                          // maxLines: 10,
+                          weight: FontWeight.bold,
+                          text: 'Terms & Conditions ',
+                        ),
+                      ),
+                      SmallText(
+                        // maxLines: 10,
+                        text: 'and ',
+                      ),
+                      InkWell(
+                        onTap: () {
+                          launchExternalBrowserUrl(
+                            'https://venille.com.ng/privacy-policy',
+                          );
+                        },
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
+                        child: SmallText(
+                          // maxLines: 10,
+                          weight: FontWeight.bold,
+                          text: 'Privacy Policy.',
+                        ),
+                      ),
+                    ],
                   ),
-                  InkWell(
-                    onTap: () {
-                      launchExternalBrowserUrl(
-                        'https://venille.com.ng/terms-of-service',
-                      );
-                    },
-                    overlayColor: WidgetStateProperty.all(
-                      Colors.transparent,
-                    ),
-                    child: SmallText(
-                      // maxLines: 10,
-                      weight: FontWeight.bold,
-                      text: 'Terms & Conditions ',
-                    ),
-                  ),
-                  SmallText(
-                    // maxLines: 10,
-                    text: 'and ',
-                  ),
-                  InkWell(
-                    onTap: () {
-                      launchExternalBrowserUrl(
-                        'https://venille.com.ng/privacy-policy',
-                      );
-                    },
-                    overlayColor: WidgetStateProperty.all(
-                      Colors.transparent,
-                    ),
-                    child: SmallText(
-                      // maxLines: 10,
-                      weight: FontWeight.bold,
-                      text: 'Privacy Policy.',
-                    ),
-                  ),
+                  const SizedBox(height: AppSizes.vertical_10),
+                  Obx(() {
+                    return ServiceRegistry
+                            .authenticationService.isSignUpProcessing.isTrue
+                        ? const CustomLoadingButton(height: 56)
+                        : CustomButton(
+                            text: 'Continue',
+                            width: double.maxFinite,
+                            height: 56,
+                            fontSize: 16,
+                            borderRadius: 16,
+                            onTapHandler: submitHandler,
+                            fontWeight: FontWeight.w600,
+                            fontColor: AppColors.whiteColor,
+                            backgroundColor: isEmailValid.isFalse
+                                ? AppColors.buttonPrimaryDisabledColor
+                                : AppColors.buttonPrimaryColor,
+                          );
+                  }),
                 ],
               ),
-              const SizedBox(height: AppSizes.vertical_10),
-              Obx(() {
-                return ServiceRegistry
-                        .authenticationService.isSignUpProcessing.isTrue
-                    ? const CustomLoadingButton(height: 56)
-                    : CustomButton(
-                        text: 'Continue',
-                        width: double.maxFinite,
-                        height: 56,
-                        fontSize: 16,
-                        borderRadius: 16,
-                        onTapHandler: submitHandler,
-                        fontWeight: FontWeight.w600,
-                        fontColor: AppColors.whiteColor,
-                        backgroundColor: isPhoneNumberValid.isFalse
-                            ? AppColors.buttonPrimaryDisabledColor
-                            : AppColors.buttonPrimaryColor,
-                      );
-              }),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -12,7 +12,14 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:period_tracker_sdk/src/model/period_day_info.dart';
 import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
 import 'package:period_tracker_sdk/src/model/period_tracker_day_info.dart';
-import 'package:venille/data/infra_sdk/period-tracker/lib/src/model/period_tracker_week_info.dart';
+
+// Simple week info class to represent a week without using the tracker SDK models
+class WeekInfo {
+  final String monthTitle;
+  final List<PeriodDayInfo> days;
+
+  WeekInfo({required this.monthTitle, required this.days});
+}
 
 class PeriodTrackerCard extends StatefulWidget {
   const PeriodTrackerCard({super.key});
@@ -24,29 +31,6 @@ class PeriodTrackerCard extends StatefulWidget {
 class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
   int currentDay = DateTime.now().day;
   int currentWeekIndex = 1;
-
-  // Helper function to get current year data from periodTrackerHistory
-  List<PeriodDayInfo> getCurrentYearMonths() {
-    final periodTracker =
-        ServiceRegistry.userRepository.periodTrackerHistory.value;
-    if (periodTracker.years.isEmpty) return [];
-
-    final now = DateTime.now();
-    final currentYear = now.year;
-
-    // Find the year data for current year
-    final currentYearData = periodTracker.years.firstWhere(
-      (year) => year.currentYear.toInt() == currentYear,
-      orElse: () => periodTracker.years.first,
-    );
-
-    // Flatten all months into a single list of days
-    List<PeriodDayInfo> allDays = [];
-    for (var month in currentYearData.months) {
-      allDays.addAll(month.days);
-    }
-    return allDays;
-  }
 
   // Helper function to get current year months data
   List<MonthlyPeriodInfo> getCurrentYearMonthsData() {
@@ -66,63 +50,18 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
     return currentYearData.months.toList();
   }
 
-  // Helper function to get all months from all years in period tracker history
-  List<MonthlyPeriodInfo> getAllMonthsData() {
-    final periodTracker =
-        ServiceRegistry.userRepository.periodTrackerHistory.value;
-    if (periodTracker.years.isEmpty) return [];
-
-    final now = DateTime.now();
-    final currentYear = now.year;
-    final currentMonth = now.month;
-    final nextMonth = currentMonth == 12 ? 1 : currentMonth + 1;
-    final nextMonthYear = currentMonth == 12 ? currentYear + 1 : currentYear;
-
-    List<MonthlyPeriodInfo> allMonths = [];
-
-    for (var yearData in periodTracker.years) {
-      for (var month in yearData.months) {
-        final monthYear = yearData.currentYear.toInt();
-        final monthNumber = month.month.toInt();
-
-        // Stop at the month after current month
-        if (monthYear > nextMonthYear ||
-            (monthYear == nextMonthYear && monthNumber > nextMonth)) {
-          break;
-        }
-
-        allMonths.add(month);
-      }
-    }
-
-    return allMonths;
-  }
-
   // Helper function to calculate weeks in a month consistently
   int calculateWeeksInMonth(List<PeriodDayInfo> days) {
     return (days.length / 7).ceil();
   }
 
-  // Helper function to get total weeks across all months
-  int getTotalWeeks() {
-    final months = getCurrentYearMonthsData();
-    if (months.isEmpty) return 0;
-
-    int totalWeeks = 0;
-    for (var month in months) {
-      totalWeeks += calculateWeeksInMonth(month.days.toList());
-    }
-    return totalWeeks;
-  }
-
   // Helper function to get current week from periodTrackerHistory
-  PeriodTrackerWeekInfo getCurrentWeek() {
+  WeekInfo getCurrentWeek() {
     final months = getCurrentYearMonthsData();
     if (months.isEmpty) {
-      return PeriodTrackerWeekInfo(
-        (b) => b
-          ..monthTitle = 'No Data'
-          ..days = ListBuilder<PeriodTrackerDayInfo>(),
+      return WeekInfo(
+        monthTitle: 'No Data',
+        days: [],
       );
     }
 
@@ -303,37 +242,39 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
     log('Selected month: ${targetMonth.monthName}, Week: $targetWeekInMonth, Week days: ${weekDays.length}');
     log('Selected week days: [${weekDays.map((d) => '${d.date.day}').join(', ')}]');
 
-    // Convert PeriodDayInfo to PeriodTrackerDayInfo
-    final trackerDays = weekDays
-        .map((day) => PeriodTrackerDayInfo(
-              (b) => b
-                ..date = day.date
-                ..isToday = day.isToday
-                ..periodDayCount = 0 // Not available in PeriodDayInfo
-                ..cycleDayCount = day.cycleDayCount
-                ..isPredictedPeriodDay = day.isPredictedPeriodDay
-                ..isFertileDay = false // Not available in PeriodDayInfo
-                ..isPredictedOvulationDay = day.isPredictedOvulationDay
-                ..insights = day.insights,
-            ))
-        .toList();
-
-    return PeriodTrackerWeekInfo(
-      (b) => b
-        ..monthTitle = targetMonth.monthName
-        ..days = ListBuilder<PeriodTrackerDayInfo>(trackerDays),
+    return WeekInfo(
+      monthTitle: targetMonth.monthName,
+      days: weekDays,
     );
   }
 
   // Helper function to get a specific day from current week
-  PeriodTrackerDayInfo? getCurrentDay() {
+  PeriodDayInfo? getCurrentDay() {
     final week = getCurrentWeek();
     try {
-      PeriodTrackerDayInfo today = week.days.firstWhere(
+      PeriodDayInfo today = week.days.firstWhere(
         (day) => day.date.day == currentDay,
       );
 
-      ServiceRegistry.userRepository.dashboardTrackerCurrentDay.value = today;
+      // log('[CURRENT-WEEK]:: ${week.days.map((e) => e)}');
+      // log('[TODAY]:: $today');
+
+      // Convert to PeriodTrackerDayInfo for compatibility with repository
+      final trackerDay = PeriodTrackerDayInfo(
+        (b) => b
+          ..date = today.date
+          ..isToday = today.isToday
+          ..periodDayCount = 0 // Not available in PeriodDayInfo
+          ..cycleDayCount = today.cycleDayCount
+          ..isPredictedPeriodDay = today.isPredictedPeriodDay
+          ..isFertileDay =
+              today.isFertileWindow // Map isFertileWindow to isFertileDay
+          ..isPredictedOvulationDay = today.isPredictedOvulationDay
+          ..insights = today.insights,
+      );
+
+      ServiceRegistry.userRepository.dashboardTrackerCurrentDay.value =
+          trackerDay;
 
       return today;
     } catch (e) {
@@ -347,6 +288,8 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
       () {
         final currentWeek = getCurrentWeek();
         final currentDayInfo = getCurrentDay();
+
+        // log('[CURRENT-DAY-INFO]:: $currentDayInfo');
 
         return Container(
           height: 310,
@@ -371,7 +314,7 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                 currentDayInfo?.isPredictedPeriodDay == true
                     ? AppColors.redColor.withOpacity(0.4)
                     : (currentDayInfo?.isPredictedOvulationDay == true ||
-                            currentDayInfo?.isFertileDay == true)
+                            currentDayInfo?.isFertileWindow == true)
                         ? AppColors.blueLightColor.withOpacity(0.2)
                         : AppColors.grayColor.withOpacity(0.25)
               ],
@@ -412,7 +355,7 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                             ? AppColors.redColor.withOpacity(0.4)
                             : (currentDayInfo?.isPredictedOvulationDay ==
                                         true ||
-                                    currentDayInfo?.isFertileDay == true)
+                                    currentDayInfo?.isFertileWindow == true)
                                 ? AppColors.blueLightColor.withOpacity(0.2)
                                 : AppColors.grayLightColor.withOpacity(0.2),
                       ),
@@ -635,7 +578,7 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                               ? AppColors.redColor.withOpacity(0.4)
                               : (currentDayInfo?.isPredictedOvulationDay ==
                                           true ||
-                                      currentDayInfo?.isFertileDay == true)
+                                      currentDayInfo?.isFertileWindow == true)
                                   ? AppColors.blueLightColor.withOpacity(0.2)
                                   : AppColors.grayLightColor.withOpacity(0.2),
                           child: Row(
@@ -674,44 +617,103 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                                         currentWeek.days[index].date.day;
                                   });
 
+                                  // Convert to PeriodTrackerDayInfo for compatibility
+                                  final trackerDay = PeriodTrackerDayInfo(
+                                    (b) => b
+                                      ..date = currentWeek.days[index].date
+                                      ..isToday =
+                                          currentWeek.days[index].isToday
+                                      ..periodDayCount = 0
+                                      ..cycleDayCount =
+                                          currentWeek.days[index].cycleDayCount
+                                      ..isPredictedPeriodDay = currentWeek
+                                          .days[index].isPredictedPeriodDay
+                                      ..isFertileDay = currentWeek
+                                          .days[index].isFertileWindow
+                                      ..isPredictedOvulationDay = currentWeek
+                                          .days[index].isPredictedOvulationDay
+                                      ..insights =
+                                          currentWeek.days[index].insights,
+                                  );
+
                                   ServiceRegistry
                                       .userRepository
                                       .dashboardTrackerCurrentDay
-                                      .value = currentWeek.days[index];
+                                      .value = trackerDay;
                                 },
                                 overlayColor: WidgetStateProperty.all(
                                     AppColors.whiteColor),
                                 child: Container(
                                   width: 30,
                                   height: 30,
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                     top: AppSizes.vertical_10,
                                   ),
-                                  // padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     color: currentWeek.days[index].isToday
                                         ? AppColors.greenColor
-                                        : currentWeek.days[index]
-                                                .isPredictedOvulationDay
-                                            ? AppColors.blueLightColor
+                                        : (currentWeek.days[index].isPredictedPeriodDay &&
+                                                currentWeek.days[index].date.day !=
+                                                    currentDay)
+                                            ? AppColors.redColor
                                                 .withOpacity(0.4)
-                                            : currentWeek
-                                                        .days[index].date.day ==
-                                                    currentDay
-                                                ? AppColors.grayLightColor
-                                                : AppColors.whiteColor,
+                                            : ((currentWeek.days[index].isPredictedOvulationDay ||
+                                                        currentWeek.days[index]
+                                                            .isFertileWindow) &&
+                                                    currentWeek.days[index].date.day !=
+                                                        currentDay)
+                                                ? AppColors.blueLightColor
+                                                    .withOpacity(0.3)
+                                                : (currentWeek.days[index]
+                                                            .isPredictedPeriodDay &&
+                                                        currentWeek.days[index].date.day ==
+                                                            currentDay)
+                                                    ? AppColors.redColor
+                                                        .withOpacity(0.5)
+                                                    : ((currentWeek.days[index].isPredictedOvulationDay ||
+                                                                currentWeek
+                                                                    .days[index]
+                                                                    .isFertileWindow) &&
+                                                            currentWeek.days[index].date.day == currentDay)
+                                                        ? AppColors.blueLightColor.withOpacity(0.5)
+                                                        : currentWeek.days[index].date.day == currentDay
+                                                            ? AppColors.grayLightColor
+                                                            : AppColors.whiteColor,
                                     border: Border.all(
                                       color: currentWeek.days[index].isToday
                                           ? AppColors.greenColor
-                                          : currentWeek.days[index]
-                                                  .isPredictedOvulationDay
-                                              ? AppColors.blueLightColor
-                                              : currentWeek.days[index].date
+                                          // : currentWeek.days[index]
+                                          //         .isPredictedPeriodDay
+                                          //     ? AppColors.redColor
+                                          //         .withOpacity(0.4)
+                                          // : (currentWeek.days[index]
+                                          //             .isPredictedOvulationDay ||
+                                          //         currentWeek.days[index]
+                                          //             .isFertileWindow)
+                                          //     ? AppColors.blueLightColor
+                                          //         .withOpacity(0.3)
+                                          : ((currentWeek.days[index]
+                                                          .isPredictedOvulationDay ||
+                                                      currentWeek.days[index]
+                                                          .isFertileWindow) &&
+                                                  currentWeek.days[index].date
                                                           .day ==
-                                                      currentDay
-                                                  ? AppColors.grayColor
-                                                      .withOpacity(0.3)
-                                                  : AppColors.whiteColor,
+                                                      currentDay)
+                                              ? AppColors.blueLightColor
+                                                  .withOpacity(0.8)
+                                              : ((currentWeek.days[index]
+                                                          .isPredictedPeriodDay) &&
+                                                      currentWeek.days[index]
+                                                              .date.day ==
+                                                          currentDay)
+                                                  ? AppColors.redColor
+                                                      .withOpacity(0.8)
+                                                  : currentWeek.days[index].date
+                                                              .day ==
+                                                          currentDay
+                                                      ? AppColors.grayColor
+                                                          .withOpacity(0.6)
+                                                      : AppColors.whiteColor,
                                     ),
                                     borderRadius: BorderRadius.circular(100),
                                   ),
@@ -723,12 +725,14 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                                       color: currentWeek.days[index].isToday
                                           ? AppColors.whiteColor
                                           : currentWeek.days[index]
-                                                  .isPredictedOvulationDay
+                                                  .isPredictedPeriodDay
                                               ? AppColors.whiteColor
-                                              : AppColors.blackColor,
-                                      // weight: currentWeek.days[index].isToday
-                                      //     ? FontWeight.w500
-                                      //     : FontWeight.w400,
+                                              : currentWeek.days[index]
+                                                          .isPredictedOvulationDay ||
+                                                      currentWeek.days[index]
+                                                          .isFertileWindow
+                                                  ? AppColors.whiteColor
+                                                  : AppColors.blackColor,
                                       title: currentWeek.days[index].date.day
                                           .toString(),
                                     ),
@@ -744,7 +748,6 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
                 ),
               ),
               Container(
-                // width: 200,
                 height: 140,
                 padding: const EdgeInsets.symmetric(
                   vertical: AppSizes.vertical_10,
@@ -789,4 +792,10 @@ class _PeriodTrackerCardState extends State<PeriodTrackerCard> {
       },
     );
   }
+}
+
+// Helper function to format day from date (moved outside class for clarity)
+String formatDayFromDate(DateTime date) {
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  return days[date.weekday - 1];
 }

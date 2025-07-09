@@ -252,7 +252,7 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
                   onTapHandler: submitHandler,
                   fontWeight: FontWeight.w600,
                   fontColor: AppColors.whiteColor,
-                  backgroundColor: AppColors.blackColor,
+                  backgroundColor: AppColors.buttonPrimaryColor,
                 ),
         ),
       ),

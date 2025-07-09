@@ -30,9 +30,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   void initState() {
     super.initState();
 
-    scrollController.addListener(_scrollHandler);
-
     initializeNotifications();
+
+    scrollController.addListener(_scrollHandler);
   }
 
   @override
@@ -67,6 +67,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: AppColors.backgroundColor,
       drawer: CustomDrawer(scaffoldKey: scaffoldKey),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),

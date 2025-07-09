@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
+import 'package:venille/components/skeletons/loading_animation.dart';
+import 'package:venille/components/text/body_text.dart';
+import 'package:venille/components/buttons/custom_button.dart';
+import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
@@ -23,6 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime selectedDate = DateTime.now();
 
   Future<void> initializeDashboardInfo() async {
+    if (ServiceRegistry.localStorage
+            .read(LocalStorageSecrets.authenticationMethod) ==
+        'GUEST') {
+      return;
+    }
+
     Future.wait([
       ServiceRegistry.periodTrackerService.fetchDashboardInfoService(),
       ServiceRegistry.accountService.fetchNotificationsService(page: 1),
@@ -63,21 +75,50 @@ class _HomeScreenState extends State<HomeScreen> {
                   constraints: BoxConstraints(
                     minHeight: constraints.maxHeight,
                   ),
-                  child: const SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        PeriodTrackerCard(),
-                        SizedBox(height: AppSizes.vertical_10),
-                        DailyInsightsSection(),
-                        SizedBox(height: AppSizes.vertical_20),
-                        LastPeriodSummarySection(),
-                        SizedBox(height: AppSizes.vertical_20),
-                        MenstrualPhasesSection(),
-                        SizedBox(height: AppSizes.vertical_40),
-                      ],
-                    ),
-                  ),
+                  child: ServiceRegistry.localStorage
+                              .read(LocalStorageSecrets.authenticationMethod) ==
+                          'GUEST'
+                      ? const InsecureDashboardContent()
+                      : Obx(
+                          () => ServiceRegistry.userRepository
+                                  .periodTrackerHistory.value.years.isEmpty
+                              ? SizedBox(
+                                  height: 400,
+                                  width: double.maxFinite,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const LoadingAnimation(
+                                        type: "beat",
+                                        color: AppColors.pinkColor,
+                                      ),
+                                      const SizedBox(
+                                          height: AppSizes.vertical_20),
+                                      BodyText(
+                                        text: 'Building your period tracker...',
+                                        size: 16,
+                                        weight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      PeriodTrackerCard(),
+                                      SizedBox(height: AppSizes.vertical_10),
+                                      DailyInsightsSection(),
+                                      SizedBox(height: AppSizes.vertical_20),
+                                      LastPeriodSummarySection(),
+                                      SizedBox(height: AppSizes.vertical_20),
+                                      MenstrualPhasesSection(),
+                                      SizedBox(height: AppSizes.vertical_40),
+                                    ],
+                                  ),
+                                ),
+                        ),
                 ),
               );
             },

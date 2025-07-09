@@ -10,8 +10,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **date** | [**DateTime**](DateTime.md) |  | 
 **isToday** | **bool** |  | 
+**isLoggedPeriodDay** | **bool** |  | 
 **isPredictedPeriodDay** | **bool** |  | 
 **isPredictedOvulationDay** | **bool** |  | 
+**isFertileWindow** | **bool** |  | 
 **cycleDayCount** | **num** |  | 
 **insights** | **String** |  | 
 

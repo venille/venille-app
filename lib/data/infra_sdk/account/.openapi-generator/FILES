@@ -1,6 +1,7 @@
 .gitignore
 README.md
 analysis_options.yaml
+doc/AIAssistantApi.md
 doc/AccountInfo.md
 doc/ContactUsDTO.md
 doc/DeleteAccountDTO.md
@@ -22,6 +23,7 @@ doc/OrderInfo.md
 doc/OrderSanitaryPadDTO.md
 doc/RegisterMonthlySurveyDTO.md
 doc/RegisterPeriodTrackerDTO.md
+doc/ReportAIResponseDTO.md
 doc/SupportApi.md
 doc/UpdateAccountEmailDTO.md
 doc/UpdateAccountLocationDTO.md
@@ -34,6 +36,7 @@ doc/UploadApi.md
 doc/VerifyNewAccountEmailDTO.md
 lib/account_sdk.dart
 lib/src/api.dart
+lib/src/api/ai_assistant_api.dart
 lib/src/api/manage_contact_info_api.dart
 lib/src/api/me_api.dart
 lib/src/api/monthly_survey_api.dart
@@ -65,6 +68,7 @@ lib/src/model/order_info.dart
 lib/src/model/order_sanitary_pad_dto.dart
 lib/src/model/register_monthly_survey_dto.dart
 lib/src/model/register_period_tracker_dto.dart
+lib/src/model/report_ai_response_dto.dart
 lib/src/model/update_account_email_dto.dart
 lib/src/model/update_account_location_dto.dart
 lib/src/model/update_account_name_dto.dart

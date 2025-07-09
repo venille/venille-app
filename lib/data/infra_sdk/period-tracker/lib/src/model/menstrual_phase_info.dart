@@ -18,6 +18,7 @@ part 'menstrual_phase_info.g.dart';
 /// * [title] - Menstrual phase info title e.g Menstrual phase info 1.
 /// * [coverPhoto] - Menstrual phase info cover photo e.g https://example.com/cover-photo.jpg.
 /// * [descriptions] - Menstrual phase info descriptions e.g Menstrual phase info 1.
+/// * [position] - Menstrual phase info position e.g 1.
 @BuiltValue()
 abstract class MenstrualPhaseInfo implements Built<MenstrualPhaseInfo, MenstrualPhaseInfoBuilder> {
   /// Menstrual phase info ID (Auto generated).
@@ -35,6 +36,10 @@ abstract class MenstrualPhaseInfo implements Built<MenstrualPhaseInfo, Menstrual
   /// Menstrual phase info descriptions e.g Menstrual phase info 1.
   @BuiltValueField(wireName: r'descriptions')
   BuiltList<MenstrualPhaseDescriptionInfo> get descriptions;
+
+  /// Menstrual phase info position e.g 1.
+  @BuiltValueField(wireName: r'position')
+  num get position;
 
   MenstrualPhaseInfo._();
 
@@ -78,6 +83,11 @@ class _$MenstrualPhaseInfoSerializer implements PrimitiveSerializer<MenstrualPha
     yield serializers.serialize(
       object.descriptions,
       specifiedType: const FullType(BuiltList, [FullType(MenstrualPhaseDescriptionInfo)]),
+    );
+    yield r'position';
+    yield serializers.serialize(
+      object.position,
+      specifiedType: const FullType(num),
     );
   }
 
@@ -129,6 +139,13 @@ class _$MenstrualPhaseInfoSerializer implements PrimitiveSerializer<MenstrualPha
             specifiedType: const FullType(BuiltList, [FullType(MenstrualPhaseDescriptionInfo)]),
           ) as BuiltList<MenstrualPhaseDescriptionInfo>;
           result.descriptions.replace(valueDes);
+          break;
+        case r'position':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.position = valueDes;
           break;
         default:
           unhandled.add(key);

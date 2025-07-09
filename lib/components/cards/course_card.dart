@@ -21,7 +21,7 @@ class CourseCard extends StatelessWidget {
         Get.toNamed(AppRoutes.courseDescriptionRoute);
       },
       child: Container(
-        width: 150,
+        width: 160,
         height: double.maxFinite,
         margin: const EdgeInsets.only(right: AppSizes.horizontal_10),
         decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class CourseCard extends StatelessWidget {
         child: Stack(
           children: [
             CachedNetworkImageWidget(
-              width: 150,
+              width: double.maxFinite,
               height: double.maxFinite,
               imageUrl: course.coverPhoto,
             ),
@@ -57,9 +57,9 @@ class CourseCard extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.75),
                   ],
-                  stops: const [0.6, 1.0],
+                  // stops: const [0.6, 1.0],
                 ),
               ),
               child: Column(

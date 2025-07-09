@@ -409,11 +409,11 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
 
                     if (missingCategories.isNotEmpty) {
                       customErrorMessageSnackbar(
-                        title: 'Message',
-                        message:
-                        '${'select_at_least_one'.tr} ${missingCategories.join(", ")}'
-                            // 'Please select at least one item from: ${missingCategories.join(", ")}',
-                      );
+                          title: 'Message',
+                          message:
+                              '${'select_at_least_one'.tr} ${missingCategories.join(", ")}'
+                          // 'Please select at least one item from: ${missingCategories.join(", ")}',
+                          );
                     } else {
                       // Group symptoms by category
                       final Map<String, List<String>> categorySymptomsMap = {};

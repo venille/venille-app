@@ -1,11 +1,13 @@
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/middlewares/index.dart';
+import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
-import 'package:venille/core/providers/index.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
 class CourseDescriptionScreen extends StatefulWidget {
@@ -132,6 +134,15 @@ class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
                         color: AppColors.blackColor,
                       ),
                     ),
+                    onTapLink: (text, href, title) {
+                      log('[TEXT] :: $text');
+                      log('[HREF] :: $href');
+                      log('[TITLE] :: $title');
+
+                      if (href != null) {
+                        launchExternalBrowserUrl(href);
+                      }
+                    },
                     physics: const NeverScrollableScrollPhysics(),
                   ),
                 ),

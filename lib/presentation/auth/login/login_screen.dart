@@ -97,86 +97,130 @@ class _LoginScreenState extends State<LoginScreen> {
       onPopInvokedWithResult: (didPop, result) async {
         return Future.value();
       },
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: SafeArea(
-          child: Obx(() {
-            return SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.horizontal_15,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              width: AppSizes.screenWidth(context),
+              height: AppSizes.screenHeight(context),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: const AssetImage(
+                    'assets/images/image_background_2.jpg',
+                  ),
+                  fit:
+                      AppSizes.screenWidth(context) > 600 ? BoxFit.cover : null,
                 ),
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(
-                    //     'Current Language: ${Get.locale?.languageCode.toUpperCase()}'),
-                    const SizedBox(height: AppSizes.vertical_30),
-                    const VenilleIconBadge(size: 60),
-                    const SizedBox(height: AppSizes.vertical_15),
-                    const TitleText(
-                      size: 20,
-                      title: "welcome",
+              ),
+            ),
+          ),
+          Scaffold(
+            extendBody: true,
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: Obx(() {
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.horizontal_15,
                     ),
-                    const AuthRedirectLink(),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormTextField(
-                      label: 'Email',
-                      hintText: 'lisa@gmail.com',
-                      textController: emailController,
-                    ),
-                    const SizedBox(height: AppSizes.vertical_10),
-                    FormPasswordField(
-                      label: 'Password',
-                      hintText: '********',
-                      showSuffixIcon: true,
-                      hidePassword: hidePassword,
-                      passwordController: passwordController,
-                    ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    width: double.maxFinite,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.forgotPasswordRoute);
-                          },
-                          overlayColor: const WidgetStatePropertyAll(
-                            Colors.transparent,
-                          ),
-                          child: BodyText(
-                            text: 'Forgot password?'.tr,
+                        // Text(
+                        //     'Current Language: ${Get.locale?.languageCode.toUpperCase()}'),
+                        const SizedBox(height: AppSizes.vertical_30),
+                        const VenilleIconBadge(size: 60),
+                        const SizedBox(height: AppSizes.vertical_15),
+                        const TitleText(
+                          size: 20,
+                          title: "welcome",
+                        ),
+                        const AuthRedirectLink(),
+                        const SizedBox(height: AppSizes.vertical_10),
+                        FormTextField(
+                          label: 'Email',
+                          hintText: 'lisa@gmail.com',
+                          textController: emailController,
+                        ),
+                        const SizedBox(height: AppSizes.vertical_10),
+                        FormPasswordField(
+                          label: 'Password',
+                          hintText: '********',
+                          showSuffixIcon: true,
+                          hidePassword: hidePassword,
+                          passwordController: passwordController,
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.forgotPasswordRoute);
+                              },
+                              overlayColor: const WidgetStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                              child: BodyText(
+                                text: 'Forgot password?'.tr,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        const SizedBox(height: AppSizes.horizontal_10),
+                        ServiceRegistry
+                                .authenticationService.isSignInProcessing.isTrue
+                            ? const CustomLoadingButton(height: 56)
+                            : CustomButton(
+                                text: 'Continue',
+                                width: double.maxFinite,
+                                height: 56,
+                                fontSize: 16,
+                                borderRadius: 16,
+                                onTapHandler: submitHandler,
+                                fontWeight: FontWeight.w600,
+                                fontColor: AppColors.whiteColor,
+                                backgroundColor: isEmailValid.isFalse
+                                    ? AppColors.buttonPrimaryDisabledColor
+                                    : AppColors.buttonPrimaryColor,
+                              ),
+                        const SizedBox(height: AppSizes.vertical_30),
+                        Visibility(
+                          visible: true,
+                          // visible: Platform.isIOS,
+                          child: Center(
+                            child: InkWell(
+                              onTap: () {
+                                ServiceRegistry.localStorage.write(
+                                  LocalStorageSecrets.authenticationMethod,
+                                  'GUEST',
+                                );
+
+                                Get.offAndToNamed(AppRoutes.dashboardRoute);
+                              },
+                              overlayColor: const WidgetStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                              child: CustomTextWidget(
+                                size: 16,
+                                weight: FontWeight.w500,
+                                text: 'Continue as guest',
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                    ServiceRegistry
-                            .authenticationService.isSignInProcessing.isTrue
-                        ? const CustomLoadingButton(height: 56)
-                        : CustomButton(
-                            text: 'Continue',
-                            width: double.maxFinite,
-                            height: 56,
-                            fontSize: 16,
-                            borderRadius: 16,
-                            onTapHandler: submitHandler,
-                            fontWeight: FontWeight.w600,
-                            fontColor: AppColors.whiteColor,
-                            backgroundColor: isEmailValid.isFalse
-                                ? AppColors.buttonPrimaryDisabledColor
-                                : AppColors.buttonPrimaryColor,
-                          ),
-                    const SizedBox(height: AppSizes.horizontal_10),
-                  ],
-                ),
-              ),
-            );
-          }),
-        ),
-        bottomNavigationBar: const AuthBottomNavigationBanner(),
+                  ),
+                );
+              }),
+            ),
+            bottomNavigationBar: const AuthBottomNavigationBanner(),
+          ),
+        ],
       ),
     );
   }

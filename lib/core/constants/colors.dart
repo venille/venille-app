@@ -27,6 +27,7 @@ class AppColors {
   static const Color textTertiaryInverseColor = Color(0xFFB5B5B6);
   static const Color whiteColor = Color(0xFFffffff);
   static const Color turquoiseColor = Color(0xFF023e8a);
+  static const Color purpleColor = Color(0xFF7700FF);
   static const Color blueColor = Color(0xFF2563EB);
   static const Color blueLightColor = Color(0xFF3B82F6);
   static const Color primaryTextColor = Color(0xFF1A1A1A);
@@ -38,9 +39,8 @@ class AppColors {
   static const Color primaryLightColor = Color.fromARGB(255, 101, 101, 187);
   static const Color backgroundColor = Color(0xFFffffff);
   static const Color appBarBackgroundColor = Color(0xFFffffff);
-  static const Color buttonPrimaryColor = Color(0xFF0B0BB4);
-  static const Color buttonPrimaryDisabledColor =
-      Color.fromARGB(255, 101, 101, 187);
+  static const Color buttonPrimaryColor = Color(0XFF212529);
+  static const Color buttonPrimaryDisabledColor = Color(0xFF343a40);
   static const Color textColor = Color(0xFF1A1A1A);
 
   // DARK THEME

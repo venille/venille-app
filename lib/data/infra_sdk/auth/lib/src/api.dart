@@ -14,6 +14,7 @@ import 'package:auth_sdk/src/api/address_helper_api.dart';
 import 'package:auth_sdk/src/api/ai_api.dart';
 import 'package:auth_sdk/src/api/auth_api.dart';
 import 'package:auth_sdk/src/api/helpers_api.dart';
+import 'package:auth_sdk/src/api/notifications_api.dart';
 import 'package:auth_sdk/src/api/password_api.dart';
 
 class AuthSdk {
@@ -92,6 +93,12 @@ class AuthSdk {
   /// by doing that all interceptors will not be executed
   HelpersApi getHelpersApi() {
     return HelpersApi(dio, serializers);
+  }
+
+  /// Get NotificationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  NotificationsApi getNotificationsApi() {
+    return NotificationsApi(dio, serializers);
   }
 
   /// Get PasswordApi instance, base route and serializer can be overridden by a given but be careful,

@@ -47,13 +47,13 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:account_sdk/account_sdk.dart';
 
 
-final api = AccountSdk().getManageContactInfoApi();
-final UpdateAccountEmailDTO updateAccountEmailDTO = ; // UpdateAccountEmailDTO | 
+final api = AccountSdk().getAIAssistantApi();
+final ReportAIResponseDTO reportAIResponseDTO = ; // ReportAIResponseDTO | 
 
 try {
-    api.accountControllerUpdateAccountEmail(updateAccountEmailDTO);
+    api.accountControllerReportAIResponse(reportAIResponseDTO);
 } catch on DioException (e) {
-    print("Exception when calling ManageContactInfoApi->accountControllerUpdateAccountEmail: $e\n");
+    print("Exception when calling AIAssistantApi->accountControllerReportAIResponse: $e\n");
 }
 
 ```
@@ -64,6 +64,7 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AIAssistantApi*](doc/AIAssistantApi.md) | [**accountControllerReportAIResponse**](doc/AIAssistantApi.md#accountcontrollerreportairesponse) | **POST** /v1/account/me/report-ai-response | 
 [*ManageContactInfoApi*](doc/ManageContactInfoApi.md) | [**accountControllerUpdateAccountEmail**](doc/ManageContactInfoApi.md#accountcontrollerupdateaccountemail) | **POST** /v1/account/me/update-email | 
 [*ManageContactInfoApi*](doc/ManageContactInfoApi.md) | [**accountControllerUpdateAccountLocation**](doc/ManageContactInfoApi.md#accountcontrollerupdateaccountlocation) | **PATCH** /v1/account/me/update-location | 
 [*ManageContactInfoApi*](doc/ManageContactInfoApi.md) | [**accountControllerUpdateAccountName**](doc/ManageContactInfoApi.md#accountcontrollerupdateaccountname) | **PATCH** /v1/account/me/update-name | 
@@ -104,6 +105,7 @@ Class | Method | HTTP request | Description
  - [OrderSanitaryPadDTO](doc/OrderSanitaryPadDTO.md)
  - [RegisterMonthlySurveyDTO](doc/RegisterMonthlySurveyDTO.md)
  - [RegisterPeriodTrackerDTO](doc/RegisterPeriodTrackerDTO.md)
+ - [ReportAIResponseDTO](doc/ReportAIResponseDTO.md)
  - [UpdateAccountEmailDTO](doc/UpdateAccountEmailDTO.md)
  - [UpdateAccountLocationDTO](doc/UpdateAccountLocationDTO.md)
  - [UpdateAccountNameDTO](doc/UpdateAccountNameDTO.md)

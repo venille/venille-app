@@ -1,9 +1,6 @@
 // @dart=3.5
 // @dart=3.5
 // @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -19,9 +16,13 @@ class _$PeriodDayInfo extends PeriodDayInfo {
   @override
   final bool isToday;
   @override
+  final bool isLoggedPeriodDay;
+  @override
   final bool isPredictedPeriodDay;
   @override
   final bool isPredictedOvulationDay;
+  @override
+  final bool isFertileWindow;
   @override
   final num cycleDayCount;
   @override
@@ -33,17 +34,23 @@ class _$PeriodDayInfo extends PeriodDayInfo {
   _$PeriodDayInfo._(
       {required this.date,
       required this.isToday,
+      required this.isLoggedPeriodDay,
       required this.isPredictedPeriodDay,
       required this.isPredictedOvulationDay,
+      required this.isFertileWindow,
       required this.cycleDayCount,
       required this.insights})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(date, r'PeriodDayInfo', 'date');
     BuiltValueNullFieldError.checkNotNull(isToday, r'PeriodDayInfo', 'isToday');
     BuiltValueNullFieldError.checkNotNull(
+        isLoggedPeriodDay, r'PeriodDayInfo', 'isLoggedPeriodDay');
+    BuiltValueNullFieldError.checkNotNull(
         isPredictedPeriodDay, r'PeriodDayInfo', 'isPredictedPeriodDay');
     BuiltValueNullFieldError.checkNotNull(
         isPredictedOvulationDay, r'PeriodDayInfo', 'isPredictedOvulationDay');
+    BuiltValueNullFieldError.checkNotNull(
+        isFertileWindow, r'PeriodDayInfo', 'isFertileWindow');
     BuiltValueNullFieldError.checkNotNull(
         cycleDayCount, r'PeriodDayInfo', 'cycleDayCount');
     BuiltValueNullFieldError.checkNotNull(
@@ -63,8 +70,10 @@ class _$PeriodDayInfo extends PeriodDayInfo {
     return other is PeriodDayInfo &&
         date == other.date &&
         isToday == other.isToday &&
+        isLoggedPeriodDay == other.isLoggedPeriodDay &&
         isPredictedPeriodDay == other.isPredictedPeriodDay &&
         isPredictedOvulationDay == other.isPredictedOvulationDay &&
+        isFertileWindow == other.isFertileWindow &&
         cycleDayCount == other.cycleDayCount &&
         insights == other.insights;
   }
@@ -74,8 +83,10 @@ class _$PeriodDayInfo extends PeriodDayInfo {
     var _$hash = 0;
     _$hash = $jc(_$hash, date.hashCode);
     _$hash = $jc(_$hash, isToday.hashCode);
+    _$hash = $jc(_$hash, isLoggedPeriodDay.hashCode);
     _$hash = $jc(_$hash, isPredictedPeriodDay.hashCode);
     _$hash = $jc(_$hash, isPredictedOvulationDay.hashCode);
+    _$hash = $jc(_$hash, isFertileWindow.hashCode);
     _$hash = $jc(_$hash, cycleDayCount.hashCode);
     _$hash = $jc(_$hash, insights.hashCode);
     _$hash = $jf(_$hash);
@@ -87,8 +98,10 @@ class _$PeriodDayInfo extends PeriodDayInfo {
     return (newBuiltValueToStringHelper(r'PeriodDayInfo')
           ..add('date', date)
           ..add('isToday', isToday)
+          ..add('isLoggedPeriodDay', isLoggedPeriodDay)
           ..add('isPredictedPeriodDay', isPredictedPeriodDay)
           ..add('isPredictedOvulationDay', isPredictedOvulationDay)
+          ..add('isFertileWindow', isFertileWindow)
           ..add('cycleDayCount', cycleDayCount)
           ..add('insights', insights))
         .toString();
@@ -107,6 +120,11 @@ class PeriodDayInfoBuilder
   bool? get isToday => _$this._isToday;
   set isToday(bool? isToday) => _$this._isToday = isToday;
 
+  bool? _isLoggedPeriodDay;
+  bool? get isLoggedPeriodDay => _$this._isLoggedPeriodDay;
+  set isLoggedPeriodDay(bool? isLoggedPeriodDay) =>
+      _$this._isLoggedPeriodDay = isLoggedPeriodDay;
+
   bool? _isPredictedPeriodDay;
   bool? get isPredictedPeriodDay => _$this._isPredictedPeriodDay;
   set isPredictedPeriodDay(bool? isPredictedPeriodDay) =>
@@ -116,6 +134,11 @@ class PeriodDayInfoBuilder
   bool? get isPredictedOvulationDay => _$this._isPredictedOvulationDay;
   set isPredictedOvulationDay(bool? isPredictedOvulationDay) =>
       _$this._isPredictedOvulationDay = isPredictedOvulationDay;
+
+  bool? _isFertileWindow;
+  bool? get isFertileWindow => _$this._isFertileWindow;
+  set isFertileWindow(bool? isFertileWindow) =>
+      _$this._isFertileWindow = isFertileWindow;
 
   num? _cycleDayCount;
   num? get cycleDayCount => _$this._cycleDayCount;
@@ -135,8 +158,10 @@ class PeriodDayInfoBuilder
     if ($v != null) {
       _date = $v.date;
       _isToday = $v.isToday;
+      _isLoggedPeriodDay = $v.isLoggedPeriodDay;
       _isPredictedPeriodDay = $v.isPredictedPeriodDay;
       _isPredictedOvulationDay = $v.isPredictedOvulationDay;
+      _isFertileWindow = $v.isFertileWindow;
       _cycleDayCount = $v.cycleDayCount;
       _insights = $v.insights;
       _$v = null;
@@ -165,12 +190,14 @@ class PeriodDayInfoBuilder
                 date, r'PeriodDayInfo', 'date'),
             isToday: BuiltValueNullFieldError.checkNotNull(
                 isToday, r'PeriodDayInfo', 'isToday'),
+            isLoggedPeriodDay: BuiltValueNullFieldError.checkNotNull(
+                isLoggedPeriodDay, r'PeriodDayInfo', 'isLoggedPeriodDay'),
             isPredictedPeriodDay: BuiltValueNullFieldError.checkNotNull(
                 isPredictedPeriodDay, r'PeriodDayInfo', 'isPredictedPeriodDay'),
             isPredictedOvulationDay: BuiltValueNullFieldError.checkNotNull(
-                isPredictedOvulationDay,
-                r'PeriodDayInfo',
-                'isPredictedOvulationDay'),
+                isPredictedOvulationDay, r'PeriodDayInfo', 'isPredictedOvulationDay'),
+            isFertileWindow: BuiltValueNullFieldError.checkNotNull(
+                isFertileWindow, r'PeriodDayInfo', 'isFertileWindow'),
             cycleDayCount: BuiltValueNullFieldError.checkNotNull(
                 cycleDayCount, r'PeriodDayInfo', 'cycleDayCount'),
             insights: BuiltValueNullFieldError.checkNotNull(

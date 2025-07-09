@@ -72,6 +72,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authControllerSigninOAuth**](doc/AuthApi.md#authcontrollersigninoauth) | **POST** /v1/auth/signin-oauth | 
 [*AuthApi*](doc/AuthApi.md) | [**authControllerSignupCompleteVerification**](doc/AuthApi.md#authcontrollersignupcompleteverification) | **POST** /v1/auth/signup-complete-verification | 
 [*HelpersApi*](doc/HelpersApi.md) | [**authHelperControllerCheckEmailAvailability**](doc/HelpersApi.md#authhelpercontrollercheckemailavailability) | **GET** /v1/auth/helper/availability/email | 
+[*NotificationsApi*](doc/NotificationsApi.md) | [**authHelperControllerSendTestNotification**](doc/NotificationsApi.md#authhelpercontrollersendtestnotification) | **POST** /v1/auth/helper/notifications/test | 
 [*PasswordApi*](doc/PasswordApi.md) | [**authControllerForgotPassword**](doc/PasswordApi.md#authcontrollerforgotpassword) | **POST** /v1/auth/forgot-password | 
 [*PasswordApi*](doc/PasswordApi.md) | [**authControllerResetPassword**](doc/PasswordApi.md#authcontrollerresetpassword) | **POST** /v1/auth/reset-password | 
 [*PasswordApi*](doc/PasswordApi.md) | [**authControllerResetPasswordOtpVerification**](doc/PasswordApi.md#authcontrollerresetpasswordotpverification) | **POST** /v1/auth/reset-password-otp-verification | 

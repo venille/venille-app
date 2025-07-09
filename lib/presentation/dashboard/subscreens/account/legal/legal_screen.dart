@@ -96,14 +96,14 @@ class _LegalScreenState extends State<LegalScreen> {
               suffixIcon: 'icon_redirect',
               routeTo: 'https://venille.com.ng/privacy-policy',
             ),
-            RedirectMenuItemCard(
-              title: 'Rate the app'.tr,
-              isIconEnabled: false,
-              suffixIcon: 'icon_redirect',
-              routeTo: Platform.isIOS
-                  ? dotenv.env['APP_LINK_IOS']!
-                  : dotenv.env['APP_LINK_ANDROID']!,
-            ),
+            // RedirectMenuItemCard(
+            //   title: 'Rate the app'.tr,
+            //   isIconEnabled: false,
+            //   suffixIcon: 'icon_redirect',
+            //   routeTo: Platform.isIOS
+            //       ? dotenv.env['APP_LINK_IOS']!
+            //       : dotenv.env['APP_LINK_ANDROID']!,
+            // ),
           ],
         ),
       ),

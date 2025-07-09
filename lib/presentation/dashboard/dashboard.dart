@@ -34,6 +34,14 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   void initializeAppInfo() {
+    if (ServiceRegistry.localStorage
+            .read(LocalStorageSecrets.authenticationMethod) ==
+        'GUEST') {
+      ServiceRegistry.engagementService.fetchCoursesService(currentPage: 1);
+
+      return;
+    }
+
     Future.wait([
       ServiceRegistry.periodTrackerService.fetchDashboardInfoService(),
       ServiceRegistry.accountService.fetchOnboardingQuestionsService(),
@@ -45,6 +53,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void initializeCoreServices() async {
+    if (ServiceRegistry.localStorage
+            .read(LocalStorageSecrets.authenticationMethod) ==
+        'GUEST') {
+      return;
+    }
+
     await Future.delayed(const Duration(seconds: 6));
 
     ServiceRegistry.firebaseNotificationService.init(context);
@@ -53,6 +67,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   initState() {
     initializeAppInfo();
+    initializeCoreServices();
 
     super.initState();
   }

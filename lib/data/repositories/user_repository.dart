@@ -82,8 +82,10 @@ class UserRepository extends GetxController {
     (instance) => instance
       ..id = ''
       ..title = ''
+      ..position = 0
       ..coverPhoto = ''
-      ..descriptions = ListBuilder<PeriodTrackerSdk.MenstrualPhaseDescriptionInfo>(),
+      ..descriptions =
+          ListBuilder<PeriodTrackerSdk.MenstrualPhaseDescriptionInfo>(),
   ).obs;
 
   Rx<EngagementSdk.CourseInfo> courseInfo = EngagementSdk.CourseInfo(
@@ -130,6 +132,19 @@ class UserRepository extends GetxController {
       <AccountSdk.OnboardingQuestionInfo>[].obs;
   RxList<AccountSdk.OnboardingQuestionInfo> get onboardingQuestions =>
       _onboardingQuestions;
+
+  final Rx<AccountSdk.OnboardingQuestionInfo> onboardingQuestion =
+      AccountSdk.OnboardingQuestionInfo(
+    (instance) => instance
+      ..id = ''
+      ..question = ''
+      ..enumType = ''
+      ..isUserInput = false
+      ..position = 0
+      ..questionType = ''
+      ..optionType = ''
+      ..options = ListBuilder<String>(),
+  ).obs;
 
   final RxList<AccountSdk.MonthlySurveyInfo> _surveyHistory =
       <AccountSdk.MonthlySurveyInfo>[].obs;

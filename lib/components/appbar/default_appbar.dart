@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
+import 'package:venille/core/constants/secrets.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/components/buttons/custom_notification_button.dart';
@@ -25,14 +27,6 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
       ),
       decoration: const BoxDecoration(
         color: AppColors.whiteColor,
-        // color: AppColors.primaryColor.withOpacity(0.05),
-        // boxShadow: [
-        //   BoxShadow(
-        //     blurRadius: 5,
-        //     spreadRadius: 5,
-        //     color: AppColors.grayLightColor.withOpacity(0.2),
-        //   ),
-        // ],
       ),
       child: Padding(
         padding: MediaQuery.of(context).padding,
@@ -44,13 +38,19 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
               children: [
                 InkWell(
                   onTap: () {
+                    if (ServiceRegistry.localStorage
+                            .read(LocalStorageSecrets.authenticationMethod) ==
+                        'GUEST') {
+                      return;
+                    }
+
                     widget.scaffoldKey.currentState!.openDrawer();
                   },
                   child: const Row(
                     children: [
                       Icon(
                         FluentIcons.navigation_16_filled,
-                        color: AppColors.primaryColor,
+                        color: AppColors.blueLightColor,
                       ),
                       SizedBox(width: 5),
                       TitleText(
@@ -58,7 +58,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
                         title: 'Venille',
                         letterSpacing: 1.3,
                         fontFamily: 'Pacifico',
-                        color: AppColors.primaryColor,
+                        color: AppColors.blueLightColor,
                       ),
                     ],
                   ),

@@ -10,6 +10,7 @@ doc/CompleteSignupVerificationDTO.md
 doc/CreateAccountDTO.md
 doc/ForgotPasswordDTO.md
 doc/HelpersApi.md
+doc/NotificationsApi.md
 doc/OAuthSigninDTO.md
 doc/PasswordApi.md
 doc/ResetPasswordDTO.md
@@ -25,6 +26,7 @@ lib/src/api/address_helper_api.dart
 lib/src/api/ai_api.dart
 lib/src/api/auth_api.dart
 lib/src/api/helpers_api.dart
+lib/src/api/notifications_api.dart
 lib/src/api/password_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
