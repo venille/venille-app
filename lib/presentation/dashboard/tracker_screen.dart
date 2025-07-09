@@ -166,7 +166,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
       'November',
       'December'
     ];
-    return names[month];
+    return names[month].tr;
   }
 
   void _processPeriodHistory() {

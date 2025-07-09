@@ -185,7 +185,6 @@ class AppTranslations extends Translations {
       'I am having issues receiving notifications about my period.':
           'I am having issues receiving notifications about my period.',
       'Orders': 'Orders',
-
       'Ongoing': 'Ongoing',
       'Completed': 'Completed',
       'No Ongoing Orders': 'No Ongoing Orders',
