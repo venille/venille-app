@@ -1,21 +1,18 @@
-// ignore_for_file: use_super_parameters
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:venille/core/constants/colors.dart';
-import 'package:venille/core/constants/secrets.dart';
-import 'package:venille/core/providers/index.dart';
 
 class Language {
   final String name;
   final String flag;
-  final Locale locale;
+  final String languageCode;
 
-  Language({required this.name, required this.locale, required this.flag});
+  Language(
+      {required this.name, required this.languageCode, required this.flag});
 }
 
 class LanguageSelectorDropdown extends StatefulWidget {
-  const LanguageSelectorDropdown({Key? key}) : super(key: key);
+  const LanguageSelectorDropdown({super.key});
 
   @override
   State<LanguageSelectorDropdown> createState() =>
@@ -23,11 +20,14 @@ class LanguageSelectorDropdown extends StatefulWidget {
 }
 
 class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
   final List<Language> languages = [
-    Language(name: 'English', locale: const Locale('en'), flag: '🇺🇸'),
-    Language(name: 'French', locale: const Locale('fr'), flag: '🇫🇷'),
-    Language(name: 'Chinese', locale: const Locale('zh'), flag: '🇨🇳'),
-    Language(name: 'Spanish', locale: const Locale('es'), flag: '🇪🇸'),
+    Language(name: 'English', languageCode: 'en', flag: '🇺🇸'),
+    Language(name: 'French', languageCode: 'fr', flag: '🇫🇷'),
+    Language(name: 'Chinese', languageCode: 'zh', flag: '🇨🇳'),
+    Language(name: 'Spanish', languageCode: 'es', flag: '🇪🇸'),
+    Language(name: 'Hausa', languageCode: 'ha', flag: '🇳🇬'),
   ];
 
   late Language selectedLanguage;
@@ -35,9 +35,8 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
   @override
   void initState() {
     super.initState();
-    // Set current language based on Get.locale or default to English
     selectedLanguage = languages.firstWhere(
-      (lang) => lang.locale.languageCode == Get.locale?.languageCode,
+      (lang) => lang.languageCode == _localization.currentLocale?.languageCode,
       orElse: () => languages.first,
     );
   }
@@ -47,12 +46,7 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
       selectedLanguage = lang;
     });
 
-    Get.updateLocale(lang.locale);
-
-    ServiceRegistry.localStorage.write(
-      LocalStorageSecrets.languageLocale,
-      lang.locale.languageCode,
-    );
+    _localization.translate(lang.languageCode);
   }
 
   @override
@@ -62,7 +56,7 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
       underline: const SizedBox(),
       icon: const Icon(
         Icons.language,
-        color: AppColors.grayLightColor,
+        color: AppColors.appBarBackgroundColor,
       ),
       onChanged: (Language? lang) {
         if (lang != null) _changeLanguage(lang);
@@ -70,8 +64,7 @@ class _LanguageSelectorDropdownState extends State<LanguageSelectorDropdown> {
       selectedItemBuilder: (context) {
         return languages.map((lang) {
           return Center(
-            child: Text(lang.flag, style: const TextStyle(fontSize: 24)),
-          );
+              child: Text(lang.flag, style: const TextStyle(fontSize: 24)));
         }).toList();
       },
       items: languages.map((lang) {

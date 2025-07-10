@@ -1,47 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/models/drawer_item_model.dart';
 import 'package:venille/core/models/onboarding_item_model.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/core/models/profile_menu_item_model.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
-List<OnboardingItemModel> onboardingItems = [
-  OnboardingItemModel(
-    title1: 'Track Your Cycle,',
-    title2: 'Own Your Health ',
-    title3: '',
-    image: 'assets/images/onboarding_1.jpg',
-  ),
-  OnboardingItemModel(
-    title1: 'Feel Empowered ',
-    title2: 'Every Day ',
-    title3: '',
-    image: 'assets/images/onboarding_2.jpg',
-  ),
-];
+List<OnboardingItemModel> onboardingItems(BuildContext context) {
+  return [
+    OnboardingItemModel(
+      title1: AppLocale.trackYourCycle.getString(context),
+      title2: AppLocale.ownYourHealth.getString(context),
+      title3: '',
+      image: 'assets/images/onboarding_1.jpg',
+    ),
+    OnboardingItemModel(
+      title1: AppLocale.feelEmpowered.getString(context),
+      title2: AppLocale.everyDay.getString(context),
+      title3: '',
+      image: 'assets/images/onboarding_2.jpg',
+    ),
+  ];
+}
 
-List<ProfileMenuItemModel> profileMenuItems = [
-  ProfileMenuItemModel(
-    icon: 'assets/icons/icon_user_edit.png',
-    title: 'Profile details',
-    route_to: AppRoutes.accountDetailsRoute,
-  ),
-  ProfileMenuItemModel(
-    icon: 'assets/icons/icon_settings.png',
-    title: 'Settings',
-    route_to: AppRoutes.settingsRoute,
-  ),
-  ProfileMenuItemModel(
-    icon: 'assets/icons/icon_help.png',
-    title: 'Help',
-    route_to: AppRoutes.helpRoute,
-  ),
-  ProfileMenuItemModel(
-    icon: 'assets/icons/icon_legal.png',
-    title: 'Legal',
-    route_to: AppRoutes.legalRoute,
-  ),
-];
+List<ProfileMenuItemModel> profileMenuItems(BuildContext context) {
+  return [
+    ProfileMenuItemModel(
+      icon: 'assets/icons/icon_user_edit.png',
+      title: AppLocale.profileDetails.getString(context),
+      route_to: AppRoutes.accountDetailsRoute,
+    ),
+    ProfileMenuItemModel(
+      icon: 'assets/icons/icon_settings.png',
+      title: AppLocale.settings.getString(context),
+      route_to: AppRoutes.settingsRoute,
+    ),
+    ProfileMenuItemModel(
+      icon: 'assets/icons/icon_help.png',
+      title: AppLocale.help.getString(context),
+      route_to: AppRoutes.helpRoute,
+    ),
+    ProfileMenuItemModel(
+      icon: 'assets/icons/icon_legal.png',
+      title: AppLocale.legal.getString(context),
+      route_to: AppRoutes.legalRoute,
+    ),
+  ];
+}
 
 List<Map<String, dynamic>> profileAvatars = [
   {
@@ -146,31 +154,33 @@ List<Map<String, dynamic>> profileAvatars = [
   },
 ];
 
-List<DrawerItem> drawerItems = [
-  DrawerItem(
-    title: 'Orders',
-    routeTo: AppRoutes.ordersRoute,
-    icon: 'assets/icons/icon_star.png',
-    iconData: FluentIcons.box_arrow_up_20_regular,
-  ),
-  DrawerItem(
-    icon: 'assets/icons/icon_help_2.png',
-    title: 'Monthly Survey',
-    routeTo: AppRoutes.surveyHistoryRoute,
-    iconData: FluentIcons.book_compass_20_regular,
-  ),
-  DrawerItem(
-    icon: 'assets/icons/icon_help_2.png',
-    title: 'Contact us',
-    routeTo: AppRoutes.contactUsRoute,
-    iconData: FluentIcons.chat_help_20_regular,
-  ),
-  DrawerItem(
-    icon: 'assets/icons/icon_logout.png',
-    title: 'Logout',
-    routeTo: '',
-  ),
-];
+List<DrawerItem> drawerItems(BuildContext context) {
+  return [
+    DrawerItem(
+      title: AppLocale.orders.getString(context),
+      routeTo: AppRoutes.ordersRoute,
+      icon: 'assets/icons/icon_star.png',
+      iconData: FluentIcons.box_arrow_up_20_regular,
+    ),
+    DrawerItem(
+      icon: 'assets/icons/icon_help_2.png',
+      title: AppLocale.monthlySurvey.getString(context),
+      routeTo: AppRoutes.surveyHistoryRoute,
+      iconData: FluentIcons.book_compass_20_regular,
+    ),
+    DrawerItem(
+      icon: 'assets/icons/icon_help_2.png',
+      title: AppLocale.contactUs.getString(context),
+      routeTo: AppRoutes.contactUsRoute,
+      iconData: FluentIcons.chat_help_20_regular,
+    ),
+    DrawerItem(
+      icon: 'assets/icons/icon_logout.png',
+      title: AppLocale.logout.getString(context),
+      routeTo: '',
+    ),
+  ];
+}
 
 final List<Map<String, String>> platformCountries = [
   {'name': 'Afghanistan', 'dialCode': '+93', 'flagEmoji': '🇦🇫'},

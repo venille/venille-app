@@ -1,7 +1,9 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/core/utilities/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
@@ -63,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
+    final onboardingItem = onboardingItems(context);
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -72,7 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: PageView.builder(
-          itemCount: onboardingItems.length,
+          itemCount: onboardingItem.length,
           controller: pageController,
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
@@ -81,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    '${onboardingItems[index].image}',
+                    '${onboardingItem[index].image}',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -126,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Visibility(
                           visible: index == 0,
                           child: CustomButton(
-                            text: 'Skip',
+                            text: AppLocale.skip.getString(context),
                             width: 85,
                             height: 35,
                             fontSize: 12,
@@ -162,7 +164,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: List.generate(
-                                onboardingItems.length,
+                                onboardingItem.length,
                                 (index) => Container(
                                   width: index == currentPageIndex ? 50 : 10,
                                   height: 10,
@@ -176,12 +178,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             const SizedBox(height: AppSizes.vertical_10),
                             TitleText(
-                              title: onboardingItems[index].title1!,
+                              title: onboardingItem[index].title1!,
                               size: 40,
                               color: AppColors.whiteColor,
                             ),
                             TitleText(
-                              title: onboardingItems[index].title2!,
+                              title: onboardingItem[index].title2!,
                               size: 40,
                               color: AppColors.whiteColor,
                             ),
@@ -189,7 +191,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                         CustomButton(
-                          text: currentPageIndex == 0 ? 'Next' : 'Continue',
+                          text: currentPageIndex == 0
+                              ? AppLocale.next.getString(context)
+                              : AppLocale.continued.getString(context),
                           width: double.maxFinite,
                           height: 56,
                           fontSize: 16,

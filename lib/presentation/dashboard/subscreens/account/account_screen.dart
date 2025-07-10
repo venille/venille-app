@@ -26,6 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final item = profileMenuItems(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: const PreferredSize(
@@ -52,12 +53,12 @@ class _AccountScreenState extends State<AccountScreen> {
                     const SizedBox(height: AppSizes.vertical_10),
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: profileMenuItems.length,
+                      itemCount: item.length,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (_, index) {
                         return ProfileMenuItemCard(
                           hasTopBorder: index != 0,
-                          item: profileMenuItems[index],
+                          item: item[index],
                         );
                       },
                     ),

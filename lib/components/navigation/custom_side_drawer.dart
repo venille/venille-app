@@ -45,6 +45,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final drawerItem = drawerItems(context);
     return Drawer(
       backgroundColor: AppColors.backgroundColor,
       width: AppSizes.screenWidth(context) * 0.70,
@@ -136,7 +137,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
               ),
               const SizedBox(height: AppSizes.vertical_10),
-              ...drawerItems.map((item) => _buildDrawerItem(item)),
+              ...drawerItem.map((item) => _buildDrawerItem(item)),
             ],
           ),
         ),
