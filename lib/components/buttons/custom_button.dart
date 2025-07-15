@@ -52,7 +52,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: () => onTapHandler(),
         child: CustomTextWidget(
-          text: text.tr,
+          text: text,
           color: fontColor,
           size: fontSize,
           weight: fontWeight,

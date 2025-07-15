@@ -1,7 +1,9 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/text/title_text.dart';
@@ -16,6 +18,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 
 class ChatMessage {
@@ -89,7 +92,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
       setState(() {
         _messages.add(ChatMessage(
           isUser: false,
-          text: 'Sorry, I couldn\'t generate a response please try again.',
+          text: AppLocale.sorryICouldntGenerateAResponse.getString(context),
           timestamp: DateTime.now(),
         ));
         _isGenerating = false;
@@ -119,25 +122,26 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const TitleText(
+              title: TitleText(
                 size: 14,
-                title: 'Report AI Response',
+                title: AppLocale.reportAiResponse.getString(context),
               ),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Why are you reporting this response?',
-                      style: TextStyle(
+                    Text(
+                      AppLocale.whyAreYouReportingThisResponse
+                          .getString(context),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 16),
                     RadioListTile<String>(
-                      title: const Text('It\'s offensive'),
+                      title: Text(AppLocale.itOffensive.getString(context)),
                       value: 'OFFENSIVE',
                       groupValue: selectedReason,
                       onChanged: (value) {
@@ -148,7 +152,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                       contentPadding: EdgeInsets.zero,
                     ),
                     RadioListTile<String>(
-                      title: const Text('It\'s inaccurate'),
+                      title: Text(AppLocale.itInAccurate.getString(context)),
                       value: 'INACCURATE',
                       groupValue: selectedReason,
                       onChanged: (value) {
@@ -159,7 +163,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                       contentPadding: EdgeInsets.zero,
                     ),
                     RadioListTile<String>(
-                      title: const Text('It\'s harmful'),
+                      title: Text(AppLocale.itHarmful.getString(context)),
                       value: 'HARMFUL',
                       groupValue: selectedReason,
                       onChanged: (value) {
@@ -170,7 +174,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                       contentPadding: EdgeInsets.zero,
                     ),
                     RadioListTile<String>(
-                      title: const Text('Other'),
+                      title: Text(AppLocale.other.getString(context)),
                       value: 'OTHER',
                       groupValue: selectedReason,
                       onChanged: (value) {
@@ -184,10 +188,10 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                       const SizedBox(height: 8),
                       TextField(
                         controller: otherReasonController,
-                        decoration: const InputDecoration(
-                          hintText: 'Please specify...',
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
+                        decoration: InputDecoration(
+                          hintText: AppLocale.pleaseSpecify.getString(context),
+                          border: const OutlineInputBorder(),
+                          contentPadding: const EdgeInsets.all(12),
                         ),
                         maxLines: 3,
                       ),
@@ -200,7 +204,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Cancel'),
+                  child: Text(AppLocale.cancel.getString(context)),
                 ),
                 Obx(
                   () => ServiceRegistry.accountService
@@ -211,7 +215,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                           backgroundColor: AppColors.blackColor,
                         )
                       : CustomButton(
-                          text: 'Submit',
+                          text: AppLocale.submit.getString(context),
                           width: 100,
                           height: 36,
                           fontSize: 16,
@@ -219,8 +223,9 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                           onTapHandler: () {
                             if (selectedReason == null) {
                               return customErrorMessageSnackbar(
-                                title: 'Message',
-                                message: 'Please select a reason',
+                                title: AppLocale.message.getString(context),
+                                message: AppLocale.pleaseSelectReason
+                                    .getString(context),
                               );
                             }
 
@@ -406,7 +411,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  'Report',
+                                  AppLocale.report.getString(context),
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 12,
@@ -485,7 +490,8 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                               const SizedBox(height: 16),
                               SubtitleText(
                                 color: AppColors.grayColor,
-                                text: 'Start a conversation with Venille AI'.tr,
+                                text: AppLocale.startaConversationWithVenilleAI
+                                    .getString(context),
                               ),
                             ],
                           ),
@@ -522,11 +528,11 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                             border:
                                 Border.all(color: Colors.grey.withOpacity(0.2)),
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Text('Thinking...'),
-                              SizedBox(width: 8),
-                              SizedBox(
+                              Text(AppLocale.thinking.getString(context)),
+                              const SizedBox(width: 8),
+                              const SizedBox(
                                 width: 16,
                                 height: 16,
                                 child: CircularProgressIndicator(
@@ -571,7 +577,7 @@ class _VenilleAiScreenState extends State<VenilleAiScreen> {
                             child: TextField(
                               controller: _messageController,
                               decoration: InputDecoration(
-                                hintText: 'Type your message...'.tr,
+                                hintText: AppLocale.typeYourMessage.getString(context),
                                 hintStyle: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[500],

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -9,6 +10,7 @@ import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 import 'package:venille/components/modals/update_profile_avatar_bottom_modal.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({super.key});
@@ -37,9 +39,9 @@ class ProfileAppBar extends StatelessWidget {
                           route.settings.name == AppRoutes.dashboardRoute);
                     },
                   ),
-                  const TitleText(
+                  TitleText(
                     size: 16,
-                    title: 'Account',
+                    title: AppLocale.account.getString(context),
                   ),
                   const SizedBox(width: AppSizes.horizontal_35),
                 ],

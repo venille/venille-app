@@ -1,5 +1,7 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -7,6 +9,7 @@ import 'package:venille/core/constants/routes.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/cards/account_detail_menu_item_card.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   const AccountDetailsScreen({super.key});
@@ -54,10 +57,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                           Get.currentRoute == AppRoutes.accountRoute);
                     },
                   ),
-                  const TitleText(
+                  TitleText(
                     letterSpacing: 0,
                     fontFamily: 'Roboto',
-                    title: 'Profile details',
+                    title: AppLocale.profileDetails.getString(context),
                   ),
                   const SizedBox(),
                 ],
@@ -77,7 +80,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                   children: [
                     const SizedBox(height: AppSizes.vertical_10),
                     AccountDetailMenuItemCard(
-                      title: 'Account name',
+                      title: AppLocale.accountName.getString(context),
                       prefixIcon: 'icon_user',
                       suffixIcon: 'icon_edit',
                       routeTo: AppRoutes.updateAccountNameRoute,
@@ -85,7 +88,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                           '${ServiceRegistry.userRepository.accountInfo.value.lastName} ${ServiceRegistry.userRepository.accountInfo.value.firstName}',
                     ),
                     AccountDetailMenuItemCard(
-                      title: 'Phone number',
+                      title: AppLocale.phoneNumber.getString(context),
                       suffixIcon: 'icon_edit',
                       prefixIcon: 'icon_phone',
                       value: ServiceRegistry
@@ -93,7 +96,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                       routeTo: AppRoutes.updateAccountPhoneNumberRoute,
                     ),
                     AccountDetailMenuItemCard(
-                      title: 'Email',
+                      title: AppLocale.email.getString(context),
                       suffixIcon: 'icon_edit',
                       prefixIcon: 'icon_email',
                       routeTo: AppRoutes.updateAccountEmailRoute,
@@ -102,10 +105,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                     ),
                     const Divider(color: AppColors.grayLightColor),
                     const SizedBox(height: AppSizes.vertical_20),
-                    const AccountDetailMenuItemCard(
+                    AccountDetailMenuItemCard(
                       value: '',
                       isTextColumn: false,
-                      title: 'Change password',
+                      title: AppLocale.changePassword.getString(context),
                       suffixIcon: 'icon_chevron_right',
                       prefixIcon: 'icon_security_lock',
                       routeTo: AppRoutes.updateAccountPasswordRoute,

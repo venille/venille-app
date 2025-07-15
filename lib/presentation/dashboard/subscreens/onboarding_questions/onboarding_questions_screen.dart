@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -13,6 +15,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/components/skeletons/empty_results_content.dart';
@@ -101,7 +104,7 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: ReturnToAppbar(
-                title: 'Onboarding Survey',
+                title: AppLocale.onboardingSurvey.getString(context),
                 onTap: () {
                   return;
                   // Get.back();
@@ -466,7 +469,7 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
                           visible: questionIndex > 0,
                           child: Expanded(
                             child: CustomButton(
-                              text: 'Previous',
+                              text: AppLocale.previous.getString(context),
                               width: double.maxFinite,
                               height: 46,
                               fontSize: 14,
@@ -503,7 +506,7 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
                                   1,
                           child: Expanded(
                             child: CustomButton(
-                              text: 'Next',
+                              text: AppLocale.next.getString(context),
                               width: double.maxFinite,
                               height: 46,
                               fontSize: 14,
@@ -516,9 +519,10 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
                                         .question] ==
                                     null) {
                                   return customErrorMessageSnackbar(
-                                    title: 'Message',
-                                    message:
-                                        'Please select an option for this question.',
+                                    title: AppLocale.message.getString(context),
+                                    message: AppLocale
+                                        .pleaseSelectAnOptionForTheQuestion
+                                        .getString(context),
                                   );
                                 } else if (questionIndex == 0 &&
                                     DateTime.now().year -
@@ -527,10 +531,12 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
                                                 .year <=
                                         14) {
                                   return customErrorMessageSnackbar(
-                                    title: 'Message',
-                                    message:
-                                        'You must be at least 16 years old.',
-                                  );
+                                      title:
+                                          AppLocale.message.getString(context),
+                                      message: AppLocale.youMustBeAtleast16year
+                                          .getString(context)
+                                      // 'You must be at least 16 years old.',
+                                      );
                                 }
 
                                 setState(() {
@@ -564,7 +570,7 @@ class _OnboardingQuestionsScreenState extends State<OnboardingQuestionsScreen> {
                                     backgroundColor: AppColors.blackColor,
                                   )
                                 : CustomButton(
-                                    text: 'Submit',
+                                    text: AppLocale.submit.getString(context),
                                     width: double.maxFinite,
                                     height: 46,
                                     fontSize: 14,

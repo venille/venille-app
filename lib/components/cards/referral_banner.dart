@@ -1,9 +1,12 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
 import 'package:venille/components/buttons/referral_banner_buttons.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class ReferralBanner extends StatelessWidget {
   const ReferralBanner({super.key});
@@ -47,7 +50,7 @@ class ReferralBanner extends StatelessWidget {
                   children: [
                     CustomTextWidget(
                       size: 18,
-                      text: 'Referral Code',
+                      text: AppLocale.referralCode.getString(context),
                       weight: FontWeight.w700,
                       color: AppColors.whiteColor,
                       textStyleName: AppTextSizes.title1,

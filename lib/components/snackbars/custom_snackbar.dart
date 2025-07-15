@@ -12,8 +12,8 @@ void customNotificationSnackbar({
   Color backgroundColor = AppColors.blackColor,
 }) {
   Get.snackbar(
-    title.tr,
-    message.tr,
+    title,
+    message,
     onTap: (GetSnackBar snackBar) {
       if (onTap != null) {
         onTap();
@@ -39,8 +39,8 @@ void customSuccessMessageSnackbar({
   Color backgroundColor = AppColors.blackColor,
 }) {
   Get.snackbar(
-    title.tr,
-    message.tr,
+    title,
+    message,
     colorText: colorText,
     shouldIconPulse: false,
     backgroundColor: backgroundColor,
@@ -61,8 +61,8 @@ void customErrorMessageSnackbar({
   Color backgroundColor = AppColors.blackColor,
 }) {
   Get.snackbar(
-    title.tr,
-    message.tr,
+    title,
+    message,
     colorText: colorText,
     shouldIconPulse: false,
     backgroundColor: backgroundColor,

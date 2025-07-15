@@ -1,5 +1,7 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -9,6 +11,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/form/form_password_field.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/components/buttons/show_hide_password_button.dart';
@@ -70,39 +73,39 @@ class _UpdateAccountPasswordScreenState
   void submitHandler() {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Current password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.currentPasswordIsRequired.getString(context),
       );
     } else if (passwordStrength.value < 8) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must be at least 8 characters',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustBeAtleast8Characters.getString(context),
       );
     } else if (passwordHasUppercase.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 uppercase',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Uppercase.getString(context),
       );
     } else if (passwordHasNumber.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 number(digit)',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Number.getString(context),
       );
     } else if (newPasswordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'New password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.newPasswordIsRequired.getString(context),
       );
     } else if (confirmNewPasswordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Confirm new password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.confirmNewPasswordRequired.getString(context),
       );
     } else if (newPasswordController.text.trim() !=
         confirmNewPasswordController.text.trim()) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Passwords do not match!',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordsDootMatch.getString(context),
       );
     } else {
       UpdateAccountPasswordDTO payload = UpdateAccountPasswordDTO(
@@ -145,33 +148,34 @@ class _UpdateAccountPasswordScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TitleText(
+              TitleText(
                 size: 20,
-                title: 'Create a new password',
+                title: AppLocale.createaNewPassword.getString(context),
               ),
               SubtitleText(
                 weight: FontWeight.w400,
                 color: AppColors.textTertiaryColor,
-                text: 'Enter a new password to secure your account.',
+                text: AppLocale.enteraNewPasswordToSecureYourAccount
+                    .getString(context),
               ),
               const SizedBox(height: AppSizes.vertical_50),
               FormPasswordField(
-                label: 'Current password',
-                hintText: 'enter password',
+                label: AppLocale.currentPassword.getString(context),
+                hintText: AppLocale.enterPassword.getString(context),
                 hidePassword: hidePassword,
                 passwordController: passwordController,
               ),
               const SizedBox(height: AppSizes.vertical_10),
               FormPasswordField(
-                label: 'New password',
-                hintText: 'enter new password',
+                label: AppLocale.newPassword.getString(context),
+                hintText: AppLocale.enterNewPassword.getString(context),
                 hidePassword: hidePassword,
                 passwordController: newPasswordController,
               ),
               const SizedBox(height: AppSizes.vertical_10),
               FormPasswordField(
-                label: 'Confirm password',
-                hintText: 'confirm new password',
+                label: AppLocale.confirmNewPassword.getString(context),
+                hintText: AppLocale.confirmNewPassword.getString(context),
                 hidePassword: hidePassword,
                 passwordController: confirmNewPasswordController,
               ),
@@ -192,7 +196,7 @@ class _UpdateAccountPasswordScreenState
                           .accountService.isUpdateAccountInfoProcessing.isTrue
                       ? const CustomLoadingButton(height: 56)
                       : CustomButton(
-                          text: 'Save password',
+                          text: AppLocale.savePassword.getString(context),
                           width: double.maxFinite,
                           height: 56,
                           fontSize: 16,

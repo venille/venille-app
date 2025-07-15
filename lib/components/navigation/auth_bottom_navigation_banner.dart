@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/text/small_text.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/middlewares/index.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class AuthBottomNavigationBanner extends StatefulWidget {
   const AuthBottomNavigationBanner({super.key});
@@ -30,7 +33,8 @@ class _AuthBottomNavigationBannerState
         children: [
           SmallText(
             // maxLines: 10,
-            text: 'By continuing, you automatically accept our ',
+            text: AppLocale.byContinuingYouAutomaticallyAcceptOur
+                .getString(context),
           ),
           InkWell(
             onTap: () {
@@ -43,12 +47,12 @@ class _AuthBottomNavigationBannerState
             child: SmallText(
               // maxLines: 10,
               weight: FontWeight.bold,
-              text: 'Terms & Conditions ',
+              text: AppLocale.termsAndConditions.getString(context),
             ),
           ),
           SmallText(
             // maxLines: 10,
-            text: 'and ',
+            text: AppLocale.and.getString(context),
           ),
           InkWell(
             onTap: () {
@@ -60,7 +64,7 @@ class _AuthBottomNavigationBannerState
             child: SmallText(
               // maxLines: 10,
               weight: FontWeight.bold,
-              text: 'Privacy Policy.',
+              text: AppLocale.privacyPolicy.getString(context),
             ),
           ),
         ],

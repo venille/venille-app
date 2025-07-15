@@ -1,5 +1,7 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -10,6 +12,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/form/form_password_field.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 
@@ -59,27 +62,30 @@ class _UpdateAccountPhoneNumberScreenState
   void handleSubmit() {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Account password is required.',
-      );
+          title: AppLocale.message.getString(context),
+          message: AppLocale.accountPasswordIsRequired.getString(context)
+          //'Account password is required.',
+          );
     } else if (ServiceRegistry.commonRepository.userCountry.value.dialCode !=
         '+234') {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid country code, only +234(NG) is supported.',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidCountryCode.getString(context),
       );
     } else if (isPhoneNumberValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Phone number must be at least 10 digits',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.phoneNumberMustBeAtleast10Digits.getString(context),
       );
     } else if (!phoneController.text.isNumericOnly) {
       return customErrorMessageSnackbar(
-        duration: 5500,
-        title: 'Message',
-        message:
-            'Invalid phone number, ensure that your phone number comprises of digits only!',
-      );
+          duration: 5500,
+          title: AppLocale.message.getString(context),
+          message: AppLocale
+              .invalidPhoneNumberEnsureThatYourPhoneNumberComprisesOfDigitsOnly
+              .getString(context)
+          // 'Invalid phone number, ensure that your phone number comprises of digits only!',
+          );
     } else {
       UpdateAccountPhoneDTO payload = UpdateAccountPhoneDTO(
         (instance) => instance
@@ -109,13 +115,13 @@ class _UpdateAccountPhoneNumberScreenState
             padding: const EdgeInsets.symmetric(
               horizontal: AppSizes.horizontal_15,
             ),
-            child: const Row(
+            child: Row(
               children: [
-                CustomBackButton(),
-                SizedBox(width: AppSizes.horizontal_10),
+                const CustomBackButton(),
+                const SizedBox(width: AppSizes.horizontal_10),
                 TitleText(
                   size: 20,
-                  title: 'Phone number',
+                  title: AppLocale.phoneNumber.getString(context),
                   weight: FontWeight.w700,
                 ),
               ],
@@ -136,8 +142,8 @@ class _UpdateAccountPhoneNumberScreenState
               const SizedBox(height: AppSizes.vertical_10),
               FormPasswordField(
                 showSuffixIcon: true,
-                label: 'Password',
-                hintText: 'enter account password',
+                label: AppLocale.password.getString(context),
+                hintText: AppLocale.enterAccountPassword.getString(context),
                 hidePassword: hidePassword,
                 passwordController: passwordController,
               ),
@@ -148,7 +154,7 @@ class _UpdateAccountPhoneNumberScreenState
                           .accountService.isUpdateAccountInfoProcessing.isTrue
                       ? const CustomLoadingButton(height: 56)
                       : CustomButton(
-                          text: 'Update phone number',
+                          text: AppLocale.updatePhoneNumber.getString(context),
                           width: double.maxFinite,
                           height: 56,
                           fontSize: 16,

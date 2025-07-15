@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -11,6 +13,7 @@ import 'package:venille/components/skeletons/loading_animation.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
 import 'package:venille/components/skeletons/empty_results_content.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -68,7 +71,7 @@ class _LearnScreenState extends State<LearnScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: TitledAppbar(
-          title: 'Learn',
+          title: AppLocale.learn.getString(context),
           scaffoldKey: scaffoldKey,
         ),
       ),

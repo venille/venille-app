@@ -309,6 +309,91 @@ mixin AppLocale {
   static const String save = 'Save';
   static const String cancel = "Cancel";
 
+  static const String continueAsGuest = "Continue as guest";
+  static const String newPasswordIsRequired = "New Password is required";
+  static const String createPassword = "Create Password";
+  static const String addAWayToSecurePassword =
+      "Add a way to secure your account";
+  static const String phoneNumberOptional = "Phone number (optional)";
+  static const String referralCodeOptional = "Referral Code (optional)";
+  static const String verifyYourAccount = "Verify your account";
+  static const String buildingYourPeriodTracker =
+      "Building your period tracker...";
+  static const String reminderDetails = "Reminde: Details";
+  static const String today = "TODAY";
+  static const String sorryICouldntGenerateAResponse =
+      "Sorry, I couldn\'t generate a response please try again.";
+  static const String reportAiResponse = "Report AI Response";
+  static const String whyAreYouReportingThisResponse =
+      "Why are you reporting this response?";
+  static const String itOffensive = "It's offensive";
+  static const String itInAccurate = "It\'s inaccurate";
+  static const String itHarmful = "It\'s harmful";
+  static const String pleaseSpecify = "Please specify...";
+  static const String pleaseSelectReason = "Please select a reason";
+  static const String report = "Report";
+  static const String thinking = "Thinking...";
+  static const String aboutUs = "About Us";
+  static const String emailAddress = "Email address";
+  static const String updateEmail = "Update email";
+  static const String verifyYourEmail = "Verify your email";
+  static const String currentPasswordIsRequired =
+      "Current password is required";
+  static const String confirmNewPasswordRequired =
+      "Confirm new password is required";
+  static const String currentPassword = "Current Password";
+  static const String enterPassword = "Enter Password";
+  static const String newPassword = "New Password";
+  static const String accountPasswordIsRequired =
+      "Account password is required.";
+  static const String invalidCountryCode =
+      "Invalid country code, only +234(NG) is supported.";
+  static const String enterAccountPassword = 'enter account password';
+  static const String updatePhoneNumber = "Update phone number";
+  static const String support = "Support";
+  static const String notification = "Notifications";
+  static const String errors = "Error";
+  static const String invalidSubject = "Invalid subject";
+  static const String invalidMessage = "Invalid Message";
+  static const String createPost = "Create Post";
+  static const String pleaseEnterComment = "Please enter a comment.";
+  static const String forumPost = "Forum Post";
+  static const String translation = "translation";
+  static const String original = "original";
+  static const String comments = "Comments";
+  static const String addComment = "Add a comment...";
+  static const String onboardingSurvey = "Onboarding Survey";
+  static const String whatIsTheAverageLengthOfYoutMenstrualCycle =
+      "What is the average length of your menstrual cycle?";
+  static const String youMustBeAtleast16year =
+      "You must be at least 16 years old.";
+  static const String previous = "Previous";
+  static const String pleaseSelectAnOptionForTheQuestion =
+      "Please select an option for this question.";
+  static const String addressMustBeAtleast5Characters =
+      "Address must be at least 5 characters";
+  static const String addressRequired = "Address is required.";
+  static const String buildingNumberIsRequired = "Building number is required.";
+  static const String nearestLandMark = "Nearest landmark is required.";
+  static const String callUs = "Call us";
+  static const String pleaseSelectNumberOfDaysYouManageMenstrualSafely =
+      "Please select the number of days you managed menstruation safely";
+  static const String pleaseSelectChalengeFaced =
+      "Please select the challenges you faced";
+  static const String youAreCurrentlyLoggedIn =
+      "You are currently logged in as a guest user, login to access all features.";
+  static const String logIn = "LogIn";
+  static const String home = "Home";
+  static const String tracker = "Tracker";
+  static const String forum = "Forum";
+
+  //New translation
+  static const String noNewNotification = "No New Notifications";
+  static const String noOnboardQuestion = "No Onboarding Questions?";
+  static const String noCourseAvailable = "No courses available at the moment.";
+  static const String youWillSeeNewNotification =
+      "You will see new notifications here once you have one.";
+  static const String dragDownToRefresh = "Drag down to refresh!";
   static const Map<String, dynamic> EN = {
     hello: "Hello",
     welcome: "Welcome",
@@ -599,6 +684,81 @@ mixin AppLocale {
     youCannotLogPeriodForFutureDates: 'You cannot log period for future dates!',
     save: 'Save',
     cancel: 'Cancel',
+
+    continueAsGuest: "Continue as guest",
+    newPasswordIsRequired: "New Password is required",
+    createPassword: "Create Password",
+    addAWayToSecurePassword: "Add a way to secure your account",
+    phoneNumberOptional: "Phone number (optional)",
+    referralCodeOptional: "Referral Code (optional)",
+    verifyYourAccount: "Verify your account",
+    buildingYourPeriodTracker: "Building your period tracker...",
+    reminderDetails: "Reminder Details",
+    today: "TODAY",
+    sorryICouldntGenerateAResponse:
+        "Sorry, I couldn\'t generate a response please try again.",
+    reportAiResponse: "Report AI Response",
+    whyAreYouReportingThisResponse: "Why are you reporting this response?",
+    itOffensive: "It's offensive",
+    itInAccurate: "It\'s inaccurate",
+    itHarmful: "It\'s harmful",
+    pleaseSpecify: "Please specify...",
+    pleaseSelectReason: "Please select a reason",
+    report: "Report",
+    thinking: "Thinking...",
+    aboutUs: "About Us",
+    emailAddress: "Email address",
+    updateEmail: "Update email",
+    verifyYourEmail: "Verify your email",
+    currentPasswordIsRequired: "Current password is required",
+    confirmNewPasswordRequired: "Confirm new password is required",
+    currentPassword: "Current Password",
+    enterPassword: "Enter Password",
+    newPassword: "New Password",
+    accountPasswordIsRequired: "Account password is required.",
+    invalidCountryCode: "Invalid country code, only +234(NG) is supported.",
+    enterAccountPassword: 'enter account password',
+    updatePhoneNumber: "Update phone number",
+    support: "Support",
+    notification: "Notifications",
+    errors: "Error",
+    invalidSubject: "Invalid subject",
+    invalidMessage: "Invalid Message",
+    createPost: "Create Post",
+    pleaseEnterComment: "Please enter a comment.",
+    forumPost: "Forum Post",
+    translation: "translation",
+    original: "original",
+    comments: "Comments",
+    addComment: "Add a comment...",
+    onboardingSurvey: "Onboarding Survey",
+    whatIsTheAverageLengthOfYoutMenstrualCycle:
+        "What is the average length of your menstrual cycle?",
+    youMustBeAtleast16year: "You must be at least 16 years old.",
+    previous: "Previous",
+    pleaseSelectAnOptionForTheQuestion:
+        "Please select an option for this question.",
+    addressMustBeAtleast5Characters: "Address must be at least 5 characters",
+    addressRequired: "Address is required.",
+    buildingNumberIsRequired: "Building number is required.",
+    nearestLandMark: "Nearest landmark is required.",
+    callUs: "Call us",
+    pleaseSelectNumberOfDaysYouManageMenstrualSafely:
+        "Please select the number of days you managed menstruation safely",
+    pleaseSelectChalengeFaced: "Please select the challenges you faced",
+
+    youAreCurrentlyLoggedIn:
+        "You are currently logged in as a guest user, login to access all features.",
+    logIn: "LogIn",
+    home: "Home",
+    tracker: "Tracker",
+    forum: "Forum",
+    noNewNotification: "No New Notifications",
+    noOnboardQuestion: "No Onboarding Questions?",
+    noCourseAvailable: "No courses available at the moment.",
+    youWillSeeNewNotification:
+        "You will see new notifications here once you have one.",
+    dragDownToRefresh: "Drag down to refresh!",
   };
   static const Map<String, dynamic> HA = {
     hello: "Sannu",
@@ -890,6 +1050,81 @@ mixin AppLocale {
         "Ba za ka iya rubuta haila a ranakun nan gaba ba!",
     save: "Ajiye",
     cancel: "Soke",
+    continueAsGuest: "Ci gaba a matsayin baƙo",
+    newPasswordIsRequired: "Sabon kalmar sirri ana buƙata",
+    createPassword: "Ƙirƙiri Kalmar Sirri",
+    addAWayToSecurePassword: "Ƙara hanyar tabbatar da tsaro ga asusunka",
+    phoneNumberOptional: "Lambar waya (zaɓi)",
+    referralCodeOptional: "Lambar tura (zaɓi)",
+    verifyYourAccount: "Tabbatar da asusunka",
+    buildingYourPeriodTracker: "Ana gina na'urarka ta bin haila...",
+    reminderDetails: "Bayanin tunatarwa",
+    today: "YAU",
+    sorryICouldntGenerateAResponse:
+        "Yi haƙuri, ban samu amsa ba – don Allah a sake gwadawa.",
+    reportAiResponse: "Rahoton Amsar AI",
+    whyAreYouReportingThisResponse: "Me ya sa kake bayar da wannan rahoto?",
+    itOffensive: "Wannan ya sabawa al’ada",
+    itInAccurate: "Ba daidai ba ne",
+    itHarmful: "Zai iya cutarwa",
+    pleaseSpecify: "Don Allah bayyana...",
+    pleaseSelectReason: "Da fatan zaɓi dalili",
+    report: "Rahoto",
+    thinking: "Tunanin...",
+    aboutUs: "Game da Mu",
+    emailAddress: "Adireshin Imel",
+    updateEmail: "Sabunta imel",
+    verifyYourEmail: "Tabbatar da imel ɗinka",
+    currentPasswordIsRequired: "Ana buƙatar kalmar sirri ta yanzu",
+    confirmNewPasswordRequired: "Ana buƙatar tabbatar da sabon kalmar sirri",
+    currentPassword: "Kalmar sirri ta yanzu",
+    enterPassword: "Shigar da kalmar sirri",
+    newPassword: "Sabon kalmar sirri",
+    accountPasswordIsRequired: "Ana buƙatar kalmar sirri ta asusu.",
+    invalidCountryCode:
+        "Lambar ƙasa ba ta da inganci, ana goyon bayan +234(NG) kawai.",
+    enterAccountPassword: "Shigar da kalmar sirri ta asusu",
+    updatePhoneNumber: "Sabunta lambar waya",
+    support: "Taimako",
+    notification: "Sanarwa",
+    errors: "Kurakurai",
+    invalidSubject: "Batun ba daidai ba ne",
+    invalidMessage: "Saƙo ba daidai ba ne",
+    createPost: "Ƙirƙiri Talla",
+    pleaseEnterComment: "Da fatan shigar da sharhi.",
+    forumPost: "Talla a dandalin",
+    translation: "fassara",
+    original: "ainihi",
+    comments: "Sharhi",
+    addComment: "Ƙara sharhi...",
+    onboardingSurvey: "Tambayoyin shiga (onboarding)",
+    // whatIsTheAverageLengthOfYourMenstrualCycle:
+    //     "Menene tsayin matsakaicin zangon haila ɗinku?",
+    youMustBeAtleast16year: "Dole ne ku zama akalla shekaru 16.",
+    previous: "Na baya",
+    pleaseSelectAnOptionForTheQuestion:
+        "Da fatan zaɓi zaɓi don wannan tambayar.",
+    addressMustBeAtleast5Characters:
+        "Adireshin dole ya kasance akalla haruffa 5",
+    addressRequired: "Ana buƙatar adireshin.",
+    buildingNumberIsRequired: "Ana buƙatar lambar gini.",
+    nearestLandMark: "Ana buƙatar alamar da ta fi kusa.",
+    callUs: "Kira mu",
+    pleaseSelectNumberOfDaysYouManageMenstrualSafely:
+        "Da fatan zaɓi yawan kwanakin da kuka kula da haila lafiya",
+    pleaseSelectChalengeFaced: "Da fatan zaɓi ƙalubalen da kuka fuskanta",
+    youAreCurrentlyLoggedIn:
+        "Kana shiga yanzu a matsayin baƙo, shiga don samun duk fasaloli.",
+    logIn: "Shiga",
+    home: "Gida",
+    tracker: "Mai bibiyar haila",
+    forum: "Dandali",
+    noNewNotification: "Babu Sabbin Sanarwa",
+    noOnboardQuestion: "Babu Tambayoyin Shiga?",
+    noCourseAvailable: "Babu kwasa-kwasai a halin yanzu.",
+    youWillSeeNewNotification:
+        "Za ku ga sabbin sanarwa anan da zarar kuna da guda.",
+    dragDownToRefresh: "Ja ƙasa don sabunta!",
   };
 
   static const Map<String, dynamic> FR = {
@@ -1188,6 +1423,83 @@ mixin AppLocale {
         "Vous ne pouvez pas enregistrer les règles à des dates futures !",
     save: "Enregistrer",
     cancel: "Annuler",
+
+    continueAsGuest: "Continuer en tant qu’invité",
+    newPasswordIsRequired: "Un nouveau mot de passe est requis",
+    createPassword: "Créer un mot de passe",
+    addAWayToSecurePassword: "Ajoutez un moyen de sécuriser votre compte",
+    phoneNumberOptional: "Numéro de téléphone (optionnel)",
+    referralCodeOptional: "Code de parrainage (optionnel)",
+    verifyYourAccount: "Vérifiez votre compte",
+    buildingYourPeriodTracker: "Construction de votre suivi de cycle...",
+    reminderDetails: "Détails du rappel",
+    today: "AUJOURD’HUI",
+    sorryICouldntGenerateAResponse:
+        "Désolé, je n’ai pas pu générer de réponse, veuillez réessayer.",
+    reportAiResponse: "Signaler la réponse de l’IA",
+    whyAreYouReportingThisResponse: "Pourquoi signalez-vous cette réponse ?",
+    itOffensive: "C’est offensant",
+    itInAccurate: "C’est inexact",
+    itHarmful: "C’est nuisible",
+    pleaseSpecify: "Veuillez préciser...",
+    pleaseSelectReason: "Veuillez sélectionner un motif",
+    report: "Signaler",
+    thinking: "Réfléchissement…",
+    aboutUs: "À propos de nous",
+    emailAddress: "Adresse email",
+    updateEmail: "Mettre à jour l’email",
+    verifyYourEmail: "Vérifiez votre email",
+    currentPasswordIsRequired: "Le mot de passe actuel est requis",
+    confirmNewPasswordRequired:
+        "La confirmation du nouveau mot de passe est requise",
+    currentPassword: "Mot de passe actuel",
+    enterPassword: "Entrez le mot de passe",
+    newPassword: "Nouveau mot de passe",
+    accountPasswordIsRequired: "Le mot de passe du compte est requis.",
+    invalidCountryCode:
+        "Code du pays invalide, seul +234 (NG) est pris en charge.",
+    enterAccountPassword: "Entrez le mot de passe du compte",
+    updatePhoneNumber: "Mettre à jour le numéro de téléphone",
+    support: "Support",
+    notification: "Notifications",
+    errors: "Erreurs",
+    invalidSubject: "Sujet invalide",
+    invalidMessage: "Message invalide",
+    createPost: "Créer une publication",
+    pleaseEnterComment: "Veuillez entrer un commentaire.",
+    forumPost: "Publication forum",
+    translation: "traduction",
+    original: "original",
+    comments: "Commentaire(s)",
+    addComment: "Ajouter un commentaire…",
+    onboardingSurvey: "Sondage d’accueil",
+// whatIsTheAverageLengthOfYourMenstrualCycle: "Quelle est la durée moyenne de votre cycle menstruel ?",
+    youMustBeAtleast16year: "Vous devez avoir au moins 16 ans.",
+    previous: "Précédent",
+    pleaseSelectAnOptionForTheQuestion:
+        "Veuillez sélectionner une option pour cette question.",
+    addressMustBeAtleast5Characters:
+        "L’adresse doit comporter au moins 5 caractères",
+    addressRequired: "Adresse requise.",
+    buildingNumberIsRequired: "Le numéro du bâtiment est requis.",
+    nearestLandMark: "Point de repère le plus proche requis.",
+    callUs: "Appelez-nous",
+    pleaseSelectNumberOfDaysYouManageMenstrualSafely:
+        "Veuillez sélectionner le nombre de jours où vous avez géré vos règles en toute sécurité",
+    pleaseSelectChalengeFaced:
+        "Veuillez sélectionner les défis auxquels vous avez été confronté(e)",
+    youAreCurrentlyLoggedIn:
+        "Vous êtes actuellement connecté en tant qu’invité, connectez-vous pour accéder à toutes les fonctionnalités.",
+    logIn: "Se connecter",
+    home: "Accueil",
+    tracker: "Suivi",
+    forum: "Forum",
+    noNewNotification: "Aucune nouvelle notification",
+    noOnboardQuestion: "Pas de questions d’accueil ?",
+    noCourseAvailable: "Aucun cours disponible pour le moment.",
+    youWillSeeNewNotification:
+        "Vous verrez les nouvelles notifications ici dès que vous en aurez.",
+    dragDownToRefresh: "Faites glisser vers le bas pour actualiser !",
   };
 
   static const Map<String, dynamic> ZH = {
@@ -1462,6 +1774,73 @@ mixin AppLocale {
     youCannotLogPeriodForFutureDates: "无法记录未来日期的月经！",
     save: "保存",
     cancel: "取消",
+    continueAsGuest: "以游客身份继续",
+    newPasswordIsRequired: "需要新密码",
+    createPassword: "创建密码",
+    addAWayToSecurePassword: "添加一种保护账户的方法",
+    phoneNumberOptional: "电话号码（可选）",
+    referralCodeOptional: "推荐码（可选）",
+    verifyYourAccount: "验证您的账户",
+    buildingYourPeriodTracker: "正在构建您的生理周期跟踪器…",
+    reminderDetails: "提醒详情",
+    today: "今天",
+    sorryICouldntGenerateAResponse: "抱歉，我无法生成回复，请重试。",
+    reportAiResponse: "举报 AI 回复",
+    whyAreYouReportingThisResponse: "您为何举报此回复？",
+    itOffensive: "具有冒犯性",
+    itInAccurate: "不准确",
+    itHarmful: "有害",
+    pleaseSpecify: "请说明...",
+    pleaseSelectReason: "请选择举报原因",
+    report: "举报",
+    thinking: "思考中...",
+    aboutUs: "关于我们",
+    emailAddress: "电子邮件地址",
+    updateEmail: "更新邮箱",
+    verifyYourEmail: "验证您的邮箱",
+    currentPasswordIsRequired: "需要当前密码",
+    confirmNewPasswordRequired: "需要确认新密码",
+    currentPassword: "当前密码",
+    enterPassword: "输入密码",
+    newPassword: "新密码",
+    accountPasswordIsRequired: "需要账户密码。",
+    invalidCountryCode: "国家代码无效，仅支持 +234（尼日利亚）。",
+    enterAccountPassword: "输入账户密码",
+    updatePhoneNumber: "更新电话号码",
+    support: "支持",
+    notification: "通知",
+    errors: "错误",
+    invalidSubject: "主题无效",
+    invalidMessage: "消息无效",
+    createPost: "创建帖子",
+    pleaseEnterComment: "请输入评论。",
+    forumPost: "论坛帖子",
+    translation: "翻译",
+    original: "原文",
+    comments: "评论",
+    addComment: "添加评论…",
+    onboardingSurvey: "入职调查",
+    // whatIsTheAverageLengthOfYourMenstrualCycle: "您的月经周期平均长度是多少？",
+    youMustBeAtleast16year: "您必须至少16岁。",
+    previous: "上一步",
+    pleaseSelectAnOptionForTheQuestion: "请选择该问题的选项。",
+    addressMustBeAtleast5Characters: "地址至少需要5个字符",
+    addressRequired: "地址为必填。",
+    buildingNumberIsRequired: "楼号为必填。",
+    nearestLandMark: "最近的地标为必填。",
+    callUs: "致电我们",
+    pleaseSelectNumberOfDaysYouManageMenstrualSafely: "请选择您安全管理月经的天数",
+    pleaseSelectChalengeFaced: "请选择您遇到的挑战",
+    youAreCurrentlyLoggedIn: "您目前以游客身份登录，请登录以访问所有功能。",
+    logIn: "登录",
+    home: "主页",
+    tracker: "跟踪器",
+    forum: "论坛",
+    noNewNotification: "暂无新通知",
+    noOnboardQuestion: "没有入职问题？",
+    noCourseAvailable: "目前没有可用课程。",
+    youWillSeeNewNotification: "一旦有新通知，您将在此处看到。",
+    dragDownToRefresh: "下拉刷新！",
   };
 
   static const Map<String, dynamic> ES = {
@@ -1757,5 +2136,81 @@ mixin AppLocale {
         "¡No puedes registrar periodo en fechas futuras!",
     save: "Guardar",
     cancel: "Cancelar",
+    continueAsGuest: "Continuar como invitada",
+    newPasswordIsRequired: "Se requiere nueva contraseña",
+    createPassword: "Crear contraseña",
+    addAWayToSecurePassword: "Agrega una forma de asegurar tu cuenta",
+    phoneNumberOptional: "Número de teléfono (opcional)",
+    referralCodeOptional: "Código de referido (opcional)",
+    verifyYourAccount: "Verifica tu cuenta",
+    buildingYourPeriodTracker: "Configurar tu rastreador de ciclo...",
+    reminderDetails: "Detalles del recordatorio",
+    today: "HOY",
+    sorryICouldntGenerateAResponse:
+        "Lo siento, no pude generar una respuesta, intenta de nuevo.",
+    reportAiResponse: "Reportar respuesta de IA",
+    whyAreYouReportingThisResponse: "¿Por qué estás reportando esta respuesta?",
+    itOffensive: "Es ofensivo",
+    itInAccurate: "No es preciso",
+    itHarmful: "Es perjudicial",
+    pleaseSpecify: "Por favor especifica...",
+    pleaseSelectReason: "Por favor selecciona una razón",
+    report: "Reportar",
+    thinking: "Pensando...",
+    aboutUs: "Sobre nosotros",
+    emailAddress: "Dirección de correo",
+    updateEmail: "Actualizar correo",
+    verifyYourEmail: "Verifica tu correo",
+    currentPasswordIsRequired: "La contraseña actual es obligatoria",
+    confirmNewPasswordRequired:
+        "La confirmación de la nueva contraseña es obligatoria",
+    currentPassword: "Contraseña actual",
+    enterPassword: "Ingresa la contraseña",
+    newPassword: "Nueva contraseña",
+    accountPasswordIsRequired: "La contraseña de la cuenta es obligatoria.",
+    invalidCountryCode: "Código de país inválido, solo se admite +234 (NG).",
+    enterAccountPassword: "Ingresa la contraseña de la cuenta",
+    updatePhoneNumber: "Actualizar número de teléfono",
+    support: "Soporte",
+    notification: "Notificaciones",
+    errors: "Errores",
+    invalidSubject: "Asunto inválido",
+    invalidMessage: "Mensaje inválido",
+    createPost: "Crear publicación",
+    pleaseEnterComment: "Por favor ingresa un comentario.",
+    forumPost: "Publicación en foro",
+    translation: "traducción",
+    original: "original",
+    comments: "Comentarios",
+    addComment: "Agregar un comentario...",
+    onboardingSurvey: "Encuesta de bienvenida",
+    // whatIsTheAverageLengthOfYourMenstrualCycle:
+    //     "¿Cuál es la longitud promedio de tu ciclo menstrual?",
+    youMustBeAtleast16year: "Debes tener al menos 16 años.",
+    previous: "Anterior",
+    pleaseSelectAnOptionForTheQuestion:
+        "Por favor selecciona una opción para esta pregunta.",
+    addressMustBeAtleast5Characters:
+        "La dirección debe tener al menos 5 caracteres",
+    addressRequired: "Dirección obligatoria.",
+    buildingNumberIsRequired: "El número de edificio es obligatorio.",
+    nearestLandMark: "Se requiere punto de referencia cercano.",
+    callUs: "Llámanos",
+    pleaseSelectNumberOfDaysYouManageMenstrualSafely:
+        "Por favor selecciona la cantidad de días que gestionaste la menstruación de manera segura",
+    pleaseSelectChalengeFaced:
+        "Por favor selecciona los desafíos que enfrentaste",
+    youAreCurrentlyLoggedIn:
+        "Actualmente has iniciado sesión como invitado, inicia sesión para acceder a todas las funciones.",
+    logIn: "Iniciar sesión",
+    home: "Inicio",
+    tracker: "Seguimiento",
+    forum: "Foro",
+    noNewNotification: "No hay nuevas notificaciones",
+    noOnboardQuestion: "¿No hay preguntas de bienvenida?",
+    noCourseAvailable: "No hay cursos disponibles en este momento.",
+    youWillSeeNewNotification:
+        "Verás nuevas notificaciones aquí una vez que tengas una.",
+    dragDownToRefresh: "Desliza hacia abajo para actualizar!",
   };
 }

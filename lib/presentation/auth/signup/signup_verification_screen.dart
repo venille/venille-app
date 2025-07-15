@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter/material.dart';
@@ -78,8 +81,8 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
   void submitHandler() async {
     if (isOtpValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid OTP',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidOTP.getString(context),
       );
     } else {
       log('hash: ${Get.parameters['signupVerificationHash']}');
@@ -182,18 +185,18 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
                           navigateTo: AuthNavigationTypes.authSignUp,
                         ),
                         const SizedBox(height: AppSizes.vertical_15),
-                        const TitleText(
+                        TitleText(
                           size: 20,
-                          title: 'Verify your account',
+                          title: AppLocale.verifyYourAccount.getString(context),
                         ),
                         const SizedBox(height: AppSizes.vertical_5),
                         RichText(
                           text: TextSpan(
                             children: [
-                              const TextSpan(
-                                text:
-                                    'Please enter the 4 digit code we sent to ',
-                                style: TextStyle(
+                              TextSpan(
+                                text: AppLocale.pleaseEnterThe4DigitCodeWeSentTo
+                                    .getString(context),
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
@@ -209,8 +212,8 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
                                   color: AppColors.blackColor,
                                 ),
                               ),
-                              const TextSpan(
-                                text: ' via email.',
+                              TextSpan(
+                                text: AppLocale.viaEmail.getString(context),
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
@@ -290,7 +293,7 @@ class _SignupVerificationScreenState extends State<SignupVerificationScreen> {
                                 .authenticationService.isSignUpProcessing.isTrue
                             ? const CustomLoadingButton(height: 56)
                             : CustomButton(
-                                text: 'Verify',
+                                text: AppLocale.verify.getString(context),
                                 height: 56,
                                 fontSize: 16,
                                 borderRadius: 16,

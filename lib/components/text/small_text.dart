@@ -16,7 +16,7 @@ class SmallText extends CustomTextWidget {
     required String text,
   }) : super(
           size: size ?? 12,
-          text: text.tr,
+          text: text,
           alignment: alignment,
           lineHeight: lineHeight,
           weight: weight ?? FontWeight.w400,

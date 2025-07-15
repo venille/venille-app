@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -12,6 +13,7 @@ import 'package:venille/components/cards/ongoing_order_item_card.dart';
 import 'package:venille/components/buttons/grouped_header_buttons.dart';
 import 'package:venille/components/cards/completed_order_item_card.dart';
 import 'package:venille/components/skeletons/empty_results_content.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -26,7 +28,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   ScrollController scrollController = ScrollController();
 
-  final List<String> orderTypes = ['Ongoing'.tr, 'Completed'.tr];
+  final List<String> orderTypes = ['Ongoing', 'Completed'.tr];
 
   Future<void> initializeOrders() async {
     await ServiceRegistry.orderService.fetchUserOrdersService(
@@ -86,9 +88,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         Get.back();
                       },
                     ),
-                    const TitleText(
+                    TitleText(
                       size: 16,
-                      title: 'Orders',
+                      title: AppLocale.orders.getString(context),
                     ),
                     const SizedBox(width: AppSizes.horizontal_35),
                   ],

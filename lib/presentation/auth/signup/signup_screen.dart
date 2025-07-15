@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/routes.dart';
@@ -17,6 +18,7 @@ import 'package:venille/components/badges/venille_icon_badge.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/components/navigation/auth_redirect_link.dart';
 import 'package:venille/components/buttons/labeled_dropdown_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -88,31 +90,31 @@ class _SignupScreenState extends State<SignupScreen> {
   void submitHandler() async {
     if (emailController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Email is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.emailIsRequired.getString(context),
       );
     } else if (isEmailValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid email address',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidEmailAddress.getString(context),
       );
     } else if (firstNameController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'First name is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.firstNameIsRequired.getString(context),
       );
     } else if (lastNameController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Last name is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.lastName.getString(context),
       );
     } else if (phoneController.text.isNotEmpty &&
         !phoneController.text.isNumericOnly) {
       return customErrorMessageSnackbar(
         duration: 5500,
-        title: 'Message',
+        title: AppLocale.message.getString(context),
         message:
-            'Invalid phone number, ensure that your phone number comprises of digits only!',
+            AppLocale.invalidPhoneNumberEnsureThatYourPhoneNumberComprisesOfDigitsOnly.getString(context),
       );
     } else {
       Map<String, dynamic> payload = {
@@ -175,18 +177,18 @@ class _SignupScreenState extends State<SignupScreen> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppSizes.horizontal_15,
                   ),
-                  child: const Column(
+                  child:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: AppSizes.vertical_30),
-                      VenilleIconBadge(size: 60),
-                      SizedBox(height: AppSizes.vertical_15),
+                      const SizedBox(height: AppSizes.vertical_30),
+                      const VenilleIconBadge(size: 60),
+                      const SizedBox(height: AppSizes.vertical_15),
                       TitleText(
                         size: 20,
-                        title: "Let's get to know you",
+                        title: AppLocale.letsGetToKnowYou.getString(context),
                       ),
-                      SizedBox(height: AppSizes.vertical_5),
-                      AuthRedirectLink(routeType: 'LOGIN'),
+                      const SizedBox(height: AppSizes.vertical_5),
+                      const AuthRedirectLink(routeType: 'LOGIN'),
                     ],
                   ),
                 ),
@@ -203,7 +205,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     const SizedBox(height: AppSizes.vertical_5),
                     FormTextField(
-                      label: 'Email',
+                      label: AppLocale.email.getString(context),
                       hintText: 'lisa@gmail.com',
                       textController: emailController,
                     ),
@@ -219,7 +221,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 FormTextField(
-                                  label: 'First name',
+                                  label: AppLocale.firstName.getString(context),
                                   hintText: 'Lisa',
                                   textController: firstNameController,
                                   width: AppSizes.screenWidth(context) * 0.7,
@@ -233,7 +235,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 FormTextField(
-                                  label: 'Last name',
+                                  label: AppLocale.lastName.getString(context),
                                   hintText: 'Olayinka',
                                   textController: lastNameController,
                                   width: AppSizes.screenWidth(context) * 0.7,
@@ -246,14 +248,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     const SizedBox(height: AppSizes.vertical_10),
                     FormPhoneField(
-                      label: 'Phone number (optional)',
+                      label: AppLocale.phoneNumberOptional.getString(context),
                       phoneController: phoneController,
                     ),
                     const SizedBox(height: AppSizes.vertical_10),
                     FormTextField(
-                      label: 'Referral Code (optional)',
+                      label: AppLocale.referralCodeOptional.getString(context),
                       textController: referralCodeController,
-                      hintText: 'Enter referral code',
+                      hintText: AppLocale.enterReferralCode.getString(context),
                     ),
                     const SizedBox(height: AppSizes.horizontal_30),
                   ],
@@ -280,7 +282,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       SmallText(
                         // maxLines: 10,
-                        text: 'By continuing, you automatically accept our ',
+                        text: AppLocale.byContinuingYouAutomaticallyAcceptOur.getString(context),
                       ),
                       InkWell(
                         onTap: () {
@@ -294,12 +296,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: SmallText(
                           // maxLines: 10,
                           weight: FontWeight.bold,
-                          text: 'Terms & Conditions ',
+                          text: AppLocale.termsAndConditions.getString(context),
                         ),
                       ),
                       SmallText(
                         // maxLines: 10,
-                        text: 'and ',
+                        text: AppLocale.and.getString(context),
                       ),
                       InkWell(
                         onTap: () {
@@ -313,7 +315,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: SmallText(
                           // maxLines: 10,
                           weight: FontWeight.bold,
-                          text: 'Privacy Policy.',
+                          text: AppLocale.privacyPolicy.getString(context),
                         ),
                       ),
                     ],
@@ -324,7 +326,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             .authenticationService.isSignUpProcessing.isTrue
                         ? const CustomLoadingButton(height: 56)
                         : CustomButton(
-                            text: 'Continue',
+                            text: AppLocale.continued.getString(context),
                             width: double.maxFinite,
                             height: 56,
                             fontSize: 16,

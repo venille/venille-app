@@ -1,11 +1,14 @@
 // ignore_for_file: library_prefixes
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:venille/components/buttons/delete_account_button.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/repositories/user_repository.dart';
 import 'package:venille/data/repositories/common_repository.dart';
 import 'package:venille/components/modals/logout_confirmation_modal.dart';
@@ -53,7 +56,7 @@ class _LogoutButtonState extends State<LogoutButton> {
             ),
             const SizedBox(width: AppSizes.horizontal_10),
             SubtitleText(
-              text: 'Logout',
+              text: AppLocale.logout.getString(context),
               weight: FontWeight.w500,
               color: AppColors.redColor,
             ),

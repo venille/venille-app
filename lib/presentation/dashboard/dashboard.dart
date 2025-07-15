@@ -1,10 +1,12 @@
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/secrets.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/presentation/dashboard/home_screen.dart';
 import 'package:venille/presentation/dashboard/learn_screen.dart';
 import 'package:venille/presentation/dashboard/forum_screen.dart';
@@ -90,8 +92,8 @@ class _DashboardState extends State<Dashboard> {
               currentBackPressTime = DateTime.now();
 
               customErrorMessageSnackbar(
-                title: 'Message',
-                message: 'Press back again to exit',
+                title: AppLocale.message.getString(context),
+                message: AppLocale.pressBackAgainToExit.getString(context),
               );
 
               return false;

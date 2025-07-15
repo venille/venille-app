@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/core/utilities/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -30,7 +33,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'About Us',
+          title: AppLocale.aboutUs.getString(context),
           onTap: () {
             Get.back();
           },

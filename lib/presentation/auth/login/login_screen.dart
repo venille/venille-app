@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -11,6 +13,7 @@ import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/form/form_text_field.dart';
 import 'package:venille/components/buttons/custom_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart';
 import 'package:venille/components/text/custom_text_widget.dart';
 import 'package:venille/components/form/form_password_field.dart';
@@ -71,13 +74,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void submitHandler() async {
     if (!emailController.text.isEmail) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid email address',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidEmailAddress.getString(context),
       );
     } else if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password is incorrect',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordIsIncorrect.getString(context),
       );
     } else {
       SigninDTO formData = SigninDTO((instance) => instance
@@ -133,20 +136,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: AppSizes.vertical_30),
                         const VenilleIconBadge(size: 60),
                         const SizedBox(height: AppSizes.vertical_15),
-                        const TitleText(
+                        TitleText(
                           size: 20,
-                          title: "welcome",
+                          title: AppLocale.welcome.getString(context),
                         ),
                         const AuthRedirectLink(),
                         const SizedBox(height: AppSizes.vertical_10),
                         FormTextField(
-                          label: 'Email',
+                          label: AppLocale.email.getString(context),
                           hintText: 'lisa@gmail.com',
                           textController: emailController,
                         ),
                         const SizedBox(height: AppSizes.vertical_10),
                         FormPasswordField(
-                          label: 'Password',
+                          label: AppLocale.password.getString(context),
                           hintText: '********',
                           showSuffixIcon: true,
                           hidePassword: hidePassword,
@@ -164,7 +167,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Colors.transparent,
                               ),
                               child: BodyText(
-                                text: 'Forgot password?'.tr,
+                                text:
+                                    AppLocale.forgotPassword.getString(context),
                               ),
                             ),
                           ],
@@ -175,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .authenticationService.isSignInProcessing.isTrue
                             ? const CustomLoadingButton(height: 56)
                             : CustomButton(
-                                text: 'Continue',
+                                text: AppLocale.continued.getString(context),
                                 width: double.maxFinite,
                                 height: 56,
                                 fontSize: 16,
@@ -207,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: CustomTextWidget(
                                 size: 16,
                                 weight: FontWeight.w500,
-                                text: 'Continue as guest',
+                                text: AppLocale.continueAsGuest.getString(context),
                               ),
                             ),
                           ),

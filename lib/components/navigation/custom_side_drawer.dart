@@ -1,7 +1,9 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/sizes.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/core/utilities/index.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -119,9 +121,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                           .accountInfo.value.firstName,
                                     ),
                                   ),
-                                  const TitleText(
+                                  TitleText(
                                     size: 16,
-                                    title: 'My account',
+                                    title:
+                                        AppLocale.myAccount.getString(context),
                                   ),
                                   // Builder(
                                   //   builder: (context) {

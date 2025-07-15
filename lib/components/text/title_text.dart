@@ -32,7 +32,7 @@ class TitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextWidget(
       size: size,
-      text: title.tr,
+      text: title,
       color: color,
       weight: weight,
       maxLines: maxLines,

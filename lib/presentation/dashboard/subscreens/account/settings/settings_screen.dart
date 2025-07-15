@@ -1,5 +1,7 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'dart:developer';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -12,6 +14,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 
@@ -70,10 +73,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       );
 
       customSuccessMessageSnackbar(
-        title: 'Notifications',
+        title: AppLocale.notification.getString(context),
         message: value
-            ? 'Push notifications enabled'.tr
-            : 'Push notifications disabled'.tr,
+            ? AppLocale.pushNotificationsEnabled.getString(context)
+            : AppLocale.pushNotificationsDisabled.getString(context),
       );
     } catch (e) {
       setState(() {
@@ -83,8 +86,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       log('Notification toggle error: $e');
 
       customErrorMessageSnackbar(
-        title: 'Error',
-        message: 'Failed to update notification settings. Please try again.',
+        title: AppLocale.errors.getString(context),
+        message: AppLocale.failedToUpdateNotificationSettingsPleaseTryAgain
+            .getString(context),
       );
     }
   }
@@ -170,7 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Settings'.tr,
+          title: AppLocale.settings.getString(context),
           onTap: () => Get.back(),
         ),
       ),
@@ -195,7 +199,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SubtitleText(
-                    text: 'Push notifications'.tr,
+                    text: AppLocale.pushNotifications.getString(context),
                     weight: FontWeight.w400,
                   ),
                   Switch(
@@ -220,7 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SubtitleText(
-                    text: 'Language'.tr,
+                    text: AppLocale.language.getString(context),
                     weight: FontWeight.w400,
                   ),
                   InkWell(

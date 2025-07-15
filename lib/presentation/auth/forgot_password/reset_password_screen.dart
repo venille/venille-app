@@ -1,11 +1,14 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/navigation.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/form/form_password_field.dart';
@@ -76,34 +79,34 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   void submitHandler() {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'New Password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.newPasswordIsRequired.getString(context),
       );
     } else if (passwordStrength.value < 8) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must be at least 8 characters',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustBeAtleast8Characters.getString(context),
       );
     } else if (passwordHasUppercase.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 uppercase',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Uppercase.getString(context),
       );
     } else if (passwordHasNumber.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 number(digit)',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Number.getString(context),
       );
     } else if (confirmPasswordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Confirm password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.confirmPassword.getString(context),
       );
     } else if (passwordController.text.trim() !=
         confirmPasswordController.text.trim()) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Passwords do not match!',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordsDootMatch.getString(context),
       );
     } else {
       ResetPasswordDTO payload = ResetPasswordDTO(
@@ -157,26 +160,29 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           navigateTo: AuthNavigationTypes.authSignIn,
                         ),
                         const SizedBox(height: AppSizes.vertical_15),
-                        const TitleText(
+                        TitleText(
                           size: 20,
-                          title: 'Create a new password',
+                          title:
+                              AppLocale.createaNewPassword.getString(context),
                         ),
                         const SizedBox(height: AppSizes.vertical_5),
                         SubtitleText(
                           color: AppColors.textTertiaryColor,
-                          text: 'Enter a new password to secure your account.',
+                          text: AppLocale.enteraNewPasswordToSecureYourAccount
+                              .getString(context),
                         ),
                         const SizedBox(height: AppSizes.vertical_20),
                         FormPasswordField(
-                          label: 'Password',
-                          hintText: 'Enter new password',
+                          label: AppLocale.password.getString(context),
+                          hintText:
+                              AppLocale.enterNewPassword.getString(context),
                           hidePassword: hidePassword,
                           passwordController: passwordController,
                         ),
                         const SizedBox(height: AppSizes.vertical_10),
                         FormPasswordField(
-                          label: 'Confirm password',
-                          hintText: 'Confirm new password',
+                          label: AppLocale.enterNewPassword.getString(context),
+                          hintText: AppLocale.confirmPassword,
                           hidePassword: hidePassword,
                           passwordController: confirmPasswordController,
                         ),
@@ -195,7 +201,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 .isResetPasswordProcessing.isTrue
                             ? const CustomLoadingButton(height: 56)
                             : CustomButton(
-                                text: 'Save password',
+                                text: AppLocale.savePassword.getString(context),
                                 width: double.maxFinite,
                                 height: 56,
                                 fontSize: 16,

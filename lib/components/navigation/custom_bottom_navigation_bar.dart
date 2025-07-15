@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int currentPage;
@@ -56,31 +58,31 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         backgroundColor: AppColors.whiteColor,
         destinations: [
-          const NavigationDestination(
-            icon: Icon(
+          NavigationDestination(
+            icon: const Icon(
               FluentIcons.home_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
-            selectedIcon: Icon(
+            selectedIcon: const Icon(
               FluentIcons.home_20_regular,
               size: 20,
               color: AppColors.blackColor,
             ),
-            label: "Home",
+            label: AppLocale.home.getString(context),
           ),
-          const NavigationDestination(
-            icon: Icon(
+          NavigationDestination(
+            icon: const Icon(
               FluentIcons.calendar_ltr_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
-            selectedIcon: Icon(
+            selectedIcon: const Icon(
               FluentIcons.calendar_ltr_20_regular,
               size: 20,
               color: AppColors.blackColor,
             ),
-            label: "Tracker",
+            label: AppLocale.tracker.getString(context),
           ),
           NavigationDestination(
             icon: Icon(
@@ -95,31 +97,31 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ),
             label: "Venille AI",
           ),
-          const NavigationDestination(
-            icon: Icon(
+          NavigationDestination(
+            icon: const Icon(
               FluentIcons.book_template_20_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
-            selectedIcon: Icon(
+            selectedIcon: const Icon(
               FluentIcons.book_template_20_regular,
               size: 20,
               color: AppColors.blackColor,
             ),
-            label: "Learn",
+            label: AppLocale.learn.getString(context),
           ),
-          const NavigationDestination(
-            icon: Icon(
+          NavigationDestination(
+            icon: const Icon(
               FluentIcons.mail_inbox_16_regular,
               size: 20,
               color: AppColors.textTertiaryInverseColor,
             ),
-            selectedIcon: Icon(
+            selectedIcon: const Icon(
               FluentIcons.mail_inbox_16_regular,
               size: 20,
               color: AppColors.blackColor,
             ),
-            label: "Forum",
+            label: AppLocale.forum.getString(context),
           ),
         ],
       ),

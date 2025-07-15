@@ -1,13 +1,16 @@
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class ReferralBannerButtons extends StatelessWidget {
   final double height;
@@ -95,7 +98,7 @@ class ReferralBannerButtons extends StatelessWidget {
                         FluentIcons.share_android_16_regular,
                       ),
                       BodyText(
-                        text: 'Share',
+                        text: AppLocale.share.getString(context),
                         weight: FontWeight.w500,
                         color: AppColors.blackColor,
                       ),

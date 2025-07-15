@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:developer';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
@@ -12,6 +14,7 @@ import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:period_tracker_sdk/src/model/period_day_info.dart';
@@ -545,7 +548,7 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: BodyText(
-                    text: 'Cancel',
+                    text: AppLocale.cancel.getString(context),
                     size: 16,
                     weight: FontWeight.w600,
                     color: AppColors.redColor,
@@ -560,7 +563,7 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
                       backgroundColor: AppColors.greenColor,
                     )
                   : CustomButton(
-                      text: 'Save',
+                      text: AppLocale.save.getString(context),
                       width: 90,
                       height: 30,
                       fontSize: 16,
@@ -753,7 +756,7 @@ class _DayCircle extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 2.0),
                 child: BodyText(
-                  text: 'TODAY',
+                  text: AppLocale.today.getString(context),
                   size: 6,
                   weight: FontWeight.bold,
                   color: AppColors.redColor,
@@ -792,7 +795,7 @@ class _DayCircle extends StatelessWidget {
       return Container(
         width: 28,
         height: 28,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: AppColors.redColor,
         ),
@@ -811,7 +814,7 @@ class _DayCircle extends StatelessWidget {
           width: 28,
           height: 28,
           child: isSelected
-              ? Icon(Icons.check, color: AppColors.redColor, size: 18)
+              ? const Icon(Icons.check, color: AppColors.redColor, size: 18)
               : null,
         ),
       );
@@ -828,7 +831,7 @@ class _DayCircle extends StatelessWidget {
             color: AppColors.redColor,
           ),
         ),
-        child: Icon(Icons.check, color: AppColors.redColor, size: 18),
+        child: const Icon(Icons.check, color: AppColors.redColor, size: 18),
       );
     }
 

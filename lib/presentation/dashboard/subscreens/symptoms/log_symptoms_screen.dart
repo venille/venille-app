@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/text/form_label_text.dart';
 import 'package:venille/components/text/subtitle_text.dart';
@@ -16,6 +18,7 @@ import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/core/providers/index.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dart';
 import 'package:built_collection/built_collection.dart';
 
@@ -198,7 +201,7 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Log Symptoms',
+          title: AppLocale.logPeriod.getString(context),
           onTap: () => Get.back(),
         ),
       ),
@@ -260,7 +263,7 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
                               children: [
                                 BodyText(
                                   size: 14,
-                                  text: 'Cycle day: ',
+                                  text: AppLocale.cycleDay.getString(context),
                                   color: AppColors.whiteColor,
                                 ),
                                 BodyText(
@@ -381,7 +384,7 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
                   backgroundColor: AppColors.blackColor,
                 )
               : CustomButton(
-                  text: 'Submit',
+                  text: AppLocale.submit.getString(context),
                   width: double.maxFinite,
                   height: 56,
                   fontSize: 16,
@@ -409,7 +412,7 @@ class _LogSymptomsScreenState extends State<LogSymptomsScreen> {
 
                     if (missingCategories.isNotEmpty) {
                       customErrorMessageSnackbar(
-                          title: 'Message',
+                          title: AppLocale.message.getString(context),
                           message:
                               '${'select_at_least_one'.tr} ${missingCategories.join(", ")}'
                           // 'Please select at least one item from: ${missingCategories.join(", ")}',

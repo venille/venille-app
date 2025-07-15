@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -11,6 +13,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 
 class RegisterSurveyScreen extends StatefulWidget {
@@ -49,15 +52,17 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
   void submitHandler() async {
     if (daysManaged == null) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message:
-            'Please select the number of days you managed menstruation safely',
-      );
+          title: AppLocale.message.getString(context),
+          message: AppLocale.pleaseSelectNumberOfDaysYouManageMenstrualSafely
+              .getString(context)
+          // 'Please select the number of days you managed menstruation safely',
+          );
     } else if (selectedChallenges.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Please select the challenges you faced',
-      );
+          title: AppLocale.message.getString(context),
+          message: AppLocale.pleaseSelectChalengeFaced.getString(context)
+          // 'Please select the challenges you faced',
+          );
     } else {
       RegisterMonthlySurveyDTO payload = RegisterMonthlySurveyDTO(
         (instance) => instance
@@ -88,7 +93,7 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Register Survey',
+          title: AppLocale.registerSurvey.getString(context),
           onTap: () => Get.back(),
         ),
       ),
@@ -99,14 +104,16 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
           children: [
             FormLabelText(
               size: 16,
-              text:
-                  'Your feedback helps us improve menstrual health in your community',
+              text: AppLocale
+                  .yourFeedbackHelpsUsImproveMenstrualHealthInYourCommunity
+                  .getString(context),
             ),
             const SizedBox(height: AppSizes.vertical_12),
             // Pad Access Question
             FormLabelText(
               size: 16,
-              text: 'Did you have access to a pad this month?',
+              text:
+                  AppLocale.didYouHaveAccessToaPadThisMonth.getString(context),
             ),
             Wrap(
               spacing: 12,
@@ -134,9 +141,9 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
             const SizedBox(height: AppSizes.vertical_12),
             // Days Managed Question
             FormLabelText(
-              size: 16,
-              text: 'How many days did you manage menstruation safely?',
-            ),
+                size: 16,
+                text: AppLocale.howManyDaysDidYouManageMenstruationSafely
+                    .getString(context)),
             Wrap(
               spacing: 12,
               runSpacing: 8,
@@ -180,10 +187,10 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
             // Challenges Question
             FormLabelText(
               size: 16,
-              text: 'Challenges faced?',
+              text: AppLocale.challengesfaced.getString(context),
             ),
             Text(
-              'Select all that apply',
+              AppLocale.selectAllThatApply.getString(context),
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey[600],
@@ -244,7 +251,7 @@ class _RegisterSurveyScreenState extends State<RegisterSurveyScreen> {
                   backgroundColor: AppColors.blackColor,
                 )
               : CustomButton(
-                  text: 'Submit',
+                  text: AppLocale.submit.getString(context),
                   width: double.maxFinite,
                   height: 56,
                   fontSize: 16,

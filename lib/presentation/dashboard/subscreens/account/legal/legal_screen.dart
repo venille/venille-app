@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -9,6 +10,7 @@ import 'package:venille/components/text/title_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/cards/redirect_menu_item_card.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class LegalScreen extends StatefulWidget {
   const LegalScreen({super.key});
@@ -55,16 +57,16 @@ class _LegalScreenState extends State<LegalScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: AppSizes.horizontal_15,
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomBackButton(),
+                const CustomBackButton(),
                 TitleText(
                   letterSpacing: 0,
                   fontFamily: 'Roboto',
-                  title: 'Legal',
+                  title: AppLocale.legal.getString(context),
                 ),
-                SizedBox(),
+                const SizedBox(),
               ],
             ),
           ),
@@ -84,14 +86,14 @@ class _LegalScreenState extends State<LegalScreen> {
               weight: FontWeight.w700,
             ),
             const SizedBox(height: AppSizes.vertical_20),
-            const RedirectMenuItemCard(
-              title: 'Terms and conditions',
+            RedirectMenuItemCard(
+              title: AppLocale.termsAndConditions.getString(context),
               isIconEnabled: false,
               suffixIcon: 'icon_redirect',
               routeTo: 'https://venille.com.ng/terms-of-service',
             ),
-            const RedirectMenuItemCard(
-              title: 'Privacy',
+            RedirectMenuItemCard(
+              title: AppLocale.privacy.getString(context),
               isIconEnabled: false,
               suffixIcon: 'icon_redirect',
               routeTo: 'https://venille.com.ng/privacy-policy',

@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -7,6 +8,7 @@ import 'package:venille/core/constants/routes.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/cards/redirect_menu_item_card.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -50,10 +52,10 @@ class _HelpScreenState extends State<HelpScreen> {
                           Get.currentRoute == AppRoutes.accountRoute);
                     },
                   ),
-                  const TitleText(
+                  TitleText(
                     letterSpacing: 0,
                     fontFamily: 'Roboto',
-                    title: 'Help',
+                    title: AppLocale.help.getString(context),
                   ),
                   const SizedBox(),
                 ],
@@ -65,18 +67,18 @@ class _HelpScreenState extends State<HelpScreen> {
           padding: const EdgeInsets.symmetric(
             horizontal: AppSizes.horizontal_15,
           ),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: AppSizes.vertical_5),
+              const SizedBox(height: AppSizes.vertical_5),
               RedirectMenuItemCard(
                 routeTo: '',
-                title: 'Support',
+                title: AppLocale.support.getString(context),
                 prefixIcon: 'icon_support',
                 suffixIcon: 'icon_chevron_right',
               ),
               RedirectMenuItemCard(
-                title: 'Email',
+                title: AppLocale.email.getString(context),
                 prefixIcon: 'icon_email',
                 suffixIcon: 'icon_redirect',
                 routeTo: 'support@venille.com.ng',
@@ -87,13 +89,13 @@ class _HelpScreenState extends State<HelpScreen> {
               //   suffixIcon: 'icon_redirect',
               //   routeTo: 'https://twitter.com/venille',
               // ),
-              RedirectMenuItemCard(
+              const RedirectMenuItemCard(
                 title: 'Instagram',
                 prefixIcon: 'icon_instagram',
                 suffixIcon: 'icon_redirect',
                 routeTo: 'https://www.instagram.com/venille_',
               ),
-              RedirectMenuItemCard(
+              const RedirectMenuItemCard(
                 title: 'Linkedin',
                 suffixIcon: 'icon_redirect',
                 prefixIcon: 'icon_linkedin',

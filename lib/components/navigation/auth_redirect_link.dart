@@ -1,7 +1,10 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class AuthRedirectLink extends StatelessWidget {
   final String routeType;
@@ -31,7 +34,7 @@ class AuthRedirectLink extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Don’t have an account? '.tr,
+                    text: AppLocale.dontHaveAnAccount.getString(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -40,7 +43,7 @@ class AuthRedirectLink extends StatelessWidget {
                         ),
                   ),
                   TextSpan(
-                    text: 'Sign up'.tr,
+                    text: AppLocale.signUp.getString(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -55,7 +58,7 @@ class AuthRedirectLink extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Already have an account? '.tr,
+                    text: AppLocale.alreadyHaveAnAccount.getString(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',
@@ -64,7 +67,7 @@ class AuthRedirectLink extends StatelessWidget {
                         ),
                   ),
                   TextSpan(
-                    text: 'Sign in'.tr,
+                    text: AppLocale.signIn.getString(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSize,
                           fontFamily: 'Roboto',

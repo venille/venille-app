@@ -1,4 +1,5 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -11,6 +12,7 @@ import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/text/subtitle_text.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 
@@ -52,8 +54,8 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
       return;
     } else if (_commentController.text.trim().isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Please enter a comment.',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.pleaseEnterComment.getString(context),
       );
     } else {
       CreateForumCommentDto payload = CreateForumCommentDto(
@@ -83,7 +85,7 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: ReturnToAppbar(
-              title: 'Forum Post',
+              title: AppLocale.forumPost.getString(context),
               onTap: () {
                 ServiceRegistry.userRepository.forumPostComments.clear();
 
@@ -188,7 +190,7 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                               child: BodyText(
                                   weight: FontWeight.w600,
                                   text:
-                                      'Show ${showOriginal.isFalse ? "translation" : "original"}'),
+                                      'Show ${showOriginal.isFalse ? AppLocale.translation.getString(context) : AppLocale.original.getString(context)}'),
                             ),
                           ),
                         ),
@@ -266,8 +268,8 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                         // Comments section
                         if (ServiceRegistry
                             .userRepository.forumPostComments.isNotEmpty) ...[
-                          const TitleText(
-                            title: 'Comments',
+                          TitleText(
+                            title: AppLocale.comments.getString(context),
                           ),
                           ListView.builder(
                             shrinkWrap: true,
@@ -404,7 +406,7 @@ class _ForumDescriptionScreenState extends State<ForumDescriptionScreen> {
                           focusNode: _commentFocusNode,
                           maxLines: null,
                           decoration: InputDecoration(
-                            hintText: 'Add a comment...',
+                            hintText: AppLocale.addComment.getString(context),
                             hintStyle: TextStyle(
                               color: Colors.grey[500],
                               fontSize: 16,

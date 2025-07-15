@@ -38,7 +38,7 @@ class _ReturnToAppbarState extends State<ReturnToAppbar> {
             ),
             TitleText(
               size: 16,
-              title: widget.title.tr,
+              title: widget.title,
             ),
             const SizedBox(width: AppSizes.horizontal_35),
           ],

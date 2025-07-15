@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
 import 'package:venille/components/skeletons/loading_animation.dart';
 import 'package:venille/components/text/body_text.dart';
@@ -16,6 +18,7 @@ import 'package:venille/components/sections/daily_insights_section.dart';
 import 'package:venille/components/sections/menstrual_phases_section.dart';
 import 'package:venille/components/sections/last_period_summary_section.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -95,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       const SizedBox(
                                           height: AppSizes.vertical_20),
                                       BodyText(
-                                        text: 'Building your period tracker...',
+                                        text: AppLocale.buildingYourPeriodTracker.getString(context),
                                         size: 16,
                                         weight: FontWeight.w400,
                                       ),

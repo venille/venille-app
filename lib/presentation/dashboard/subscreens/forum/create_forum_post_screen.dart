@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:venille/components/skeletons/loading_animation.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
@@ -15,6 +16,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/form/form_description_field.dart';
 import 'package:venille/components/buttons/labeled_dropdown_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
 class CreateForumPostScreen extends StatefulWidget {
@@ -59,8 +61,8 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
       return;
     } else if (contentController.text.trim().isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Please enter a message',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.pleaseEnteraMessage.getString(context),
       );
     } else {
       CreateForumDto payload = CreateForumDto(
@@ -89,18 +91,18 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: AppSizes.horizontal_15,
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomBackButton(
+                const CustomBackButton(
                   backgroundColor: AppColors.grayLightColor,
                 ),
                 TitleText(
                   letterSpacing: 0,
                   fontFamily: 'Roboto',
-                  title: 'Create Post',
+                  title: AppLocale.createPost.getString(context),
                 ),
-                SizedBox(width: AppSizes.horizontal_35),
+                const SizedBox(width: AppSizes.horizontal_35),
               ],
             ),
           ),
@@ -161,7 +163,7 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
                       ),
                       child: Center(
                           child: SmallText(
-                        text: 'Add Post Image',
+                        text: AppLocale.addPostImage.getString(context),
                         color: AppColors.whiteColor,
                       )),
                     ),
@@ -186,15 +188,17 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
                   : const SizedBox(),
               const SizedBox(height: AppSizes.vertical_5),
               FormDescriptionField(
-                label: 'Post content',
-                maxLength: 1500,
-                showCharacterCount: true,
-                height: AppSizes.screenHeight(context) * 0.6,
-                textController: contentController,
-                borderColor: AppColors.whiteColor,
-                hintText:
-                    'Ready to ignite meaningful discussions? Share your insights and perspectives with the Venille community.',
-              ),
+                  label: AppLocale.postContent.getString(context),
+                  maxLength: 1500,
+                  showCharacterCount: true,
+                  height: AppSizes.screenHeight(context) * 0.6,
+                  textController: contentController,
+                  borderColor: AppColors.whiteColor,
+                  hintText: AppLocale
+                      .readyToIgniteMeaningfulDiscussionsShareYourInsightsAndPerspectivesWithTheVenilleCommunity
+                      .getString(context)
+                  // 'Ready to ignite meaningful discussions? Share your insights and perspectives with the Venille community.',
+                  ),
               const SizedBox(height: AppSizes.vertical_40),
             ],
           ),
@@ -256,7 +260,7 @@ class _CreateForumPostScreenState extends State<CreateForumPostScreen> {
                             color: AppColors.whiteColor,
                           )
                         : SmallText(
-                            text: 'Submit',
+                            text: AppLocale.submit.getString(context),
                             color: AppColors.whiteColor,
                           ),
                   ),

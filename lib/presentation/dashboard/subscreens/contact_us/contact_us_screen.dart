@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -10,6 +11,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/form/form_description_field.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 
@@ -58,13 +60,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   void submitHandler() async {
     if (!isSubjectValid.value) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid subject',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidSubject.getString(context),
       );
     } else if (!isMessageValid.value) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid message',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidMessage.getString(context),
       );
     } else {
       FocusScope.of(context).unfocus();
@@ -99,7 +101,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Contact us',
+          title: AppLocale.contactUs.getString(context),
           onTap: () {
             Get.back();
           },
@@ -113,35 +115,37 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TitleText(
-                title: 'Having problems?',
+              TitleText(
+                title: AppLocale.havingProblems.getString(context),
               ),
               SubtitleText(
-                text:
-                    'We are here to help you with any issues you may have. Please contact us using the form below.'
-                        .tr,
+                text: AppLocale
+                    .weAreHereToHelpYouWithAnyIssuesYouMayHavePleaseContactUsUsingTheFormBelow
+                    .getString(context),
               ),
               const SizedBox(height: AppSizes.vertical_20),
               FormTextField(
-                label: 'Subject',
-                hintText: 'Period Notification Error',
+                label: AppLocale.subject.getString(context),
+                hintText: AppLocale.periodNotificationError.getString(context),
                 textController: subjectController,
               ),
               const SizedBox(height: AppSizes.vertical_15),
               FormDescriptionField(
-                label: 'Message',
-                maxLength: 250,
-                showCharacterCount: true,
-                textController: messageController,
-                hintText:
-                    'I am having issues receiving notifications about my period.',
-              ),
+                  label: AppLocale.message.getString(context),
+                  maxLength: 250,
+                  showCharacterCount: true,
+                  textController: messageController,
+                  hintText: AppLocale
+                      .iAmHavingIssuesReceivingNotificationsAboutMyPeriod
+                      .getString(context)
+                  // 'I am having issues receiving notifications about my period.',
+                  ),
               const SizedBox(height: AppSizes.vertical_25),
               Obx(
                 () => ServiceRegistry.accountService.isContactUsProcessing.value
                     ? const CustomLoadingButton(height: 56)
                     : CustomButton(
-                        text: 'Continue',
+                        text: AppLocale.continued.getString(context),
                         width: double.maxFinite,
                         height: 56,
                         fontSize: 16,

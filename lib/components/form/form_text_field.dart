@@ -33,12 +33,12 @@ class FormTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FormLabelText(
-            text: label.tr,
+            text: label,
             size: labelSize,
           ),
           const SizedBox(height: AppSizes.vertical_3),
           CustomFormTextField(
-            hintText: hintText.tr,
+            hintText: hintText,
             controller: textController,
             maxLines: 1,
             height: 48,

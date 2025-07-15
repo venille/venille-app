@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/providers/index.dart';
@@ -5,6 +6,7 @@ import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/form/form_password_field.dart';
@@ -77,34 +79,34 @@ class _SignupCreatePasswordScreenState
   void submitHandler() async {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordIsRequired.getString(context),
       );
     } else if (passwordStrength.value < 8) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must be at least 8 characters',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustBeAtleast8Characters.getString(context),
       );
     } else if (passwordHasUppercase.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 uppercase',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Uppercase.getString(context),
       );
     } else if (passwordHasNumber.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password must have at least 1 number(digit)',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordMustHaveAtleast1Number.getString(context),
       );
     } else if (confirmPasswordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Confirm password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.confirmPassword.getString(context),
       );
     } else if (passwordController.text.trim() !=
         confirmPasswordController.text.trim()) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Passwords do not match',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordsDootMatch.getString(context),
       );
     } else {
       CreateAccountDTO payload = CreateAccountDTO((instance) => instance
@@ -157,25 +159,27 @@ class _SignupCreatePasswordScreenState
                       const SizedBox(height: AppSizes.vertical_30),
                       const CustomAuthBackButton(),
                       const SizedBox(height: AppSizes.vertical_15),
-                      const TitleText(
+                      TitleText(
                         size: 20,
-                        title: 'Create password',
+                        title: AppLocale.createPassword.getString(context),
                       ),
                       SubtitleText(
                         color: AppColors.textTertiaryColor,
-                        text: 'Add a way to secure your account',
+                        text: AppLocale.addAWayToSecurePassword
+                            .getString(context),
                       ),
                       const SizedBox(height: AppSizes.vertical_20),
                       FormPasswordField(
-                        label: 'Password',
-                        hintText: 'Enter new password',
+                        label: AppLocale.password.getString(context),
+                        hintText: AppLocale.enterNewPassword.getString(context),
                         hidePassword: hidePassword,
                         passwordController: passwordController,
                       ),
                       const SizedBox(height: AppSizes.vertical_10),
                       FormPasswordField(
-                        label: 'Confirm password',
-                        hintText: 'Confirm new password',
+                        label: AppLocale.confirmPassword.getString(context),
+                        hintText:
+                            AppLocale.confirmNewPassword.getString(context),
                         hidePassword: hidePassword,
                         passwordController: confirmPasswordController,
                       ),
@@ -196,7 +200,7 @@ class _SignupCreatePasswordScreenState
                           : CustomButton(
                               height: 56,
                               fontSize: 16,
-                              text: 'Continue',
+                              text: AppLocale.continued.getString(context),
                               borderRadius: 16,
                               width: double.maxFinite,
                               onTapHandler: submitHandler,

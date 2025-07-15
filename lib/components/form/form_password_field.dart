@@ -27,11 +27,11 @@ class FormPasswordField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FormLabelText(
-            text: label.tr,
+            text: label,
           ),
           const SizedBox(height: AppSizes.vertical_3),
           CustomFormPasswordField(
-            hintText: hintText.tr,
+            hintText: hintText,
             borderRadius: 8,
             controller: passwordController,
             height: 48,

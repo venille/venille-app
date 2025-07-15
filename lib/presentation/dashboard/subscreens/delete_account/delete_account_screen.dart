@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/sizes.dart';
@@ -11,6 +12,7 @@ import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 import 'package:venille/components/modals/delete_account_confirmation_modal.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -42,8 +44,8 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
   void handleSubmit() {
     if (passwordController.text.isEmpty) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Password is required',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.passwordIsRequired.getString(context),
       );
     } else {
       showDialog(
@@ -94,20 +96,21 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TitleText(
+              TitleText(
                 size: 20,
-                title: 'Delete account',
+                title: AppLocale.deleteAccount.getString(context),
               ),
               SubtitleText(
                 color: AppColors.textTertiaryColor,
-                text:
-                    'Enter your current password to delete your account and data.'.tr,
+                text: AppLocale
+                    .enterYourCurrentPasswordToDeleteYourAccountAndData
+                    .getString(context),
               ),
               const SizedBox(height: AppSizes.vertical_50),
               FormPasswordField(
-                label: 'Password',
+                label: AppLocale.password.getString(context),
                 showSuffixIcon: true,
-                hintText: 'enter password',
+                hintText: AppLocale.enterPassword.getString(context),
                 hidePassword: hidePassword,
                 passwordController: passwordController,
               ),
@@ -118,7 +121,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                           .accountService.isUpdateAccountInfoProcessing.isTrue
                       ? const CustomLoadingButton(height: 56)
                       : CustomButton(
-                          text: 'Delete account',
+                          text: AppLocale.deleteAccount.getString(context),
                           width: double.maxFinite,
                           height: 56,
                           fontSize: 16,

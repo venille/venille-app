@@ -1,3 +1,4 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -5,6 +6,7 @@ import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/components/text/subtitle_text.dart';
 import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:venille/components/buttons/language_selection_dropdown.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class LanguageSettingsScreen extends StatefulWidget {
   const LanguageSettingsScreen({super.key});
@@ -21,7 +23,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Language Settings'.tr,
+          title: AppLocale.languageSettings.getString(context),
           onTap: () => Get.back(),
         ),
       ),
@@ -35,7 +37,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             children: [
               const SizedBox(height: AppSizes.vertical_10),
               SubtitleText(
-                text: 'Which language do you want to use?'.tr,
+                text: AppLocale.whichLanguageDoYouWanttoUse.getString(context),
                 weight: FontWeight.w400,
               ),
               Container(
@@ -46,7 +48,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SubtitleText(
-                      text: 'Select language',
+                      text: AppLocale.selectLanguage.getString(context),
                       weight: FontWeight.w500,
                     ),
                     const LanguageSelectorDropdown(),

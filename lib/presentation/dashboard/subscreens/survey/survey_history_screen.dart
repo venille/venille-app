@@ -1,5 +1,7 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -8,6 +10,7 @@ import 'package:venille/components/appbar/return_to_appbar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:venille/components/cards/survey_history_item_card.dart';
 import 'package:venille/components/skeletons/empty_results_content.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class SurveyHistoryScreen extends StatefulWidget {
   const SurveyHistoryScreen({super.key});
@@ -63,7 +66,7 @@ class _SurveyHistoryScreenState extends State<SurveyHistoryScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ReturnToAppbar(
-          title: 'Survey History',
+          title: AppLocale.surveyHistory.getString(context),
           onTap: () {
             Get.back();
           },

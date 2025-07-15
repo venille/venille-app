@@ -1,8 +1,11 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/components/text/title_text.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class EmptyResultsContent extends StatelessWidget {
   final double? height;
@@ -40,41 +43,50 @@ class EmptyResultsContent extends StatelessWidget {
             child: TitleText(
               size: 20,
               title: displayType == 'FORUM_POSTS'
-                  ? 'No Forum Posts'.tr
+                  ? AppLocale.noForumPosts.getString(context)
                   : displayType == 'COURSES'
-                      ? 'No Courses'.tr
+                      ? AppLocale.noCourses.getString(context)
                       : displayType == 'NOTIFICATIONS'
-                          ? 'No New Notifications'.tr
+                          ? AppLocale.noNewNotification.getString(context)
                           : displayType == 'ONGOING_ORDERS'
-                              ? 'No Ongoing Orders'.tr
+                              ? AppLocale.noOngoingOrders.getString(context)
                               : displayType == 'ONBOARDING_QUESTIONS'
-                                  ? 'No Onboarding Questions?'.tr
+                                  ? AppLocale.noOnboardQuestion
+                                      .getString(context)
                                   : displayType == 'COMPLETED_ORDERS'
-                                      ? 'No Completed Orders'.tr
+                                      ? AppLocale.noCompletedOrders
+                                          .getString(context)
                                       : displayType == 'SURVEY_HISTORY'
-                                          ? 'No Survey History'.tr
-                                          : 'No results'.tr,
+                                          ? AppLocale.noSurveyHistory
+                                              .getString(context)
+                                          : AppLocale.noResults
+                                              .getString(context),
             ),
           ),
           const SizedBox(height: AppSizes.vertical_5),
           SubtitleText(
             alignment: TextAlign.center,
             text: displayType == 'FORUM_POSTS'
-                ? 'You will see your forum posts here once you create one.'.tr
-                : displayType == 'COURSES'.tr
-                    ? 'No courses available at the moment.'.tr
+                ? AppLocale.youWillSeeYourForumPostsHereOnceYouCreateOne
+                    .getString(context)
+                : displayType == 'COURSES'
+                    ? AppLocale.noCourseAvailable.getString(context)
                     : displayType == 'NOTIFICATIONS'
-                        ? 'You will see new notifications here once you have one.'
-                            .tr
+                        ? AppLocale.youWillSeeNewNotification.getString(context)
                         : displayType == 'ONGOING_ORDERS'
-                            ? 'No ongoing orders at the moment.'.tr
+                            ? AppLocale.noOngoingOrdersAtTheMoment
+                                .getString(context)
                             : displayType == 'ONBOARDING_QUESTIONS'
-                                ? 'Drag down to refresh!'.tr
+                                ? AppLocale.dragDownToRefresh.getString(context)
                                 : displayType == 'COMPLETED_ORDERS'
-                                    ? 'No completed orders at the moment.'.tr
+                                    ?
+                                    AppLocale.noCompletedOrdersAtTheMoment.getString(context)
+                                     
                                     : displayType == 'SURVEY_HISTORY'
-                                        ? 'No survey history at the moment.'.tr
-                                        : 'No results'.tr,
+                                        ? 
+                                        AppLocale.noSurveyHistoryAtTheMoment.getString(context)
+                                        
+                                        : AppLocale.noResults.getString(context),
           ),
         ],
       ),

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -12,6 +14,7 @@ import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/resend_otp_button.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 
@@ -77,8 +80,8 @@ class _UpdateAccountVerifyEmailScreenState
   void submitHandler() async {
     if (isOtpValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid OTP',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidOTP.getString(context),
       );
     } else {
       VerifyNewAccountEmailDTO payload = VerifyNewAccountEmailDTO(
@@ -166,17 +169,18 @@ class _UpdateAccountVerifyEmailScreenState
                   children: [
                     // const CustomAuthBackButton(),
                     const SizedBox(height: AppSizes.vertical_15),
-                    const TitleText(
+                    TitleText(
                       size: 20,
-                      title: 'Verify your email',
+                      title: AppLocale.verifyYourEmail.getString(context),
                     ),
                     const SizedBox(height: AppSizes.vertical_5),
                     RichText(
                       text: TextSpan(
                         children: [
-                          const TextSpan(
-                            text: 'Please enter the 4 digit code we sent to ',
-                            style: TextStyle(
+                          TextSpan(
+                            text: AppLocale.pleaseEnterThe4DigitCodeWeSentTo
+                                .getString(context),
+                            style: const TextStyle(
                               fontSize: 14,
                               fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
@@ -264,7 +268,7 @@ class _UpdateAccountVerifyEmailScreenState
                             .accountService.isUpdateAccountInfoProcessing.isTrue
                         ? const CustomLoadingButton(height: 50)
                         : CustomButton(
-                            text: 'Verify',
+                            text: AppLocale.verify.getString(context),
                             width: double.maxFinite,
                             height: 56,
                             fontSize: 16,

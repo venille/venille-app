@@ -18,7 +18,7 @@ class BodyText extends CustomTextWidget {
     TextDecoration? decoration,
   }) : super(
           size: size ?? 14,
-          text: text.tr,
+          text: text,
           maxLines: maxLines,
           lineHeight: lineHeight ?? 1,
           weight: weight ?? FontWeight.w400,

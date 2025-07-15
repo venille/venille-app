@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
@@ -14,6 +16,7 @@ import 'package:period_tracker_sdk/src/model/monthly_period_info.dart';
 import 'package:venille/components/navigation/custom_side_drawer.dart';
 import 'package:venille/components/skeletons/insecure_dashboard_content.dart';
 import 'package:venille/components/navigation/custom_bottom_navigation_bar.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class TrackerScreen extends StatefulWidget {
   const TrackerScreen({super.key});
@@ -306,7 +309,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Reminder Details',
+                AppLocale.reminderDetails.getString(context),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -428,10 +431,10 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                     color: AppColors.redColor,
                     borderRadius: BorderRadius.circular(200),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: TitleText(
                       size: 14,
-                      title: 'Log period',
+                      title: AppLocale.logPeriod.getString(context),
                       color: AppColors.whiteColor,
                     ),
                   ),
@@ -645,7 +648,7 @@ class _CalendarScrollViewState extends State<CalendarScrollView> {
                             ),
                             if (isToday)
                               Text(
-                                'TODAY',
+                                AppLocale.today.getString(context),
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.red,

@@ -1,11 +1,14 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/appbar/profile_appbar.dart';
 import 'package:venille/components/images/cached_network_image_widget.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/components/text/subtitle_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
 class CourseCard extends StatelessWidget {
@@ -75,7 +78,7 @@ class CourseCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Tap to learn more'.tr,
+                    AppLocale.tapToLearnMore.getString(context),
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.8),
                       fontSize: 12,

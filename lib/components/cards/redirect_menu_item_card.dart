@@ -99,7 +99,7 @@ class RedirectMenuItemCard extends StatelessWidget {
                   ),
                 ),
                 SubtitleText(
-                  text: title.tr,
+                  text: title,
                 ),
               ],
             ),

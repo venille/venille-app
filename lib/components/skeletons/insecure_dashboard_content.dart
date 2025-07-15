@@ -1,10 +1,13 @@
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/routes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/components/text/body_text.dart';
 import 'package:venille/components/buttons/custom_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 
 class InsecureDashboardContent extends StatelessWidget {
   const InsecureDashboardContent({super.key});
@@ -27,12 +30,11 @@ class InsecureDashboardContent extends StatelessWidget {
             size: 16,
             weight: FontWeight.w500,
             alignment: TextAlign.center,
-            text:
-                'You are currently logged in as a guest user, login to access all features.',
+            text: '',
           ),
           const SizedBox(height: AppSizes.vertical_30),
           CustomButton(
-            text: 'Login',
+            text: AppLocale.logIn.getString(context),
             width: 120,
             height: 46,
             fontSize: 16,

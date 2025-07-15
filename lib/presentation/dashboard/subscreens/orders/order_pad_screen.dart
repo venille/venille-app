@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
@@ -11,6 +13,7 @@ import 'package:venille/components/form/form_text_field.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/account/lib/account_sdk.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
 
@@ -46,26 +49,26 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
   void handleSubmit() {
     if (isAddressValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Address must be at least 5 characters',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.addressMustBeAtleast5Characters.getString(context),
       );
     } else if (addressController.text.isEmpty) {
       return customErrorMessageSnackbar(
         duration: 5500,
-        title: 'Message',
-        message: 'Address is required.',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.addressRequired.getString(context),
       );
     } else if (buildingNumberController.text.isEmpty) {
       return customErrorMessageSnackbar(
         duration: 5500,
-        title: 'Message',
-        message: 'Building number is required.',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.buildingNumberIsRequired.getString(context),
       );
     } else if (nearestLandMarkController.text.isEmpty) {
       return customErrorMessageSnackbar(
         duration: 5500,
-        title: 'Message',
-        message: 'Nearest landmark is required.',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.nearestLandMark.getString(context),
       );
     } else {
       OrderSanitaryPadDTO payload = OrderSanitaryPadDTO(
@@ -128,11 +131,11 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     ),
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: TitleText(
                     size: 20,
-                    title: 'Order Sanitary Pad',
+                    title: AppLocale.orderSanitaryPad.getString(context),
                   ),
                 ),
               ],
@@ -150,7 +153,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
             children: [
               const SizedBox(height: AppSizes.vertical_20),
               FormLabelText(
-                text: 'Quantity'.tr,
+                text: AppLocale.quantity.getString(context),
                 size: 16,
               ),
               Row(
@@ -207,7 +210,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
               ),
               const SizedBox(height: AppSizes.vertical_12),
               FormLabelText(
-                text: 'Delivery Method'.tr,
+                text: AppLocale.deliveryMethod.getString(context),
                 size: 16,
               ),
               Row(
@@ -226,7 +229,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           activeColor: AppColors.greenColor,
                         ),
                         SubtitleText(
-                          text: 'Delivery'.tr,
+                          text: AppLocale.delivery.getString(context),
                         ),
                       ],
                     ),
@@ -245,7 +248,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                           activeColor: AppColors.greenColor,
                         ),
                         SubtitleText(
-                          text: 'Pickup'.tr,
+                          text: AppLocale.pickUp.getString(context),
                         ),
                       ],
                     ),
@@ -254,19 +257,19 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
               ),
               const SizedBox(height: AppSizes.vertical_12),
               FormTextField(
-                label: 'Address',
+                label: AppLocale.address.getString(context),
                 hintText: 'e.g Abiola Adefemi Street',
                 textController: addressController,
               ),
               const SizedBox(height: AppSizes.vertical_12),
               FormTextField(
-                label: 'Building number',
+                label: AppLocale.buildingNumber.getString(context),
                 hintText: 'e.g 12A',
                 textController: buildingNumberController,
               ),
               const SizedBox(height: AppSizes.vertical_12),
               FormTextField(
-                label: 'Nearest Landmark',
+                label: AppLocale.nearestLandMark.getString(context),
                 hintText: 'e.g bank, hospital etc...',
                 textController: nearestLandMarkController,
               ),
@@ -297,7 +300,7 @@ class _OrderPadScreenState extends State<OrderPadScreen> {
                     backgroundColor: AppColors.blackColor,
                   )
                 : CustomButton(
-                    text: 'Confirm details',
+                    text: AppLocale.confirmDetails.getString(context),
                     width: double.maxFinite,
                     height: 56,
                     fontSize: 16,

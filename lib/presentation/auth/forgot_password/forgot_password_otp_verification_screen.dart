@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:venille/core/constants/timers.dart';
 import 'package:venille/core/constants/navigation.dart';
 import 'package:venille/components/text/title_text.dart';
+import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/auth/lib/auth_sdk.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/resend_otp_button.dart';
@@ -105,8 +108,8 @@ class _ForgotPasswordOtpVerificationScreenState
 
     if (isOtpValid.isFalse) {
       return customErrorMessageSnackbar(
-        title: 'Message',
-        message: 'Invalid OTP code',
+        title: AppLocale.message.getString(context),
+        message: AppLocale.invalidOTP.getString(context),
       );
     } else {
       ResetPasswordVerificationDTO payload = ResetPasswordVerificationDTO(
@@ -170,17 +173,18 @@ class _ForgotPasswordOtpVerificationScreenState
                         navigateTo: AuthNavigationTypes.authSignIn,
                       ),
                       const SizedBox(height: AppSizes.vertical_15),
-                      const TitleText(
+                      TitleText(
                         size: 20,
-                        title: 'Enter OTP Code',
+                        title: AppLocale.enterOTPCode.getString(context),
                       ),
                       const SizedBox(height: AppSizes.vertical_5),
                       RichText(
                         text: TextSpan(
                           children: [
-                            const TextSpan(
-                              text: 'Please enter the 4 digit code we sent to ',
-                              style: TextStyle(
+                            TextSpan(
+                              text: AppLocale.pleaseEnterThe4DigitCodeWeSentTo
+                                  .getString(context),
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
@@ -196,9 +200,9 @@ class _ForgotPasswordOtpVerificationScreenState
                                 color: AppColors.blackColor,
                               ),
                             ),
-                            const TextSpan(
-                              text: ' via email.',
-                              style: TextStyle(
+                            TextSpan(
+                              text: AppLocale.viaEmail.getString(context),
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
@@ -276,7 +280,7 @@ class _ForgotPasswordOtpVerificationScreenState
                               .isResetPasswordOtpVerificationProcessing.isTrue
                           ? const CustomLoadingButton(height: 56)
                           : CustomButton(
-                              text: 'Verify',
+                              text: AppLocale.verify.getString(context),
                               width: double.maxFinite,
                               height: 56,
                               fontSize: 16,
