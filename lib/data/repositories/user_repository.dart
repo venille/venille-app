@@ -88,6 +88,7 @@ class UserRepository extends GetxController {
           ListBuilder<PeriodTrackerSdk.MenstrualPhaseDescriptionInfo>(),
   ).obs;
 
+  RxString courseCategory = ''.obs;
   Rx<EngagementSdk.CourseInfo> courseInfo = EngagementSdk.CourseInfo(
     (courseInfo) => courseInfo
       ..id = ''

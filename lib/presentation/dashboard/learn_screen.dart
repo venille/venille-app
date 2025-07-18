@@ -132,6 +132,7 @@ class _LearnScreenState extends State<LearnScreen> {
                                           itemCount: category.courses.length,
                                           itemBuilder: (context, courseIndex) {
                                             return CourseCard(
+                                              category: category.title,
                                               course:
                                                   category.courses[courseIndex],
                                             );

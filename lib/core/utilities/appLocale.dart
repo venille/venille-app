@@ -394,6 +394,7 @@ mixin AppLocale {
   static const String youWillSeeNewNotification =
       "You will see new notifications here once you have one.";
   static const String dragDownToRefresh = "Drag down to refresh!";
+
   static const Map<String, dynamic> EN = {
     hello: "Hello",
     welcome: "Welcome",
@@ -760,6 +761,7 @@ mixin AppLocale {
         "You will see new notifications here once you have one.",
     dragDownToRefresh: "Drag down to refresh!",
   };
+  
   static const Map<String, dynamic> HA = {
     hello: "Sannu",
     welcome: "Barka da zuwa",

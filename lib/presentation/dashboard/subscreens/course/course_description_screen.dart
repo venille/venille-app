@@ -1,12 +1,14 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:venille/components/text/body_text.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/middlewares/index.dart';
 import 'package:venille/core/providers/index.dart';
 import 'package:venille/core/constants/colors.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:venille/components/text/title_text.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:venille/components/buttons/custom_back_button.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
@@ -24,6 +26,9 @@ class CourseDescriptionScreen extends StatefulWidget {
 
 class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
   final RxBool showOriginal = false.obs;
+
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -73,36 +78,56 @@ class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                // InkWell(
-                //   onTap: () {
-                //     ServiceRegistry.engagementService
-                //         .translateCourseDescriptionService(
-                //       text: ServiceRegistry
-                //           .userRepository.courseInfo.value.description,
-                //       courseId:
-                //           ServiceRegistry.userRepository.courseInfo.value.id,
-                //       sourceLanguage: showOriginal.isFalse
-                //           ? 'en'
-                //           : '${Get.locale?.languageCode}',
-                //       targetLanguage: showOriginal.isFalse
-                //           ? '${Get.locale?.languageCode}'
-                //           : 'en',
-                //       courseCategory: ServiceRegistry
-                //           .userRepository.courseInfo.value.category.name,
-                //     );
-                //   },
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(
-                //       vertical: AppSizes.vertical_5,
-                //     ),
-                //     child: TitleText(
-                //       weight: FontWeight.w500,
-                //       title:
-                //           'Show ${showOriginal.isFalse ? "translation" : "original"}'
-                //               .tr,
-                //     ),
-                //   ),
-                // ),
+                const SizedBox(height: AppSizes.vertical_10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        TranslateLongTextDto payload = TranslateLongTextDto(
+                          (instance) => instance
+                            ..text = ServiceRegistry
+                                .userRepository.courseInfo.value.description,
+                        );
+
+                        ServiceRegistry.engagementService
+                            .translateCourseDescriptionService(
+                          payload: payload,
+                          courseId: ServiceRegistry
+                              .userRepository.courseInfo.value.id,
+                          sourceLanguage: showOriginal.isFalse
+                              ? 'en'
+                              : '${_localization.currentLocale?.languageCode}',
+                          targetLanguage: showOriginal.isFalse
+                              ? '${_localization.currentLocale?.languageCode}'
+                              : 'en',
+                          courseCategory: ServiceRegistry
+                              .userRepository.courseCategory.value,
+                          updateLocalState: () {
+                            showOriginal.value = !showOriginal.value;
+                          },
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.blackColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppSizes.vertical_5,
+                          horizontal: AppSizes.horizontal_15,
+                        ),
+                        child: BodyText(
+                          color: AppColors.whiteColor,
+                          weight: FontWeight.w400,
+                          text:
+                              'Show ${showOriginal.isFalse ? "translation" : "original"}'
+                                  .tr,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: AppSizes.horizontal_10,

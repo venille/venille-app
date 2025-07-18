@@ -1,32 +1,3 @@
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -46,6 +17,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ForumCommentsResponse.serializer)
       ..add(ForumFeedResponse.serializer)
       ..add(ForumInfo.serializer)
+      ..add(TranslateLongTextDto.serializer)
       ..add(TranslateTextInfo.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CourseInfo)]),

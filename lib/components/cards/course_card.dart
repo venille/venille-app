@@ -12,14 +12,16 @@ import 'package:venille/core/utilities/appLocale.dart';
 import 'package:venille/data/infra_sdk/engagement/lib/engagement_sdk.dart';
 
 class CourseCard extends StatelessWidget {
+  final String category;
   final CourseInfo course;
-  const CourseCard({super.key, required this.course});
+  const CourseCard({super.key, required this.course, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         ServiceRegistry.userRepository.courseInfo.value = course;
+        ServiceRegistry.userRepository.courseCategory.value = category;
 
         Get.toNamed(AppRoutes.courseDescriptionRoute);
       },

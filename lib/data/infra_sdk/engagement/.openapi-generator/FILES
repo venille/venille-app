@@ -12,6 +12,7 @@ doc/ForumCommentsResponse.md
 doc/ForumFeedResponse.md
 doc/ForumInfo.md
 doc/MyForumApi.md
+doc/TranslateLongTextDto.md
 doc/TranslateTextInfo.md
 doc/TranslationApi.md
 lib/engagement_sdk.dart
@@ -36,6 +37,8 @@ lib/src/model/forum_comment_info.dart
 lib/src/model/forum_comments_response.dart
 lib/src/model/forum_feed_response.dart
 lib/src/model/forum_info.dart
+lib/src/model/translate_long_text_dto.dart
 lib/src/model/translate_text_info.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/translate_long_text_dto_test.dart

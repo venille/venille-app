@@ -26,8 +26,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notificationsEnabled = false;
   bool _isLoading = false;
+  bool _notificationsEnabled = false;
+
+  final FlutterLocalization _localization = FlutterLocalization.instance;
 
   @override
   void initState() {
@@ -235,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         SubtitleText(
                           weight: FontWeight.w400,
-                          text: '${Get.locale?.languageCode}',
+                          text: '${_localization.currentLocale?.languageCode}',
                         ),
                         const Icon(
                           Icons.arrow_forward_ios,

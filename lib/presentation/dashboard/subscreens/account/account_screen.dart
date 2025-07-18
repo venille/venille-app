@@ -27,6 +27,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final item = profileMenuItems(context);
+    
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: const PreferredSize(

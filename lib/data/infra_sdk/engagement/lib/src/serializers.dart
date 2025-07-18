@@ -23,6 +23,7 @@ import 'package:engagement_sdk/src/model/forum_comment_info.dart';
 import 'package:engagement_sdk/src/model/forum_comments_response.dart';
 import 'package:engagement_sdk/src/model/forum_feed_response.dart';
 import 'package:engagement_sdk/src/model/forum_info.dart';
+import 'package:engagement_sdk/src/model/translate_long_text_dto.dart';
 import 'package:engagement_sdk/src/model/translate_text_info.dart';
 
 part 'serializers.g.dart';
@@ -36,6 +37,7 @@ part 'serializers.g.dart';
   ForumCommentsResponse,
   ForumFeedResponse,
   ForumInfo,
+  TranslateLongTextDto,
   TranslateTextInfo,
 ])
 Serializers serializers = (_$serializers.toBuilder()

@@ -633,11 +633,12 @@ class EngagementService extends GetxController {
   ///
   /// [IS-AUTHENTICATED]
   Future<void> translateCourseDescriptionService({
-    required String text,
+    required TranslateLongTextDto payload,
     required String courseId,
     required String sourceLanguage,
     required String targetLanguage,
     required String courseCategory,
+    required Function updateLocalState,
   }) async {
     return authGuard<void>(() async {
       try {
@@ -649,39 +650,48 @@ class EngagementService extends GetxController {
             ServiceRegistry.engagementSdk.getTranslationApi();
 
         Dio.Response response =
-            await translationApi.translationControllerTranslateText(
-          text: text,
+            await translationApi.translationControllerTranslateLongText(
+          translateLongTextDto: payload,
           engine: 'aws',
           sourceLanguage: sourceLanguage,
           targetLanguage: targetLanguage,
         );
 
-        if (response.statusCode == 201) {
+        if (response.statusCode == 201 || response.statusCode == 200) {
           log('[TRANSLATE-COURSE-DESCRIPTION-RESPONSE] :: ${response.data}');
 
           TranslateTextInfo data = response.data;
 
           if (data.isTranslated) {
-            final updatedCourses =
-                ServiceRegistry.userRepository.courseCategories.map((course) {
-              if (course.title == courseCategory) {
-                return course.rebuild((courseCategoryBuilder) {
-                  courseCategoryBuilder.courses =
-                      ListBuilder(course.courses.map((course) {
-                    if (course.id == courseId) {
-                      return course.rebuild((courseBuilder) {
-                        courseBuilder.description = data.translatedText;
-                      });
-                    }
-                    return course;
-                  }).toList());
-                });
-              }
-              return course;
-            }).toList();
+            // final updatedCourses =
+            //     ServiceRegistry.userRepository.courseCategories.map((course) {
+            //   if (course.title == courseCategory) {
+            //     return course.rebuild((courseCategoryBuilder) {
+            //       courseCategoryBuilder.courses =
+            //           ListBuilder(course.courses.map((course) {
+            //         if (course.id == courseId) {
+            //           return course.rebuild((courseBuilder) {
+            //             courseBuilder.description = data.translatedText;
+            //           });
+            //         }
+            //         return course;
+            //       }).toList());
+            //     });
+            //   }
+            //   return course;
+            // }).toList();
 
-            ServiceRegistry.userRepository.courseCategories.value =
-                updatedCourses;
+            ServiceRegistry.userRepository.courseInfo.value =
+                ServiceRegistry.userRepository.courseInfo.value.rebuild(
+              (courseInfoBuilder) {
+                courseInfoBuilder.description = data.translatedText;
+              },
+            );
+
+            updateLocalState();
+
+            // ServiceRegistry.userRepository.courseCategories.value =
+            //     updatedCourses;
           }
         } else {
           customErrorMessageSnackbar(
