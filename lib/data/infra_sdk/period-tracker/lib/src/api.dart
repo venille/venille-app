@@ -1,5 +1,4 @@
 // @dart=3.5
-// @dart=3.5
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
@@ -11,6 +10,7 @@ import 'package:period_tracker_sdk/src/auth/api_key_auth.dart';
 import 'package:period_tracker_sdk/src/auth/basic_auth.dart';
 import 'package:period_tracker_sdk/src/auth/bearer_auth.dart';
 import 'package:period_tracker_sdk/src/auth/oauth.dart';
+import 'package:period_tracker_sdk/src/api/cycle_and_ovulation_api.dart';
 import 'package:period_tracker_sdk/src/api/period_tracker_api.dart';
 
 class PeriodTrackerSdk {
@@ -65,6 +65,12 @@ class PeriodTrackerSdk {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
       (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
+  }
+
+  /// Get CycleAndOvulationApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  CycleAndOvulationApi getCycleAndOvulationApi() {
+    return CycleAndOvulationApi(dio, serializers);
   }
 
   /// Get PeriodTrackerApi instance, base route and serializer can be overridden by a given but be careful,

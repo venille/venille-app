@@ -1,6 +1,8 @@
 .gitignore
 README.md
 analysis_options.yaml
+doc/CycleAndOvulationApi.md
+doc/CycleOvulationInfo.md
 doc/DashboardInfo.md
 doc/LogPeriodSymptomDto.md
 doc/MenstrualPhaseDescriptionInfo.md
@@ -15,8 +17,10 @@ doc/PeriodTrackerHistoryDto.md
 doc/PeriodYearDto.md
 doc/PredictedYearTrackerInfo.md
 doc/PreviousCycleInfo.md
+doc/UpdateCycleAndOvulationSettingsDto.md
 lib/period_tracker_sdk.dart
 lib/src/api.dart
+lib/src/api/cycle_and_ovulation_api.dart
 lib/src/api/period_tracker_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -25,6 +29,7 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
+lib/src/model/cycle_ovulation_info.dart
 lib/src/model/dashboard_info.dart
 lib/src/model/date.dart
 lib/src/model/log_period_symptom_dto.dart
@@ -39,5 +44,9 @@ lib/src/model/period_tracker_history_dto.dart
 lib/src/model/period_year_dto.dart
 lib/src/model/predicted_year_tracker_info.dart
 lib/src/model/previous_cycle_info.dart
+lib/src/model/update_cycle_and_ovulation_settings_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/cycle_and_ovulation_api_test.dart
+test/cycle_ovulation_info_test.dart
+test/update_cycle_and_ovulation_settings_dto_test.dart

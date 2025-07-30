@@ -47,13 +47,13 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:period_tracker_sdk/period_tracker_sdk.dart';
 
 
-final api = PeriodTrackerSdk().getPeriodTrackerApi();
+final api = PeriodTrackerSdk().getCycleAndOvulationApi();
 
 try {
-    final response = await api.periodTrackerControllerGetDashboardInfo();
+    final response = await api.periodTrackerControllerFetchCycleAndOvulationSettings();
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling PeriodTrackerApi->periodTrackerControllerGetDashboardInfo: $e\n");
+    print("Exception when calling CycleAndOvulationApi->periodTrackerControllerFetchCycleAndOvulationSettings: $e\n");
 }
 
 ```
@@ -64,6 +64,8 @@ All URIs are relative to *https://venille-api.livestocx.xyz*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*CycleAndOvulationApi*](doc/CycleAndOvulationApi.md) | [**periodTrackerControllerFetchCycleAndOvulationSettings**](doc/CycleAndOvulationApi.md#periodtrackercontrollerfetchcycleandovulationsettings) | **GET** /v1/period-tracker/tracker/cycle-and-ovulation-info | 
+[*CycleAndOvulationApi*](doc/CycleAndOvulationApi.md) | [**periodTrackerControllerPatchCycleAndOvulationSettings**](doc/CycleAndOvulationApi.md#periodtrackercontrollerpatchcycleandovulationsettings) | **PATCH** /v1/period-tracker/tracker/update-cycle-and-ovulation-info | 
 [*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetDashboardInfo**](doc/PeriodTrackerApi.md#periodtrackercontrollergetdashboardinfo) | **GET** /v1/period-tracker/tracker/dashboard-info | 
 [*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerGetPeriodTrackerHistory**](doc/PeriodTrackerApi.md#periodtrackercontrollergetperiodtrackerhistory) | **GET** /v1/period-tracker/tracker/predicted-log | 
 [*PeriodTrackerApi*](doc/PeriodTrackerApi.md) | [**periodTrackerControllerLogPeriodSymptoms**](doc/PeriodTrackerApi.md#periodtrackercontrollerlogperiodsymptoms) | **POST** /v1/period-tracker/tracker/log-symptoms | 
@@ -72,6 +74,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [CycleOvulationInfo](doc/CycleOvulationInfo.md)
  - [DashboardInfo](doc/DashboardInfo.md)
  - [LogPeriodSymptomDto](doc/LogPeriodSymptomDto.md)
  - [MenstrualPhaseDescriptionInfo](doc/MenstrualPhaseDescriptionInfo.md)
@@ -85,6 +88,7 @@ Class | Method | HTTP request | Description
  - [PeriodYearDto](doc/PeriodYearDto.md)
  - [PredictedYearTrackerInfo](doc/PredictedYearTrackerInfo.md)
  - [PreviousCycleInfo](doc/PreviousCycleInfo.md)
+ - [UpdateCycleAndOvulationSettingsDto](doc/UpdateCycleAndOvulationSettingsDto.md)
 
 
 ## Documentation For Authorization

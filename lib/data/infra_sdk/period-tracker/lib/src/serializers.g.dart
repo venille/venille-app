@@ -1,7 +1,3 @@
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
-// @dart=3.5
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=3.5
 
@@ -12,6 +8,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(CycleOvulationInfo.serializer)
       ..add(DashboardInfo.serializer)
       ..add(LogPeriodSymptomDto.serializer)
       ..add(MenstrualPhaseDescriptionInfo.serializer)
@@ -25,6 +22,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(PeriodYearDto.serializer)
       ..add(PredictedYearTrackerInfo.serializer)
       ..add(PreviousCycleInfo.serializer)
+      ..add(UpdateCycleAndOvulationSettingsDto.serializer)
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(MenstrualPhaseDescriptionInfo)]),

@@ -18,8 +18,8 @@ import 'package:venille/data/services/period-tracker/period_tracker_service.dart
 
 class ServiceRegistry {
   static Dio dioBaseOptions = Dio(BaseOptions(
-    // baseUrl: dotenv.env['INFRA_BASE_URL']!,
-    baseUrl: dotenv.env['INFRA_PROD_URL']!,
+    baseUrl: dotenv.env['INFRA_BASE_URL']!,
+    // baseUrl: dotenv.env['INFRA_PROD_URL']!,
     sendTimeout: const Duration(milliseconds: 15000),
     connectTimeout: const Duration(milliseconds: 15000),
     receiveTimeout: const Duration(milliseconds: 15000),
@@ -41,25 +41,25 @@ class ServiceRegistry {
 
   static AuthSdk authSdk = AuthSdk(
     dio: dioBaseOptions,
-    // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
-    basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
   );
 
   static AccountSdk accountSdk = AccountSdk(
     dio: dioBaseOptions,
-    // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
-    basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
   );
 
   static EngagementSdk engagementSdk = EngagementSdk(
     dio: dioBaseOptions,
-    // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
-    basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
   );
 
   static PeriodTrackerSdk periodTrackerSdk = PeriodTrackerSdk(
     dio: dioBaseOptions,
-    // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
-    basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    basePathOverride: dotenv.env['INFRA_BASE_URL']!,
+    // basePathOverride: dotenv.env['INFRA_PROD_URL']!,
   );
 }

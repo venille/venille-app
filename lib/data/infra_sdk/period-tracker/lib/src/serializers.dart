@@ -15,6 +15,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:period_tracker_sdk/src/date_serializer.dart';
 import 'package:period_tracker_sdk/src/model/date.dart';
 
+import 'package:period_tracker_sdk/src/model/cycle_ovulation_info.dart';
 import 'package:period_tracker_sdk/src/model/dashboard_info.dart';
 import 'package:period_tracker_sdk/src/model/log_period_symptom_dto.dart';
 import 'package:period_tracker_sdk/src/model/menstrual_phase_description_info.dart';
@@ -28,10 +29,12 @@ import 'package:period_tracker_sdk/src/model/period_tracker_history_dto.dart';
 import 'package:period_tracker_sdk/src/model/period_year_dto.dart';
 import 'package:period_tracker_sdk/src/model/predicted_year_tracker_info.dart';
 import 'package:period_tracker_sdk/src/model/previous_cycle_info.dart';
+import 'package:period_tracker_sdk/src/model/update_cycle_and_ovulation_settings_dto.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
+  CycleOvulationInfo,
   DashboardInfo,
   LogPeriodSymptomDto,
   MenstrualPhaseDescriptionInfo,
@@ -45,6 +48,7 @@ part 'serializers.g.dart';
   PeriodYearDto,
   PredictedYearTrackerInfo,
   PreviousCycleInfo,
+  UpdateCycleAndOvulationSettingsDto,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..add(const OneOfSerializer())

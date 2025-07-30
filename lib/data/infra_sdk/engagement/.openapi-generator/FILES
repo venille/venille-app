@@ -41,4 +41,3 @@ lib/src/model/translate_long_text_dto.dart
 lib/src/model/translate_text_info.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/translate_long_text_dto_test.dart
