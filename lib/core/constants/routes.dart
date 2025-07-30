@@ -1,5 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
+import 'package:venille/presentation/dashboard/subscreens/cycle_ovulation/cycle_ovulation_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/menstrual_phase/menstrual_phase_description_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/notifications/notifications_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
@@ -225,6 +226,11 @@ class AppRoutes {
   /// Navigates to delete account screen
   static const String deleteAccountRoute = '/DELETE_ACCOUNT_ROUTE';
 
+  /// CYCLE_AND_OVULATION
+  ///
+  static const String cycleOvulationRoute = '/CYCLE_OVULATION_ROUTE';
+
+  /// Navigate to cycle and ovulation screen
   static List<GetPage> routes = [
     // PUBLIC
     GetPage(
@@ -430,5 +436,8 @@ class AppRoutes {
       name: deleteAccountRoute,
       page: () => const DeleteAccountScreen(),
     ),
+
+    // CYCLE AND OVULATION
+    GetPage(name: cycleOvulationRoute, page: () => const CycleOvulationScreen())
   ];
 }

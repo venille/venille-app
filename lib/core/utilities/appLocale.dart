@@ -386,14 +386,15 @@ mixin AppLocale {
   static const String home = "Home";
   static const String tracker = "Tracker";
   static const String forum = "Forum";
-
-  //New translation
   static const String noNewNotification = "No New Notifications";
   static const String noOnboardQuestion = "No Onboarding Questions?";
   static const String noCourseAvailable = "No courses available at the moment.";
   static const String youWillSeeNewNotification =
       "You will see new notifications here once you have one.";
   static const String dragDownToRefresh = "Drag down to refresh!";
+  //update pending
+  static const String cycleOvulation = "Cycle and Ovulation";
+  //close
 
   static const Map<String, dynamic> EN = {
     hello: "Hello",
@@ -760,8 +761,10 @@ mixin AppLocale {
     youWillSeeNewNotification:
         "You will see new notifications here once you have one.",
     dragDownToRefresh: "Drag down to refresh!",
+
+    cycleOvulation: "Cycle and Ovulation",
   };
-  
+
   static const Map<String, dynamic> HA = {
     hello: "Sannu",
     welcome: "Barka da zuwa",

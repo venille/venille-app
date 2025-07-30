@@ -34,6 +34,11 @@ List<ProfileMenuItemModel> profileMenuItems(BuildContext context) {
       route_to: AppRoutes.accountDetailsRoute,
     ),
     ProfileMenuItemModel(
+      icon: 'assets/icons/icon_cycle_ovulate.png',
+      title: AppLocale.cycleOvulation.getString(context),
+      route_to: AppRoutes.cycleOvulationRoute,
+    ),
+    ProfileMenuItemModel(
       icon: 'assets/icons/icon_settings.png',
       title: AppLocale.settings.getString(context),
       route_to: AppRoutes.settingsRoute,
