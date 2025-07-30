@@ -237,4 +237,56 @@ class PeriodTrackerService extends GetxController {
       }
     });
   }
+
+  //! UPDATE CYCLE AND OVULATION INFO
+  /// Update cycle and ovulation settings.
+  ///
+  /// [METHOD] - PATCH
+  ///
+  /// [ROUTE] - /period-tracker/settings/log-symptoms
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> updateCycleAndOvulationInfoService(
+      UpdateCycleAndOvulationSettingsDto payload) async {
+    return authGuard<void>(() async {
+      try {
+        log("[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-PENDING]");
+
+        isLogPeriodSymptomsProcessing.value = true;
+
+        CycleAndOvulationApi periodTrackerApi =
+            ServiceRegistry.periodTrackerSdk.getCycleAndOvulationApi();
+
+        Dio.Response response = await periodTrackerApi
+            .periodTrackerControllerPatchCycleAndOvulationSettings(
+          updateCycleAndOvulationSettingsDto: payload,
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 201 || response.statusCode == 200) {
+          log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-RESPONSE] :: ${response.data}');
+
+          isLogPeriodSymptomsProcessing.value = false;
+
+          log("[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-SUCCESS]");
+        }
+      } catch (error) {
+        isLogPeriodSymptomsProcessing.value = false;
+
+        log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      } finally {
+        isLogPeriodSymptomsProcessing.value = false;
+      }
+    });
+  }
 }
