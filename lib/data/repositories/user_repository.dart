@@ -44,6 +44,13 @@ class UserRepository extends GetxController {
       ..createdAt = DateTime.now(),
   ).obs;
 
+  Rx<PeriodTrackerSdk.CycleOvulationInfo> cycleOvulationInfo = PeriodTrackerSdk.CycleOvulationInfo(
+    (forumPost) => forumPost
+      ..periodLength = 0
+      ..cycleLength = 0
+      ..lutealPhaseLength = 0,
+  ).obs;
+
   Rx<PeriodTrackerSdk.PeriodTrackerHistory> periodTrackerHistory =
       PeriodTrackerSdk.PeriodTrackerHistory(
     (instance) => instance

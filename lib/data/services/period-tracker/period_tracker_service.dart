@@ -12,6 +12,7 @@ import 'package:venille/data/infra_sdk/period-tracker/lib/period_tracker_sdk.dar
 class PeriodTrackerService extends GetxController {
   RxBool isLogPeriodSymptomsProcessing = false.obs;
   RxBool isLogPeriodLogHistoryProcessing = false.obs;
+  RxBool isUpdateCycleOvulationInfoProcessing = false.obs;
   RxBool isFetchPeriodTrackerDashboardInfoProcessing = false.obs;
 
   //! FETCH PERIOD TRACKER HISTORY
@@ -238,6 +239,52 @@ class PeriodTrackerService extends GetxController {
     });
   }
 
+  //! FETCH CYCLE AND OVULATION INFO
+  /// Fetch cycle and ovulation settings.
+  ///
+  /// [METHOD] - FETCH
+  ///
+  /// [ROUTE] - /period-tracker/settings/log-symptoms
+  ///
+  /// [IS-AUTHENTICATED]
+  Future<void> fetchCycleAndOvulationInfoService() async {
+    return authGuard<void>(() async {
+      try {
+        log("[FETCH-CYCLE-AND-OVULATION-INFO-SETTINGS-PENDING]");
+
+        CycleAndOvulationApi periodTrackerApi =
+            ServiceRegistry.periodTrackerSdk.getCycleAndOvulationApi();
+
+        Dio.Response response = await periodTrackerApi
+            .periodTrackerControllerFetchCycleAndOvulationSettings(
+          headers: {
+            "Authorization": ServiceRegistry.localStorage.read(
+              LocalStorageSecrets.accessToken,
+            ),
+          },
+        );
+
+        if (response.statusCode == 201 || response.statusCode == 200) {
+          // log('[FETCH-CYCLE-AND-OVULATION-INFO-SETTINGS-RESPONSE] :: ${response.data}');
+
+          CycleOvulationInfo data = response.data;
+
+          ServiceRegistry.userRepository.cycleOvulationInfo.value = data;
+
+          log("[FETCH-CYCLE-AND-OVULATION-INFO-SETTINGS-SUCCESS]");
+        }
+      } catch (error) {
+        log('[FETCH-CYCLE-AND-OVULATION-INFO-SETTINGS-ERROR-RESPONSE] :: $error');
+
+        if (error is Dio.DioException) {
+          Dio.DioException dioError = error;
+
+          log('[FETCH-CYCLE-AND-OVULATION-INFO-SETTINGS-DIO-ERROR-RESPONSE] :: ${dioError.response}');
+        }
+      }
+    });
+  }
+
   //! UPDATE CYCLE AND OVULATION INFO
   /// Update cycle and ovulation settings.
   ///
@@ -252,7 +299,7 @@ class PeriodTrackerService extends GetxController {
       try {
         log("[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-PENDING]");
 
-        isLogPeriodSymptomsProcessing.value = true;
+        isUpdateCycleOvulationInfoProcessing.value = true;
 
         CycleAndOvulationApi periodTrackerApi =
             ServiceRegistry.periodTrackerSdk.getCycleAndOvulationApi();
@@ -268,14 +315,18 @@ class PeriodTrackerService extends GetxController {
         );
 
         if (response.statusCode == 201 || response.statusCode == 200) {
-          log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-RESPONSE] :: ${response.data}');
+          // log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-RESPONSE] :: ${response.data}');
 
-          isLogPeriodSymptomsProcessing.value = false;
+          CycleOvulationInfo data = response.data;
+
+          isUpdateCycleOvulationInfoProcessing.value = false;
+
+          ServiceRegistry.userRepository.cycleOvulationInfo.value = data;
 
           log("[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-SUCCESS]");
         }
       } catch (error) {
-        isLogPeriodSymptomsProcessing.value = false;
+        isUpdateCycleOvulationInfoProcessing.value = false;
 
         log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-ERROR-RESPONSE] :: $error');
 
@@ -285,7 +336,7 @@ class PeriodTrackerService extends GetxController {
           log('[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-DIO-ERROR-RESPONSE] :: ${dioError.response}');
         }
       } finally {
-        isLogPeriodSymptomsProcessing.value = false;
+        isUpdateCycleOvulationInfoProcessing.value = false;
       }
     });
   }
