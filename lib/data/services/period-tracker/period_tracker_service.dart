@@ -323,6 +323,11 @@ class PeriodTrackerService extends GetxController {
 
           ServiceRegistry.userRepository.cycleOvulationInfo.value = data;
 
+          customSuccessMessageSnackbar(
+            title: 'Message',
+            message: 'Cycle and ovulation info updated successfully!',
+          );
+
           log("[UPDATE-CYCLE-AND-OVULATION-INFO-SETTINGS-SUCCESS]");
         }
       } catch (error) {

@@ -1,8 +1,5 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
-import 'package:venille/presentation/dashboard/subscreens/cycle_ovulation/cycle_ovulation_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/menstrual_phase/menstrual_phase_description_screen.dart';
-import 'package:venille/presentation/dashboard/subscreens/notifications/notifications_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
@@ -27,15 +24,18 @@ import 'package:venille/presentation/dashboard/subscreens/forum/create_forum_pos
 import 'package:venille/presentation/dashboard/subscreens/account/account_details_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/settings/settings_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/course/course_description_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/notifications/notifications_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/delete_account/delete_account_screen.dart';
 import 'package:venille/presentation/auth/forgot_password/forgot_password_otp_verification_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_name/update_account_name_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/onboarding_questions/onboarding_questions_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_email/update_account_email_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/menstrual_phase/menstrual_phase_description_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_password/update_account_password_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_email/update_account_verify_email_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/settings/language_settings/language_settings_screen.dart';
 import 'package:venille/presentation/dashboard/subscreens/account/account_phone_number/update_account_phone_number_screen.dart';
+import 'package:venille/presentation/dashboard/subscreens/account/settings/cycle_ovulation/cycle_ovulation_settings_screen.dart';
 
 class AppRoutes {
   /// ROOT_SCREEN_ROUTE
@@ -438,6 +438,8 @@ class AppRoutes {
     ),
 
     // CYCLE AND OVULATION
-    GetPage(name: cycleOvulationRoute, page: () => const CycleOvulationScreen())
+    GetPage(
+        name: cycleOvulationRoute,
+        page: () => const CycleOvulationSettingsScreen())
   ];
 }
