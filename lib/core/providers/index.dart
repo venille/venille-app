@@ -20,6 +20,7 @@ class ServiceRegistry {
   static Dio dioBaseOptions = Dio(BaseOptions(
     // baseUrl: dotenv.env['INFRA_BASE_URL']!,
     baseUrl: dotenv.env['INFRA_PROD_URL']!,
+    // baseUrl: dotenv.env['INFRA_LOCAL_HOST_URL']!,
     sendTimeout: const Duration(milliseconds: 15000),
     connectTimeout: const Duration(milliseconds: 15000),
     receiveTimeout: const Duration(milliseconds: 15000),
@@ -43,23 +44,27 @@ class ServiceRegistry {
     dio: dioBaseOptions,
     // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    // basePathOverride: dotenv.env['INFRA_LOCAL_HOST_URL']!,
   );
 
   static AccountSdk accountSdk = AccountSdk(
     dio: dioBaseOptions,
     // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    // basePathOverride: dotenv.env['INFRA_LOCAL_HOST_URL']!,
   );
 
   static EngagementSdk engagementSdk = EngagementSdk(
     dio: dioBaseOptions,
     // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    // basePathOverride: dotenv.env['INFRA_LOCAL_HOST_URL']!,
   );
 
   static PeriodTrackerSdk periodTrackerSdk = PeriodTrackerSdk(
     dio: dioBaseOptions,
     // basePathOverride: dotenv.env['INFRA_BASE_URL']!,
     basePathOverride: dotenv.env['INFRA_PROD_URL']!,
+    // basePathOverride: dotenv.env['INFRA_LOCAL_HOST_URL']!,
   );
 }

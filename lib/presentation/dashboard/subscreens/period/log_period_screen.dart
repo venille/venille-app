@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:venille/components/buttons/custom_button.dart';
 import 'package:venille/components/buttons/custom_loading_button.dart';
-import 'package:venille/components/buttons/language_selection_dropdown.dart';
 import 'package:venille/components/snackbars/custom_snackbar.dart';
 import 'package:venille/core/constants/sizes.dart';
 import 'package:venille/core/providers/index.dart';
@@ -257,17 +256,9 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
   }
 
   void _onDateTapped(DateTime date) {
-    final dateOnly = DateTime(date.year, date.month, date.day);
-    // final today = DateTime.now();
-    // final todayOnly = DateTime(today.year, today.month, today.day);
+    log('[DATE-TAPPED] :: $date');
 
-    // // Don't allow selection of future dates
-    // if (dateOnly.isAfter(todayOnly)) {
-    //   return customErrorMessageSnackbar(
-    //     title: 'Message',
-    //     message: 'You cannot log period for future dates!',
-    //   );
-    // }
+    final dateOnly = DateTime(date.year, date.month, date.day);
 
     setState(() {
       if (_selectedDates.contains(dateOnly)) {
@@ -309,24 +300,26 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
         _selectedDates.add(dateOnly);
       }
     });
+
+    log('[SELECTED-DATES-AFTER-TAP] :: $_selectedDates');
   }
 
-  Map<String, Map<String, Map<String, DateTime>>> _processSelectedDates() {
-    final Map<String, Map<String, Map<String, DateTime>>> result = {};
+  Map<String, Map<String, List<Map<String, DateTime>>>>
+      _processSelectedDates() {
+    final Map<String, Map<String, List<Map<String, DateTime>>>> result = {};
+
+    log('[SELECTED-DATES] :: $_selectedDates');
 
     if (_selectedDates.isEmpty) {
       return result;
     }
 
     final now = DateTime.now();
-    final currentYear = now.year;
-    final currentMonth = now.month;
+    final todayOnly = DateTime(now.year, now.month, now.day);
 
-    // Filter dates to only include current month and past months
-    final filteredDates = _selectedDates.where((date) {
-      return date.year < currentYear ||
-          (date.year == currentYear && date.month <= currentMonth);
-    }).toList();
+    // Filter dates to only include dates up to and including today
+    final filteredDates =
+        _selectedDates.where((date) => !date.isAfter(todayOnly)).toList();
 
     if (filteredDates.isEmpty) {
       return result;
@@ -335,38 +328,22 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
     // Sort dates to process them in chronological order
     final sortedDates = filteredDates..sort();
 
-    // Group dates by year and month
-    final Map<String, Map<String, List<DateTime>>> groupedDates = {};
+    // Build global consecutive ranges, then split by month boundaries and group
+    final globalRanges = _findConsecutiveRanges(sortedDates);
 
-    for (final date in sortedDates) {
-      final year = date.year.toString();
-      final monthName = _getMonthName(date.month);
+    for (final range in globalRanges) {
+      final DateTime start = range['start']!;
+      final DateTime end = range['end']!;
 
-      groupedDates.putIfAbsent(year, () => {});
-      groupedDates[year]!.putIfAbsent(monthName, () => []);
-      groupedDates[year]![monthName]!.add(date);
-    }
+      final monthSplitRanges = _splitRangeByMonth(start, end);
+      for (final split in monthSplitRanges) {
+        final DateTime splitStart = split['start']!;
+        final String yearKey = splitStart.year.toString();
+        final String monthKey = _getMonthName(splitStart.month);
 
-    // Process each year and month to find start and end dates
-    for (final year in groupedDates.keys) {
-      result[year] = {};
-
-      for (final monthName in groupedDates[year]!.keys) {
-        final dates = groupedDates[year]![monthName]!;
-
-        if (dates.isNotEmpty) {
-          // Find consecutive date ranges
-          final ranges = _findConsecutiveRanges(dates);
-
-          // For now, take the first range (you can modify this logic as needed)
-          if (ranges.isNotEmpty) {
-            final firstRange = ranges.first;
-            result[year]![monthName] = {
-              'startDate': firstRange['start']!,
-              'endDate': firstRange['end']!,
-            };
-          }
-        }
+        result.putIfAbsent(yearKey, () => {});
+        result[yearKey]!.putIfAbsent(monthKey, () => []);
+        result[yearKey]![monthKey]!.add(split);
       }
     }
 
@@ -414,8 +391,41 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
     return ranges;
   }
 
+  // Split a continuous range into month-contained parts so each part stays within a single month
+  List<Map<String, DateTime>> _splitRangeByMonth(
+      DateTime rangeStart, DateTime rangeEnd) {
+    final List<Map<String, DateTime>> parts = [];
+
+    DateTime segmentStart =
+        DateTime(rangeStart.year, rangeStart.month, rangeStart.day);
+    final DateTime finalEnd =
+        DateTime(rangeEnd.year, rangeEnd.month, rangeEnd.day);
+
+    while (true) {
+      final int lastDay =
+          DateUtils.getDaysInMonth(segmentStart.year, segmentStart.month);
+      final DateTime endOfMonth =
+          DateTime(segmentStart.year, segmentStart.month, lastDay);
+
+      if (!endOfMonth.isBefore(finalEnd)) {
+        parts.add({'start': segmentStart, 'end': finalEnd});
+        break;
+      } else {
+        parts.add({'start': segmentStart, 'end': endOfMonth});
+        // Move to next month start
+        final bool isDecember = segmentStart.month == 12;
+        segmentStart = DateTime(
+            isDecember ? segmentStart.year + 1 : segmentStart.year,
+            isDecember ? 1 : segmentStart.month + 1,
+            1);
+      }
+    }
+
+    return parts;
+  }
+
   PeriodTrackerHistoryDto _createPeriodTrackerPayload(
-      Map<String, Map<String, Map<String, DateTime>>> processedData) {
+      Map<String, Map<String, List<Map<String, DateTime>>>> processedData) {
     final List<PeriodYearDto> years = [];
 
     for (final yearEntry in processedData.entries) {
@@ -423,20 +433,21 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
       final months = <PeriodMonthDto>[];
 
       for (final monthEntry in yearEntry.value.entries) {
-        final monthName = monthEntry.key;
-        final monthData = monthEntry.value;
-        final startDate = monthData['startDate']!;
-        final endDate = monthData['endDate']!;
+        final ranges = monthEntry.value;
+        for (final range in ranges) {
+          final startDate = range['start']!;
+          final endDate = range['end']!;
 
-        // Convert DateTime to String format (ISO 8601)
-        final startDateString =
-            startDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
-        final endDateString =
-            endDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
+          // Convert DateTime to String format (ISO 8601)
+          final startDateString =
+              startDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
+          final endDateString =
+              endDate.toIso8601String().split('T')[0]; // YYYY-MM-DD
 
-        months.add(PeriodMonthDto((instance) => instance
-          ..startDate = startDateString
-          ..endDate = endDateString));
+          months.add(PeriodMonthDto((instance) => instance
+            ..startDate = startDateString
+            ..endDate = endDateString));
+        }
       }
 
       years.add(PeriodYearDto((instance) => instance
@@ -575,12 +586,14 @@ class _LogPeriodScreenState extends State<LogPeriodScreen> {
                         }
 
                         final processedData = _processSelectedDates();
-                        log('Processed data: $processedData');
+                        // log('Processed data: $processedData');
 
                         // Create payload from processed data
                         PeriodTrackerHistoryDto payload =
                             _createPeriodTrackerPayload(processedData);
 
+                        log('[LOG-PERIOD-HISTORY-PAYLOAD] :: $payload');
+                        
                         ServiceRegistry.periodTrackerService
                             .logPeriodTrackerHistoryService(payload);
                       },

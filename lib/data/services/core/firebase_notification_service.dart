@@ -108,28 +108,4 @@ class FirebaseNotificationService extends GetxController {
 }
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  GetStorage localStorage = GetStorage();
-
-  await dotenv.load(fileName: ".env");
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-    ],
-  );
-
-  runApp(const MyApp());
-
-  log('[BACKGROUND-PUSH-NOTIFICATION]');
-  log('[BACKGROUND-PUSH-NOTIFICATION-TITLE] :: ${message.notification!.title}');
-
-  final updateService = AppUpdateService();
-
-  updateService.handleBackgroundPushNotificationLocalRoutes();
-}
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
