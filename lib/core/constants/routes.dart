@@ -1,5 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:venille/presentation/dashboard/dashboard.dart';
+import 'package:venille/presentation/public/app_update_screen.dart';
 import 'package:venille/presentation/public/splash_screen.dart';
 import 'package:venille/presentation/auth/login/login_screen.dart';
 import 'package:venille/presentation/auth/signup/signup_screen.dart';
@@ -42,6 +43,11 @@ class AppRoutes {
   ///
   /// Navigates to splash screen
   static const String rootRoute = '/';
+
+  /// APP_UPDATE_SCREEN_ROUTE
+  ///
+  /// Navigates to app update screen
+  static const String appUpdateRoute = '/APP_UPDATE_SCREEN_ROUTE';
 
   /// LOGIN_ROUTE
   ///
@@ -237,6 +243,13 @@ class AppRoutes {
       name: rootRoute,
       page: () => const SplashScreen(),
     ),
+
+    // APP UPDATE ROUTE
+    GetPage(
+      name: appUpdateRoute,
+      page: () => const AppUpdateScreen(),
+    ),
+
 
     // DASHBOARD
     GetPage(
